@@ -29,6 +29,7 @@ use App\Models\tipeBarangModel;
 use App\Models\TransaksiBarangModel;
 use App\Models\PosyanduModel;
 use App\Models\DataBalitaModel;
+use App\Models\JenisImunisasiModel;
 use Mpdf\Mpdf;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\GroupModel;
@@ -67,10 +68,12 @@ class Admin extends BaseController
     protected $piutangModel;
     protected $pembayaranPiutangModel;
     protected $PosyanduModel;
+    protected $JenisImunisasiModel;
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
         $this->PosyanduModel = new PosyanduModel();
+        $this->JenisImunisasiModel = new JenisImunisasiModel();
         $this->DataBalitaModel = new DataBalitaModel();
         $this->riwayatSaldo = new riwayatSaldo();
         $this->pembayaranPiutangModel = new pembayaranPiutangModel();
@@ -2330,5 +2333,85 @@ class Admin extends BaseController
         $this->DataBalitaModel->delete($id);
         session()->setFlashdata('pesan', 'Data balita berhasil dihapus');
         return redirect()->to('/admin/balita');
+    }
+
+
+    // jenis imunisasi
+     public function jenis_imunisasi()
+    {
+        $data = [
+            'title' => 'Daftar Jenis Imunisasi',
+            'jenis_imunisasi' => $this->JenisImunisasiModel->findAll(),
+        ];
+
+        return view('admin/jenis_imunisasi/index', $data);
+    }
+
+    // Function Create (Form tambah jenis imunisasi)
+    public function tambahJenisImun()
+    {
+        $data = [
+            'title' => 'Tambah Jenis Imunisasi',
+        ];
+
+        return view('admin/jenis_imunisasi/tambah', $data);
+    }
+
+    // Function untuk menyimpan data imunisasi
+    public function saveJenisImun()
+    {
+        if (!$this->validate([
+            'usia_anak' => 'required|numeric',
+            'jenis_imunisasi' => 'required|min_length[3]|max_length[255]',
+        ])) {
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+
+        $this->JenisImunisasiModel->save([
+            'usia_anak' => $this->request->getPost('usia_anak'),
+            'jenis_imunisasi' => $this->request->getPost('jenis_imunisasi'),
+        ]);
+
+        return redirect()->to('/Admin/jenis_imunisasi')->with('pesanBerhasil', 'Jenis imunisasi berhasil ditambahkan.');
+    }
+
+    // Function Edit (Form edit jenis imunisasi)
+    public function editJenisImun($id)
+    {
+        $data = [
+            'title' => 'Edit Jenis Imunisasi',
+            'jenis_imunisasi' => $this->JenisImunisasiModel->find($id),
+        ];
+
+        if (!$data['jenis_imunisasi']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Jenis Imunisasi dengan ID ' . $id . ' tidak ditemukan.');
+        }
+
+        return view('admin/jenis_imunisasi/edit', $data);
+    }
+
+    // Function untuk mengupdate data imunisasi
+    public function updateJenisImun($id)
+    {
+        if (!$this->validate([
+            'usia_anak' => 'required|numeric',
+            'jenis_imunisasi' => 'required|min_length[3]|max_length[255]',
+        ])) {
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+
+        $this->JenisImunisasiModel->update($id, [
+            'usia_anak' => $this->request->getPost('usia_anak'),
+            'jenis_imunisasi' => $this->request->getPost('jenis_imunisasi'),
+        ]);
+
+        return redirect()->to('/Admin/jenis_imunisasi')->with('pesanBerhasil', 'Jenis imunisasi berhasil diupdate.');
+    }
+
+    // Function Delete (Menghapus jenis imunisasi)
+    public function deleteJenisImun($id)
+    {
+        $this->JenisImunisasiModel->delete($id);
+        return redirect()->to('/Admin/jenis_imunisasi')->with('pesanBerhasil', 'Jenis imunisasi berhasil dihapus.');
     }
 }

@@ -64,18 +64,7 @@
                                 </div>
 
                                 <!-- Kecamatan -->
-                                <div class="form-group">
-                                    <label for="kecamatan">Kecamatan</label>
-                                    <input name="kecamatan" type="text"
-                                        class="form-control form-control-user <?= ($validation->hasError('kecamatan')) ? 'is-invalid' : ''; ?>"
-                                        id="input-kecamatan" placeholder="Masukkan kecamatan"
-                                        value="<?= old('kecamatan'); ?>"
-                                        required />
-                                    <div id="kecamatanFeedback" class="invalid-feedback">
-                                        <?= $validation->getError('kecamatan'); ?>
-                                    </div>
-                                </div>
-
+                               
                         
                                 <div class="form-group">
                                     <label for="kader_posyandu">Pilih Kader</label>

@@ -102,3 +102,13 @@ CRITICAL - 2024-09-19 14:31:08 --> Invalid file: admin/balita/EditBalita.php
 #6 C:\Users\E-RM7\Documents\GitHub\Ceria\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #7 C:\Users\E-RM7\Documents\GitHub\Ceria\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
 #8 {main}
+CRITICAL - 2024-09-19 21:14:59 --> Invalid file: admin/jenis_imunisasi/tambah.php
+#0 C:\Users\ganda\Documents\GitHub\ePos\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/jenis_imu...')
+#1 C:\Users\ganda\Documents\GitHub\ePos\system\Common.php(1089): CodeIgniter\View\View->render('admin/jenis_imu...', Array, true)
+#2 C:\Users\ganda\Documents\GitHub\ePos\app\Controllers\Admin.php(2357): view('admin/jenis_imu...', Array)
+#3 C:\Users\ganda\Documents\GitHub\ePos\system\CodeIgniter.php(832): App\Controllers\Admin->tambahJenisImun()
+#4 C:\Users\ganda\Documents\GitHub\ePos\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#5 C:\Users\ganda\Documents\GitHub\ePos\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\Users\ganda\Documents\GitHub\ePos\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\Users\ganda\Documents\GitHub\ePos\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#8 {main}

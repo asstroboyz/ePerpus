@@ -31,7 +31,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-black text-uppercase mb-1">
-                                Stok Dibawah 10
+                                Data Imunisasi
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-black">
                              
@@ -50,7 +50,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-black text-uppercase mb-1">
-                                Total Penjualan 24 Jam
+                              data Terimunisasi
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-black">
                          
@@ -69,7 +69,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-black text-uppercase mb-1">
-                                Saldo Saat Ini
+                                Jadwal imunisasi
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-black">
                                
@@ -85,7 +85,7 @@
 
         <!-- Tambahkan canvas untuk grafik penjualan -->
 
-        <div class="col-6">
+        <!-- <div class="col-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Grafik Penjualan</h6>
@@ -94,7 +94,7 @@
                     <canvas id="salesChart" style="max-height: 300px;"></canvas>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </div>
