@@ -18,6 +18,6 @@ class Home extends BaseController
         // }
         // return view('landing/home/index');
         //  $data['jumlah_balita'] = $this->DataBalitaModel->getJumlahBalitaPerPosyandu();
-        return view('page/index',);
+        return view('page/index');
     }
 }

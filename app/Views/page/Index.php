@@ -20,16 +20,242 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/front/lib/animate/animate.min.css" />
-    <link href="<?php echo base_url() ?>/assets/front/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="<?php echo base_url() ?>/assets/front/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="<?php echo base_url() ?>/assets/front/lib/animate/animate.min.css" />
+    <link
+        href="<?php echo base_url() ?>/assets/front/lib/lightbox/css/lightbox.min.css"
+        rel="stylesheet">
+    <link
+        href="<?php echo base_url() ?>/assets/front/lib/owlcarousel/assets/owl.carousel.min.css"
+        rel="stylesheet">
 
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="<?php echo base_url() ?>/assets/front/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="<?php echo base_url() ?>/assets/front/css/bootstrap.min.css"
+        rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="<?php echo base_url() ?>/assets/front/css/style.css" rel="stylesheet">
+    <link href="<?php echo base_url() ?>/assets/front/css/style.css"
+        rel="stylesheet">
+
+    <style>
+        *,
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #f0f8ff;
+            /* Light background for the navbar */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            margin-right: 10px;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0096c7;
+            /* Matching blue color for logo text */
+        }
+
+        .navbar-nav .nav-link {
+            color: #000;
+            font-weight: bold;
+            padding: 10px 15px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #0077b6;
+            /* Darker shade of blue on hover */
+        }
+
+        .navbar-nav .nav-link.active {
+            color: #0077b6;
+            /* Active link color */
+        }
+
+        /* Navbar Toggler */
+        .navbar-toggler {
+            border-color: #0096c7;
+            /* Blue color for the toggler border */
+        }
+
+        /* Hero Section Styling */
+        .hero-section {
+            padding: 100px 0;
+            background-color: #ffffff;
+            /* Warna background yang lembut */
+        }
+
+        .hero-section h4 {
+            font-size: 1.2rem;
+            color: #0077b6;
+            /* Warna biru untuk judul kecil */
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #03045e;
+            /* Warna teks utama */
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #495057;
+            margin-bottom: 40px;
+        }
+
+        .header-carousel .animated-image {
+            max-width: 100%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Animasi Floating pada gambar */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        .btn-login {
+            display: inline-block;
+            background-color: #ff6f61;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background-color: #e65c50;
+        }
+
+        /* Animasi pada gambar */
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Hilangkan background dari item carousel */
+        .header-carousel-item {
+            background: none;
+            /* Menghapus background */
+            box-shadow: none;
+            /* Jika ada bayangan pada item, hilangkan */
+        }
+
+        /* Atur juga background di carousel caption jika ada */
+        .carousel-caption {
+            background: none;
+            /* Menghapus background dari caption */
+        }
+
+        /* Jika ada padding atau margin, bisa disesuaikan untuk tampilan lebih baik */
+        .carousel-caption .container {
+            padding: 0;
+            /* Sesuaikan padding jika diperlukan */
+        }
+
+        /* Untuk memastikan semua elemen lainnya tidak memiliki background */
+        body,
+        .header-carousel-item,
+        .carousel-caption {
+            background-color: transparent !important;
+        }
+
+        .nav-bar {
+            background-color: #ffffff;
+            /* Warna latar belakang */
+        }
+
+        .nav-bar {
+            position: fixed;
+            /* Membuat navbar tetap di atas saat scroll */
+            top: 0;
+            /* Posisi di atas */
+            left: 0;
+            /* Posisi kiri */
+            right: 0;
+            /* Posisi kanan */
+            z-index: 1000;
+            /* Pastikan navbar di atas elemen lainnya */
+            background-color: #ffffff;
+            /* Warna latar belakang */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Bayangan halus untuk navbar */
+            transition: background-color 0.3s;
+            /* Transisi halus untuk perubahan warna */
+        }
+
+        .navbar {
+            padding: 15px 0;
+            /* Tambah padding untuk navbar */
+        }
+
+        /* Untuk memastikan konten tidak tersembunyi di bawah navbar */
+        body {
+            padding-top: 70px;
+            /* Tambahkan padding sesuai tinggi navbar */
+        }
+
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            /* Font yang lebih tebal untuk link */
+            color: #333;
+            /* Warna teks link */
+            transition: color 0.3s;
+            /* Transisi halus untuk hover */
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007BFF;
+            /* Warna saat hover */
+        }
+
+        .navbar-brand img {
+            max-height: 50px;
+            /* Ukuran logo */
+        }
+
+        .shadow {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Bayangan halus untuk navbar */
+        }
+    </style>
 </head>
 
 <body>
@@ -43,249 +269,135 @@
     </div> -->
     <!-- Spinner End -->
 
-    <!-- Topbar Start -->
-    <div class="container-fluid topbar px-0 px-lg-4 bg-light py-2 d-none d-lg-block">
-        <div class="container">
-            <div class="row gx-0 align-items-center">
-                <div class="col-lg-8 text-center text-lg-start mb-lg-0">
-                    <div class="d-flex flex-wrap">
-                        <div class="border-end border-primary pe-3">
-                            <a href="#" class="text-muted small"><i
-                                    class="fas fa-map-marker-alt text-primary me-2"></i>Find A Location</a>
-                        </div>
-                        <div class="ps-3">
-                            <a href="mailto:example@gmail.com" class="text-muted small"><i
-                                    class="fas fa-envelope text-primary me-2"></i>example@gmail.com</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-center text-lg-end">
-                    <div class="d-flex justify-content-end">
-                        <div class="d-flex border-end border-primary pe-3">
-                            <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-instagram"></i></a>
-                            <a class="btn p-0 text-primary me-0" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <div class="dropdown ms-3">
-                            <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i
-                                        class="fas fa-globe-europe text-primary me-2"></i> English</small></a>
-                            <div class="dropdown-menu rounded">
-                                <a href="#" class="dropdown-item">English</a>
-                                <a href="#" class="dropdown-item">Bangla</a>
-                                <a href="#" class="dropdown-item">French</a>
-                                <a href="#" class="dropdown-item">Spanish</a>
-                                <a href="#" class="dropdown-item">Arabic</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Topbar End -->
 
     <!-- Navbar & Hero Start -->
-    <div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid nav-bar px-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+            <div class="container">
                 <a href="#" class="navbar-brand p-0">
-                    <h1 class="text-primary mb-0"><i class="fab fa-slack me-2"></i> LifeSure</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                    <img src="img/depan/logo-Posyandu.png" alt="Logo" class="img-fluid" style="max-height: 50px;">
+                    e-Posyandu
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-0 mx-lg-auto">
+                    <div class="navbar-nav mx-auto">
                         <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Services</a>
-                        <a href="blog.html" class="nav-item nav-link">Blog</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                                <span class="dropdown-toggle">Pages</span>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a href="feature.html" class="dropdown-item">Our Features</a>
-                                <a href="team.html" class="dropdown-item">Our team</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="FAQ.html" class="dropdown-item">FAQs</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                        <div class="nav-btn px-3">
-                            <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0"
-                                data-bs-toggle="modal" data-bs-target="#searchModal"><i
-                                    class="fas fa-search"></i></button>
-                            <a href="#" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0"> Get a
-                                Quote</a>
-                        </div>
+                        <a href="#jadwal-imunisasi" class="nav-item nav-link">Jadwal</a>
+                        <a href="service.html" class="nav-item nav-link">Cari Riwayat Anak</a>
+                        <a href="blog.html" class="nav-item nav-link">Jumlah anak</a>
                     </div>
-                </div>
-                <div class="d-none d-xl-flex flex-shrink-0 ps-4">
-                    <a href="#" class="btn btn-light btn-lg-square rounded-circle position-relative wow tada"
-                        data-wow-delay=".9s">
-                        <i class="fa fa-phone-alt fa-2x"></i>
-                        <div class="position-absolute" style="top: 7px; right: 12px;">
-                            <span><i class="fa fa-comment-dots text-secondary"></i></span>
-                        </div>
-                    </a>
-                    <div class="d-flex flex-column ms-3">
-                        <span>Call to Our Experts</span>
-                        <a href="tel:+ 0123 456 7890"><span class="text-dark">Free: + 0123 456 7890</span></a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!-- Navbar & Hero End -->
-
-    <!-- Modal Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex align-items-center bg-primary">
-                    <div class="input-group w-75 mx-auto d-flex">
-                        <input type="search" class="form-control p-3" placeholder="keywords"
-                            aria-describedby="search-icon-1">
-                        <span id="search-icon-1" class="btn bg-light border nput-group-text p-3"><i
-                                class="fa fa-search"></i></span>
-                    </div>
+                    <a class="btn btn-dark rounded-pill py-2 px-4 ms-2"
+                        href="<?= base_url() ?>/user">Login</a>
                 </div>
             </div>
-        </div>
+        </nav>
     </div>
-    <!-- Modal Search End -->
+
+    <!-- Navbar & Hero End -->
+
 
 
     <!-- Carousel Start -->
+
+
+
+    <!-- Carousel End -->
+
+    <!-- Feature Start -->
     <div class="header-carousel owl-carousel">
-        <div class="header-carousel-item bg-primary">
-            <div class="carousel-caption">
-                <div class="container">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-lg-7 animated fadeInLeft">
-                            <div class="text-sm-center text-md-start">
-                                <h4 class="text-white text-uppercase fw-bold mb-4">Welcome To LifeSure</h4>
-                                <h1 class="display-1 text-white mb-4">Life Insurance Makes You Happy</h1>
-                                <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting
-                                    industry. Lorem Ipsum has been the industry's standard dummy...
-                                </p>
-                                <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#"><i
-                                            class="fas fa-play-circle me-2"></i> Watch Video</a>
-                                    <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 animated fadeInRight">
-                            <div class="calrousel-img" style="object-fit: cover;">
-                                <img src="img/carousel-2.png" class="img-fluid w-100" alt="">
-                            </div>
-                        </div>
-                    </div>
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h4>Posyandu Ceria</h4>
+                    <h1>Selamat datang di </br>
+                        website informasi Posyandu Ceria</h1>
+                    <!-- <p>Sebuah website yang menyajikan data secara lengkap dan faktual</p> -->
                 </div>
-            </div>
-        </div>
-        <div class="header-carousel-item bg-primary">
-            <div class="carousel-caption">
-                <div class="container">
-                    <div class="row gy-4 gy-lg-0 gx-0 gx-lg-5 align-items-center">
-                        <div class="col-lg-5 animated fadeInLeft">
-                            <div class="calrousel-img">
-                                <img src="img/carousel-2.png" class="img-fluid w-100" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-7 animated fadeInRight">
-                            <div class="text-sm-center text-md-end">
-                                <h4 class="text-white text-uppercase fw-bold mb-4">Welcome To LifeSure</h4>
-                                <h1 class="display-1 text-white mb-4">Life Insurance Makes You Happy</h1>
-                                <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting
-                                    industry. Lorem Ipsum has been the industry's standard dummy...
-                                </p>
-                                <div class="d-flex justify-content-center justify-content-md-end flex-shrink-0 mb-4">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#"><i
-                                            class="fas fa-play-circle me-2"></i> Watch Video</a>
-                                    <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-6 text-center">
+                    <!-- Gambar Hero -->
+                    <img src="img/depan/logo.png" alt="Hero Image" class="img-fluid animated-image">
                 </div>
             </div>
         </div>
     </div>
-    <!-- Carousel End -->
 
-    <!-- Feature Start -->
+    <div class="container-fluid feature bg-light py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="img/depan/visi.png" alt="Tentang Kami" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h3 class="text-uppercase" style="color: #007BFF;">Tentang Kami</h3>
+                    <h2 class="fw-bold">Posyandu Ceria</h2>
+                    <p>
+                        Posyandu Ceria menyediakan layanan kesehatan yang lengkap, termasuk pemeriksaan rutin untuk
+                        balita, program imunisasi, penyuluhan kesehatan, serta pemantauan pertumbuhan balita.
+                        Dengan komitmen pada kualitas pelayanan dan pencegahan penyakit, kami berupaya menciptakan
+                        generasi yang lebih sehat dan berkualitas di masa depan.
+                    </p>
+                    <h2>Layanan, fasilitas, serta kelebihan Posyandu ceria.</h2>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle-fill"></i> Fasilitas yang nyaman dan bersih</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Tenaga kesehatan yang sigap dan cekatan</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Pelayanan yang ramah</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Terjangkau serta mudah diakses</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid feature bg-light py-5">
         <div class="container py-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Our Features</h4>
-                <h1 class="display-4 mb-4">Insurance Provide you a Better Future</h1>
-                <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis
-                    cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt
-                    sint dolorem autem obcaecati, ipsam mollitia hic.
-                </p>
+                <h4 class="text-primary">Data Kesehatan Anak</h4>
+                <h1 class="display-4 mb-4">Meningkatkan Kesehatan Generasi Masa Depan</h1>
+                <p class="fs-5">Kami berkomitmen untuk memberikan informasi lengkap tentang kesehatan anak, termasuk
+                    status gizi dan pertumbuhan mereka.</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="feature-item p-4 pt-0">
                         <div class="feature-icon p-4 mb-4">
-                            <i class="far fa-handshake fa-3x"></i>
+                            <i class="fas fa-baby fa-3x"></i>
                         </div>
-                        <h4 class="mb-4">Trusted Company</h4>
-                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea hic laborum odit
-                            pariatur...
-                        </p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
+                        <h4 class="mb-4">Data Balita</h4>
+                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">200</span>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="feature-item p-4 pt-0">
                         <div class="feature-icon p-4 mb-4">
-                            <i class="fa fa-dollar-sign fa-3x"></i>
+                            <i class="fas fa-carrot fa-3x"></i>
                         </div>
-                        <h4 class="mb-4">Anytime Money Back</h4>
-                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea hic laborum odit
-                            pariatur...
-                        </p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
+                        <h4 class="mb-4">Data Anak Gizi Baik</h4>
+                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">150</span>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="feature-item p-4 pt-0">
                         <div class="feature-icon p-4 mb-4">
-                            <i class="fa fa-bullseye fa-3x"></i>
+                            <i class="fas fa-exclamation-triangle fa-3x"></i>
                         </div>
-                        <h4 class="mb-4">Flexible Plans</h4>
-                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea hic laborum odit
-                            pariatur...
-                        </p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
+                        <h4 class="mb-4">Data Gizi Buruk</h4>
+                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">30</span>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="feature-item p-4 pt-0">
                         <div class="feature-icon p-4 mb-4">
-                            <i class="fa fa-headphones fa-3x"></i>
+                            <i class="fas fa-child fa-3x"></i>
                         </div>
-                        <h4 class="mb-4">24/7 Fast Support</h4>
-                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea hic laborum odit
-                            pariatur...
-                        </p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
+                        <h4 class="mb-4">Data Stunting</h4>
+                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">25</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Feature End -->
 
     <!-- About Start -->
@@ -363,7 +475,7 @@
     <!-- About End -->
 
     <!-- Service Start -->
-    <div class="container-fluid service py-5">
+    <!-- <div class="container-fluid service py-5">
         <div class="container py-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                 <h4 class="text-primary">Our Services</h4>
@@ -451,165 +563,71 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Service End -->
 
-    <!-- FAQs Start -->
-    <div class="container-fluid faq-section bg-light py-5">
-        <div class="container py-5">
-            <div class="row g-5 align-items-center">
-                <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                    <div class="h-100">
-                        <div class="mb-5">
-                            <h4 class="text-primary">Some Important FAQ's</h4>
-                            <h1 class="display-4 mb-0">Common Frequently Asked Questions</h1>
-                        </div>
-                        <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button border-0" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Q: What happens during Freshers' Week?
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show active"
-                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body rounded">
-                                        A: Leverage agile frameworks to provide a robust synopsis for high level
-                                        overviews. Iterative approaches to corporate strategy foster collaborative
-                                        thinking to further the overall value proposition. Organically grow the holistic
-                                        world view of disruptive innovation via workplace diversity and empowerment.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Q: What is the transfer application process?
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        A: Leverage agile frameworks to provide a robust synopsis for high level
-                                        overviews. Iterative approaches to corporate strategy foster collaborative
-                                        thinking to further the overall value proposition. Organically grow the holistic
-                                        world view of disruptive innovation via workplace diversity and empowerment.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseThree" aria-expanded="false"
-                                        aria-controls="collapseThree">
-                                        Q: Why should I attend community college?
-                                    </button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        A: Leverage agile frameworks to provide a robust synopsis for high level
-                                        overviews. Iterative approaches to corporate strategy foster collaborative
-                                        thinking to further the overall value proposition. Organically grow the holistic
-                                        world view of disruptive innovation via workplace diversity and empowerment.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.4s">
-                    <img src="img/carousel-2.png" class="img-fluid w-100" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- FAQs End -->
+
 
     <!-- Blog Start -->
-    <div class="container-fluid blog py-5">
+    <div id="jadwal-imunisasi" class="container-fluid blog py-5">
         <div class="container py-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">From Blog</h4>
-                <h1 class="display-4 mb-4">News And Updates</h1>
-                <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis
-                    cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt
-                    sint dolorem autem obcaecati, ipsam mollitia hic.
-                </p>
+                <h4 class="text-primary">Jadwal Imunisasi</h4>
+                <h1 class="display-4 mb-4">Informasi Jadwal Imunisasi Anak</h1>
+                <p class="mb-0">Berikut adalah jadwal imunisasi yang direkomendasikan untuk anak. Pastikan anak Anda
+                    mendapatkan imunisasi tepat waktu untuk menjaga kesehatan mereka.</p>
             </div>
             <div class="row g-4 justify-content-center">
                 <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
-                            <div class="blog-categiry py-2 px-4">
-                                <span>Business</span>
-                            </div>
-                        </div>
                         <div class="blog-content p-4">
-                            <div class="blog-comment d-flex justify-content-between mb-3">
-                                <div class="small"><span class="fa fa-user text-primary"></span> Martin.C</div>
-                                <div class="small"><span class="fa fa-calendar text-primary"></span> 30 Dec 2025</div>
-                                <div class="small"><span class="fa fa-comment-alt text-primary"></span> 6 Comments</div>
-                            </div>
-                            <a href="#" class="h4 d-inline-block mb-3">Which allows you to pay down insurance bills</a>
-                            <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta
-                                impedit eligendi? Quibusdam, laudantium.</p>
-                            <a href="#" class="btn p-0">Read More <i class="fa fa-arrow-right"></i></a>
+                            <h4 class="mb-3">Imunisasi Hepatitis B</h4>
+                            <div class="small mb-2"><strong>Tanggal:</strong> 1 Jan 2025</div>
+                            <div class="small mb-2"><strong>Usia:</strong> 0 Bulan</div>
+                            <p class="mb-3">Imunisasi pertama yang harus diberikan kepada bayi segera setelah lahir.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s">
                     <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-2.png" class="img-fluid rounded-top w-100" alt="">
-                            <div class="blog-categiry py-2 px-4">
-                                <span>Business</span>
-                            </div>
-                        </div>
                         <div class="blog-content p-4">
-                            <div class="blog-comment d-flex justify-content-between mb-3">
-                                <div class="small"><span class="fa fa-user text-primary"></span> Martin.C</div>
-                                <div class="small"><span class="fa fa-calendar text-primary"></span> 30 Dec 2025</div>
-                                <div class="small"><span class="fa fa-comment-alt text-primary"></span> 6 Comments</div>
-                            </div>
-                            <a href="#" class="h4 d-inline-block mb-3">Leverage agile frameworks to provide</a>
-                            <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta
-                                impedit eligendi? Quibusdam, laudantium.</p>
-                            <a href="#" class="btn p-0">Read More <i class="fa fa-arrow-right"></i></a>
+                            <h4 class="mb-3">Imunisasi DPT (Difteri, Pertusis, Tetanus)</h4>
+                            <div class="small mb-2"><strong>Tanggal:</strong> 1 Feb 2025</div>
+                            <div class="small mb-2"><strong>Usia:</strong> 2 Bulan</div>
+                            <p class="mb-3">Imunisasi untuk melindungi anak dari penyakit difteri, pertusis, dan
+                                tetanus.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
                     <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-3.png" class="img-fluid rounded-top w-100" alt="">
-                            <div class="blog-categiry py-2 px-4">
-                                <span>Business</span>
-                            </div>
-                        </div>
                         <div class="blog-content p-4">
-                            <div class="blog-comment d-flex justify-content-between mb-3">
-                                <div class="small"><span class="fa fa-user text-primary"></span> Martin.C</div>
-                                <div class="small"><span class="fa fa-calendar text-primary"></span> 30 Dec 2025</div>
-                                <div class="small"><span class="fa fa-comment-alt text-primary"></span> 6 Comments</div>
-                            </div>
-                            <a href="#" class="h4 d-inline-block mb-3">Leverage agile frameworks to provide</a>
-                            <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta
-                                impedit eligendi? Quibusdam, laudantium.</p>
-                            <a href="#" class="btn p-0">Read More <i class="fa fa-arrow-right"></i></a>
+                            <h4 class="mb-3">Imunisasi Polio</h4>
+                            <div class="small mb-2"><strong>Tanggal:</strong> 1 Mar 2025</div>
+                            <div class="small mb-2"><strong>Usia:</strong> 4 Bulan</div>
+                            <p class="mb-3">Imunisasi untuk mencegah infeksi virus polio yang dapat menyebabkan
+                                kelumpuhan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="blog-item">
+                        <div class="blog-content p-4">
+                            <h4 class="mb-3">Imunisasi MMR (Campak, Gondongan, Rubella)</h4>
+                            <div class="small mb-2"><strong>Tanggal:</strong> 1 Apr 2025</div>
+                            <div class="small mb-2"><strong>Usia:</strong> 9 Bulan</div>
+                            <p class="mb-3">Imunisasi untuk melindungi anak dari campak, gondongan, dan rubella.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Blog End -->
 
     <!-- Team Start -->
-    <div class="container-fluid team pb-5">
+    <!-- <div class="container-fluid team pb-5">
         <div class="container pb-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                 <h4 class="text-primary">Our Team</h4>
@@ -706,11 +724,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Team End -->
 
     <!-- Testimonial Start -->
-    <div class="container-fluid testimonial pb-5">
+    <!-- <div class="container-fluid testimonial pb-5">
         <div class="container pb-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                 <h4 class="text-primary">Testimonial</h4>
@@ -801,12 +819,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Testimonial End -->
 
 
     <!-- Footer Start -->
-    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+    <!-- <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-xl-9">
@@ -816,7 +834,7 @@
                                 <div class="footer-item">
                                     <a href="index.html" class="p-0">
                                         <h3 class="text-white"><i class="fab fa-slack me-3"></i> LifeSure</h3>
-                                        <!-- <img src="img/logo.png" alt="Logo"> -->
+                                   
                                     </a>
                                     <p class="text-white mb-4">Dolor amet sit justo amet elitr clita ipsum elitr
                                         est.Lorem ipsum dolor sit amet, consectetur adipiscing...</p>
@@ -985,7 +1003,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Footer End -->
 
     <!-- Copyright Start -->
@@ -1015,18 +1033,55 @@
 
 
     <!-- JavaScript Libraries -->
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script
+        src="<?php echo base_url() ?>/assets/front/lib/counterup/counterup.min.js">
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/front/lib/wow/wow.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/front/lib/easing/easing.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/front/lib/waypoints/waypoints.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/front/lib/counterup/counterup.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/front/lib/lightbox/js/lightbox.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/front/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/front/lib/wow/wow.min.js">
+    </script>
+    <script
+        src="<?php echo base_url() ?>/assets/front/lib/easing/easing.min.js">
+    </script>
+    <script
+        src="<?php echo base_url() ?>/assets/front/lib/waypoints/waypoints.min.js">
+    </script>
+    <!-- <script
+        src="<?php echo base_url() ?>/assets/front/lib/counterup/counterup.min.js">
+    </script> -->
+
+    <script
+        src="<?php echo base_url() ?>/assets/front/lib/lightbox/js/lightbox.min.js">
+    </script>
+    <script
+        src="<?php echo base_url() ?>/assets/front/lib/owlcarousel/owl.carousel.min.js">
+    </script>
 
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="<?php echo base_url() ?>/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.header-carousel').owlCarousel({
+                loop: true,
+                margin: 0,
+                nav: false,
+                dots: true,
+                items: 1,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+            });
+            $('[data-toggle="counter-up"]').counterUp({
+                delay: 20,
+                time: 1000
+            });
+
+        });
+    </script>
+
 </body>
 
 </html>
