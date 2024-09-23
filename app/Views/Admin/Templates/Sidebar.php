@@ -3,7 +3,7 @@
     <!-- Sidebar Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(); ?>">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-user-cog"></i> <!-- Tambahkan ikon di sini -->
+            <i class="fas fa-user-cog"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Admin Panel</div>
     </a>
@@ -22,53 +22,47 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Interface Heading -->
+    <!-- Posyandu Management Section -->
     <div class="sidebar-heading">
-        Interface
+        Manajemen Posyandu
     </div>
 
-    <!-- Menu Posyandu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#posyanduMenu" aria-expanded="true"
-            aria-controls="posyanduMenu">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#kelolaPosyanduMenu" aria-expanded="true"
+            aria-controls="kelolaPosyanduMenu">
             <i class="fas fa-users mr-2"></i>
-            <span style="font-size: 16px;">Posyandu</span>
+            <span style="font-size: 16px;">Kelola Posyandu</span>
         </a>
-        <div id="posyanduMenu" class="collapse" aria-labelledby="headingPosyandu" data-parent="#accordionSidebar">
+        <div id="kelolaPosyanduMenu" class="collapse" aria-labelledby="headingPosyandu" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/posyandu'); ?>">Posyandu</a>
-                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/jenis_imunisasi'); ?>">Jenis Imunisasi</a>
-                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/vitamin'); ?>">Vitamin</a>
+                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/posyandu'); ?>"> Posyandu</a>
+                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/jenis_imunisasi'); ?>"> Jenis Imunisasi</a>
+                <!-- <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/vitamin'); ?>"> Vitamin</a> -->
+                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/gizi'); ?>"> Penentuan Gizi</a>
+                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/balita'); ?>"> Data Ibu & Balita</a>
+                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/daftar_hadir'); ?>"> Daftar Hadir</a>
+                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/jadwal'); ?>"> Jadwal</a>
             </div>
         </div>
     </li>
 
-    <!-- Menu Data -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataMenu" aria-expanded="true"
-            aria-controls="dataMenu">
-            <i class="fas fa-database mr-2"></i>
-            <span style="font-size: 16px;">Data</span>
-        </a>
-        <div id="dataMenu" class="collapse" aria-labelledby="headingData" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/balita'); ?>">Data Balita</a>
-                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/orang_tua'); ?>">Orang Tua</a>
-            </div>
-        </div>
-    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-    <!-- Components -->
+    <!-- User Management Section -->
+    <div class="sidebar-heading">
+        Manajemen Pengguna
+    </div>
+
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-            aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#manajemenUserMenu" aria-expanded="true"
+            aria-controls="manajemenUserMenu">
             <i class="fas fa-fw fa-cog mr-2"></i>
-            <span style="font-size: 16px;">Components</span>
+            <span style="font-size: 16px;">Manajemen Users</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="manajemenUserMenu" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/kelola_user'); ?>">Manajemen User</a>
+                <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('Admin/kelola_user'); ?>">Manajemen Users</a>
             </div>
         </div>
     </li>

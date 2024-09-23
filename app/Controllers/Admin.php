@@ -30,6 +30,7 @@ use App\Models\TransaksiBarangModel;
 use App\Models\PosyanduModel;
 use App\Models\DataBalitaModel;
 use App\Models\JenisImunisasiModel;
+use App\Models\DaftarHadirModel;
 use Mpdf\Mpdf;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\GroupModel;
@@ -40,6 +41,7 @@ class Admin extends BaseController
     protected $db;
     protected $builder;
     protected $BarangModel;
+    protected $DaftarHadirModel;
     protected $DataBalitaModel;
     protected $validation;
     protected $session;
@@ -72,6 +74,7 @@ class Admin extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
+        $this->DaftarHadirModel = new DaftarHadirModel();
         $this->PosyanduModel = new PosyanduModel();
         $this->JenisImunisasiModel = new JenisImunisasiModel();
         $this->DataBalitaModel = new DataBalitaModel();
@@ -124,7 +127,7 @@ class Admin extends BaseController
     //     $totalPenjualan24Jam = $this->db->table('penjualan_barang')->where('tanggal_penjualan >=', $waktu24JamYangLalu)->countAllResults();
 
     //     $data = [
-    //         'title' => 'Toko Hera - Home',
+    //         'title' => 'e-Posyandu - Home',
     //         'saldo_terakhir' => $saldoTerakhir,
     //         'stokdibawah10' => $stokdibawah10,
     //         'totalPenjualan24Jam' => $totalPenjualan24Jam,
@@ -173,7 +176,7 @@ class Admin extends BaseController
         $dataPenjualan = $this->PenjualanBarangModel->getAllSales(); // Mengambil semua data penjualan
         // dd($dataPenjualan);
         $data = [
-            'title' => 'Toko Hera - Home',
+            'title' => 'e-Posyandu - Home',
             'saldo_terakhir' => $saldoTerakhir,
             'stokdibawah10' => $stokdibawah10,
             'totalKasMasuk' => $totalKasMasuk,
@@ -203,7 +206,7 @@ class Admin extends BaseController
 
     public function detail($id = 0)
     {
-        $data['title'] = 'Toko Hera - Detail Pengguna';
+        $data['title'] = 'e-Posyandu - Detail Pengguna';
 
         $this->builder->select('users.id as userid, username, email, foto, name,created_at');
         $this->builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
@@ -262,7 +265,7 @@ class Admin extends BaseController
         $data = [
             // 'semua' => $semua,
             'user' => $query->getRow(),
-            'title' => 'Profil - Toko Hera',
+            'title' => 'Profil - e-Posyandu',
             'role' => $role_echo,
 
         ];
@@ -514,7 +517,7 @@ class Admin extends BaseController
         $barangList = $this->BarangModel->getBarang();
 
         $data = [
-            'title' => "Toko Hera Ubah Data Permintaan",
+            'title' => "e-Posyandu Ubah Data Permintaan",
             'validation' => \Config\Services::validation(),
             'barangList' => $barangList,
             'permintaan' => $this->detailPermintaanModel->getDetailPermintaan($id),
@@ -602,7 +605,7 @@ class Admin extends BaseController
         });
 
         $data = [
-            'title' => 'Toko Hera - Barang',
+            'title' => 'e-Posyandu - Barang',
             'barangs' => $barangsNotRestored,
         ];
 
@@ -1036,7 +1039,7 @@ class Admin extends BaseController
     {
         $data = [
             // 'user'=> $query->getResult(),
-            'title' => 'Toko Hera - Laporan',
+            'title' => 'e-Posyandu - Laporan',
 
         ];
 
@@ -1156,7 +1159,7 @@ class Admin extends BaseController
     {
         $data = [
             // 'user'=> $query->getResult(),
-            'title' => 'Toko Hera - Laporan',
+            'title' => 'e-Posyandu - Laporan',
 
         ];
 
@@ -1167,7 +1170,7 @@ class Admin extends BaseController
     {
         $data = [
             // 'user'=> $query->getResult(),
-            'title' => 'Toko Hera - Laporan',
+            'title' => 'e-Posyandu - Laporan',
 
         ];
 
@@ -1177,7 +1180,7 @@ class Admin extends BaseController
     {
         $data = [
             // 'user'=> $query->getResult(),
-            'title' => 'Toko Hera - Laporan',
+            'title' => 'e-Posyandu - Laporan',
 
         ];
 
@@ -1190,7 +1193,7 @@ class Admin extends BaseController
     public function lap_barang()
     {
         $data = [
-            'title' => 'Toko Hera - Laporan Barang',
+            'title' => 'e-Posyandu - Laporan Barang',
         ];
 
         return view('Admin/Laporan/Home_barang', $data);
@@ -1198,7 +1201,7 @@ class Admin extends BaseController
     public function lap_arus_kas()
     {
         $data = [
-            'title' => 'Toko Hera - Laporan Arus Kas',
+            'title' => 'e-Posyandu - Laporan Arus Kas',
         ];
 
         return view('Admin/Laporan/Home_arus', $data);
@@ -1206,7 +1209,7 @@ class Admin extends BaseController
     public function lap_analisa_arus_kas()
     {
         $data = [
-            'title' => 'Toko Hera - Laporan Analisa arus kas',
+            'title' => 'e-Posyandu - Laporan Analisa arus kas',
         ];
 
         return view('Admin/Laporan/Home_analisa', $data);
@@ -1214,7 +1217,7 @@ class Admin extends BaseController
     public function lap_laba_rugi()
     {
         $data = [
-            'title' => 'Toko Hera - Laporan Laba rugi',
+            'title' => 'e-Posyandu - Laporan Laba rugi',
         ];
 
         return view('Admin/Laporan/Home_laba', $data);
@@ -1773,7 +1776,7 @@ class Admin extends BaseController
     {
 
         $data = [
-            'title' => 'Toko Hera - Tambah Users',
+            'title' => 'e-Posyandu - Tambah Users',
         ];
         return view('/Admin/User/Tambah', $data);
     }
@@ -2118,6 +2121,7 @@ class Admin extends BaseController
         // Kirim data ke view
         return view('admin/posyandu/EditPosyandu', $data);
     }
+    
     public function updateposyandu()
     {
 
@@ -2174,9 +2178,9 @@ class Admin extends BaseController
     {
         $data = [
             'title' => 'Data Balita',
-            'balita' => $this->DataBalitaModel->getBalitaWithPosyandu(),  // Mengambil semua data balita beserta data posyandu
+            'balita' => $this->DataBalitaModel->getBalitaWithPosyandu(),  
         ];
-        return view('Admin/Balita/Index', $data); // Menampilkan view untuk data balita
+        return view('Admin/Balita/Index', $data); 
     }
 
     public function tambahBalita()
@@ -2252,12 +2256,16 @@ class Admin extends BaseController
     {
         $posyanduModel = new PosyanduModel(); // Model untuk mengambil data posyandu
         $posyandus = $posyanduModel->findAll();
+        $balita = $this->DataBalitaModel->find($id);
 
+if (!$balita) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
         // Ambil data balita berdasarkan ID
         $data = [
             'title' => 'Edit Balita',
             'validation' => $this->validation,
-            'balita' => $this->DataBalitaModel->find($id),
+            'balita' => $balita,
             'posyandus' => $posyandus, // Kirim data posyandu ke view
         ];
 
@@ -2271,60 +2279,35 @@ class Admin extends BaseController
         return view('admin/balita/Edit', $data);
     }
 
-    public function updateBalita()
+    public function updateBalita($id)
     {
-        // Validasi input
-        if (!$this->validate([
-            'nama' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Nama balita harus diisi',
-                ],
-            ],
-            'jenis_kelamin' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Jenis kelamin harus dipilih',
-                ],
-            ],
-            'tgl_lahir' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Tanggal lahir harus diisi',
-                ],
-            ],
-            'nama_ortu' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Nama orang tua harus diisi',
-                ],
-            ],
-            'posyandu_id' => [
-                'rules' => 'required|integer',
-                'errors' => [
-                    'required' => 'Posyandu harus dipilih',
-                    'integer' => 'ID Posyandu tidak valid',
-                ],
-            ],
+         if (!$this->validate([
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'tgl_lahir' => 'required',
+            'nama_ortu' => 'required',
+            'posyandu_id' => 'required',
         ])) {
-            return redirect()->to('/admin/balita/edit/' . $this->request->getPost('id'))->withInput();
+            // Redirect kembali dengan error jika validasi gagal
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Ambil data dari form
-        $id = $this->request->getPost('id');
-        $data = [
+        // Cek apakah balita dengan ID tersebut ada di database
+        $balita = $this->DataBalitaModel->find($id);
+
+        if (!$balita) {
+            // Jika tidak ditemukan, tampilkan pesan error
+            return redirect()->back()->with('error', 'Data balita tidak ditemukan.');
+        }
+
+        // Update data balita berdasarkan ID yang diberikan
+        $this->DataBalitaModel->update($id, [
             'nama' => $this->request->getPost('nama'),
             'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
             'tgl_lahir' => $this->request->getPost('tgl_lahir'),
             'nama_ortu' => $this->request->getPost('nama_ortu'),
             'posyandu_id' => $this->request->getPost('posyandu_id'),
-        ];
-
-        // Update data balita berdasarkan ID
-        $this->DataBalitaModel->update($id, $data);
-
-        // Set flash message dan redirect
-        session()->setFlashdata('pesan', 'Data balita berhasil diubah');
+        ]);
         return redirect()->to('/admin/balita');
     }
 
@@ -2337,7 +2320,7 @@ class Admin extends BaseController
 
 
     // jenis imunisasi
-     public function jenis_imunisasi()
+    public function jenis_imunisasi()
     {
         $data = [
             'title' => 'Daftar Jenis Imunisasi',
@@ -2413,5 +2396,16 @@ class Admin extends BaseController
     {
         $this->JenisImunisasiModel->delete($id);
         return redirect()->to('/Admin/jenis_imunisasi')->with('pesanBerhasil', 'Jenis imunisasi berhasil dihapus.');
+    }
+
+
+    // daftar hadir
+     public function daftar_hadir()
+    {
+        $data = [
+            'title' => 'Data Daftar Hadir',
+            'daftar_hadir' => $this->DaftarHadirModel->findAll(),  
+        ];
+        return view('Admin/Daftar_hadir/Index', $data); 
     }
 }

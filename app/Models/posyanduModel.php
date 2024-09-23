@@ -24,7 +24,7 @@ class PosyanduModel extends Model
     {
         return $this->select('posyandu.*, users.username AS kader_username')
                     ->join('users', 'users.id = posyandu.kader_posyandu')
-                    ->findAll(); // Mengambil semua data posyandu beserta kader
+                    ->findAll(); 
     }
    
 }

@@ -32,4 +32,15 @@ class DataBalitaModel extends Model
             ->join('posyandu', 'posyandu.id = data_balita.posyandu_id') // Menggunakan join untuk mengambil data posyandu terkait
             ->findAll();
     }
+
+    public function getJumlahBalitaPerPosyandu()
+{
+    return $this->db->table('posyandu p')
+        ->select('p.nama_posyandu, COUNT(b.id) AS jumlah_balita')
+        ->join('data_balita b', 'p.id = b.posyandu_id', 'left')
+        ->groupBy('p.nama_posyandu')
+        ->get()
+        ->getResultArray();
+}
+
 }

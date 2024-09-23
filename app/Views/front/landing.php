@@ -299,7 +299,7 @@
         #header {
             height: 80px;
             /* Ubah sesuai kebutuhan */
-            background-color: transparent;
+            /* background-color: transparent; */
             /* Agar tidak ada latar belakang pada header */
         }
 
@@ -409,6 +409,9 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="nav-link scrollto active" href="#hero">Beranda</a></li>
+                    <li><a class="nav-link scrollto" href="#visimisi">Jadwal</a></li>
+                    <li><a class="nav-link scrollto" href="#visimisi">Lihat Anak</a></li>
+                    <li><a class="nav-link scrollto" href="#visimisi">Jumlah Anak</a></li>
                     <li><a class="nav-link scrollto" href="#visimisi">Visi Misi</a></li>
                     <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li> -->
                     <li><a class="nav-link scrollto" href="#contact">Kontak</a></li>
@@ -446,50 +449,89 @@
 
 
         <!-- ======= Portfolio Section ======= -->
-        <section id="visimisi" class="visimisi">
-            <div class="container" data-aos="fade-up">
-
-                <div class="section-title">
-                    <h2>Visi</h2>
-                    <h3><span>Visi Misi Kami</span></h3>
+       <!-- <section id="visimisi" class="visimisi">
+    <div class="container" data-aos="fade-up">
+        <h2 class="text-center">Jumlah Balita per Posyandu</h2>
+        
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>Nama Posyandu</th>
+                    <th>Jumlah Balita</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($jumlah_balita)) : ?>
+                    <?php foreach ($jumlah_balita as $data) : ?>
+                        <tr>
+                            <td><?= esc($data['nama_posyandu']); ?></td>
+                            <td><?= esc($data['jumlah_balita']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="2" class="text-center">Tidak ada data balita yang ditemukan.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</section> -->
+<section class="funfacts type_one">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading tp_one text-center text_white icon_dark">
+                    <h6>Statistik Tahun 2024</h6>
+                    <span class="flaticon-virus icon"></span>
+                    <h1>Data Posyandu Ceria</h1>
                 </div>
-
-                <div class="row" data-aos="fade-up" data-aos-delay="100">
-                    <div class="col-lg-6">
-                        <div class="info-box mb-4">
-                            <i class="bx bx-map"></i>
-                            <h3>Visi</h3>
-                            <p>
-
-                                Menampilkan Polda Jawa Tengah yang Profesional, Bermoral, Modern sebagai Pelindung,
-                                Pengayom, dan Pelayan Masyarakat yang terpercaya dalam pemeliharaan Kemanan ketertiban
-                                Masyarakat dan Penegakkan Hukum./p>
+            </div>
+        </div>
+        <div class="about_fun_facts">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="fun_facts_box type_one">
+                        <div class="icon">
+                            <img src="https://posyandu.banjarnegara-desa.id/assets/front/image/svg/baby.png" class="img-fluid svg_image" alt="Data Balita">
                         </div>
+                        <h2><span class="counter-value"><?= esc($data['jumlah_balita']); ?></span></h2>
+                        <h6>Data Balita</h6>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="info-box  mb-4">
-                            <i class="bx bx-phone-call"></i>
-                            <h3>Misi</h3>
-                            <p>Meningkatkan Sumber Daya Manusia Kepolisian Daerah Jawa Tengah Untuk Tampil sebagai sosok
-                                Pengayom, Pelindung dan Pelayan Masyarakat</p>
-                            <br>
-                            <p>Melaksanakan Penegakkan Hukum secara Konsisten, Berkesinambungan dan Transparan untuk
-                                pemeliharaan Kamtibmas</p>
-                            <br>
-                            <p>Melaksanakan Pelayanan Optimal, yang dapat menimbulkan kepercayaan bagi Masyarakat dalam
-                                upaya meningkatkan kesadaran hukum</p>
-                            <br>
-                            <p>Menciptakan kondisi keamanan yang kondusif dengan meningkatkan peran serta masyarakat dan
-                                instansi terkait secara aktif</p><br>
-                            <p>Mengedepankan dan Menjunjung Tinggi Hak Asasi Manusia dalam setiap melaksanakan tugas.
-                            </p>
-                        </div>
-                    </div>
-
                 </div>
+                <div class="col-lg-3">
+                    <div class="fun_facts_box type_one">
+                        <div class="icon">
+                            <img src="https://posyandu.banjarnegara-desa.id/assets/front/image/svg/bumil.png" class="img-fluid svg_image" alt="Data Ibu Hamil">
+                        </div>
+                        <h2><span class="counter-value"><?= esc($data['jumlah_balita']); ?></span></h2>
+                        <h6>Data Ibu Hamil</h6>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="fun_facts_box type_one">
+                        <div class="icon">
+                            <img src="https://posyandu.banjarnegara-desa.id/assets/front/image/svg/lansia.png" class="img-fluid svg_image" alt="Data Lansia">
+                        </div>
+                    <h2><span class="counter-value"><?= esc($data['jumlah_balita']); ?></span></h2>
+                        <h6>Data Lansia</h6>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="fun_facts_box type_one last">
+                        <div class="icon">
+                            <img src="https://posyandu.banjarnegara-desa.id/assets/front/image/svg/others.png" class="img-fluid svg_image" alt="Data Bayi">
+                        </div>
+                          <h2><span class="counter-value"><?= esc($data['jumlah_balita']); ?></span></h2>
+                        <h6>Data Bayi</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
-        </section>
 
         <section id="contact" class="contact">
             <div class="container" data-aos="fade-up">
