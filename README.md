@@ -1,2 +1,2 @@
 # SM
- Sistem Informasi Toko
+ Sistem Informasi
