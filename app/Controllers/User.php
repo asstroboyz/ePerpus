@@ -7,6 +7,7 @@ use App\Models\bukti;
 use App\Models\profil;
 use App\Models\DataBalitaModel;
 use App\Models\PosyanduModel;
+use App\Models\DataBalitaDetailModel;
 use CodeIgniter\Database\Query;
 use Myth\Auth\Entities\passwd;
 use Myth\Auth\Models\UserModel;
@@ -23,7 +24,9 @@ class User extends BaseController
         // $this->pengaduan = new pengaduan();
         // $this->bukti = new bukti();
         $this->PosyanduModel = new PosyanduModel();
+      
         $this->DataBalitaModel = new DataBalitaModel();
+        $this->DataBalitaDetailModel = new DataBalitaDetailModel();
         $this->profil = new profil();
         $this->validation = \Config\Services::validation();
     }
@@ -310,6 +313,8 @@ class User extends BaseController
             'title' => 'Data Balita',
             'balita' => $this->DataBalitaModel->getBalitaWithIdPos($userPosyanduId),
         ];
+        // $data['penegcekan'] = $this->DataBalitaDetailModel->getPengecekan();
+
 
         // Debugging
         // dd($data['balita']);
