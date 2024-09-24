@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>LifeSure - Life Insurance Website Template</title>
+    <title>Posyandu Ceria</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -38,7 +38,8 @@
     <!-- Template Stylesheet -->
     <link href="<?php echo base_url() ?>/assets/front/css/style.css"
         rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         *,
         html,
@@ -121,6 +122,11 @@
         }
 
         .header-carousel .animated-image {
+            max-width: 100%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .container-fluid .animated-image {
             max-width: 100%;
             animation: float 3s ease-in-out infinite;
         }
@@ -255,6 +261,43 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             /* Bayangan halus untuk navbar */
         }
+
+        .feature {
+            position: relative;
+            margin-bottom: -100px;
+            padding-bottom: 100px;
+        }
+
+        .feature::before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to top, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+            z-index: -1;
+        }
+
+        .feature-item {
+            box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+            border-radius: 15px;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            margin: 0 auto 30px auto;
+        }
+
+        .feature-icon i {
+            font-size: 30px;
+            color: #ffffff;
+        }
     </style>
 </head>
 
@@ -327,7 +370,7 @@
         <div class="container py-5">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <img src="img/depan/visi.png" alt="Tentang Kami" class="img-fluid">
+                    <img src="img/depan/visi.png" alt="Tentang Kami" class="img-fluid animated-image">
                 </div>
                 <div class="col-md-6">
                     <h3 class="text-uppercase" style="color: #007BFF;">Tentang Kami</h3>
@@ -350,128 +393,57 @@
         </div>
     </div>
     <div class="container-fluid feature bg-light py-5">
-        <div class="container py-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Data Kesehatan Anak</h4>
-                <h1 class="display-4 mb-4">Meningkatkan Kesehatan Generasi Masa Depan</h1>
-                <p class="fs-5">Kami berkomitmen untuk memberikan informasi lengkap tentang kesehatan anak, termasuk
-                    status gizi dan pertumbuhan mereka.</p>
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-black">STATISTIK TAHUN <?php echo date('Y'); ?></h4>
+            <h1 class="display-4 mb-4">Data Posyandu Ceria Pekalongan Selatan</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feature-item bg-primary p-4 pt-0 text-center">
+                    <div class="feature-icon bg-white p-4 mb-4">
+                        <i class="fas fa-baby fa-3x"></i> <!-- Ikon balita -->
+                    </div>
+                    <h4 class="mb-4">Data Balita</h4>
+                    <span class="text-black fs-2 fw-bold" data-toggle="counter-up">200</span>
+                </div>
             </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="feature-item p-4 pt-0">
-                        <div class="feature-icon p-4 mb-4">
-                            <i class="fas fa-baby fa-3x"></i>
-                        </div>
-                        <h4 class="mb-4">Data Balita</h4>
-                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">200</span>
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feature-item bg-success p-4 pt-0 text-center">
+                    <div class="feature-icon bg-white p-4 mb-4">
+                        <i class="fas fa-apple-alt fa-3x"></i> <!-- Ikon gizi baik -->
                     </div>
+                    <h4 class="mb-4">Data Anak Gizi Baik</h4>
+                    <span class="text-black fs-2 fw-bold" data-toggle="counter-up">150</span>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="feature-item p-4 pt-0">
-                        <div class="feature-icon p-4 mb-4">
-                            <i class="fas fa-carrot fa-3x"></i>
-                        </div>
-                        <h4 class="mb-4">Data Anak Gizi Baik</h4>
-                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">150</span>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feature-item bg-danger p-4 pt-0 text-center">
+                    <div class="feature-icon bg-white p-4 mb-4">
+                        <i class="fas fa-skull-crossbones fa-3x"></i> <!-- Ikon gizi buruk -->
                     </div>
+                    <h4 class="mb-4">Data Gizi Buruk</h4>
+                    <span class="text-black fs-2 fw-bold" data-toggle="counter-up">30</span>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="feature-item p-4 pt-0">
-                        <div class="feature-icon p-4 mb-4">
-                            <i class="fas fa-exclamation-triangle fa-3x"></i>
-                        </div>
-                        <h4 class="mb-4">Data Gizi Buruk</h4>
-                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">30</span>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feature-item bg-warning p-4 pt-0 text-center">
+                    <div class="feature-icon bg-white p-4 mb-4">
+                        <i class="fas fa-ruler-vertical fa-3x"></i> <!-- Ikon stunting -->
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="feature-item p-4 pt-0">
-                        <div class="feature-icon p-4 mb-4">
-                            <i class="fas fa-child fa-3x"></i>
-                        </div>
-                        <h4 class="mb-4">Data Stunting</h4>
-                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">25</span>
-                    </div>
+                    <h4 class="mb-4">Data Stunting</h4>
+                    <span class="text-black fs-2 fw-bold" data-toggle="counter-up">25</span>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Feature End -->
 
     <!-- About Start -->
-    <div class="container-fluid bg-light about pb-5">
-        <div class="container pb-5">
-            <div class="row g-5">
-                <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                    <div class="about-item-content bg-white rounded p-5 h-100">
-                        <h4 class="text-primary">About Our Company</h4>
-                        <h1 class="display-4 mb-4">High Range of Exploring Protection</h1>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt debitis sint tempora. Corporis
-                            consequatur illo blanditiis voluptates aperiam quos aliquam totam aliquid rem explicabo,
-                        </p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae praesentium recusandae
-                            eligendi modi hic
-                        </p>
-                        <p class="text-dark"><i class="fa fa-check text-primary me-3"></i>We can save your money.</p>
-                        <p class="text-dark"><i class="fa fa-check text-primary me-3"></i>Production or trading of good
-                        </p>
-                        <p class="text-dark mb-4"><i class="fa fa-check text-primary me-3"></i>Our life insurance is
-                            flexible</p>
-                        <a class="btn btn-primary rounded-pill py-3 px-5" href="#">More Information</a>
-                    </div>
-                </div>
-                <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
-                    <div class="bg-white rounded p-5 h-100">
-                        <div class="row g-4 justify-content-center">
-                            <div class="col-12">
-                                <div class="rounded bg-light">
-                                    <img src="img/about-1.png" class="img-fluid rounded w-100" alt="">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="counter-item bg-light rounded p-3 h-100">
-                                    <div class="counter-counting">
-                                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">129</span>
-                                        <span class="h1 fw-bold text-primary">+</span>
-                                    </div>
-                                    <h4 class="mb-0 text-dark">Insurance Policies</h4>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="counter-item bg-light rounded p-3 h-100">
-                                    <div class="counter-counting">
-                                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">99</span>
-                                        <span class="h1 fw-bold text-primary">+</span>
-                                    </div>
-                                    <h4 class="mb-0 text-dark">Awards WON</h4>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="counter-item bg-light rounded p-3 h-100">
-                                    <div class="counter-counting">
-                                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">556</span>
-                                        <span class="h1 fw-bold text-primary">+</span>
-                                    </div>
-                                    <h4 class="mb-0 text-dark">Skilled Agents</h4>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="counter-item bg-light rounded p-3 h-100">
-                                    <div class="counter-counting">
-                                        <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">967</span>
-                                        <span class="h1 fw-bold text-primary">+</span>
-                                    </div>
-                                    <h4 class="mb-0 text-dark">Team Members</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- About End -->
 
     <!-- Service Start -->
@@ -1012,14 +984,11 @@
             <div class="row g-4 align-items-center">
                 <div class="col-md-6 text-center text-md-end mb-md-0">
                     <span class="text-body"><a href="#" class="border-bottom text-white"><i
-                                class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right
+                                class="fas fa-copyright text-light me-2"></i>Posyandu Ceria</a>, All right
                         reserved.</span>
                 </div>
                 <div class="col-md-6 text-center text-md-start text-body">
-                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                    Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
+                    Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">Riski</a>
                     Distributed By <a class="border-bottom text-white" href="https://themewagon.com">ThemeWagon</a>
                 </div>
             </div>
@@ -1034,6 +1003,8 @@
 
     <!-- JavaScript Libraries -->
     <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script
         src="<?php echo base_url() ?>/assets/front/lib/counterup/counterup.min.js">
