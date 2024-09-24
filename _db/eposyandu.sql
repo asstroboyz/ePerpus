@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Sep 2024 pada 16.10
+-- Waktu pembuatan: 24 Sep 2024 pada 16.23
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.4.11
 
@@ -77,7 +77,8 @@ INSERT INTO `auth_groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'site administrator'),
 (2, 'kasir', 'site super admin'),
 (3, 'pemilik', 'regular user'),
-(4, 'administrator', 'superadmin');
+(4, 'administrator', 'superadmin'),
+(5, 'user', 'kelola data users');
 
 -- --------------------------------------------------------
 
@@ -104,7 +105,8 @@ INSERT INTO `auth_groups_permissions` (`group_id`, `permission_id`) VALUES
 (3, 2),
 (3, 2),
 (4, 1),
-(4, 2);
+(4, 2),
+(5, 2);
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,13 @@ INSERT INTO `auth_groups_users` (`group_id`, `user_id`) VALUES
 (3, 17),
 (3, 18),
 (3, 19),
-(4, 16);
+(4, 16),
+(5, 22),
+(5, 23),
+(5, 24),
+(5, 25),
+(5, 26),
+(5, 27);
 
 -- --------------------------------------------------------
 
@@ -970,7 +978,13 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (817, '::1', 'admin@gmail.com', 1, '2024-09-20 18:54:25', 1),
 (818, '::1', 'admin@gmail.com', 1, '2024-09-21 20:39:17', 1),
 (819, '::1', 'admin@gmail.com', 1, '2024-09-22 07:24:14', 1),
-(820, '::1', 'admin@gmail.com', 1, '2024-09-22 19:20:01', 1);
+(820, '::1', 'admin@gmail.com', 1, '2024-09-22 19:20:01', 1),
+(821, '::1', 'admin@gmail.com', 1, '2024-09-23 21:24:08', 1),
+(822, '::1', 'admin@gmail.com', 1, '2024-09-24 16:12:24', 1),
+(823, '::1', 'admin@gmail.com', 1, '2024-09-24 18:35:12', 1);
+INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `success`) VALUES
+(824, '::1', 'farin@gmail.com', 25, '2024-09-24 19:00:56', 1),
+(825, '::1', 'faradila281@gmail.com', 27, '2024-09-24 19:21:35', 1);
 
 -- --------------------------------------------------------
 
@@ -1119,16 +1133,53 @@ CREATE TABLE `data_balita` (
   `jenis_kelamin` enum('L','P') NOT NULL,
   `tgl_lahir` date NOT NULL,
   `nama_ortu` varchar(100) NOT NULL,
-  `posyandu_id` int(11) NOT NULL
+  `posyandu_id` int(11) NOT NULL,
+  `anak_ke` varchar(100) DEFAULT NULL,
+  `bbl` varchar(100) DEFAULT NULL,
+  `pbl` varchar(100) DEFAULT NULL,
+  `nik_balita` varchar(100) DEFAULT NULL,
+  `no_kk` varchar(100) DEFAULT NULL,
+  `nik_ortu` varchar(100) DEFAULT NULL,
+  `rt` varchar(100) DEFAULT NULL,
+  `rw` varchar(100) DEFAULT NULL,
+  `umur` varchar(100) DEFAULT NULL,
+  `bb_awal` varchar(100) DEFAULT NULL,
+  `tb_awal` varchar(100) DEFAULT NULL,
+  `lk_awal` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `data_balita`
 --
 
-INSERT INTO `data_balita` (`id`, `nama`, `jenis_kelamin`, `tgl_lahir`, `nama_ortu`, `posyandu_id`) VALUES
-(3, 'lolololo', 'P', '2020-12-12', 'Wanto', 1),
-(4, 'Anial;joo', 'P', '2020-12-12', 'Wanto', 1);
+INSERT INTO `data_balita` (`id`, `nama`, `jenis_kelamin`, `tgl_lahir`, `nama_ortu`, `posyandu_id`, `anak_ke`, `bbl`, `pbl`, `nik_balita`, `no_kk`, `nik_ortu`, `rt`, `rw`, `umur`, `bb_awal`, `tb_awal`, `lk_awal`) VALUES
+(3, 'lolololo', 'P', '2020-12-12', 'Wanto', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 'Anial;joo', 'P', '2020-12-12', 'Wanto', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'Balita 6', 'P', '2002-07-05', '65', 3, '675', '67576', '576', '567', '5765', '67', '57657', '67576', '654', '65654', '56564', '56456'),
+(6, 'sdasd', 'L', '2002-09-12', 'sada', 3, '123', '12312', '33', '312', '12', '321', '12321', '213', '3123', '213', '3223', '23121');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `data_balita_detail`
+--
+
+CREATE TABLE `data_balita_detail` (
+  `id` int(11) NOT NULL,
+  `bb_awal` varchar(50) DEFAULT NULL,
+  `tb_awal` varchar(50) DEFAULT NULL,
+  `lk_awal` varchar(50) DEFAULT NULL,
+  `bb_u` varchar(50) DEFAULT NULL,
+  `bb_tb` varchar(50) DEFAULT NULL,
+  `tb_u` varchar(50) DEFAULT NULL,
+  `rambu_gizi` varchar(50) DEFAULT NULL,
+  `vitamin` varchar(50) DEFAULT NULL,
+  `tgl` date DEFAULT NULL,
+  `asi_eks` varchar(50) DEFAULT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
+  `balita_id` int(11) DEFAULT NULL,
+  `jenis_imunisasi_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2378,6 +2429,8 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `username` varchar(30) DEFAULT NULL,
   `fullname` varchar(255) DEFAULT NULL,
+  `jenis_kelamin` enum('L','P') NOT NULL,
+  `posisi` enum('bidan','kader') NOT NULL,
   `foto` varchar(255) NOT NULL DEFAULT 'profil.svg',
   `password_hash` varchar(255) NOT NULL,
   `reset_hash` varchar(255) DEFAULT NULL,
@@ -2390,18 +2443,22 @@ CREATE TABLE `users` (
   `force_pass_reset` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `deleted_at` datetime DEFAULT NULL,
+  `posyandu_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `username`, `fullname`, `foto`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin@gmail.com', 'admin', 'Yasmin', 'AdminFOTOadmin.jpeg', '$2y$10$PVlRaK5qKEom7DkgtqdL.ucmoo4EwbD7JPC3zW5s0ghL2D9/V1CQy', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-10-02 17:15:56', '2024-04-17 19:56:48', NULL),
-(14, 'kasir@gmail.com', 'Hikmah', 'Hikmah', 'AdminFOTOkasir.jpeg', '$2y$10$jIuMCnNMFZpU.2esnrYJL.HkfnNqpMXRtVE8HuE/un0K8rSzGmpae', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-01-09 15:53:39', '2024-07-22 16:51:17', NULL),
-(15, 'pemilik@gmail.com', 'Ragil', 'Ragil', 'PemilikFOTOpemilik.jpeg', '$2y$10$tBpr.1YSP4J..061PlRORe0IWlXY0WX04x.anXQVg0FHDA5hFEJq2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-01-09 15:56:41', '2024-06-06 21:16:01', NULL),
-(16, 'administrator@gmail.com', 'administrator', NULL, 'profil.svg', '$2y$10$fB0zLIk541Tn4UiPE7c84OVeJJrQw43jMR/w00kZlUZxHNyFkO6s2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-02-19 06:36:43', '2024-02-19 06:36:43', NULL);
+INSERT INTO `users` (`id`, `email`, `username`, `fullname`, `jenis_kelamin`, `posisi`, `foto`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`, `posyandu_id`) VALUES
+(1, 'admin@gmail.com', 'admin', 'Yasmin', 'L', 'kader', 'AdminFOTOadmin.jpeg', '$2y$10$PVlRaK5qKEom7DkgtqdL.ucmoo4EwbD7JPC3zW5s0ghL2D9/V1CQy', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-10-02 17:15:56', '2024-04-17 19:56:48', NULL, 1),
+(14, 'kasir@gmail.com', 'Hikmah', 'Hikmah', 'L', 'bidan', 'AdminFOTOkasir.jpeg', '$2y$10$jIuMCnNMFZpU.2esnrYJL.HkfnNqpMXRtVE8HuE/un0K8rSzGmpae', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-01-09 15:53:39', '2024-07-22 16:51:17', NULL, NULL),
+(15, 'pemilik@gmail.com', 'Ragil', 'Ragil', 'L', 'bidan', 'PemilikFOTOpemilik.jpeg', '$2y$10$tBpr.1YSP4J..061PlRORe0IWlXY0WX04x.anXQVg0FHDA5hFEJq2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-01-09 15:56:41', '2024-06-06 21:16:01', NULL, NULL),
+(16, 'administrator@gmail.com', 'administrator', NULL, 'L', 'bidan', 'profil.svg', '$2y$10$fB0zLIk541Tn4UiPE7c84OVeJJrQw43jMR/w00kZlUZxHNyFkO6s2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-02-19 06:36:43', '2024-02-19 06:36:43', NULL, NULL),
+(25, 'farin@gmail.com', 'farin', NULL, 'L', 'bidan', 'profil.svg', '$2y$10$I8/1VDRhRRcfvTYChj02l.IFj4Uv9A9Uqbn/OTbmf156eH1ztIO0i', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:44:11', '2024-09-24 16:44:11', NULL, NULL),
+(26, 'izank@gmail.com', 'izank', NULL, 'P', 'bidan', 'profil.svg', '$2y$10$AnF0KCbzcoDo9CxI5ooUtuKJqabcFX.H/7wKMVwzRO2UUDc/5uv92', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:44:48', '2024-09-24 16:44:48', NULL, NULL),
+(27, 'faradila281@gmail.com', 'fatris', NULL, 'P', 'kader', 'profil.svg', '$2y$10$mXO9T8uE4DIAu5yyrIy0j.sPm3N10qwtLsq9ki2viuSP.kQxAbtZu', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:47:12', '2024-09-24 16:47:12', NULL, 3);
 
 --
 -- Indexes for dumped tables
@@ -2503,6 +2560,14 @@ ALTER TABLE `daftar_hadir_imunisasi`
 ALTER TABLE `data_balita`
   ADD PRIMARY KEY (`id`),
   ADD KEY `posyandu_id` (`posyandu_id`);
+
+--
+-- Indeks untuk tabel `data_balita_detail`
+--
+ALTER TABLE `data_balita_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `balita_id` (`balita_id`),
+  ADD KEY `fk_jenis_imunisasi` (`jenis_imunisasi_id`);
 
 --
 -- Indeks untuk tabel `detail_master`
@@ -2678,7 +2743,8 @@ ALTER TABLE `transaksi_barang`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `fk_posyandu` (`posyandu_id`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -2700,13 +2766,13 @@ ALTER TABLE `auth_activation_attempts`
 -- AUTO_INCREMENT untuk tabel `auth_groups`
 --
 ALTER TABLE `auth_groups`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=821;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=826;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_permissions`
@@ -2742,7 +2808,7 @@ ALTER TABLE `daftar_hadir_imunisasi`
 -- AUTO_INCREMENT untuk tabel `data_balita`
 --
 ALTER TABLE `data_balita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_master`
@@ -2868,7 +2934,7 @@ ALTER TABLE `transaksi_barang`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -2894,6 +2960,13 @@ ALTER TABLE `data_balita`
   ADD CONSTRAINT `data_balita_ibfk_1` FOREIGN KEY (`posyandu_id`) REFERENCES `posyandu` (`id`) ON DELETE CASCADE;
 
 --
+-- Ketidakleluasaan untuk tabel `data_balita_detail`
+--
+ALTER TABLE `data_balita_detail`
+  ADD CONSTRAINT `data_balita_detail_ibfk_1` FOREIGN KEY (`balita_id`) REFERENCES `data_balita` (`id`),
+  ADD CONSTRAINT `fk_jenis_imunisasi` FOREIGN KEY (`jenis_imunisasi_id`) REFERENCES `jenis_imunisasi` (`id`);
+
+--
 -- Ketidakleluasaan untuk tabel `detail_penjualan_barang`
 --
 ALTER TABLE `detail_penjualan_barang`
@@ -2916,6 +2989,12 @@ ALTER TABLE `pembayaran_piutang`
 --
 ALTER TABLE `piutang`
   ADD CONSTRAINT `piutang_ibfk_2` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_posyandu` FOREIGN KEY (`posyandu_id`) REFERENCES `posyandu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
