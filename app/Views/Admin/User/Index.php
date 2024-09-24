@@ -18,16 +18,16 @@
                     <i class="fas fa-plus"> Tambah</i>
                     </a>
                 </div> -->
-                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                        <h3 class="m-0">Daftar Pengguna</h3>
-                        <a href="#" class="btn btn-primary"
-                            data-id="<?= $row->id; ?>" data-toggle="modal"
-                            data-target="#tambahUserModal"><i class="fa fa-plus"></i> Tambah
-                            Pengguna</a>
-                    </div>
-                    <div class="card-body">
-               
-                        <div class="table-responsive">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h3 class="m-0">Daftar Pengguna</h3>
+                    <a href="#" class="btn btn-primary"
+                        data-id="<?= $row->id; ?>"
+                        data-toggle="modal" data-target="#tambahUserModal"><i class="fa fa-plus"></i> Tambah
+                        Pengguna</a>
+                </div>
+                <div class="card-body">
+
+                    <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr style="text-align:center;">
@@ -54,24 +54,24 @@
                                 <?php
                                 $no = 1;
 
-                                foreach ($users as $rw) {
-                                    $row = "row" . $rw->id;
-                                    echo $$row;
-                                }
-                                ?>
+foreach ($users as $rw) {
+    $row = "row" . $rw->id;
+    echo $$row;
+}
+?>
                             </tbody>
                         </table>
-                        </div>
-                       
                     </div>
 
                 </div>
 
-
-
-
             </div>
+
+
+
+
         </div>
+    </div>
 
     </div>
 
@@ -102,13 +102,26 @@
                         <input type="email" class="form-control form-control-user" name="email" placeholder="Email"
                             value="<?= old('email') ?>">
                     </div>
-                    <!-- <div class="form-group">
-    <select name="role" id="role" required>
-        <?php foreach ($groups as $group): ?>
-            <option value="<?= $group->id; ?>"><?= $group->name; ?></option>
-        <?php endforeach; ?>
-    </select>
-</div> -->
+                    <div class="form-group">
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="L" <?= old('jenis_kelamin') == 'L' ? 'selected' : ''; ?>>Laki-laki
+                            </option>
+                            <option value="P" <?= old('jenis_kelamin') == 'P' ? 'selected' : ''; ?>>Perempuan
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="posisi">Posisi</label>
+                        <select class="form-control" id="posisi" name="posisi" required>
+                            <option value="">Pilih Posisi</option>
+                            <option value="kader" <?= old('posisi') == 'kader' ? 'selected' : ''; ?>>Kader
+                            </option>
+                            <option value="bidan" <?= old('posisi') == 'bidan' ? 'selected' : ''; ?>>Bidan
+                            </option>
+                        </select>
+                    </div>
 
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -154,14 +167,14 @@
                             <div class="col mb-8pt mb-md-0">
                                 <select name="group" class="form-control" data-toggle="select">
                                     <?php
-                                    foreach ($groups as $key => $row) {
-                                    ?>
-                                        <option value="<?= $row->id; ?>">
-                                            <?= $row->name; ?>
-                                        </option>
+    foreach ($groups as $key => $row) {
+        ?>
+                                    <option value="<?= $row->id; ?>">
+                                        <?= $row->name; ?>
+                                    </option>
                                     <?php
-                                    }
-                                    ?>
+    }
+?>
                                 </select>
                             </div>
                         </div>

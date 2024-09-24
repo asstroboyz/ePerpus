@@ -14,20 +14,58 @@
                                     <h1 class="h4 text-gray-900 mb-4">Tambah Pengguna</h1>
                                 </div>
                                 <?=view('Myth\Auth\Views\_message_block')?>
-                                <form class="user" action="<?=url_to('register')?>" method="post">
+                                <form class="user"
+                                    action="<?=url_to('register')?>"
+                                    method="post">
                                     <?=csrf_field()?>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user <?php if (session('errors.username')): ?>is-invalid<?php endif?>" name="username" placeholder="<?=lang('Auth.username')?>" value="<?=old('username')?>">
+                                        <input type="text"
+                                            class="form-control form-control-user <?php if (session('errors.username')): ?>is-invalid<?php endif?>"
+                                            name="username"
+                                            placeholder="<?=lang('Auth.username')?>"
+                                            value="<?=old('username')?>">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user <?php if (session('errors.email')): ?>is-invalid<?php endif?>" name="email" placeholder="<?=lang('Auth.email')?>" value="<?=old('email')?>">
+                                        <input type="email"
+                                            class="form-control form-control-user <?php if (session('errors.email')): ?>is-invalid<?php endif?>"
+                                            name="email"
+                                            placeholder="<?=lang('Auth.email')?>"
+                                            value="<?=old('email')?>">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                                            <option value="">Pilih Jenis Kelamin</option>
+                                            <option value="L" <?= old('jenis_kelamin') == 'L' ? 'selected' : ''; ?>>Laki-laki
+                                            </option>
+                                            <option value="P" <?= old('jenis_kelamin') == 'P' ? 'selected' : ''; ?>>Perempuan
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="posisi">Posisi</label>
+                                        <select class="form-control" id="posisi" name="posisi" required>
+                                            <option value="">Pilih Posisi</option>
+                                            <option value="kader" <?= old('posisi') == 'kader' ? 'selected' : ''; ?>>Kader
+                                            </option>
+                                            <option value="bidan" <?= old('posisi') == 'bidan' ? 'selected' : ''; ?>>Bidan
+                                            </option>
+                                        </select>
+                                    </div>
+
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="password" class="form-control form-control-user <?php if (session('errors.password')): ?>is-invalid<?php endif?>" name="password" placeholder="<?=lang('Auth.password')?>" autocomplete="off">
+                                            <input type="password"
+                                                class="form-control form-control-user <?php if (session('errors.password')): ?>is-invalid<?php endif?>"
+                                                name="password"
+                                                placeholder="<?=lang('Auth.password')?>"
+                                                autocomplete="off">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="password" name="pass_confirm" class="form-control form-control-user <?php if (session('errors.pass_confirm')): ?>is-invalid<?php endif?>" placeholder="<?=lang('Auth.repeatPassword')?>" autocomplete="off">
+                                            <input type="password" name="pass_confirm"
+                                                class="form-control form-control-user <?php if (session('errors.pass_confirm')): ?>is-invalid<?php endif?>"
+                                                placeholder="<?=lang('Auth.repeatPassword')?>"
+                                                autocomplete="off">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-dark btn-user btn-block">

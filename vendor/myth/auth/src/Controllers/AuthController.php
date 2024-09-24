@@ -168,6 +168,9 @@ class AuthController extends Controller
         // Save the user
         $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
         $user              = new User($this->request->getPost($allowedPostFields));
+        $user->jenis_kelamin = $this->request->getPost('jenis_kelamin');
+        $user->posisi = $this->request->getPost('posisi');
+
 
         $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
 
@@ -192,7 +195,7 @@ class AuthController extends Controller
             return redirect()->route('login')->with('message', lang('Auth.activationSuccess'));
         }
 
-        // Success!
+       
         return redirect()->route('login')->with('message', lang('Auth.registerSuccess'));
     }
 

@@ -1,9 +1,10 @@
 <tr>
-<td><?= $no; ?></td>   
-<!-- <td><?=$row->id;?></td> -->
+    <td><?= $no; ?></td>
+    <!-- <td><?=$row->id;?></td> -->
     <td><?=$row->username;?></td>
-    <td><?=empty($group) ? '' : $group[0]['name'];?>
-    </td>
+    <!-- <td><?=empty($group) ? '' : $group[0]['name'];?>
+    </td> -->
+    <td><?=$row->posisi;?></td>
     <td><?=$row->email;?></td>
 
     <!-- <a href="<?=base_url('Admin/activateUser/' . $row->id . '/' . ($row->active == 1 ? 0 : 1));?>"
@@ -14,9 +15,9 @@
     <td align="center">
         <!-- <a href="#" class="btn btn-warning btn-circle   btn-change-password" title="Ubah Password"
             data-id="<?=$row->id;?>" data-toggle="modal"
-            data-target="#ubah_password" data-id="<?=$row->id;?>">
+        data-target="#ubah_password" data-id="<?=$row->id;?>">
 
-            <i class="fas fa-key"></i>
+        <i class="fas fa-key"></i>
         </a> -->
         <a href="#" class="btn btn-success btn-circle  btn-change-group"
             data-id="<?=$row->id;?>" title="Ubah Grup">

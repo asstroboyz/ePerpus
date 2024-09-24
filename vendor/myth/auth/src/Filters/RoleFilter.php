@@ -42,15 +42,18 @@ class RoleFilter extends BaseFilter implements FilterInterface
             return redirect()->to($redirectURL)->with('error', lang('Auth.notEnoughPrivilege'));
         } else {
             // Jika pengguna termasuk dalam grup 'sadmin', arahkan ke halaman tertentu
-            if (in_groups('kasir')) {
-                return redirect()->to('/kasir')->with('error', lang('Auth.notEnoughPrivilege'));
-            } elseif (in_groups('admin')) {
-                return redirect()->to('/admin')->with('error', lang('Auth.notEnoughPrivilege'));
-            } elseif (in_groups('administrator')) { // Menambahkan penanganan untuk administrator
-                return redirect()->to('/administrator')->with('error', lang('Auth.notEnoughPrivilege'));
-            } else {
-                return redirect()->to('/pemilik')->with('error', lang('Auth.notEnoughPrivilege'));
-            }
+          if (in_groups('kasir')) {
+    return redirect()->to('/kasir')->with('error', lang('Auth.notEnoughPrivilege'));
+} elseif (in_groups('admin')) {
+    return redirect()->to('/admin')->with('error', lang('Auth.notEnoughPrivilege'));
+} elseif (in_groups('administrator')) {
+    return redirect()->to('/administrator')->with('error', lang('Auth.notEnoughPrivilege'));
+} elseif (in_groups('user')) { // Menambahkan penanganan untuk user
+    return redirect()->to('/user')->with('error', lang('Auth.notEnoughPrivilege'));
+} else {
+    return redirect()->to('/pemilik')->with('error', lang('Auth.notEnoughPrivilege'));
+}
+
         }
 
 
