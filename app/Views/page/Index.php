@@ -542,43 +542,50 @@
 
     <!-- Blog Start -->
     <div id="jadwal-imunisasi" class="container-fluid blog py-5">
-    <div class="container py-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-primary">Jadwal Imunisasi</h4>
-            <h1 class="display-4 mb-4">Informasi Jadwal Imunisasi Anak</h1>
-            <p class="mb-0">Berikut adalah jadwal imunisasi yang direkomendasikan untuk anak. Pastikan anak Anda
-                mendapatkan imunisasi tepat waktu untuk menjaga kesehatan mereka.</p>
-        </div>
-        <div class="row g-4 justify-content-center">
-            <?php 
-            // Ambil tanggal dan jam saat ini
-            $currentDateTime = new DateTime();
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <h4 class="text-primary">Jadwal Imunisasi</h4>
+                <h1 class="display-4 mb-4">Informasi Jadwal Imunisasi Anak</h1>
+                <p class="mb-0">Berikut adalah jadwal imunisasi yang direkomendasikan untuk anak. Pastikan anak Anda
+                    mendapatkan imunisasi tepat waktu untuk menjaga kesehatan mereka.</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <?php
+                $currentDateTime = new DateTime();
+                $hasUpcomingSchedule = false; // Variabel untuk mengecek apakah ada jadwal
 
-            foreach ($jadwal as $imunisasi):
-                // Buat objek DateTime dari tanggal dan jam di database
-                $jadwalDateTime = new DateTime($imunisasi['tanggal'] . ' ' . $imunisasi['jam']);
-                
-                // Cek apakah jadwal sudah terlewat
-                if ($jadwalDateTime > $currentDateTime): 
-            ?>
-                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="blog-item">
-                        <div class="blog-content p-4">
-                            <h4 class="mb-3"><?= esc($imunisasi['bidan']) ?> (<?= esc($imunisasi['nama_posyandu']) ?>)</h4>
-                            <div class="small mb-2"><strong>Tanggal:</strong> <?= esc($imunisasi['tanggal']) ?></div>
-                            <div class="small mb-2"><strong>Jam:</strong> <?= esc($imunisasi['jam']) ?></div>
-                            <p class="mb-3"><strong>Alamat:</strong> <?= esc($imunisasi['alamat_posyandu']) ?></p>
-                            <p class="mb-3"><strong>Kader:</strong> <?= esc($imunisasi['kader_posyandu']) ?></p>
+                foreach ($jadwal as $imunisasi):
+                    $jadwalDateTime = new DateTime($imunisasi['tanggal'] . ' ' . $imunisasi['jam']);
+                    if ($jadwalDateTime > $currentDateTime):
+                        $hasUpcomingSchedule = true; // Ada jadwal yang akan datang
+                ?>
+                        <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="blog-item">
+                                <div class="blog-content p-4">
+                                    <h4 class="mb-3"><?= esc($imunisasi['bidan']) ?> (<?= esc($imunisasi['nama_posyandu']) ?>)</h4>
+                                    <div class="small mb-2"><strong>Tanggal:</strong> <?= esc($imunisasi['tanggal']) ?></div>
+                                    <div class="small mb-2"><strong>Jam:</strong> <?= esc($imunisasi['jam']) ?></div>
+                                    <p class="mb-3"><strong>Alamat:</strong> <?= esc($imunisasi['alamat_posyandu']) ?></p>
+                                    <p class="mb-3"><strong>Kader:</strong> <?= esc($imunisasi['kader_posyandu']) ?></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            <?php 
-                endif; // Akhir dari pengecekan tanggal
-            endforeach; 
-            ?>
+                    <?php
+                    endif; // Akhir dari pengecekan tanggal
+                endforeach;
+
+                // Jika tidak ada jadwal yang akan datang
+                if (!$hasUpcomingSchedule):
+                    ?>
+                <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s">
+    <p><strong>Jadwal hari ini telah terlewatkan / tidak ada.</strong></p>
+</div>
+
+                <?php endif; ?>
+            </div>
         </div>
     </div>
-</div>
+
 
 
     <!-- <div id="jadwal-imunisasi" class="container-fluid blog py-5">
