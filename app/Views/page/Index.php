@@ -393,51 +393,51 @@
         </div>
     </div>
     <div class="container-fluid feature bg-light py-5">
-    <div class="container py-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-black">STATISTIK TAHUN <?php echo date('Y'); ?></h4>
-            <h1 class="display-4 mb-4">Data Posyandu Ceria Pekalongan Selatan</h1>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="feature-item bg-primary p-4 pt-0 text-center">
-                    <div class="feature-icon bg-white p-4 mb-4">
-                        <i class="fas fa-baby fa-3x"></i> <!-- Ikon balita -->
-                    </div>
-                    <h4 class="mb-4">Data Balita</h4>
-                    <span class="text-black fs-2 fw-bold" data-toggle="counter-up">200</span>
-                </div>
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <h4 class="text-black">STATISTIK TAHUN <?php echo date('Y'); ?></h4>
+                <h1 class="display-4 mb-4">Data Posyandu Ceria Pekalongan Selatan</h1>
             </div>
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="feature-item bg-success p-4 pt-0 text-center">
-                    <div class="feature-icon bg-white p-4 mb-4">
-                        <i class="fas fa-apple-alt fa-3x"></i> <!-- Ikon gizi baik -->
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="feature-item bg-primary p-4 pt-0 text-center">
+                        <div class="feature-icon bg-white p-4 mb-4">
+                            <i class="fas fa-baby fa-3x"></i> <!-- Ikon balita -->
+                        </div>
+                        <h4 class="mb-4">Data Balita</h4>
+                        <span class="text-black fs-2 fw-bold" data-toggle="counter-up">200</span>
                     </div>
-                    <h4 class="mb-4">Data Anak Gizi Baik</h4>
-                    <span class="text-black fs-2 fw-bold" data-toggle="counter-up">150</span>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="feature-item bg-danger p-4 pt-0 text-center">
-                    <div class="feature-icon bg-white p-4 mb-4">
-                        <i class="fas fa-skull-crossbones fa-3x"></i> <!-- Ikon gizi buruk -->
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="feature-item bg-success p-4 pt-0 text-center">
+                        <div class="feature-icon bg-white p-4 mb-4">
+                            <i class="fas fa-apple-alt fa-3x"></i> <!-- Ikon gizi baik -->
+                        </div>
+                        <h4 class="mb-4">Data Anak Gizi Baik</h4>
+                        <span class="text-black fs-2 fw-bold" data-toggle="counter-up">150</span>
                     </div>
-                    <h4 class="mb-4">Data Gizi Buruk</h4>
-                    <span class="text-black fs-2 fw-bold" data-toggle="counter-up">30</span>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="feature-item bg-warning p-4 pt-0 text-center">
-                    <div class="feature-icon bg-white p-4 mb-4">
-                        <i class="fas fa-ruler-vertical fa-3x"></i> <!-- Ikon stunting -->
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="feature-item bg-danger p-4 pt-0 text-center">
+                        <div class="feature-icon bg-white p-4 mb-4">
+                            <i class="fas fa-skull-crossbones fa-3x"></i> <!-- Ikon gizi buruk -->
+                        </div>
+                        <h4 class="mb-4">Data Gizi Buruk</h4>
+                        <span class="text-black fs-2 fw-bold" data-toggle="counter-up">30</span>
                     </div>
-                    <h4 class="mb-4">Data Stunting</h4>
-                    <span class="text-black fs-2 fw-bold" data-toggle="counter-up">25</span>
+                </div>
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="feature-item bg-warning p-4 pt-0 text-center">
+                        <div class="feature-icon bg-white p-4 mb-4">
+                            <i class="fas fa-ruler-vertical fa-3x"></i> <!-- Ikon stunting -->
+                        </div>
+                        <h4 class="mb-4">Data Stunting</h4>
+                        <span class="text-black fs-2 fw-bold" data-toggle="counter-up">25</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- Feature End -->
@@ -542,6 +542,46 @@
 
     <!-- Blog Start -->
     <div id="jadwal-imunisasi" class="container-fluid blog py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Jadwal Imunisasi</h4>
+            <h1 class="display-4 mb-4">Informasi Jadwal Imunisasi Anak</h1>
+            <p class="mb-0">Berikut adalah jadwal imunisasi yang direkomendasikan untuk anak. Pastikan anak Anda
+                mendapatkan imunisasi tepat waktu untuk menjaga kesehatan mereka.</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <?php 
+            // Ambil tanggal dan jam saat ini
+            $currentDateTime = new DateTime();
+
+            foreach ($jadwal as $imunisasi):
+                // Buat objek DateTime dari tanggal dan jam di database
+                $jadwalDateTime = new DateTime($imunisasi['tanggal'] . ' ' . $imunisasi['jam']);
+                
+                // Cek apakah jadwal sudah terlewat
+                if ($jadwalDateTime > $currentDateTime): 
+            ?>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="blog-item">
+                        <div class="blog-content p-4">
+                            <h4 class="mb-3"><?= esc($imunisasi['bidan']) ?> (<?= esc($imunisasi['nama_posyandu']) ?>)</h4>
+                            <div class="small mb-2"><strong>Tanggal:</strong> <?= esc($imunisasi['tanggal']) ?></div>
+                            <div class="small mb-2"><strong>Jam:</strong> <?= esc($imunisasi['jam']) ?></div>
+                            <p class="mb-3"><strong>Alamat:</strong> <?= esc($imunisasi['alamat_posyandu']) ?></p>
+                            <p class="mb-3"><strong>Kader:</strong> <?= esc($imunisasi['kader_posyandu']) ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php 
+                endif; // Akhir dari pengecekan tanggal
+            endforeach; 
+            ?>
+        </div>
+    </div>
+</div>
+
+
+    <!-- <div id="jadwal-imunisasi" class="container-fluid blog py-5">
         <div class="container py-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                 <h4 class="text-primary">Jadwal Imunisasi</h4>
@@ -594,7 +634,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Blog End -->
 

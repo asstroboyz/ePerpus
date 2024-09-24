@@ -31,6 +31,7 @@ use App\Models\PosyanduModel;
 use App\Models\DataBalitaModel;
 use App\Models\JenisImunisasiModel;
 use App\Models\DaftarHadirModel;
+use App\Models\JadwalimunisasiModel;
 use Mpdf\Mpdf;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\GroupModel;
@@ -71,10 +72,12 @@ class Admin extends BaseController
     protected $pembayaranPiutangModel;
     protected $PosyanduModel;
     protected $JenisImunisasiModel;
+    protected $JadwalimunisasiModel;
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
         $this->DaftarHadirModel = new DaftarHadirModel();
+        $this->JadwalimunisasiModel = new JadwalimunisasiModel();
         $this->PosyanduModel = new PosyanduModel();
         $this->JenisImunisasiModel = new JenisImunisasiModel();
         $this->DataBalitaModel = new DataBalitaModel();
@@ -2407,5 +2410,53 @@ if (!$balita) {
             'daftar_hadir' => $this->DaftarHadirModel->findAll(),  
         ];
         return view('Admin/Daftar_hadir/Index', $data); 
+    }
+
+    public function Jadwal()
+    {
+        $data = [
+            'title' => 'Daftar Jadwal Imunisasi',
+            'jadwal' => $this->JadwalimunisasiModel->findAll(),
+        ];
+
+        return view('admin/jadwal/index', $data);
+    }
+    public function tambahJadwalPosyandu()
+    { 
+        $userModel = new UserModel(); // Pastikan model ini sesuai dengan nama model Anda
+        $users = $userModel->findAll();
+        $data = [
+
+        'title' => 'Daftar Jadwal Imunisasi',
+        'validation' => $this->validation,
+        'users' => $users, 
+    ];
+        return view('Admin/jadwal/tambah',$data);
+    }
+
+    // Proses tambah jadwal Posyandu
+    public function simpanJadwalPosyandu()
+    {
+        if (!$this->validate([
+            'nama_posyandu' => 'required',
+            'alamat_posyandu' => 'required',
+            'kader_posyandu' => 'required',
+            'bidan' => 'required',
+            'tanggal' => 'required|valid_date',
+            'jam' => 'required'
+        ])) {
+            return redirect()->back()->withInput()->with('pesanGagal', 'Input tidak valid, periksa kembali.');
+        }
+
+        $this->JadwalimunisasiModel->save([
+            'nama_posyandu' => $this->request->getPost('nama_posyandu'),
+            'alamat_posyandu' => $this->request->getPost('alamat_posyandu'),
+            'kader_posyandu' => $this->request->getPost('kader_posyandu'),
+            'bidan' => $this->request->getPost('bidan'),
+            'tanggal' => $this->request->getPost('tanggal'),
+            'jam' => $this->request->getPost('jam')
+        ]);
+
+        return redirect()->to(base_url('Admin/posyandu'))->with('pesanBerhasil', 'Jadwal berhasil ditambahkan');
     }
 }

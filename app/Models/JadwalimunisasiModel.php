@@ -19,7 +19,13 @@ class JadwalimunisasiModel extends Model
         'updated_at'
     ];
 
-    
+    public function getJadwal($id = false)
+    {
+        if ($id == false) {
+            return $this->findAll();
+        }
+        return $this->where(['id' => $id])->first();
+    }
     public function getJadwalLengkap($id = false)
     {
         $builder = $this->db->table($this->table);
