@@ -5,20 +5,25 @@ namespace App\Controllers;
 use App\Models\Pengaduan;
 use App\Models\bukti;
 use App\Models\profil;
+use App\Models\DataBalitaModel;
+use App\Models\PosyanduModel;
 use CodeIgniter\Database\Query;
 use Myth\Auth\Entities\passwd;
 use Myth\Auth\Models\UserModel;
 
 class User extends BaseController
 {
-    protected $db, $builder;
+    protected $db;
+    protected $builder;
     public function __construct()
     {
 
         $this->db      = \Config\Database::connect();
         $this->builder = $this->db->table('users');
-        $this->pengaduan = new pengaduan();
-        $this->bukti = new bukti();
+        // $this->pengaduan = new pengaduan();
+        // $this->bukti = new bukti();
+        $this->PosyanduModel = new PosyanduModel();
+        $this->DataBalitaModel = new DataBalitaModel();
         $this->profil = new profil();
         $this->validation = \Config\Services::validation();
     }
@@ -27,26 +32,26 @@ class User extends BaseController
 
         $userlogin = user()->id;
 
-        $data = $this->db->table('pengaduan');
-        // $builder->select('id,username,email,created_at,foto');
+        // $data = $this->db->table('pengaduan');
+        // // $builder->select('id,username,email,created_at,foto');
 
-        $query1 = $data->where('id_user', $userlogin)->get()->getResult();
-        $query2 = $data->where('id_user', $userlogin)->where('status', 'diproses')->get()->getResult();
-        $query3 = $data->where('id_user', $userlogin)->where('status', 'selesai')->get()->getResult();
-        // $query = $builder->get();
-        // $query1 = $builder->where('status', 'diproses')->get()->getResult();
-        $semua = count($query1);
+        // $query1 = $data->where('id_user', $userlogin)->get()->getResult();
+        // $query2 = $data->where('id_user', $userlogin)->where('status', 'diproses')->get()->getResult();
+        // $query3 = $data->where('id_user', $userlogin)->where('status', 'selesai')->get()->getResult();
+        // // $query = $builder->get();
+        // // $query1 = $builder->where('status', 'diproses')->get()->getResult();
+        // $semua = count($query1);
 
 
 
         $data = [
-            'semua' => $semua,
-            'proses' => count($query2),
-            'selesai' => count($query3),
+            // 'semua' => $semua,
+            // 'proses' => count($query2),
+            // 'selesai' => count($query3),
             'title' => 'Home'
         ];
         // dd($data);
-        return view('user/profil/home', $data);
+        return view('User/home/index', $data);
     }
     public function updatePassword($id)
     {
@@ -162,278 +167,323 @@ class User extends BaseController
     {
         return view('user/pengguna');
     }
-    public function pengaduan()
-    {
 
-        // $builder    = $this->db->table('pengaduan');
-        // $builder->orderBy('id', 'ASC');
-        // $query      = $builder->get()->getResult();
-        // $data['pengaduan'] = $query;
-        $this->builder = $this->db->table('pengaduan');
-        $this->builder->select('*');
-        $this->builder->where('id_user', user()->id);
-        $this->query = $this->builder->get();
-        $data['pengaduan'] = $this->query->getResultArray();
-        // dd(  $data['pengaduan']);
-        $data['title'] = 'Pengaduan';
-        return view('user/pengaduan/index', $data);
-    }
-
-    public function tambah()
+    public function posyandu()
     {
         $data = [
-            'validation' => $this->validation,
-            'title' => 'Tambah Pengaduan'
+            'title' => 'Data Posyandu',
+            // 'posyandu' => $this->PosyanduModel->findAll(),
+            'posyandu' => $this->PosyanduModel->getPosyanduWithKader(),  // Mengambil semua data posyandu
         ];
-
-        return view('user/pengaduan/tambah_pengaduan', $data);
-    }
-    public function simpanPengaduan()
-    {
-        $rules = [
-            'judul_pengaduan' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Perihal pengaduan wajib diisi.'
-                ]
-            ],
-            'isi_pengaduan' => [
-                'rules' => 'required|min_length[30]',
-                'errors' => [
-                    'required' => 'Isi pengaduan wajib diisi.',
-                    'min_length' => 'Minimal 30 karakter.'
-                ]
-            ],
-            'images' => [
-                'rules' => 'uploaded[images.0]|max_size[images,1024]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
-                'errors' => [
-                    'uploaded' => 'Satu file wajib ada.',
-                    'max_size' => 'Anda mengupload file yang melebihi ukuran maksimal.',
-                    'is_image' => 'Anda mengupload file yang bukan gambar.',
-                    'mime_in' => 'Anda mengupload file yang bukan gambar.'
-                ]
-            ],
-        ];
-
-        if (!$this->validate($rules)) {
-            $validation = \Config\Services::validation();
-            return redirect()->to('/user/tambah')->withInput('validation', $validation);
-        }
-
-        $images = $this->request->getFileMultiple('images');
-        $jumlahFile = count($images);
-        if ($jumlahFile > 3) { // jika jumlah file melebihi aturan (3)
-            session()->setFlashdata('err-files', '<span class="text-danger">Jumlah file yang anda upload melebihi aturan.</span>');
-            return redirect()->to('/user/tambah');
-        }
-
-        if ($this->request->getPost('nama_pengadu') == 'anonym') {
-            $nama_pengadu = $this->request->getPost('nama_pengadu');
-        } else {
-            $nama_pengadu = $this->request->getPost('pengadu');
-        }
-        $date = date("Y/m/d h:i:s");
-        $dataPengaduan = [
-            'id_user' => user()->id,
-            'perihal' => $this->request->getPost('judul_pengaduan'),
-            'detail' => $this->request->getPost('isi_pengaduan'),
-            'nama_pengadu' => $nama_pengadu,
-            'tanggal_pengaduan' => $date,
-            'status' => 'belum diproses',
-
-        ];
-        $this->pengaduan->save($dataPengaduan);
-
-        foreach ($images as $i => $img) {
-            if ($img->isValid() && !$img->hasMoved()) {
-                $files[$i] = 'bukti' . $i . '-' . user()->id . '.' . $img->guessExtension();
-            }
-        }
-        $pengaduan_id = $this->pengaduan->insertID(); // last insert id
-        $img_dua = (array_key_exists(1, $files) ? $files[1] : 'null');
-        $img_tiga = (array_key_exists(2, $files) ? $files[2] : 'null');
-        foreach ($images as $i => $img) {
-            if ($img->isValid() && !$img->hasMoved()) {
-                $files[$i] = 'bukti' . $i . '-' . $pengaduan_id . user()->username . '.' . $img->guessExtension();
-            }
-        }
-        $this->bukti->save([
-            'pengaduan_id' => $pengaduan_id,
-            'img_satu' => $files[0],
-            'img_dua' => $img_dua,
-            'img_tiga' => $img_tiga,
-        ]);
-
-        foreach ($images as $i => $img) {
-            if ($img->isValid() && !$img->hasMoved()) {
-                $img->move('uploads', $files[$i]);
-            }
-        }
-        session()->setFlashdata('msg', 'Pengaduan berhasil ditambah, silahkan menunggu untuk proses approval.');
-        return redirect()->to('user/pengaduan/tambah_pengaduan');
+        // dd($data);
+        return view('user/Posyandu/Index', $data); // Menampilkan view untuk data posyandu
     }
 
-
-
-    public function detail($id)
+    public function tambahPosyandu()
     {
-        $data = $this->db->table('pengaduan');
-        $data->select('*');
-        $data->where('id', $id);
-        $query = $data->get();
+        $userModel = new UserModel(); // Pastikan model ini sesuai dengan nama model Anda
+        $users = $userModel->findAll(); // Mengambil semua data user
 
-        $d = $this->db->table('balasan');
-        $d->select('*');
-        $d->where('id_pengaduan', $id);
-        $balasan = $d->get()->getRow();
-
-        $bukti = $this->db->table('tbl_bukti');
-        $bukti->select('*');
-        $bukti->where('pengaduan_id', $id);
-        $query1 = $bukti->get()->getRowArray();
-        // dd($query1);
-        $ex = [
-            'bukti' => $query1,
-            'detail' => $hasil = $query->getRow(),
-            'title' => 'Detail Pengaduan',
-            'balasan' => $balasan
-
-        ];
-
-
-        return view('user/pengaduan/detail', $ex);
-    }
-    public function ubah($id)
-    {
-
-        $data = $this->db->table('pengaduan');
-        $data->select('*');
-        $data->where('id', $id);
-        $query = $data->get();
-
-        $bukti = $this->db->table('tbl_bukti');
-        $bukti->select('*');
-        $bukti->where('pengaduan_id', $id);
-        $query1 = $bukti->get()->getRowArray();
         $data = [
-            'bukti' => $query1,
-            'data' => $hasil = $query->getRowArray(),
+            'title' => 'Tambah Posyandu',
             'validation' => $this->validation,
-            'title' => 'Ubah Pengaduan'
-
+            'users' => $users, // Kirim data user ke view
         ];
-
-
-
-
-        return view('user/pengaduan/ubah_pengaduan', $data);
+        return view('user/Posyandu/Tambah', $data); // Menampilkan view untuk tambah data posyandu
     }
 
-    public function ubahPengaduan($id)
+    public function savePosyandu()
     {
-        $data['validation'] = \Config\Services::connect();
-        $rules = [
-            'judul_pengaduan' => [
-                'rules' => 'required',
+        // Validasi input
+        if (!$this->validate([
+            'nama_posyandu' => [
+                'rules' => 'required|is_unique[posyandu.nama_posyandu]',
                 'errors' => [
-                    'required' => 'Perihal pengaduan wajib diisi.'
-                ]
+                    'required' => 'Nama posyandu harus diisi',
+                    'is_unique' => 'Nama posyandu sudah ada',
+                ],
             ],
-            'isi_pengaduan' => [
-                'rules' => 'required|min_length[30]',
+            'kader_posyandu' => [
+                'rules' => 'required|integer',
                 'errors' => [
-                    'required' => 'Isi pengaduan wajib diisi.',
-                    'min_length' => 'Minimal 30 karakter.'
-                ]
+                    'required' => 'Kader harus dipilih',
+                    'integer' => 'ID kader tidak valid',
+                ],
             ],
-            'images' => [
-                'rules' => 'max_size[images,1024]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
-                'errors' => [
-                    // 'uploaded' => 'Satu file wajib ada.',
-                    'max_size' => 'Anda mengupload file yang melebihi ukuran maksimal.',
-                    'is_image' => 'Anda mengupload file yang bukan gambar.',
-                    'mime_in' => 'Anda mengupload file yang bukan gambar.'
-                ]
-            ],
+        ])) {
+            return redirect()->to('/user/posyandu/tambah')->withInput();
+        }
+
+        // Ambil data dari form
+        $data = [
+            'nama_posyandu' => $this->request->getPost('nama_posyandu'),
+            'alamat_posyandu' => $this->request->getPost('alamat_posyandu'),
+            'kader_posyandu' => $this->request->getPost('kader_posyandu'), // Ambil ID kader yang dipilih
         ];
 
-        if (!$this->validate($rules)) {
-            $validation = \Config\Services::validation();
-            return redirect()->to('/user/ubah/' . $id)->withInput('validation', $validation);
+        // Simpan data ke model
+        // dd($data);
+        $this->PosyanduModel->insert($data);
+
+        // Set flash message dan redirect
+        session()->setFlashdata('pesan', 'Data posyandu berhasil ditambahkan');
+        return redirect()->to('/user/posyandu');
+    }
+
+    public function editPosyandu($id)
+    {
+        // Ambil data posyandu berdasarkan ID
+        // $data['posyandu'] = $this->PosyanduModel->find($id);
+        $userModel = new UserModel(); // Pastikan model ini sesuai dengan nama model Anda
+        $users = $userModel->findAll();
+        $data = [
+            'title' => 'Edit Posyandu',
+            'validation' => $this->validation,
+            'posyandu' => $this->PosyanduModel->find($id),
+            'users' => $users, // Kirim data user ke view
+        ];
+        // Pastikan data ditemukan, jika tidak, redirect atau tampilkan pesan error
+        if (!$data['posyandu']) {
+            session()->setFlashdata('error', 'Data posyandu tidak ditemukan');
+            return redirect()->to('/user/posyandu');
         }
 
-        $images = $this->request->getFileMultiple('images');
-        $jumlahFile = count($images);
-        if ($jumlahFile > 3) { // jika jumlah file melebihi aturan (3)
-            session()->setFlashdata('err-files', '<span class="text-danger">Jumlah file yang anda upload melebihi aturan.</span>');
-            return redirect()->to('/user/ubah' . $id);
+        // Kirim data ke view
+        return view('user/posyandu/EditPosyandu', $data);
+    }
+    
+    public function updateposyandu()
+    {
+
+        // Validasi input
+        if (!$this->validate([
+            'nama_posyandu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama posyandu harus diisi',
+                ],
+            ],
+            'alamat_posyandu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Alamat posyandu harus diisi',
+                ],
+            ],
+            'kader_posyandu' => [
+                'rules' => 'required|integer',
+                'errors' => [
+                    'required' => 'Kader harus dipilih',
+                    'integer' => 'ID kader tidak valid',
+                ],
+            ],
+        ])) {
+            return redirect()->to('/user/posyandu/edit/' . $this->request->getPost('id'))->withInput();
         }
 
-        if ($this->request->getPost('nama_pengadu') == 'anonym') {
-            $nama_pengadu = $this->request->getPost('nama_pengadu');
-        } else {
-            $nama_pengadu = $this->request->getPost('pengadu');
+        // Ambil data dari form
+        $id = $this->request->getPost('id');
+        $data = [
+            'nama_posyandu' => $this->request->getPost('nama_posyandu'),
+            'alamat_posyandu' => $this->request->getPost('alamat_posyandu'),
+            'kader_posyandu' => $this->request->getPost('kader_posyandu'),
+        ];
+
+        // Update data posyandu berdasarkan ID
+        $this->PosyanduModel->update($id, $data);
+
+        // Set flash message dan redirect
+        session()->setFlashdata('pesan', 'Data posyandu berhasil diubah');
+        return redirect()->to('/user/posyandu');
+    }
+
+    public function deletePosyandu($id)
+    {
+        $this->PosyanduModel->delete($id);
+        session()->setFlashdata('pesan', 'Data posyandu berhasil dihapus');
+        return redirect()->to('/user/posyandu');
+    }
+    public function balita()
+    {
+        $userPosyanduId = user()->posyandu_id;
+
+        $data = [
+            'title' => 'Data Balita',
+            'balita' => $this->DataBalitaModel->getBalitaWithIdPos($userPosyanduId),
+        ];
+
+        // Debugging
+        // dd($data['balita']);
+        return view('user/Balita/Index', $data);
+    }
+    public function tambahBalita()
+    {
+        $posyanduModel = new PosyanduModel(); // Model untuk mengambil data posyandu
+        $posyandus = $posyanduModel->findAll(); // Mengambil semua data posyandu
+
+        $data = [
+            'title' => 'Tambah Balita',
+            'validation' => $this->validation,
+            'posyandus' => $posyandus, // Kirim data posyandu ke view
+        ];
+        return view('user/Balita/Tambah', $data); // Menampilkan view untuk tambah data balita
+    }
+
+    public function saveBalita()
+    {
+        // Validasi input
+        if (!$this->validate([
+         'nama' => [
+             'rules' => 'required',
+             'errors' => [
+                 'required' => 'Nama balita harus diisi',
+             ],
+         ],
+         'jenis_kelamin' => [
+             'rules' => 'required',
+             'errors' => [
+                 'required' => 'Jenis kelamin harus dipilih',
+             ],
+         ],
+         'tgl_lahir' => [
+             'rules' => 'required|valid_date', // Pastikan valid_date diatur dengan benar di konfigurasi validasi
+             'errors' => [
+                 'required' => 'Tanggal lahir harus diisi',
+                 'valid_date' => 'Format tanggal lahir tidak valid',
+             ],
+         ],
+         'nama_ortu' => [
+             'rules' => 'required',
+             'errors' => [
+                 'required' => 'Nama orang tua harus diisi',
+             ],
+         ],
+  
+         'bbl' => [
+             'rules' => 'required|integer',
+             'errors' => [
+                 'required' => 'Berat Badan Lahir harus diisi',
+                 'integer' => 'Berat Badan Lahir harus berupa angka',
+             ],
+         ],
+         'pbl' => [
+             'rules' => 'required|integer',
+             'errors' => [
+                 'required' => 'Panjang Badan Lahir harus diisi',
+                 'integer' => 'Panjang Badan Lahir harus berupa angka',
+             ],
+         ],
+         // Tambahkan validasi lain sesuai kebutuhan
+])) {
+            // Jika validasi gagal, redirect kembali dengan input yang sudah ada
+            return redirect()->to('/user/balita/tambah')->withInput()->with('errors', $this->validator->getErrors());
         }
-        $date = date("Y/m/d h:i:s");
-        // $dataPengaduan = [
-        //     'id_user' => user()->id,
-        //     'perihal' => $this->request->getPost(' '),
-        //     'detail' => $this->request->getPost('isi_pengaduan'),
-        //     'nama_pengadu' => $nama_pengadu,
-        //     'tanggal_pengaduan' => $date,
-        //     'status' => 'belum diproses',
 
-        // ];
-        $this->pengaduan->update($id, [
-            'id_user' => user()->id,
-            'perihal' => $this->request->getPost('judul_pengaduan'),
-            'detail' => $this->request->getPost('isi_pengaduan'),
-            'nama_pengadu' => $nama_pengadu,
-            'tanggal_pengaduan' => $date,
-            'status' => 'belum diproses',
 
+        // Ambil data dari form
+        $data = [
+            'nama' => $this->request->getPost('nama'), //
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'), //
+            'tgl_lahir' => $this->request->getPost('tgl_lahir'), //
+            'nama_ortu' => $this->request->getPost('nama_ortu'), //
+            'posyandu_id' => user()->posyandu_id,
+            'anak_ke' => $this->request->getPost('anak_ke'), //
+            'bbl' => $this->request->getPost('bbl'),
+            'pbl' => $this->request->getPost('pbl'),
+            'nik_balita' => $this->request->getPost('nik_balita'), //
+            'no_kk' => $this->request->getPost('no_kk'), //
+            'nik_ortu' => $this->request->getPost('nik_ortu'), //
+            'rt' => $this->request->getPost('rt'), //
+            'rw' => $this->request->getPost('rw'), //
+            'umur' => $this->request->getPost('umur'), //
+            'bb_awal' => $this->request->getPost('bb_awal'), //
+            'tb_awal' => $this->request->getPost('tb_awal'), //
+            'lk_awal' => $this->request->getPost('lk_awal'), //
+            'bbl' => $this->request->getPost('bbl'), //
+            'pbl' => $this->request->getPost('pbl'), //
+          
+        ];
+        //  dd($data);
+        // Simpan data ke model
+        $this->DataBalitaModel->insert($data);
+
+        // Set flash message dan redirect
+        session()->setFlashdata('pesan', 'Data balita berhasil ditambahkan');
+        return redirect()->to('/user/balita');
+    }
+
+    public function editBalita($id)
+    {
+        $posyanduModel = new PosyanduModel(); // Model untuk mengambil data posyandu
+        $posyandus = $posyanduModel->findAll();
+        $balita = $this->DataBalitaModel->find($id);
+
+        if (!$balita) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil data balita berdasarkan ID
+        $data = [
+            'title' => 'Edit Balita',
+            'validation' => $this->validation,
+            'balita' => $balita,
+            'posyandus' => $posyandus, // Kirim data posyandu ke view
+        ];
+
+        return view('user/balita/Edit', $data);
+    }
+
+    public function updateBalita($id)
+    {
+        if (!$this->validate([
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'tgl_lahir' => 'required|valid_date',
+            'nama_ortu' => 'required',
+            'bbl' => 'required|integer',
+            'pbl' => 'required|integer',
+        ])) {
+            // Redirect kembali dengan error jika validasi gagal
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        // Cek apakah balita dengan ID tersebut ada di database
+        $balita = $this->DataBalitaModel->find($id);
+
+        if (!$balita) {
+            // Jika tidak ditemukan, tampilkan pesan error
+            return redirect()->back()->with('error', 'Data balita tidak ditemukan.');
+        }
+
+        // Update data balita berdasarkan ID yang diberikan
+        $this->DataBalitaModel->update($id, [
+              'nama' => $this->request->getPost('nama'), //
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'), //
+            'tgl_lahir' => $this->request->getPost('tgl_lahir'), //
+            'nama_ortu' => $this->request->getPost('nama_ortu'), //
+            'posyandu_id' => user()->posyandu_id,
+            'anak_ke' => $this->request->getPost('anak_ke'), //
+            'bbl' => $this->request->getPost('bbl'),
+            'pbl' => $this->request->getPost('pbl'),
+            'nik_balita' => $this->request->getPost('nik_balita'), //
+            'no_kk' => $this->request->getPost('no_kk'), //
+            'nik_ortu' => $this->request->getPost('nik_ortu'), //
+            'rt' => $this->request->getPost('rt'), //
+            'rw' => $this->request->getPost('rw'), //
+            'umur' => $this->request->getPost('umur'), //
+            'bb_awal' => $this->request->getPost('bb_awal'), //
+            'tb_awal' => $this->request->getPost('tb_awal'), //
+            'lk_awal' => $this->request->getPost('lk_awal'), //
+            'bbl' => $this->request->getPost('bbl'), //
+            'pbl' => $this->request->getPost('pbl'), //
         ]);
-        if ($images[0]->getError() !== 4) {
-            foreach ($images as $i => $img) {
-                if ($img->isValid() && !$img->hasMoved()) {
-                    $files[$i] = 'bukti' . $i . '-' . user()->id . '.' . $img->guessExtension();
-                }
-            }
 
-            // get data bukti
-            $bukti = $this->bukti->getBukti($id);
-
-            // hapus file lama
-            unlink('uploads/' . $bukti['img_satu']);
-            if ($bukti['img_dua'] != null) {
-                unlink('uploads/' . $bukti['img_dua']);
-            }
-            if ($bukti['img_tiga'] != null) {
-                unlink('uploads/' . $bukti['img_tiga']);
-            }
-
-            // update tbl_bukti
-            $img_dua = (array_key_exists(1, $files) ? $files[1] : 'null');
-            $img_tiga = (array_key_exists(2, $files) ? $files[2] : 'null');
-
-            $this->bukti->save([
-                'id' => $this->request->getPost('bukti_id'),
-                'img_satu' => $files[0],
-                'img_dua' => $img_dua,
-                'img_tiga' => $img_tiga,
-                'updated_at' => date('Y-m-d H:i:s'),
-            ]);
-
-            // move file baru
-            foreach ($images as $i => $img) {
-                if ($img->isValid() && !$img->hasMoved()) {
-                    $img->move('uploads', $files[$i]);
-                }
-            }
-        }
-
-        session()->setFlashdata('msg', 'Pengaduan berhasil diubah.');
-        return redirect()->to('user/pengaduan');
+        return redirect()->to('/admin/balita');
+    }
+    public function deleteBalita($id)
+    {
+        $this->DataBalitaModel->delete($id);
+        session()->setFlashdata('pesan', 'Data balita berhasil dihapus');
+        return redirect()->to('/user/balita');
     }
 
     public function print()
@@ -446,7 +496,6 @@ class User extends BaseController
         $dompdf = new \Dompdf\Dompdf();
         $options = new \Dompdf\Options();
         $options->setIsRemoteEnabled(true);
-
         $dompdf->setOptions($options);
         $dompdf->output();
         $dompdf->loadHtml(view('user/pengaduan/print', $data));

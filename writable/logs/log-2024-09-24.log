@@ -162,3 +162,53 @@ CRITICAL - 2024-09-24 16:52:48 --> Class 'App\Models\UserModel' not found
 #12 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #13 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
 #14 {main}
+CRITICAL - 2024-09-24 19:00:57 --> Class 'App\Models\Pengaduan' not found
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(809): App\Controllers\User->__construct()
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->createController()
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#5 {main}
+CRITICAL - 2024-09-24 19:01:08 --> Class 'App\Models\bukti' not found
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(809): App\Controllers\User->__construct()
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->createController()
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#5 {main}
+CRITICAL - 2024-09-24 19:01:14 --> Undefined variable: dataPenjualan
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Views\User\Home\Index.php(106): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\Users\\ganda\\...', 106, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\ganda\\...')
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('User/home/index', Array, true)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(50): view('User/home/index', Array)
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->index()
+#6 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#7 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#10 {main}
+CRITICAL - 2024-09-24 21:19:35 --> Undefined index: nama_posyandu
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Views\User\Balita\Index.php(63): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\Users\\ganda\\...', 63, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\ganda\\...')
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/Balita/Ind...', Array, true)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(316): view('user/Balita/Ind...', Array)
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#6 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#7 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#10 {main}
+CRITICAL - 2024-09-24 21:19:51 --> Undefined index: nama_posyandu
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Views\User\Balita\Index.php(63): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\Users\\ganda\\...', 63, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\ganda\\...')
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/Balita/Ind...', Array, true)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(316): view('user/Balita/Ind...', Array)
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#6 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#7 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#10 {main}

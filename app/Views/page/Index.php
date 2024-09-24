@@ -1026,21 +1026,22 @@
     <!-- Footer End -->
 
     <!-- Copyright Start -->
-    <div class="container-fluid copyright py-4">
-        <div class="container">
-            <div class="row g-4 align-items-center">
-                <div class="col-md-6 text-center text-md-end mb-md-0">
-                    <span class="text-body"><a href="#" class="border-bottom text-white"><i
-                                class="fas fa-copyright text-light me-2"></i>Posyandu Ceria</a>, All right
-                        reserved.</span>
-                </div>
-                <div class="col-md-6 text-center text-md-start text-body">
-                    Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">Riski</a>
-                    Distributed By <a class="border-bottom text-white" href="https://themewagon.com">ThemeWagon</a>
-                </div>
+    <div class="container-fluid copyright py-4" style="color: white;">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6 text-center text-md-end mb-md-0">
+                <span><a href="#" class="border-bottom text-white" style="color: white;"><i
+                            class="fas fa-copyright text-light me-2"></i>Posyandu Ceria</a>, All right
+                    reserved.</span>
+            </div>
+            <div class="col-md-6 text-center text-md-start">
+                <span style="color: white;">Designed By <a class="border-bottom text-white" href="https://htmlcodex.com" style="color: white;">Riski</a>
+                Distributed By <a class="border-bottom text-white" href="https://themewagon.com" style="color: white;">ThemeWagon</a></span>
             </div>
         </div>
     </div>
+</div>
+
     <!-- Copyright End -->
 
 

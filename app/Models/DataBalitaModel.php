@@ -7,8 +7,8 @@ use CodeIgniter\Model;
 class DataBalitaModel extends Model
 {
     protected $table = 'data_balita';
-    protected $primaryKey = 'id'; // Kolom primary key
-    protected $allowedFields = ['nama', 'jenis_kelamin', 'tgl_lahir', 'nama_ortu', 'posyandu_id'];
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['nama', 'jenis_kelamin', 'tgl_lahir', 'nama_ortu', 'posyandu_id','anak_ke','bbl','pbl','nik_balita','no_kk','nik_ortu','rt','rw','umur','bb_awal','tb_awal','lk_awal'];
 
     public function getBalita($id = false)
     {
@@ -17,6 +17,15 @@ class DataBalitaModel extends Model
         }
         return $this->where(['id' => $id])->first();
     }
+
+    // menampilkan data balita by id posyandu yang login
+    public function getBalitaWithIdPos($posyanduId)
+    {
+        return $this->select('data_balita.*, posyandu.nama_posyandu')
+                ->join('posyandu', 'posyandu.id = data_balita.posyandu_id')
+        ->where('posyandu_id', $posyanduId)->findAll(); // Ambil data balita berdasarkan ID posyandu
+    }
+
 
     public function getTotalBalita()
     {
@@ -34,13 +43,13 @@ class DataBalitaModel extends Model
     }
 
     public function getJumlahBalitaPerPosyandu()
-{
-    return $this->db->table('posyandu p')
-        ->select('p.nama_posyandu, COUNT(b.id) AS jumlah_balita')
-        ->join('data_balita b', 'p.id = b.posyandu_id', 'left')
-        ->groupBy('p.nama_posyandu')
-        ->get()
-        ->getResultArray();
-}
+    {
+        return $this->db->table('posyandu p')
+            ->select('p.nama_posyandu, COUNT(b.id) AS jumlah_balita')
+            ->join('data_balita b', 'p.id = b.posyandu_id', 'left')
+            ->groupBy('p.nama_posyandu')
+            ->get()
+            ->getResultArray();
+    }
 
 }
