@@ -20,7 +20,6 @@ class DataBalitaDetailModel extends Model
         'bb_awal',
         'tb_awal',
         'lk_awal',
-        'balita_id_detail'
     ];
 
 
@@ -28,13 +27,13 @@ class DataBalitaDetailModel extends Model
     {
         if ($id_detail == false) {
             return $this
-                ->join('data_balita_detail', 'data_balita_detail.balita_id_detail = data_balita.id_detail')
+                ->join('data_balita_detail', 'data_balita_detail.id_detail = data_balita.id_detail')
                 ->findAll();
         }
 
         return $this
             ->where(['id_detail' => $id_detail])
-            ->join('data_balita_detail', 'data_balita_detail.balita_id_detail = data_balita.id_detail')
+            ->join('data_balita_detail', 'data_balita_detail.id_detail = data_balita.id_detail')
             ->first();
     }
     public function getBalitaDetail($id_detail = false)

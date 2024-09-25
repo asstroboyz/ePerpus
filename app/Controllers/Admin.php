@@ -2124,7 +2124,7 @@ class Admin extends BaseController
         // Kirim data ke view
         return view('admin/posyandu/EditPosyandu', $data);
     }
-    
+
     public function updateposyandu()
     {
 
@@ -2181,9 +2181,9 @@ class Admin extends BaseController
     {
         $data = [
             'title' => 'Data Balita',
-            'balita' => $this->DataBalitaModel->getBalitaWithPosyandu(),  
+            'balita' => $this->DataBalitaModel->getBalitaWithPosyandu(),
         ];
-        return view('Admin/Balita/Index', $data); 
+        return view('Admin/Balita/Index', $data);
     }
 
     public function tambahBalita()
@@ -2261,7 +2261,7 @@ class Admin extends BaseController
         $posyandus = $posyanduModel->findAll();
         $balita = $this->DataBalitaModel->find($id);
 
-if (!$balita) {
+        if (!$balita) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
         // Ambil data balita berdasarkan ID
@@ -2284,7 +2284,7 @@ if (!$balita) {
 
     public function updateBalita($id)
     {
-         if (!$this->validate([
+        if (!$this->validate([
             'nama' => 'required',
             'jenis_kelamin' => 'required',
             'tgl_lahir' => 'required',
@@ -2403,13 +2403,13 @@ if (!$balita) {
 
 
     // daftar hadir
-     public function daftar_hadir()
+    public function daftar_hadir()
     {
         $data = [
             'title' => 'Data Daftar Hadir',
-            'daftar_hadir' => $this->DaftarHadirModel->findAll(),  
+            'daftar_hadir' => $this->DaftarHadirModel->findAll(),
         ];
-        return view('Admin/Daftar_hadir/Index', $data); 
+        return view('Admin/Daftar_hadir/Index', $data);
     }
 
     public function Jadwal()
@@ -2422,16 +2422,16 @@ if (!$balita) {
         return view('admin/jadwal/index', $data);
     }
     public function tambahJadwalPosyandu()
-    { 
+    {
         $userModel = new UserModel(); // Pastikan model ini sesuai dengan nama model Anda
         $users = $userModel->findAll();
         $data = [
 
-        'title' => 'Daftar Jadwal Imunisasi',
-        'validation' => $this->validation,
-        'users' => $users, 
-    ];
-        return view('Admin/jadwal/tambah',$data);
+            'title' => 'Daftar Jadwal Imunisasi',
+            'validation' => $this->validation,
+            'users' => $users,
+        ];
+        return view('Admin/jadwal/tambah', $data);
     }
 
     // Proses tambah jadwal Posyandu
