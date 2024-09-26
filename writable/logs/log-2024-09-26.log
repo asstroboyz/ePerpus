@@ -30,3 +30,23 @@ CRITICAL - 2024-09-26 19:43:35 --> date_format() expects parameter 1 to be DateT
 #9 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #10 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
 #11 {main}
+CRITICAL - 2024-09-26 22:52:05 --> Trying to get property 'posyandu_id' of non-object
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(310): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'C:\\Users\\ganda\\...', 310, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#6 {main}
+CRITICAL - 2024-09-26 23:02:28 --> Undefined property: stdClass::$file
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Views\User\Balita\Detail_balita.php(21): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\Users\\ganda\\...', 21, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\ganda\\...')
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('User/Balita/Det...', Array, true)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(509): view('User/Balita/Det...', Array)
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->detail_inv('5')
+#6 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#7 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#10 {main}

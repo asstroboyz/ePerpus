@@ -491,6 +491,25 @@ class User extends BaseController
         return redirect()->to('/user/balita');
     }
 
+    public function detail_inv($id)
+    {
+        $data['title'] = 'Detail Data Balita'; // Pindahkan ini ke atas agar tidak terjadi override
+        $this->builder = $this->db->table('data_balita'); // Gunakan $this->builder untuk mengakses builder
+
+        $this->builder->select('data_balita.*, posyandu.*,');
+        $this->builder->join('posyandu', 'posyandu.id = data_balita.posyandu_id');
+        $this->builder->where('data_balita.id', $id);
+        $query = $this->builder->get();
+        $data['data_balita'] = $query->getRow();
+
+        if (empty($data['data_balita'])) {
+            return redirect()->to('/user/balita');
+        }
+
+        return view('User/Balita/Detail_balita', $data);
+    }
+
+
     public function print()
     {
         $data = [

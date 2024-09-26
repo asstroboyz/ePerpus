@@ -96,8 +96,8 @@ $pengecekanModel = new DataBalitaDetailModel();
                                             } else {
                                                 echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
                                                 echo '<a href="' . site_url('/user/detail_inv/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
-                                                echo '<a href="/user/ubah/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
-                                                echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
+                                                echo '<a href="/user/editBalita/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
+                                                echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/deleteBalita/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
                                             }
                                         ?>
                                         </div>
