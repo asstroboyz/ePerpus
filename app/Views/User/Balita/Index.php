@@ -2,6 +2,13 @@
 
 <?= $this->section('page-content'); ?>
 <!-- Begin Page Content -->
+<?php
+
+use App\Models\DataBalitaDetailModel;
+
+$pengecekanModel = new DataBalitaDetailModel();
+?>
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <?php if (session()->has('pesanBerhasil')) : ?>
@@ -27,103 +34,93 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th style="width: 5%;">No</th>
+                                    <th style="width: 5%; text-align:center;">No</th>
                                     <th>Nama Balita</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Tanggal Lahir</th>
+                                    <th style="width: 10%; text-align:center;">Jenis Kelamin</th>
+                                    <th style="width: 15%; text-align:center;">Tanggal Lahir</th>
                                     <th>Nama Orang Tua</th>
-                                    <th>Posyandu</th>
-                                    <th style="width: 10%;">Aksi</th>
+                                    <th>Nik Anak</th>
+                                    <th style="width: 15%; text-align:center;">Aksi</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th style="width: 5%;">No</th>
+                                    <th style="width: 5%; text-align:center;">No</th>
                                     <th>Nama Balita</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Tanggal Lahir</th>
+                                    <th style="width: 10%; text-align:center;">Jenis Kelamin</th>
+                                    <th style="width: 15%; text-align:center;">Tanggal Lahir</th>
                                     <th>Nama Orang Tua</th>
-                                    <th>Posyandu</th>
-                                    <th style="width: 10%;">Aksi</th>
+                                    <th>Nik Anak</th>
+                                    <th style="width: 15%; text-align:center;">Aksi</th>
                                 </tr>
                             </tfoot>
+
                             <tbody>
-                                <?php if ($balita) : ?>
-                                <?php foreach ($balita as $index => $data) : ?>
+                                <?php if ($balita) { ?>
+                                <?php
+        $rule_cek = 1;
+                                    $daynow = date('Y-m-d');
+                                    foreach ($balita as $num => $data) {
+                                        $pengecekan = $pengecekanModel->where('balita_id', $data['id'])->orderBy('id_detail', 'DESC')->first();
+                                        ?>
                                 <tr>
-                                    <td><?= $index + 1; ?></td>
-                                    <td><?= esc($data['nama']); ?>
+                                    <td style="text-align:center;">
+                                        <?= $num + 1; ?>
                                     </td>
-                                    <td><?= esc($data['jenis_kelamin']); ?>
+                                    <td><?= $data['nama']; ?>
                                     </td>
-                                    <td><?= esc($data['tgl_lahir']); ?>
+                                    <td style="text-align:center;">
+                                        <?= $data['jenis_kelamin']; ?>
                                     </td>
-                                    <td><?= esc($data['nama_ortu']); ?>
+                                    <td style="text-align:center;">
+                                        <?= $data['tgl_lahir']; ?>
                                     </td>
-                                    <td><?= esc($data['nama_posyandu']); ?>
+                                    <td><?= $data['nama_ortu']; ?>
                                     </td>
-                                    <td>
-                                        <a href="/user/editBalita/<?= $data['id']; ?>"
-                                            class="btn btn-sm btn-warning">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-                                            data-target="#deleteModal<?= $data['id']; ?>">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                    <td><?= $data['nik_balita']; ?>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <div class="d-flex justify-content-around">
+                                            <?php if ($pengecekan) {
+                                                $date1 = date_create($pengecekan['tgl_pemeriksaan']);
+                                                $date2 = date_create($daynow);
+                                                $diff = date_diff($date1, $date2);
+                                                $hari = $diff->format("%a");
+                                                if ($hari > $rule_cek) {
+                                                    echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
+                                                } else {
+                                                    echo '<a href="' . site_url('/user/detail_inv/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
+                                                    echo '<a href="/user/ubah/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
+                                                    echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
+                                                }
+                                            } else {
+                                                echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
+                                                echo '<a href="' . site_url('/user/detail_inv/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
+                                                echo '<a href="/user/ubah/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
+                                                echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
+                                            }
+                                        ?>
+                                        </div>
                                     </td>
                                 </tr>
-
-                                <!-- Delete Confirmation Modal -->
-                                <div class="modal fade"
-                                    id="deleteModal<?= $data['id']; ?>"
-                                    tabindex="-1" role="dialog"
-                                    aria-labelledby="deleteModalLabel<?= $data['id']; ?>"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title"
-                                                    id="deleteModalLabel<?= $data['id']; ?>">
-                                                    Konfirmasi Hapus</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Apakah Anda yakin ingin menghapus data balita ini?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Batal</button>
-                                                <form
-                                                    action="/Admin/deleteBalita/<?= $data['id']; ?>"
-                                                    method="post">
-                                                    <?= csrf_field(); ?>
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php endforeach; ?>
-                                <?php else : ?>
+                                <?php } ?>
+                                <?php } else { ?>
                                 <tr>
                                     <td colspan="7">
                                         <h3 class="text-gray-900 text-center">Data belum ada.</h3>
                                     </td>
                                 </tr>
-                                <?php endif; ?>
+                                <?php } ?>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <?= $this->endSection(); ?>
 
 <?= $this->section('additional-js'); ?>

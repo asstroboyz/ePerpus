@@ -313,7 +313,7 @@ class User extends BaseController
             'title' => 'Data Balita',
             'balita' => $this->DataBalitaModel->getBalitaWithIdPos($userPosyanduId),
         ];
-        // $data['penegcekan'] = $this->DataBalitaDetailModel->getPengecekan();
+        $data['pengecekan'] = $this->DataBalitaDetailModel->getPengecekan();
 
 
         // Debugging
