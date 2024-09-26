@@ -1,0 +1,5 @@
+saat tambah balita sekalian mengisi bbl tbl awal itu atau kah tidak yang sumber awal
+
+pas nambah data balita juga nambah data detail jadi pemeriksaaan awal
+
+jika iya hilangkan kondisi kemunculan tombol pemeriksaan gizi bidan dan pisah menu

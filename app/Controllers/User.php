@@ -482,7 +482,7 @@ class User extends BaseController
             'pbl' => $this->request->getPost('pbl'), //
         ]);
 
-        return redirect()->to('/admin/balita');
+        return redirect()->to('/user/balita');
     }
     public function deleteBalita($id)
     {
@@ -491,7 +491,7 @@ class User extends BaseController
         return redirect()->to('/user/balita');
     }
 
-    public function detail_inv($id)
+    public function detail_balita($id)
     {
         $data['title'] = 'Detail Data Balita'; // Pindahkan ini ke atas agar tidak terjadi override
         $this->builder = $this->db->table('data_balita'); // Gunakan $this->builder untuk mengakses builder
@@ -501,7 +501,7 @@ class User extends BaseController
         $this->builder->where('data_balita.id', $id);
         $query = $this->builder->get();
         $data['data_balita'] = $query->getRow();
-
+        // dd($data);
         if (empty($data['data_balita'])) {
             return redirect()->to('/user/balita');
         }

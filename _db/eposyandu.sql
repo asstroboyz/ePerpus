@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Sep 2024 pada 16.23
+-- Waktu pembuatan: 26 Sep 2024 pada 20.41
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.4.11
 
@@ -984,7 +984,11 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (823, '::1', 'admin@gmail.com', 1, '2024-09-24 18:35:12', 1);
 INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `success`) VALUES
 (824, '::1', 'farin@gmail.com', 25, '2024-09-24 19:00:56', 1),
-(825, '::1', 'faradila281@gmail.com', 27, '2024-09-24 19:21:35', 1);
+(825, '::1', 'faradila281@gmail.com', 27, '2024-09-24 19:21:35', 1),
+(826, '::1', 'faradila281@gmail.com', 27, '2024-09-25 05:40:14', 1),
+(827, '::1', 'faradila281@gmail.com', 27, '2024-09-26 18:47:33', 1),
+(828, '::1', 'admin@gmail.com', 1, '2024-09-26 22:52:20', 1),
+(829, '::1', 'faradila281@gmail.com', 27, '2024-09-26 22:52:51', 1);
 
 -- --------------------------------------------------------
 
@@ -1145,18 +1149,19 @@ CREATE TABLE `data_balita` (
   `umur` varchar(100) DEFAULT NULL,
   `bb_awal` varchar(100) DEFAULT NULL,
   `tb_awal` varchar(100) DEFAULT NULL,
-  `lk_awal` varchar(100) DEFAULT NULL
+  `lk_awal` varchar(100) DEFAULT NULL,
+  `tgl_pemeriksaan_awal` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `data_balita`
 --
 
-INSERT INTO `data_balita` (`id`, `nama`, `jenis_kelamin`, `tgl_lahir`, `nama_ortu`, `posyandu_id`, `anak_ke`, `bbl`, `pbl`, `nik_balita`, `no_kk`, `nik_ortu`, `rt`, `rw`, `umur`, `bb_awal`, `tb_awal`, `lk_awal`) VALUES
-(3, 'lolololo', 'P', '2020-12-12', 'Wanto', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'Anial;joo', 'P', '2020-12-12', 'Wanto', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'Balita 6', 'P', '2002-07-05', '65', 3, '675', '67576', '576', '567', '5765', '67', '57657', '67576', '654', '65654', '56564', '56456'),
-(6, 'sdasd', 'L', '2002-09-12', 'sada', 3, '123', '12312', '33', '312', '12', '321', '12321', '213', '3123', '213', '3223', '23121');
+INSERT INTO `data_balita` (`id`, `nama`, `jenis_kelamin`, `tgl_lahir`, `nama_ortu`, `posyandu_id`, `anak_ke`, `bbl`, `pbl`, `nik_balita`, `no_kk`, `nik_ortu`, `rt`, `rw`, `umur`, `bb_awal`, `tb_awal`, `lk_awal`, `tgl_pemeriksaan_awal`) VALUES
+(3, 'lolololo', 'P', '2020-12-12', 'Wanto', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-01'),
+(4, 'Anial;joo', 'P', '2020-12-12', 'Wanto', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-01'),
+(5, 'Sadam Husein', 'L', '2002-07-05', 'Munip', 3, '2', '675', '57', '3326101010', '3327102028020003', '33251020439480002', '02', '6', '1', '23', '56', '12', '2024-09-15'),
+(6, 'sdasd', 'L', '2002-09-12', 'sadam', 3, '123', '12312', '33', '33269397', '12', '321', '12321', '213', '3123', '213', '3223', '23121', '2024-09-01');
 
 -- --------------------------------------------------------
 
@@ -1165,7 +1170,7 @@ INSERT INTO `data_balita` (`id`, `nama`, `jenis_kelamin`, `tgl_lahir`, `nama_ort
 --
 
 CREATE TABLE `data_balita_detail` (
-  `id` int(11) NOT NULL,
+  `id_detail` int(11) NOT NULL,
   `bb_awal` varchar(50) DEFAULT NULL,
   `tb_awal` varchar(50) DEFAULT NULL,
   `lk_awal` varchar(50) DEFAULT NULL,
@@ -1174,7 +1179,7 @@ CREATE TABLE `data_balita_detail` (
   `tb_u` varchar(50) DEFAULT NULL,
   `rambu_gizi` varchar(50) DEFAULT NULL,
   `vitamin` varchar(50) DEFAULT NULL,
-  `tgl` date DEFAULT NULL,
+  `tgl_pemeriksaan` date DEFAULT NULL,
   `asi_eks` varchar(50) DEFAULT NULL,
   `no_hp` varchar(20) DEFAULT NULL,
   `balita_id` int(11) DEFAULT NULL,
@@ -2565,9 +2570,9 @@ ALTER TABLE `data_balita`
 -- Indeks untuk tabel `data_balita_detail`
 --
 ALTER TABLE `data_balita_detail`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `balita_id` (`balita_id`),
-  ADD KEY `fk_jenis_imunisasi` (`jenis_imunisasi_id`);
+  ADD PRIMARY KEY (`id_detail`),
+  ADD KEY `fk_jenis_imunisasi` (`jenis_imunisasi_id`),
+  ADD KEY `data_balita_detail_ibfk_1` (`balita_id`);
 
 --
 -- Indeks untuk tabel `detail_master`
@@ -2772,7 +2777,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT untuk tabel `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=826;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=830;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_permissions`
@@ -2963,7 +2968,7 @@ ALTER TABLE `data_balita`
 -- Ketidakleluasaan untuk tabel `data_balita_detail`
 --
 ALTER TABLE `data_balita_detail`
-  ADD CONSTRAINT `data_balita_detail_ibfk_1` FOREIGN KEY (`balita_id`) REFERENCES `data_balita` (`id`),
+  ADD CONSTRAINT `data_balita_detail_ibfk_1` FOREIGN KEY (`balita_id`) REFERENCES `data_balita` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_jenis_imunisasi` FOREIGN KEY (`jenis_imunisasi_id`) REFERENCES `jenis_imunisasi` (`id`);
 
 --

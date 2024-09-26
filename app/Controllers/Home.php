@@ -19,9 +19,10 @@ class Home extends BaseController
         $data = [
             'title' => 'Daftar Jadwal Imunisasi',
             'jadwal' => $this->JadwalimunisasiModel->findAll(),
+            'jumlah_balita' => $this->DataBalitaModel->getTotalBalita(),
         ];
       
         //  $data['jumlah_balita'] = $this->DataBalitaModel->getJumlahBalitaPerPosyandu();
-        return view('page/index',$data);
+        return view('page/index', $data);
     }
 }

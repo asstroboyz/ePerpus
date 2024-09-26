@@ -24,9 +24,15 @@ $pengecekanModel = new DataBalitaDetailModel();
                     <h3>Daftar Balita</h3>
                     <div>
                         <a href="<?php echo base_url('user/tambahBalita/'); ?>"
-                            class="btn btn-primary">
+                            class="btn btn-primary font-weight-bold ml-2"
+                            style="background-color: #17a2b8; border-color: #17a2b8; color: black;"
+                            onmouseover="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
+                            onmouseout="this.style.backgroundColor='#17a2b8'; this.style.color='black';"
+                            onmousedown="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
+                            onmouseup="this.style.backgroundColor='#17a2b8'; this.style.color='white';">
                             <i class="fa fa-plus"></i> Tambah Balita
                         </a>
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -70,11 +76,13 @@ $pengecekanModel = new DataBalitaDetailModel();
                                     <td><?= $data['nama']; ?>
                                     </td>
                                     <td style="text-align:center;">
-                                        <?= $data['jenis_kelamin']; ?>
+                                        <?= ($data['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?>
                                     </td>
+
                                     <td style="text-align:center;">
-                                        <?= $data['tgl_lahir']; ?>
+                                        <?= date('d-m-Y', strtotime($data['tgl_lahir'])); ?>
                                     </td>
+
                                     <td><?= $data['nama_ortu']; ?>
                                     </td>
                                     <td><?= $data['nik_balita']; ?>
@@ -89,13 +97,13 @@ $pengecekanModel = new DataBalitaDetailModel();
                                                 if ($hari > $rule_cek) {
                                                     echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
                                                 } else {
-                                                    echo '<a href="' . site_url('/user/detail_inv/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
+                                                    echo '<a href="' . site_url('/user/detail_balita/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
                                                     echo '<a href="/user/ubah/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
                                                     echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
                                                 }
                                             } else {
                                                 echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
-                                                echo '<a href="' . site_url('/user/detail_inv/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
+                                                echo '<a href="' . site_url('/user/detail_balita/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
                                                 echo '<a href="/user/editBalita/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
                                                 echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/deleteBalita/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
                                             }
