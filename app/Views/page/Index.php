@@ -405,7 +405,8 @@
                             <i class="fas fa-baby fa-3x"></i> <!-- Ikon balita -->
                         </div>
                         <h4 class="mb-4">Data Balita</h4>
-                        <span class="text-black fs-2 fw-bold" data-toggle="counter-up">200</span>
+                        <span class="text-black fs-2 fw-bold" data-toggle="counter-up"><?= $jumlah_balita; ?></span>
+
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">

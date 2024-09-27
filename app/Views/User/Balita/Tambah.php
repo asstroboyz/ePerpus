@@ -16,8 +16,14 @@
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <h6 class="m-0 font-weight-bold text-primary">Form Tambah Data Balita</h6>
                     <div>
-                        <a href="<?= base_url('Admin/jadwal/') ?>"
-                            class="btn btn-dark"> &laquo; Kembali Daftar Jadwal</a>
+                             <a href="/User/balita" class="btn btn-secondary font-weight-bold ml-2"
+                        style="background-color: #ffffff; border-color: #17a2b8; color: black;"
+                        onmouseover="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
+                        onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='black';"
+                        onmousedown="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
+                        onmouseup="this.style.backgroundColor='#17a2b8'; this.style.color='white';">
+                        <i class="fa fa-arrow-left"></i> Kembali ke Daftar Balita
+                    </a>
                     </div>
                 </div>
                 <div class="card-body">

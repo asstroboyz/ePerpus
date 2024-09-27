@@ -9,39 +9,41 @@ class DataBalitaDetailModel extends Model
     protected $table = 'data_balita_detail';
     protected $primaryKey = 'id_detail';
     protected $allowedFields = [
-        'bb_u',
-        'bb_tb',
-        'tb_u',
-        'rambu_gizi',
-        'jenis_imunisasi_id_detail',
-        'tgl',
-        'asi_eks',
-        'no_hp',
-        'bb_awal',
-        'tb_awal',
-        'lk_awal',
+        'bb_u', //
+        'bb_tb', //
+        'tb_u', //
+        'rambu_gizi', //
+        'jenis_imunisasi_id', //
+        'tgl_pemeriksaan', //
+        'asi_eks', //
+        'no_hp', //
+        'bb_awal', //
+        'tb_awal', //
+        'lk_awal', //
+        'balita_id'//
     ];
 
 
-    public function getPengecekan($id_detail = false)
+    public function getPengecekan($id = false)
     {
-        if ($id_detail == false) {
+        if ($id == false) {
             return $this
-                ->join('data_balita_detail', 'data_balita_detail.id_detail = data_balita.id_detail')
+                ->join('data_balita', 'data_balita.id = data_balita_detail.balita_id')
                 ->findAll();
         }
 
         return $this
-            ->where(['id_detail' => $id_detail])
-            ->join('data_balita_detail', 'data_balita_detail.id_detail = data_balita.id_detail')
+            ->where(['id_detail' => $id])
+            ->join('data_balita', 'data_balita.id = data_balita_detail.balita_id')
             ->first();
     }
-    public function getBalitaDetail($id_detail = false)
+    
+    public function getBalitaDetail($id = false)
     {
-        if ($id_detail == false) {
+        if ($id == false) {
             return $this->findAll();
         }
-        return $this->where(['id_detail' => $id_detail])->first();
+        return $this->where(['id_detail' => $id])->first();
     }
 
     

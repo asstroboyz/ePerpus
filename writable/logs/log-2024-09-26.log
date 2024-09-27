@@ -1,0 +1,52 @@
+ERROR - 2024-09-26 18:47:39 --> Table 'eposyandu.pengecekan' doesn't exist
+CRITICAL - 2024-09-26 18:47:39 --> Table 'eposyandu.pengecekan' doesn't exist
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\BaseModel.php(622): CodeIgniter\Model->doFirst()
+#6 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Views\User\Balita\Index.php(66): CodeIgniter\BaseModel->first()
+#7 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\ganda\\...')
+#8 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#9 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/Balita/Ind...', Array, true)
+#10 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(321): view('user/Balita/Ind...', Array)
+#11 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#12 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#13 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#15 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#16 {main}
+CRITICAL - 2024-09-26 19:43:35 --> date_format() expects parameter 1 to be DateTimeInterface, bool given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_format() e...', 'C:\\Users\\ganda\\...', 79, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Views\User\Balita\Index.php(79): date_format(false, 'Y-m-d')
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\ganda\\...')
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/Balita/Ind...', Array, true)
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(321): view('user/Balita/Ind...', Array)
+#6 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#7 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#8 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#11 {main}
+CRITICAL - 2024-09-26 22:52:05 --> Trying to get property 'posyandu_id' of non-object
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(310): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'C:\\Users\\ganda\\...', 310, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#6 {main}
+CRITICAL - 2024-09-26 23:02:28 --> Undefined property: stdClass::$file
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Views\User\Balita\Detail_balita.php(21): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\Users\\ganda\\...', 21, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\ganda\\...')
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('User/Balita/Det...', Array, true)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(509): view('User/Balita/Det...', Array)
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->detail_inv('5')
+#6 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#7 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#10 {main}

@@ -4,11 +4,11 @@
 <!-- Begin Page Content -->
 <?php
 
-use App\Models\DataBalitaModel;
+use App\Models\DataBalitaDetailModel;
 
-$pengecekanModel = new DataBalitaModel();
-
+$pengecekanModel = new DataBalitaDetailModel();
 ?>
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <?php if (session()->has('pesanBerhasil')) : ?>
@@ -24,9 +24,15 @@ $pengecekanModel = new DataBalitaModel();
                     <h3>Daftar Balita</h3>
                     <div>
                         <a href="<?php echo base_url('user/tambahBalita/'); ?>"
-                            class="btn btn-primary">
+                            class="btn btn-primary font-weight-bold ml-2"
+                            style="background-color: #17a2b8; border-color: #17a2b8; color: black;"
+                            onmouseover="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
+                            onmouseout="this.style.backgroundColor='#17a2b8'; this.style.color='black';"
+                            onmousedown="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
+                            onmouseup="this.style.backgroundColor='#17a2b8'; this.style.color='white';">
                             <i class="fa fa-plus"></i> Tambah Balita
                         </a>
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -34,78 +40,78 @@ $pengecekanModel = new DataBalitaModel();
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th style="width: 5%;">No</th>
+                                    <th style="width: 5%; text-align:center;">No</th>
                                     <th>Nama Balita</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Tanggal Lahir</th>
+                                    <th style="width: 10%; text-align:center;">Jenis Kelamin</th>
+                                    <th style="width: 15%; text-align:center;">Tanggal Lahir</th>
                                     <th>Nama Orang Tua</th>
-                                    <th>Posyandu</th>
-                                    <th style="width: 10%;">Aksi</th>
+                                    <th>Nik Anak</th>
+                                    <th style="width: 15%; text-align:center;">Aksi</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th style="width: 5%;">No</th>
+                                    <th style="width: 5%; text-align:center;">No</th>
                                     <th>Nama Balita</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Tanggal Lahir</th>
+                                    <th style="width: 10%; text-align:center;">Jenis Kelamin</th>
+                                    <th style="width: 15%; text-align:center;">Tanggal Lahir</th>
                                     <th>Nama Orang Tua</th>
-                                    <th>Posyandu</th>
-                                    <th style="width: 10%;">Aksi</th>
+                                    <th>Nik Anak</th>
+                                    <th style="width: 15%; text-align:center;">Aksi</th>
                                 </tr>
                             </tfoot>
-                         
-                            <tbody>
 
+                            <tbody>
                                 <?php if ($balita) { ?>
                                 <?php
-                                    $rule_cek = 90;
+        $rule_cek = 1;
                                     $daynow = date('Y-m-d');
-
-                                    foreach ($balita as $index => $data) {
-                                        $pengecekan = $pengecekanModel->where('id_detail', $data['id'])->orderBy('id_detail', 'DESC')->first();
+                                    foreach ($balita as $num => $data) {
+                                        $pengecekan = $pengecekanModel->where('balita_id', $data['id'])->orderBy('id_detail', 'DESC')->first();
                                         ?>
                                 <tr>
-                                    <td><?= $index + 1; ?></td>
-                                    <td style="text-align:center; width: 30px;">
-                                        <?= $data['id']; ?>
+                                    <td style="text-align:center;">
+                                        <?= $num + 1; ?>
                                     </td>
                                     <td><?= $data['nama']; ?>
                                     </td>
-                                    <td><?= $data['jenis_kelamin']; ?>
+                                    <td style="text-align:center;">
+                                        <?= ($data['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?>
                                     </td>
+
+                                    <td style="text-align:center;">
+                                        <?= date('d-m-Y', strtotime($data['tgl_lahir'])); ?>
+                                    </td>
+
                                     <td><?= $data['nama_ortu']; ?>
                                     </td>
-                               
-
-                            
-                                    <td style="text-align:center; width: 150px;">
-                               
-                                        <?php
-                                                    if ($pengecekan) {
-                                                        // hitung hari dari tanggal pengecekan sampai saatini
-                                                        $date1 = date_create($pengecekan['tgl']);
-                                                        $date2 = date_create($daynow);
-                                                        $diff = date_diff($date1, $date2);
-                                                        $hari = $diff->format("%a");
-                                                        if ($hari > $rule_cek) {
-                                                            echo '<a href="' . site_url('/Admin/pengecekan/' . $data['id']) . '" class="  btn btn-danger"><i class="fa fa-exclamation-triangle"></i> </a>';
-                                                        } else {
-                                                            // masukan button diatas
-                                                            echo '<a href="' . site_url('/Admin/detail_inv/' . $data['id']) . '" class="  btn btn-primary"><i class="fa fa-eye"></i> </a>';
-                                                            echo '<a href="/Admin/ubah/' . $data['id'] . '" class="  btn btn-warning"><i class="fa fa-edit"></i> </a>';
-                                                            echo '<a href="#" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/Admin/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
-                                                        }
-                                                    } else {
-                                                        echo '<a href="' . site_url('/Admin/detail_inv/' . $data['id']) . '" class="  btn btn-primary"><i class="fa fa-eye"></i> </a>';
-                                                        echo '<a href="/Admin/ubah/' . $data['id'] . '" class="  btn btn-warning"><i class="fa fa-edit"></i> </a>';
-                                                        echo '<a href="#" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/Admin/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
-                                                    }
+                                    <td><?= $data['nik_balita']; ?>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <div class="d-flex justify-content-around">
+                                            <?php if ($pengecekan) {
+                                                $date1 = date_create($pengecekan['tgl_pemeriksaan']);
+                                                $date2 = date_create($daynow);
+                                                $diff = date_diff($date1, $date2);
+                                                $hari = $diff->format("%a");
+                                                if ($hari > $rule_cek) {
+                                                    echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
+                                                } else {
+                                                    echo '<a href="' . site_url('/user/detail_balita/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
+                                                    echo '<a href="/user/ubah/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
+                                                    echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
+                                                }
+                                            } else {
+                                                echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
+                                                echo '<a href="' . site_url('/user/detail_balita/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
+                                                echo '<a href="/user/editBalita/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
+                                                echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/deleteBalita/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
+                                            }
                                         ?>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php } ?>
-                                <!-- end of foreach                -->
                                 <?php } else { ?>
                                 <tr>
                                     <td colspan="4">
@@ -122,6 +128,7 @@ $pengecekanModel = new DataBalitaModel();
         </div>
     </div>
 </div>
+
 <?= $this->endSection(); ?>
 
 <?= $this->section('additional-js'); ?>
