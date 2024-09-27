@@ -8,6 +8,7 @@ use App\Models\profil;
 use App\Models\DataBalitaModel;
 use App\Models\PosyanduModel;
 use App\Models\DataBalitaDetailModel;
+use App\Models\JenisImunisasiModel;
 use CodeIgniter\Database\Query;
 use Myth\Auth\Entities\passwd;
 use Myth\Auth\Models\UserModel;
@@ -27,6 +28,7 @@ class User extends BaseController
       
         $this->DataBalitaModel = new DataBalitaModel();
         $this->DataBalitaDetailModel = new DataBalitaDetailModel();
+        $this->JenisImunisasiModel = new JenisImunisasiModel();
         $this->profil = new profil();
         $this->validation = \Config\Services::validation();
     }
@@ -509,7 +511,15 @@ class User extends BaseController
         return view('User/Balita/Detail_balita', $data);
     }
 
+    public function jenis_imunisasi()
+    {
+        $data = [
+            'title' => 'Daftar Jenis Imunisasi',
+            'jenis_imunisasi' => $this->JenisImunisasiModel->findAll(),
+        ];
 
+        return view('user/jenis_imunisasi/index', $data);
+    }
     public function print()
     {
         $data = [

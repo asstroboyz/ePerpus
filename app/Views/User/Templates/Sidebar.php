@@ -6,7 +6,14 @@
         <div class="sidebar-brand-icon">
             <i class="fas fa-user-cog"></i>
         </div>
+        <?php if (user()->posisi === 'kader'): ?>
+        <div class="sidebar-brand-text mx-3">Kader Panel</div>
+        <?php elseif (user()->posisi === 'bidan'): ?>
+        <div class="sidebar-brand-text mx-3">Bidan Panel</div>
+        <?php else: ?>
         <div class="sidebar-brand-text mx-3">Admin Panel</div>
+        <?php endif; ?>
+
     </a>
 
     <!-- Divider -->
@@ -61,11 +68,11 @@
     </li>
 
     <!-- Divider -->
-     <?php if (user()->posisi === 'kader'): ?>
+    <?php if (user()->posisi === 'kader'): ?>
     <hr class="sidebar-divider">
 
     <!-- User Management Section -->
-   
+
     <div class="sidebar-heading">
         Manajemen Pengguna
     </div>
