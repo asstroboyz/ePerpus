@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class JenisImunisasiModel extends Model
 {
     protected $table = 'jenis_imunisasi';
-    protected $primaryKey = 'id'; // Kolom primary key
+    protected $primaryKey = 'id'; 
     protected $allowedFields = ['usia_anak', 'jenis_imunisasi'];
 
     public function getJenisImunisasi($id = false)

@@ -339,50 +339,107 @@ class User extends BaseController
     {
         // Validasi input
         if (!$this->validate([
-         'nama' => [
-             'rules' => 'required',
-             'errors' => [
-                 'required' => 'Nama balita harus diisi',
-             ],
-         ],
-         'jenis_kelamin' => [
-             'rules' => 'required',
-             'errors' => [
-                 'required' => 'Jenis kelamin harus dipilih',
-             ],
-         ],
-         'tgl_lahir' => [
-             'rules' => 'required|valid_date', // Pastikan valid_date diatur dengan benar di konfigurasi validasi
-             'errors' => [
-                 'required' => 'Tanggal lahir harus diisi',
-                 'valid_date' => 'Format tanggal lahir tidak valid',
-             ],
-         ],
-         'nama_ortu' => [
-             'rules' => 'required',
-             'errors' => [
-                 'required' => 'Nama orang tua harus diisi',
-             ],
-         ],
-  
-         'bbl' => [
-             'rules' => 'required|integer',
-             'errors' => [
-                 'required' => 'Berat Badan Lahir harus diisi',
-                 'integer' => 'Berat Badan Lahir harus berupa angka',
-             ],
-         ],
-         'pbl' => [
-             'rules' => 'required|integer',
-             'errors' => [
-                 'required' => 'Panjang Badan Lahir harus diisi',
-                 'integer' => 'Panjang Badan Lahir harus berupa angka',
-             ],
-         ],
-         // Tambahkan validasi lain sesuai kebutuhan
-])) {
+        'nama' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Nama balita harus diisi',
+            ],
+        ],
+        'jenis_kelamin' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Jenis kelamin harus dipilih',
+            ],
+        ],
+        'tgl_lahir' => [
+            'rules' => 'required|valid_date', // Pastikan valid_date diatur dengan benar di konfigurasi validasi
+            'errors' => [
+                'required' => 'Tanggal lahir harus diisi',
+                'valid_date' => 'Format tanggal lahir tidak valid',
+            ],
+        ],
+        'nama_ortu' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Nama orang tua harus diisi',
+            ],
+        ],
+        'bbl' => [
+            'rules' => 'required|integer',
+            'errors' => [
+                'required' => 'Berat Badan Lahir harus diisi',
+                'integer' => 'Berat Badan Lahir harus berupa angka',
+            ],
+        ],
+        'pbl' => [
+            'rules' => 'required|integer',
+            'errors' => [
+                'required' => 'Panjang Badan Lahir harus diisi',
+                'integer' => 'Panjang Badan Lahir harus berupa angka',
+            ],
+        ],
+        'nik_balita' => [
+            'rules' => 'required|numeric|exact_length[16]',
+            'errors' => [
+                'required' => 'NIK Balita harus diisi',
+                'numeric' => 'NIK Balita harus berupa angka',
+                'exact_length' => 'NIK Balita harus berisi 16 digit angka',
+            ],
+        ],
+        'nik_ortu' => [
+            'rules' => 'required|numeric|exact_length[16]',
+            'errors' => [
+                'required' => 'NIK Orang Tua harus diisi',
+                'numeric' => 'NIK Orang Tua harus berupa angka',
+                'exact_length' => 'NIK Orang Tua harus berisi 16 digit angka',
+            ],
+        ],
+        'no_kk' => [
+            'rules' => 'required|numeric|exact_length[16]',
+            'errors' => [
+                'required' => 'Nomor Kartu Keluarga harus diisi',
+                'numeric' => 'Nomor Kartu Keluarga harus berupa angka',
+                'exact_length' => 'Nomor Kartu Keluarga harus berisi 16 digit angka',
+            ],
+        ],
+        'alamat' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Alamat harus diisi',
+            ],
+        ],
+        'umur' => [
+            'rules' => 'required|integer',
+            'errors' => [
+                'required' => 'Umur harus diisi',
+                'integer' => 'Umur harus berupa angka',
+            ],
+        ],
+        'bb_awal' => [
+            'rules' => 'required|integer',
+            'errors' => [
+                'required' => 'Berat Badan Awal harus diisi',
+                'integer' => 'Berat Badan Awal harus berupa angka',
+            ],
+        ],
+        'tb_awal' => [
+            'rules' => 'required|integer',
+            'errors' => [
+                'required' => 'Tinggi Badan Awal harus diisi',
+                'integer' => 'Tinggi Badan Awal harus berupa angka',
+            ],
+        ],
+        'lk_awal' => [
+            'rules' => 'required|integer',
+            'errors' => [
+                'required' => 'Lingkar Kepala Awal harus diisi',
+                'integer' => 'Lingkar Kepala Awal harus berupa angka',
+            ],
+        ],
+        // Tambahkan validasi lain sesuai kebutuhan
+    ])) {
             // Jika validasi gagal, redirect kembali dengan input yang sudah ada
-            return redirect()->to('/user/balita/tambah')->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to('/user/tambahBalita')->withInput()->with('errors', $this->validator->getErrors());
         }
 
 
@@ -399,20 +456,33 @@ class User extends BaseController
             'nik_balita' => $this->request->getPost('nik_balita'), //
             'no_kk' => $this->request->getPost('no_kk'), //
             'nik_ortu' => $this->request->getPost('nik_ortu'), //
-            'rt' => $this->request->getPost('rt'), //
-            'rw' => $this->request->getPost('rw'), //
+            'alamat' => $this->request->getPost('alamat'), //
+          
             'umur' => $this->request->getPost('umur'), //
             'bb_awal' => $this->request->getPost('bb_awal'), //
             'tb_awal' => $this->request->getPost('tb_awal'), //
             'lk_awal' => $this->request->getPost('lk_awal'), //
             'bbl' => $this->request->getPost('bbl'), //
             'pbl' => $this->request->getPost('pbl'), //
+             'tgl_pemeriksaan_awal' => date('Y-m-d'),
           
         ];
         //  dd($data);
         // Simpan data ke model
         $this->DataBalitaModel->insert($data);
 
+        $balita_id = $this->DataBalitaModel->insertID();
+
+        // Ambil data pemeriksaan awal
+        $dataDetail = [
+            'bb_awal' => $this->request->getPost('bb_awal'),
+            'tb_awal' => $this->request->getPost('tb_awal'),
+            'lk_awal' => $this->request->getPost('lk_awal'),
+            'tgl_pemeriksaan' => $this->request->getPost('tgl_pemeriksaan'),
+            'balita_id' => $balita_id, // Gunakan ID balita yang baru saja disimpan
+        ];
+
+        $this->DataBalitaDetailModel->insert($dataDetail);
         // Set flash message dan redirect
         session()->setFlashdata('pesan', 'Data balita berhasil ditambahkan');
         return redirect()->to('/user/balita');

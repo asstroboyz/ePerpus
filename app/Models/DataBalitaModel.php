@@ -8,7 +8,7 @@ class DataBalitaModel extends Model
 {
     protected $table = 'data_balita';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama', 'jenis_kelamin', 'tgl_lahir', 'nama_ortu', 'posyandu_id','anak_ke','bbl','pbl','nik_balita','no_kk','nik_ortu','rt','rw','umur','bb_awal','tb_awal','lk_awal','tgl_pemeriksaan_awal'];
+    protected $allowedFields = ['nama', 'jenis_kelamin', 'tgl_lahir', 'nama_ortu', 'posyandu_id','anak_ke','bbl','pbl','nik_balita','no_kk','nik_ortu','rt','rw','umur','bb_awal','tb_awal','lk_awal','tgl_pemeriksaan_awal','alamat'];
 
     public function getBalita($id = false)
     {
