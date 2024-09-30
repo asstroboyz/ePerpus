@@ -16,9 +16,29 @@ class Home extends BaseController
     }
     public function index()
     {
+        $userModel = new \Myth\Auth\Models\UserModel(); // Pastikan ini mengacu ke Myth\Auth UserModel
+$users = $userModel->findAll(); // Mengambil semua user sebagai objek
+
+// Ambil semua data jadwal imunisasi
+$jadwal = $this->JadwalimunisasiModel->findAll();
+
+// Gabungkan data jadwal dengan username dari tabel users
+foreach ($jadwal as &$item) {
+    // Inisialisasi 'username' agar tidak undefined
+    $item['username'] = 'Unknown'; // Jika tidak ditemukan user, tampilkan 'Unknown'
+        
+    // Cari user yang sesuai dengan user_id di kader_posyandu
+    foreach ($users as $user) {
+        if ($user->id == $item['kader_posyandu']) { // Akses properti sebagai objek
+            $item['username'] = $user->username; // Akses username sebagai properti objek
+            break; // Berhenti mencari setelah ditemukan
+        }
+    }
+}
+
         $data = [
             'title' => 'Daftar Jadwal Imunisasi',
-            'jadwal' => $this->JadwalimunisasiModel->findAll(),
+             'jadwal' => $jadwal,
             'jumlah_balita' => $this->DataBalitaModel->getTotalBalita(),
         ];
     //   dd($data);

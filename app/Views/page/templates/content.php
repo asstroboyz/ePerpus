@@ -143,7 +143,7 @@
                                     <strong>Jam:</strong> <?= esc($imunisasi['jam']) ?>
                                 </div>
                                 <p class="card-text mb-3"><strong>Alamat:</strong> <?= esc($imunisasi['alamat_posyandu']) ?></p>
-                                <p class="card-text mb-3"><strong>Kader:</strong> <?= esc($imunisasi['kader_posyandu']) ?></p>
+                                <p class="card-text mb-3"><strong>Kader:</strong> <?= esc($imunisasi['username']) ?></p>
                             </div>
                         </div>
                     </div>

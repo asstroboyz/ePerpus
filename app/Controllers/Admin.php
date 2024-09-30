@@ -2429,15 +2429,39 @@ class Admin extends BaseController
         return view('Admin/Daftar_hadir/Index', $data);
     }
 
-    public function Jadwal()
-    {
-        $data = [
-            'title' => 'Daftar Jadwal Imunisasi',
-            'jadwal' => $this->JadwalimunisasiModel->findAll(),
-        ];
+   public function Jadwal()
+{
+    $userModel = new \Myth\Auth\Models\UserModel(); // Pastikan ini mengacu ke Myth\Auth UserModel
+    $users = $userModel->findAll(); // Mengambil semua user sebagai objek
 
-        return view('admin/jadwal/index', $data);
+    // Ambil semua data jadwal imunisasi
+    $jadwal = $this->JadwalimunisasiModel->findAll(); 
+
+    // Gabungkan data jadwal dengan username dari tabel users
+    foreach ($jadwal as &$item) {
+        // Inisialisasi 'username' agar tidak undefined
+        $item['username'] = 'Unknown'; // Jika tidak ditemukan user, tampilkan 'Unknown'
+        
+        // Cari user yang sesuai dengan user_id di kader_posyandu
+        foreach ($users as $user) {
+            if ($user->id == $item['kader_posyandu']) { // Akses properti sebagai objek
+                $item['username'] = $user->username; // Akses username sebagai properti objek
+                break; // Berhenti mencari setelah ditemukan
+            }
+        }
     }
+
+    // Kirimkan data ke view
+    $data = [
+        'title' => 'Daftar Jadwal Imunisasi',
+        'validation' => $this->validation,
+        'jadwal' => $jadwal, // Data jadwal yang sudah ditambahkan username
+    ];
+
+    return view('admin/jadwal/index', $data);
+}
+
+
     public function tambahJadwalPosyandu()
     {
         $userModel = new UserModel(); // Pastikan model ini sesuai dengan nama model Anda

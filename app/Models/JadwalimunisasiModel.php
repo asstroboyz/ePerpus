@@ -45,4 +45,8 @@ class JadwalimunisasiModel extends Model
     {
         return $this->where('tanggal', date('Y-m-d'))->findAll(); // Mengambil semua jadwal yang berlangsung hari ini
     }
+
+
+
+
 }
