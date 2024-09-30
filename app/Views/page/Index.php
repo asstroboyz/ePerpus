@@ -303,14 +303,6 @@
 
 <body>
 
-    <!-- Spinner Start -->
-    <!-- <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div> -->
-    <!-- Spinner End -->
 
 
     <!-- Navbar & Hero Start -->
@@ -338,17 +330,7 @@
         </nav>
     </div>
 
-    <!-- Navbar & Hero End -->
 
-
-
-    <!-- Carousel Start -->
-
-
-
-    <!-- Carousel End -->
-
-    <!-- Feature Start -->
     <div class="header-carousel owl-carousel">
         <div class="container py-5">
             <div class="row align-items-center">
@@ -356,10 +338,10 @@
                     <h4>Posyandu Ceria</h4>
                     <h1>Selamat datang di </br>
                         website informasi Posyandu Ceria</h1>
-                    <!-- <p>Sebuah website yang menyajikan data secara lengkap dan faktual</p> -->
+
                 </div>
                 <div class="col-md-6 text-center">
-                    <!-- Gambar Hero -->
+
                     <img src="img/depan/logo.png" alt="Hero Image" class="img-fluid animated-image">
                 </div>
             </div>
@@ -392,20 +374,23 @@
             </div>
         </div>
     </div>
+
     <div class="container-fluid feature bg-light py-5">
         <div class="container py-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-black">STATISTIK TAHUN <?php echo date('Y'); ?></h4>
+                <h4 class="text-black">STATISTIK TAHUN
+                    <?php echo date('Y'); ?></h4>
                 <h1 class="display-4 mb-4">Data Posyandu Ceria Pekalongan Selatan</h1>
             </div>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="feature-item bg-primary p-4 pt-0 text-center">
                         <div class="feature-icon bg-white p-4 mb-4">
-                            <i class="fas fa-baby fa-3x"></i> <!-- Ikon balita -->
+                            <i class="fas fa-baby fa-3x"></i> 
                         </div>
                         <h4 class="mb-4">Data Balita</h4>
-                        <span class="text-black fs-2 fw-bold" data-toggle="counter-up"><?= $jumlah_balita; ?></span>
+                        <span class="text-black fs-2 fw-bold"
+                            data-toggle="counter-up"><?= $jumlah_balita; ?></span>
 
                     </div>
                 </div>
@@ -441,104 +426,6 @@
     </div>
 
 
-    <!-- Feature End -->
-
-    <!-- About Start -->
-
-    <!-- About End -->
-
-    <!-- Service Start -->
-    <!-- <div class="container-fluid service py-5">
-        <div class="container py-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Our Services</h4>
-                <h1 class="display-4 mb-4">We Provide Best Services</h1>
-                <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis
-                    cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt
-                    sint dolorem autem obcaecati, ipsam mollitia hic.
-                </p>
-            </div>
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="service-item">
-                        <div class="service-img">
-                            <img src="img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
-                            <div class="service-icon p-3">
-                                <i class="fa fa-users fa-2x"></i>
-                            </div>
-                        </div>
-                        <div class="service-content p-4">
-                            <div class="service-content-inner">
-                                <a href="#" class="d-inline-block h4 mb-4">Life Insurance</a>
-                                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis,
-                                    eum!</p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="service-item">
-                        <div class="service-img">
-                            <img src="img/blog-2.png" class="img-fluid rounded-top w-100" alt="">
-                            <div class="service-icon p-3">
-                                <i class="fa fa-hospital fa-2x"></i>
-                            </div>
-                        </div>
-                        <div class="service-content p-4">
-                            <div class="service-content-inner">
-                                <a href="#" class="d-inline-block h4 mb-4">Health Insurance</a>
-                                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis,
-                                    eum!</p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="service-item">
-                        <div class="service-img">
-                            <img src="img/blog-3.png" class="img-fluid rounded-top w-100" alt="">
-                            <div class="service-icon p-3">
-                                <i class="fa fa-car fa-2x"></i>
-                            </div>
-                        </div>
-                        <div class="service-content p-4">
-                            <div class="service-content-inner">
-                                <a href="#" class="d-inline-block h4 mb-4">Car Insurance</a>
-                                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis,
-                                    eum!</p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
-                    <div class="service-item">
-                        <div class="service-img">
-                            <img src="img/blog-4.png" class="img-fluid rounded-top w-100" alt="">
-                            <div class="service-icon p-3">
-                                <i class="fa fa-home fa-2x"></i>
-                            </div>
-                        </div>
-                        <div class="service-content p-4">
-                            <div class="service-content-inner">
-                                <a href="#" class="d-inline-block h4 mb-4">Home Insurance</a>
-                                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis,
-                                    eum!</p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s">
-                    <a class="btn btn-primary rounded-pill py-3 px-5" href="#">More Services</a>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Service End -->
-
 
 
     <!-- Blog Start -->
@@ -553,34 +440,44 @@
             <div class="row g-4 justify-content-center">
                 <?php
                 $currentDateTime = new DateTime();
-                $hasUpcomingSchedule = false; // Variabel untuk mengecek apakah ada jadwal
-
-                foreach ($jadwal as $imunisasi):
-                    $jadwalDateTime = new DateTime($imunisasi['tanggal'] . ' ' . $imunisasi['jam']);
-                    if ($jadwalDateTime > $currentDateTime):
-                        $hasUpcomingSchedule = true; // Ada jadwal yang akan datang
+        $hasUpcomingSchedule = false;
+        foreach ($jadwal as $imunisasi):
+            $jadwalDateTime = new DateTime($imunisasi['tanggal'] . ' ' . $imunisasi['jam']);
+            if ($jadwalDateTime > $currentDateTime):
+                $hasUpcomingSchedule = true;
                 ?>
-                        <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="blog-item">
-                                <div class="blog-content p-4">
-                                    <h4 class="mb-3"><?= esc($imunisasi['bidan']) ?> (<?= esc($imunisasi['nama_posyandu']) ?>)</h4>
-                                    <div class="small mb-2"><strong>Tanggal:</strong> <?= esc($imunisasi['tanggal']) ?></div>
-                                    <div class="small mb-2"><strong>Jam:</strong> <?= esc($imunisasi['jam']) ?></div>
-                                    <p class="mb-3"><strong>Alamat:</strong> <?= esc($imunisasi['alamat_posyandu']) ?></p>
-                                    <p class="mb-3"><strong>Kader:</strong> <?= esc($imunisasi['kader_posyandu']) ?></p>
-                                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="blog-item">
+                        <div class="blog-content p-4">
+                            <h4 class="mb-3">
+                                <?= esc($imunisasi['bidan']) ?>
+                                (<?= esc($imunisasi['nama_posyandu']) ?>)
+                            </h4>
+                            <div class="small mb-2"><strong>Tanggal:</strong>
+                                <?= esc($imunisasi['tanggal']) ?>
                             </div>
+                            <div class="small mb-2"><strong>Jam:</strong>
+                                <?= esc($imunisasi['jam']) ?>
+                            </div>
+                            <p class="mb-3"><strong>Alamat:</strong>
+                                <?= esc($imunisasi['alamat_posyandu']) ?>
+                            </p>
+                            <p class="mb-3"><strong>Kader:</strong>
+                                <?= esc($imunisasi['kader_posyandu']) ?>
+                            </p>
                         </div>
-                    <?php
-                    endif; // Akhir dari pengecekan tanggal
-                endforeach;
+                    </div>
+                </div>
+                <?php
+            endif;
+        endforeach;
 
-                // Jika tidak ada jadwal yang akan datang
-                if (!$hasUpcomingSchedule):
-                    ?>
+               
+        if (!$hasUpcomingSchedule):
+            ?>
                 <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s">
-    <p><strong>Jadwal hari ini telah terlewatkan / tidak ada.</strong></p>
-</div>
+                    <p><strong>Jadwal hari ini telah terlewatkan / tidak ada.</strong></p>
+                </div>
 
                 <?php endif; ?>
             </div>
@@ -589,459 +486,26 @@
 
 
 
-    <!-- <div id="jadwal-imunisasi" class="container-fluid blog py-5">
-        <div class="container py-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Jadwal Imunisasi</h4>
-                <h1 class="display-4 mb-4">Informasi Jadwal Imunisasi Anak</h1>
-                <p class="mb-0">Berikut adalah jadwal imunisasi yang direkomendasikan untuk anak. Pastikan anak Anda
-                    mendapatkan imunisasi tepat waktu untuk menjaga kesehatan mereka.</p>
-            </div>
-            <div class="row g-4 justify-content-center">
-                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="blog-item">
-                        <div class="blog-content p-4">
-                            <h4 class="mb-3">Imunisasi Hepatitis B</h4>
-                            <div class="small mb-2"><strong>Tanggal:</strong> 1 Jan 2025</div>
-                            <div class="small mb-2"><strong>Usia:</strong> 0 Bulan</div>
-                            <p class="mb-3">Imunisasi pertama yang harus diberikan kepada bayi segera setelah lahir.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="blog-item">
-                        <div class="blog-content p-4">
-                            <h4 class="mb-3">Imunisasi DPT (Difteri, Pertusis, Tetanus)</h4>
-                            <div class="small mb-2"><strong>Tanggal:</strong> 1 Feb 2025</div>
-                            <div class="small mb-2"><strong>Usia:</strong> 2 Bulan</div>
-                            <p class="mb-3">Imunisasi untuk melindungi anak dari penyakit difteri, pertusis, dan
-                                tetanus.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="blog-item">
-                        <div class="blog-content p-4">
-                            <h4 class="mb-3">Imunisasi Polio</h4>
-                            <div class="small mb-2"><strong>Tanggal:</strong> 1 Mar 2025</div>
-                            <div class="small mb-2"><strong>Usia:</strong> 4 Bulan</div>
-                            <p class="mb-3">Imunisasi untuk mencegah infeksi virus polio yang dapat menyebabkan
-                                kelumpuhan.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.8s">
-                    <div class="blog-item">
-                        <div class="blog-content p-4">
-                            <h4 class="mb-3">Imunisasi MMR (Campak, Gondongan, Rubella)</h4>
-                            <div class="small mb-2"><strong>Tanggal:</strong> 1 Apr 2025</div>
-                            <div class="small mb-2"><strong>Usia:</strong> 9 Bulan</div>
-                            <p class="mb-3">Imunisasi untuk melindungi anak dari campak, gondongan, dan rubella.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
-    <!-- Blog End -->
-
-    <!-- Team Start -->
-    <!-- <div class="container-fluid team pb-5">
-        <div class="container pb-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Our Team</h4>
-                <h1 class="display-4 mb-4">Meet Our Expert Team Members</h1>
-                <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis
-                    cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt
-                    sint dolorem autem obcaecati, ipsam mollitia hic.
-                </p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-1.jpg" class="img-fluid rounded-top w-100" alt="">
-                            <div class="team-icon">
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-0" href=""><i
-                                        class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="team-title p-4">
-                            <h4 class="mb-0">David James</h4>
-                            <p class="mb-0">Profession</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-2.jpg" class="img-fluid rounded-top w-100" alt="">
-                            <div class="team-icon">
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-0" href=""><i
-                                        class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="team-title p-4">
-                            <h4 class="mb-0">David James</h4>
-                            <p class="mb-0">Profession</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-3.jpg" class="img-fluid rounded-top w-100" alt="">
-                            <div class="team-icon">
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-0" href=""><i
-                                        class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="team-title p-4">
-                            <h4 class="mb-0">David James</h4>
-                            <p class="mb-0">Profession</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-4.jpg" class="img-fluid rounded-top w-100" alt="">
-                            <div class="team-icon">
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i
-                                        class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-0" href=""><i
-                                        class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="team-title p-4">
-                            <h4 class="mb-0">David James</h4>
-                            <p class="mb-0">Profession</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Team End -->
-
-    <!-- Testimonial Start -->
-    <!-- <div class="container-fluid testimonial pb-5">
-        <div class="container pb-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Testimonial</h4>
-                <h1 class="display-4 mb-4">What Our Customers Are Saying</h1>
-                <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis
-                    cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt
-                    sint dolorem autem obcaecati, ipsam mollitia hic.
-                </p>
-            </div>
-            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.2s">
-                <div class="testimonial-item bg-light rounded">
-                    <div class="row g-0">
-                        <div class="col-4  col-lg-4 col-xl-3">
-                            <div class="h-100">
-                                <img src="img/testimonial-1.jpg" class="img-fluid h-100 rounded"
-                                    style="object-fit: cover;" alt="">
-                            </div>
-                        </div>
-                        <div class="col-8 col-lg-8 col-xl-9">
-                            <div class="d-flex flex-column my-auto text-start p-4">
-                                <h4 class="text-dark mb-0">Client Name</h4>
-                                <p class="mb-3">Profession</p>
-                                <div class="d-flex text-primary mb-3">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim error
-                                    molestiae aut modi corrupti fugit eaque rem nulla incidunt temporibus quisquam,
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-item bg-light rounded">
-                    <div class="row g-0">
-                        <div class="col-4  col-lg-4 col-xl-3">
-                            <div class="h-100">
-                                <img src="img/testimonial-2.jpg" class="img-fluid h-100 rounded"
-                                    style="object-fit: cover;" alt="">
-                            </div>
-                        </div>
-                        <div class="col-8 col-lg-8 col-xl-9">
-                            <div class="d-flex flex-column my-auto text-start p-4">
-                                <h4 class="text-dark mb-0">Client Name</h4>
-                                <p class="mb-3">Profession</p>
-                                <div class="d-flex text-primary mb-3">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
-                                <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim error
-                                    molestiae aut modi corrupti fugit eaque rem nulla incidunt temporibus quisquam,
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-item bg-light rounded">
-                    <div class="row g-0">
-                        <div class="col-4  col-lg-4 col-xl-3">
-                            <div class="h-100">
-                                <img src="img/testimonial-3.jpg" class="img-fluid h-100 rounded"
-                                    style="object-fit: cover;" alt="">
-                            </div>
-                        </div>
-                        <div class="col-8 col-lg-8 col-xl-9">
-                            <div class="d-flex flex-column my-auto text-start p-4">
-                                <h4 class="text-dark mb-0">Client Name</h4>
-                                <p class="mb-3">Profession</p>
-                                <div class="d-flex text-primary mb-3">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
-                                <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim error
-                                    molestiae aut modi corrupti fugit eaque rem nulla incidunt temporibus quisquam,
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Testimonial End -->
-
-
-    <!-- Footer Start -->
-    <!-- <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-xl-9">
-                    <div class="mb-5">
-                        <div class="row g-4">
-                            <div class="col-md-6 col-lg-6 col-xl-5">
-                                <div class="footer-item">
-                                    <a href="index.html" class="p-0">
-                                        <h3 class="text-white"><i class="fab fa-slack me-3"></i> LifeSure</h3>
-                                   
-                                    </a>
-                                    <p class="text-white mb-4">Dolor amet sit justo amet elitr clita ipsum elitr
-                                        est.Lorem ipsum dolor sit amet, consectetur adipiscing...</p>
-                                    <div class="footer-btn d-flex">
-                                        <a class="btn btn-md-square rounded-circle me-3" href="#"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-md-square rounded-circle me-3" href="#"><i
-                                                class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-md-square rounded-circle me-3" href="#"><i
-                                                class="fab fa-instagram"></i></a>
-                                        <a class="btn btn-md-square rounded-circle me-0" href="#"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-3">
-                                <div class="footer-item">
-                                    <h4 class="text-white mb-4">Useful Links</h4>
-                                    <a href="#"><i class="fas fa-angle-right me-2"></i> About Us</a>
-                                    <a href="#"><i class="fas fa-angle-right me-2"></i> Features</a>
-                                    <a href="#"><i class="fas fa-angle-right me-2"></i> Services</a>
-                                    <a href="#"><i class="fas fa-angle-right me-2"></i> FAQ's</a>
-                                    <a href="#"><i class="fas fa-angle-right me-2"></i> Blogs</a>
-                                    <a href="#"><i class="fas fa-angle-right me-2"></i> Contact</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="footer-item">
-                                    <h4 class="mb-4 text-white">Instagram</h4>
-                                    <div class="row g-3">
-                                        <div class="col-4">
-                                            <div class="footer-instagram rounded">
-                                                <img src="img/instagram-footer-1.jpg" class="img-fluid w-100" alt="">
-                                                <div class="footer-search-icon">
-                                                    <a href="img/instagram-footer-1.jpg"
-                                                        data-lightbox="footerInstagram-1" class="my-auto"><i
-                                                            class="fas fa-link text-white"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="footer-instagram rounded">
-                                                <img src="img/instagram-footer-2.jpg" class="img-fluid w-100" alt="">
-                                                <div class="footer-search-icon">
-                                                    <a href="img/instagram-footer-2.jpg"
-                                                        data-lightbox="footerInstagram-2" class="my-auto"><i
-                                                            class="fas fa-link text-white"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="footer-instagram rounded">
-                                                <img src="img/instagram-footer-3.jpg" class="img-fluid w-100" alt="">
-                                                <div class="footer-search-icon">
-                                                    <a href="img/instagram-footer-3.jpg"
-                                                        data-lightbox="footerInstagram-3" class="my-auto"><i
-                                                            class="fas fa-link text-white"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="footer-instagram rounded">
-                                                <img src="img/instagram-footer-4.jpg" class="img-fluid w-100" alt="">
-                                                <div class="footer-search-icon">
-                                                    <a href="img/instagram-footer-4.jpg"
-                                                        data-lightbox="footerInstagram-4" class="my-auto"><i
-                                                            class="fas fa-link text-white"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="footer-instagram rounded">
-                                                <img src="img/instagram-footer-5.jpg" class="img-fluid w-100" alt="">
-                                                <div class="footer-search-icon">
-                                                    <a href="img/instagram-footer-5.jpg"
-                                                        data-lightbox="footerInstagram-5" class="my-auto"><i
-                                                            class="fas fa-link text-white"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="footer-instagram rounded">
-                                                <img src="img/instagram-footer-6.jpg" class="img-fluid w-100" alt="">
-                                                <div class="footer-search-icon">
-                                                    <a href="img/instagram-footer-6.jpg"
-                                                        data-lightbox="footerInstagram-6" class="my-auto"><i
-                                                            class="fas fa-link text-white"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pt-5" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
-                        <div class="row g-0">
-                            <div class="col-12">
-                                <div class="row g-4">
-                                    <div class="col-lg-6 col-xl-4">
-                                        <div class="d-flex">
-                                            <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
-                                                <i class="fas fa-map-marker-alt fa-2x"></i>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-white">Address</h4>
-                                                <p class="mb-0">123 Street New York.USA</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-xl-4">
-                                        <div class="d-flex">
-                                            <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
-                                                <i class="fas fa-envelope fa-2x"></i>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-white">Mail Us</h4>
-                                                <p class="mb-0">info@example.com</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-xl-4">
-                                        <div class="d-flex">
-                                            <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
-                                                <i class="fa fa-phone-alt fa-2x"></i>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-white">Telephone</h4>
-                                                <p class="mb-0">(+012) 3456 7890</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3">
-                    <div class="footer-item">
-                        <h4 class="text-white mb-4">Newsletter</h4>
-                        <p class="text-white mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum
-                            dolor sit amet, consectetur adipiscing elit.</p>
-                        <div class="position-relative rounded-pill mb-4">
-                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
-                                placeholder="Enter your email">
-                            <button type="button"
-                                class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
-                        </div>
-                        <div class="d-flex flex-shrink-0">
-                            <div class="footer-btn">
-                                <a href="#" class="btn btn-lg-square rounded-circle position-relative wow tada"
-                                    data-wow-delay=".9s">
-                                    <i class="fa fa-phone-alt fa-2x"></i>
-                                    <div class="position-absolute" style="top: 2px; right: 12px;">
-                                        <span><i class="fa fa-comment-dots text-secondary"></i></span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="d-flex flex-column ms-3 flex-shrink-0">
-                                <span>Call to Our Experts</span>
-                                <a href="tel:+ 0123 456 7890"><span class="text-white">Free: + 0123 456 7890</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Footer End -->
 
     <!-- Copyright Start -->
     <div class="container-fluid copyright py-4" style="color: white;">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-md-6 text-center text-md-end mb-md-0">
-                <span><a href="#" class="border-bottom text-white" style="color: white;"><i
-                            class="fas fa-copyright text-light me-2"></i>Posyandu Ceria</a>, All right
-                    reserved.</span>
-            </div>
-            <div class="col-md-6 text-center text-md-start">
-                <span style="color: white;">Designed By <a class="border-bottom text-white" href="https://htmlcodex.com" style="color: white;">Riski</a>
-                Distributed By <a class="border-bottom text-white" href="https://themewagon.com" style="color: white;">ThemeWagon</a></span>
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-end mb-md-0">
+                    <span><a href="#" class="border-bottom text-white" style="color: white;"><i
+                                class="fas fa-copyright text-light me-2"></i>Posyandu Ceria</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-start">
+                    <span style="color: white;">Designed By <a class="border-bottom text-white"
+                            href="https://htmlcodex.com" style="color: white;">Riski</a>
+                        Distributed By <a class="border-bottom text-white" href="https://themewagon.com"
+                            style="color: white;">ThemeWagon</a></span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Copyright End -->
 
@@ -1068,9 +532,6 @@
     <script
         src="<?php echo base_url() ?>/assets/front/lib/waypoints/waypoints.min.js">
     </script>
-    <!-- <script
-        src="<?php echo base_url() ?>/assets/front/lib/counterup/counterup.min.js">
-    </script> -->
 
     <script
         src="<?php echo base_url() ?>/assets/front/lib/lightbox/js/lightbox.min.js">

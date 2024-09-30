@@ -2364,35 +2364,52 @@ class Admin extends BaseController
     // Function Edit (Form edit jenis imunisasi)
     public function editJenisImun($id)
     {
-        $data = [
-            'title' => 'Edit Jenis Imunisasi',
-            'jenis_imunisasi' => $this->JenisImunisasiModel->find($id),
-        ];
+        // Mencari jenis imunisasi berdasarkan ID
+        $jenisImunisasi = $this->JenisImunisasiModel->find($id);
 
-        if (!$data['jenis_imunisasi']) {
+        // Jika tidak ditemukan, lemparkan pengecualian
+        if (!$jenisImunisasi) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Jenis Imunisasi dengan ID ' . $id . ' tidak ditemukan.');
         }
 
+        // Jika ditemukan, siapkan data untuk ditampilkan di view
+        $data = [
+            'title' => 'Edit Jenis Imunisasi',
+            'jenis_imunisasi' => $jenisImunisasi,  // Menyimpan data jenis imunisasi
+             'validation' => $this->validation,
+        ];
+
+        // Mengembalikan view edit dengan data yang sesuai
         return view('admin/jenis_imunisasi/edit', $data);
     }
+
 
     // Function untuk mengupdate data imunisasi
     public function updateJenisImun($id)
     {
+        // Validasi input dari form
         if (!$this->validate([
-            'usia_anak' => 'required|numeric',
+            'usia_anak' => 'required',
             'jenis_imunisasi' => 'required|min_length[3]|max_length[255]',
         ])) {
-            return redirect()->back()->withInput()->with('validation', $this->validator);
+            // Jika validasi gagal, redirect kembali dengan input dan pesan kesalahan
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $this->JenisImunisasiModel->update($id, [
+        // Ambil data dari request
+        $data = [
             'usia_anak' => $this->request->getPost('usia_anak'),
             'jenis_imunisasi' => $this->request->getPost('jenis_imunisasi'),
-        ]);
+        ];
 
+        // Update data di database
+        $this->JenisImunisasiModel->update($id, $data);
+
+        // Redirect ke halaman list jenis imunisasi dengan pesan berhasil
         return redirect()->to('/Admin/jenis_imunisasi')->with('pesanBerhasil', 'Jenis imunisasi berhasil diupdate.');
     }
+
+
 
     // Function Delete (Menghapus jenis imunisasi)
     public function deleteJenisImun($id)
@@ -2457,6 +2474,6 @@ class Admin extends BaseController
             'jam' => $this->request->getPost('jam')
         ]);
 
-        return redirect()->to(base_url('Admin/posyandu'))->with('pesanBerhasil', 'Jadwal berhasil ditambahkan');
+        return redirect()->to(base_url('Admin/Jadwal'))->with('pesanBerhasil', 'Jadwal berhasil ditambahkan');
     }
 }

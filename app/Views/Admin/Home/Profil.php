@@ -51,8 +51,8 @@
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><span class="badge badge-info">
-                                    <?= $role; ?></span></li>
+                            <!-- <li class="list-group-item"><span class="badge badge-info">
+                                    <?= $role; ?></span></li> -->
                             <li class="list-group-item "><i
                                     class="fa fa-user mr-2 "></i><?= user()->username; ?>
                             </li>

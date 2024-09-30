@@ -16,7 +16,11 @@
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <h3>Daftar Balita</h3>
                     <div>
-                        <a href="<?php echo base_url('Admin/tambahBalita/'); ?>" class="btn btn-primary">
+                        <a href="<?php echo base_url('Admin/tambahBalita/'); ?>" class="btn btn-primary"  style="background-color: #17a2b8; border-color: #17a2b8; color: black;"
+                            onmouseover="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
+                            onmouseout="this.style.backgroundColor='#17a2b8'; this.style.color='black';"
+                            onmousedown="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
+                            onmouseup="this.style.backgroundColor='#17a2b8'; this.style.color='white';">
                             <i class="fa fa-plus"></i> Tambah Balita
                         </a>
                     </div>
@@ -52,8 +56,12 @@
                                         <tr>
                                             <td><?= $index + 1; ?></td>
                                             <td><?= esc($data['nama']); ?></td>
-                                            <td><?= esc($data['jenis_kelamin']); ?></td>
-                                            <td><?= esc($data['tgl_lahir']); ?></td>
+                                            <td>
+                                        <?= ($data['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?>
+                                    </td>
+                                              <td>
+                                        <?= date('d-m-Y', strtotime($data['tgl_lahir'])); ?>
+                                    </td>
                                             <td><?= esc($data['nama_ortu']); ?></td>
                                             <td><?= esc($data['nama_posyandu']); ?></td>
                                             <td>

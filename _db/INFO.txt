@@ -3,3 +3,8 @@ saat tambah balita sekalian mengisi bbl tbl awal itu atau kah tidak yang sumber 
 pas nambah data balita juga nambah data detail jadi pemeriksaaan awal
 
 jika iya hilangkan kondisi kemunculan tombol pemeriksaan gizi bidan dan pisah menu
+
+
+admin : Riski123
+bidan : Bidan123
+kader : Kader123

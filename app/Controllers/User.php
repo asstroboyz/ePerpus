@@ -479,7 +479,7 @@ class User extends BaseController
             'tb_awal' => $this->request->getPost('tb_awal'),
             'lk_awal' => $this->request->getPost('lk_awal'),
             'tgl_pemeriksaan' => $this->request->getPost('tgl_pemeriksaan'),
-            'balita_id' => $balita_id, // Gunakan ID balita yang baru saja disimpan
+            'balita_id' => $balita_id, 
         ];
 
         $this->DataBalitaDetailModel->insert($dataDetail);
