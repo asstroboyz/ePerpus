@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Sep 2024 pada 17.39
+-- Waktu pembuatan: 02 Okt 2024 pada 01.13
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.4.11
 
@@ -975,7 +975,9 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (835, '::1', 'admin@gmail.com', 1, '2024-09-30 19:57:50', 1),
 (836, '::1', 'faradila281@gmail.com', 27, '2024-09-30 22:32:29', 1),
 (837, '::1', 'farin@gmail.com', 25, '2024-09-30 22:33:52', 1),
-(838, '::1', 'admin@gmail.com', 1, '2024-09-30 22:37:01', 1);
+(838, '::1', 'admin@gmail.com', 1, '2024-09-30 22:37:01', 1),
+(839, '::1', 'Riski', NULL, '2024-10-01 05:40:19', 0),
+(840, '::1', 'admin@gmail.com', 1, '2024-10-01 05:40:29', 1);
 
 -- --------------------------------------------------------
 
@@ -1095,20 +1097,6 @@ CREATE TABLE `data_balita` (
   `tgl_pemeriksaan_awal` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `data_balita`
---
-
-INSERT INTO `data_balita` (`id`, `nama`, `jenis_kelamin`, `tgl_lahir`, `nama_ortu`, `posyandu_id`, `anak_ke`, `bbl`, `pbl`, `nik_balita`, `no_kk`, `nik_ortu`, `alamat`, `rt`, `rw`, `umur`, `bb_awal`, `tb_awal`, `lk_awal`, `tgl_pemeriksaan_awal`) VALUES
-(3, 'lolololo', 'P', '2020-12-12', 'Wanto', 1, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-01'),
-(4, 'Anial;joo', 'P', '2020-12-12', 'Wanto', 1, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-01'),
-(5, 'Sadam Husein', 'L', '2002-07-05', 'Munip', 3, '2', '675', '57', '3326101010', '3327102028020003', '33251020439480002', '', '02', '6', '1', '23', '56', '12', '2024-09-15'),
-(6, 'sdasd', 'L', '2002-09-12', 'sadam', 3, '123', '12312', '33', '33269397', '12', '321', '', '12321', '213', '3123', '213', '3223', '23121', '2024-09-01'),
-(7, 'Husen', 'L', '2023-05-11', 'Hartini', 3, '2', '350', '50', '3326102108082009', '65365872346', '73264825', '', NULL, NULL, '1', '21', '12', '2112', NULL),
-(8, 'dwer', 'L', '2024-09-05', 'ewrwe', 3, '324', '324', '32432', '34234', '432', '432', '', NULL, NULL, '324', '32423', '4324', '342', NULL),
-(10, 'Farin', 'P', '2008-01-10', 'Anik', 3, '2', '5000', '50', '2571128042038140', '4325369945186007', '1111111111111111', '54354355', NULL, NULL, '65', '56757', '576', '5765675', NULL),
-(12, 'Anisa', 'L', '2009-09-12', 'isni', 3, '11', '20', '49', '8732467823685264', '5765875786798686', '7687687565463453', 'Pekalongan', NULL, NULL, '12', '20', '121212', '12', '2024-09-29');
-
 -- --------------------------------------------------------
 
 --
@@ -1131,14 +1119,6 @@ CREATE TABLE `data_balita_detail` (
   `balita_id` int(11) DEFAULT NULL,
   `jenis_imunisasi_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `data_balita_detail`
---
-
-INSERT INTO `data_balita_detail` (`id_detail`, `bb_awal`, `tb_awal`, `lk_awal`, `bb_u`, `bb_tb`, `tb_u`, `rambu_gizi`, `vitamin`, `tgl_pemeriksaan`, `asi_eks`, `no_hp`, `balita_id`, `jenis_imunisasi_id`) VALUES
-(1, '32423', '4324', '342', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, NULL),
-(2, '20', '121212', '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL);
 
 -- --------------------------------------------------------
 
@@ -1171,23 +1151,12 @@ CREATE TABLE `imunisasi` (
 
 CREATE TABLE `jadwal_imunisasi` (
   `id` int(11) NOT NULL,
-  `nama_posyandu` varchar(100) NOT NULL,
-  `alamat_posyandu` varchar(255) NOT NULL,
-  `kader_posyandu` int(11) NOT NULL,
-  `bidan` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `jam` time NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `posyandu_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `jadwal_imunisasi`
---
-
-INSERT INTO `jadwal_imunisasi` (`id`, `nama_posyandu`, `alamat_posyandu`, `kader_posyandu`, `bidan`, `tanggal`, `jam`, `created_at`, `updated_at`) VALUES
-(1, 'gdvyf', 'ytytr', 15, 0, '2024-09-30', '20:59:19', '2024-09-30 13:00:39', '2024-09-30 13:25:07'),
-(2, 'sdf', 'fsdf', 16, 0, '2024-10-11', '20:31:00', '2024-09-30 13:27:28', '2024-09-30 13:27:28');
 
 -- --------------------------------------------------------
 
@@ -1248,6 +1217,37 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `pelanggan`
+--
+
+CREATE TABLE `pelanggan` (
+  `id_pelanggan` int(11) NOT NULL,
+  `nama` varchar(30) NOT NULL,
+  `kontak` char(14) NOT NULL,
+  `alamat` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`id_pelanggan`, `nama`, `kontak`, `alamat`, `created_at`, `updated_at`) VALUES
+(1, 'Dinda', '08132456757', 'Perum PKS', '2024-03-15 17:24:47', '2024-07-23 12:05:28'),
+(2, 'Gunadi', '08198989', 'Ps Pagi Kaliwungu', '2024-03-15 17:59:17', '2024-07-23 12:05:58'),
+(5, 'Aish', '08173622436', 'Perum Bukit Indah 1', '2024-07-22 00:00:22', '2024-08-08 09:00:21'),
+(6, 'Rozi', '08222847979', 'Perum Bukit Indah 1', '2024-07-22 00:00:38', '2024-07-22 00:23:04'),
+(7, 'Alexander', '08173622439', 'Perum Bukit Indah 2', '2024-07-22 00:00:54', '2024-07-22 20:07:12'),
+(8, 'Ayun', '08976432680', 'Perum Bukit Indah 2', '2024-07-22 00:01:30', '2024-07-22 20:17:55'),
+(9, 'Indah', '0897524588', 'Perum PKS', '2024-07-22 00:01:58', '2024-07-22 00:01:58'),
+(10, 'Yani', '08132579076', 'Perum PKS', '2024-07-22 20:06:39', '2024-07-22 20:06:39'),
+(11, 'Najib', '08587876765', 'Perum PKS', '2024-08-07 12:48:47', '2024-08-07 12:48:47'),
+(12, 'Kafa', '08542354557', 'Perum Bukit Indah 1', '2024-08-08 08:59:47', '2024-08-08 09:00:05');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `posyandu`
 --
 
@@ -1257,17 +1257,8 @@ CREATE TABLE `posyandu` (
   `alamat_posyandu` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `kader_posyandu` int(11) DEFAULT NULL
+  `kader_posyandu` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `posyandu`
---
-
-INSERT INTO `posyandu` (`id`, `nama_posyandu`, `alamat_posyandu`, `created_at`, `updated_at`, `kader_posyandu`) VALUES
-(1, 'Ceria 1', 'Pekalongan', '2024-09-15 09:48:05', '2024-09-19 04:18:19', 14),
-(2, 'Ceria 2', 'Panjang Baru', '2024-09-19 04:00:27', '2024-09-19 04:00:27', 15),
-(3, 'Ceria 3', 'Panjang Baru', '2024-09-19 13:32:04', '2024-09-19 13:32:45', 14);
 
 -- --------------------------------------------------------
 
@@ -1303,9 +1294,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `fullname`, `jenis_kelamin`, `posisi`, `foto`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`, `posyandu_id`) VALUES
-(1, 'admin@gmail.com', 'admin', 'Riski', 'L', 'kader', 'AdminFOTOadmin.jpeg', '$2y$10$.wbak6k4o.votDwz7JVbIuU2CsaqMYsY4uC.O9FYVSSKSlc1U4SL6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-10-02 17:15:56', '2024-09-30 22:37:20', NULL, 1),
+(1, 'admin@gmail.com', 'admin', 'Riski', 'L', 'kader', 'AdminFOTOadmin.jpeg', '$2y$10$.wbak6k4o.votDwz7JVbIuU2CsaqMYsY4uC.O9FYVSSKSlc1U4SL6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-10-02 17:15:56', '2024-09-30 22:37:20', NULL, NULL),
 (25, 'bidan@gmail.com', 'bidan', 'bidan namanya', 'L', 'bidan', 'profil.svg', '$2y$10$aY5/0VD0gD1VRxG3vHQn8OsMzaq4.OnDLvwYvAsvagZ5RSc/l.L3a', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:44:11', '2024-09-30 22:36:42', NULL, NULL),
-(27, 'kader@gmail.com', 'kader_name', 'Namanya kader', 'P', 'kader', 'profil.svg', '$2y$10$tQ3lBKzyrpvM50p2GGi0RePoJBM0PDZpSmcSr5LyVhbzeFvC4UPie', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:47:12', '2024-09-30 22:33:24', NULL, 3);
+(27, 'kader@gmail.com', 'kader_name', 'Namanya kader', 'P', 'kader', 'profil.svg', '$2y$10$tQ3lBKzyrpvM50p2GGi0RePoJBM0PDZpSmcSr5LyVhbzeFvC4UPie', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:47:12', '2024-09-30 22:33:24', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -1413,7 +1404,8 @@ ALTER TABLE `imunisasi`
 -- Indeks untuk tabel `jadwal_imunisasi`
 --
 ALTER TABLE `jadwal_imunisasi`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_posyandu_jadwal` (`posyandu_id`);
 
 --
 -- Indeks untuk tabel `jenis_imunisasi`
@@ -1428,10 +1420,18 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  ADD PRIMARY KEY (`id_pelanggan`),
+  ADD KEY `id_pelanggan` (`id_pelanggan`);
+
+--
 -- Indeks untuk tabel `posyandu`
 --
 ALTER TABLE `posyandu`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kader_posyandu` (`kader_posyandu`);
 
 --
 -- Indeks untuk tabel `users`
@@ -1462,7 +1462,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT untuk tabel `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=839;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=841;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_permissions`
@@ -1531,6 +1531,12 @@ ALTER TABLE `migrations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT untuk tabel `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT untuk tabel `posyandu`
 --
 ALTER TABLE `posyandu`
@@ -1577,6 +1583,18 @@ ALTER TABLE `data_balita_detail`
 --
 ALTER TABLE `imunisasi`
   ADD CONSTRAINT `imunisasi_ibfk_1` FOREIGN KEY (`posyandu_id`) REFERENCES `posyandu` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `jadwal_imunisasi`
+--
+ALTER TABLE `jadwal_imunisasi`
+  ADD CONSTRAINT `fk_posyandu_jadwal` FOREIGN KEY (`posyandu_id`) REFERENCES `posyandu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `posyandu`
+--
+ALTER TABLE `posyandu`
+  ADD CONSTRAINT `fk_kader_user` FOREIGN KEY (`kader_posyandu`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `users`
