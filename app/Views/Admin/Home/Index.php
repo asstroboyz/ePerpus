@@ -100,62 +100,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        var ctx = document.getElementById('salesChart').getContext('2d');
-        var salesData = <?= json_encode($dataPenjualan); ?> ;
-
-        var labels = salesData.map(function(e) {
-            return e.tanggal_penjualan; // Ganti dengan field tanggal penjualan
-        });
-        var data = salesData.map(function(e) {
-            return e.total_penjualan; // Ganti dengan field total penjualan
-        });
-
-        var bgColor = getRandomColorArray(labels.length);
-
-        var chart = new Chart(ctx, {
-            type: 'pie', // Jenis chart: bar, line, pie, dll.
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Total Penjualan Rp.',
-                    data: data,
-                    backgroundColor: bgColor,
-                    borderColor: 'rgba(255, 255, 255, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-
-    // Fungsi untuk menghasilkan array warna acak
-    function getRandomColorArray(numColors) {
-        var colors = [];
-        for (var i = 0; i < numColors; i++) {
-            var color = getRandomColor();
-            colors.push(color);
-        }
-        return colors;
-    }
-
-    // Fungsi untuk mendapatkan warna acak
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-</script>
 
 <?php
 date_default_timezone_set("Asia/Jakarta");

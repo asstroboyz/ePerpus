@@ -141,51 +141,15 @@ class Admin extends BaseController
 
     public function index()
     {
-        $latestKas = $this->KasModel->orderBy('id_kas', 'DESC')->first();
-        $saldoTerakhir = $latestKas ? $latestKas['saldo_terakhir'] : 0;
-
-        $queryBarangStokDibawah10 = $this->db->table('barang')->where('stok <', 10)->get()->getResult();
-        $stokdibawah10 = count($queryBarangStokDibawah10);
-
-        $waktu24JamYangLalu = date('Y-m-d H:i:s', strtotime('-24 hours'));
-        $totalPenjualan24Jam = $this->db->table('penjualan_barang')->where('tanggal_penjualan >=', $waktu24JamYangLalu)->countAllResults();
-
-        // $totalKasMasuk = $this->db->table('kas_toko')
-        // ->selectSum('jumlah_akhir')
-        // ->where('jenis_transaksi', 'penerimaan')
-        // ->get()
-        // ->getRow()->jumlah_akhir;
-        $totalKasMasuk = $this->db->table('kas_toko')
-            ->select('SUM(jumlah_akhir - jumlah_awal) AS total_masuk', false)
-            ->where('jenis_transaksi', 'penerimaan')
-            ->get()
-            ->getRow()->total_masuk;
-        // $totalKasMasuk = $this->db->query("
-        //     SELECT SUM(jumlah_akhir - jumlah_awal) AS total_masuk
-        //     FROM kas_toko
-        //     WHERE jenis_transaksi = 'penerimaan'
-        // ")->getRow()->total_masuk;
-        $totalKasKeluar = $this->db->table('kas_toko')
-            ->select('SUM(jumlah_awal - jumlah_akhir) AS total_keluar', false)
-            ->where('jenis_transaksi', 'pengeluaran')
-            ->get()
-            ->getRow()->total_keluar;
-
-        //         $totalKasKeluar = $this->db->query("
-        //     SELECT SUM(jumlah_awal - jumlah_akhir) AS total_keluar
-        //     FROM kas_toko
-        //     WHERE jenis_transaksi = 'pengeluaran'
-        // ")->getRow()->total_keluar;
-        $dataPenjualan = $this->PenjualanBarangModel->getAllSales(); // Mengambil semua data penjualan
-        // dd($dataPenjualan);
+       
         $data = [
             'title' => 'e-Posyandu - Home',
-            'saldo_terakhir' => $saldoTerakhir,
-            'stokdibawah10' => $stokdibawah10,
-            'totalKasMasuk' => $totalKasMasuk,
-            'totalKasKeluar' => $totalKasKeluar,
-            'totalPenjualan24Jam' => $totalPenjualan24Jam,
-            'dataPenjualan' => $dataPenjualan,
+            // 'saldo_terakhir' => $saldoTerakhir,
+            // 'stokdibawah10' => $stokdibawah10,
+            // 'totalKasMasuk' => $totalKasMasuk,
+            // 'totalKasKeluar' => $totalKasKeluar,
+            // 'totalPenjualan24Jam' => $totalPenjualan24Jam,
+            // 'dataPenjualan' => $dataPenjualan,
         ];
 
         return view('Admin/Home/Index', $data);
