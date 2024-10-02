@@ -15,7 +15,7 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <h3>Daftar Balita</h3>
-                    <div>
+                    <!-- <div>
                         <a href="<?php echo base_url('Admin/tambahBalita/'); ?>" class="btn btn-primary"  style="background-color: #17a2b8; border-color: #17a2b8; color: black;"
                             onmouseover="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
                             onmouseout="this.style.backgroundColor='#17a2b8'; this.style.color='black';"
@@ -23,7 +23,7 @@
                             onmouseup="this.style.backgroundColor='#17a2b8'; this.style.color='white';">
                             <i class="fa fa-plus"></i> Tambah Balita
                         </a>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -36,7 +36,7 @@
                                     <th>Tanggal Lahir</th>
                                     <th>Nama Orang Tua</th>
                                     <th>Posyandu</th>
-                                    <th style="width: 10%;">Aksi</th>
+                                    <!-- <th style="width: 10%;">Aksi</th> -->
                                 </tr>
                             </thead>
                             <tfoot>
@@ -47,7 +47,7 @@
                                     <th>Tanggal Lahir</th>
                                     <th>Nama Orang Tua</th>
                                     <th>Posyandu</th>
-                                    <th style="width: 10%;">Aksi</th>
+                                    <!-- <th style="width: 10%;">Aksi</th> -->
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -64,14 +64,14 @@
                                     </td>
                                             <td><?= esc($data['nama_ortu']); ?></td>
                                             <td><?= esc($data['nama_posyandu']); ?></td>
-                                            <td>
+                                            <!-- <td>
                                                 <a href="/Admin/editBalita/<?= $data['id']; ?>" class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal<?= $data['id']; ?>">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
-                                            </td>
+                                            </td> -->
                                         </tr>
 
                                         <!-- Delete Confirmation Modal -->

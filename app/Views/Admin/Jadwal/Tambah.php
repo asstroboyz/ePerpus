@@ -32,13 +32,20 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 
-                                <!-- Nama Posyandu -->
                                 <div class="form-group">
                                     <label for="nama_posyandu">Nama Posyandu</label>
-                                    <input name="nama_posyandu" type="text"
-                                           class="form-control form-control-user <?= ($validation->hasError('nama_posyandu')) ? 'is-invalid' : ''; ?>"
-                                           id="input-nama_posyandu" placeholder="Masukkan nama posyandu"
-                                           value="<?= old('nama_posyandu'); ?>" required />
+                                    <select name="posyandu_id" id="posyandu_id" class="form-control" required>
+                                        <option value="">Pilih Posyandu</option>
+                                        <?php foreach ($posyanduList as $brg): ?>
+                                            <option
+                                                value="<?= $brg['id']; ?>"
+                                                data-alamat="<?= $brg['alamat_posyandu']; ?>"
+                                                data-kader="<?= $brg['kader_posyandu']; ?>"
+                                                <?= old('posyandu_id') == $brg['id'] ? 'selected' : ''; ?>>
+                                                <?= $brg['nama_posyandu']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                     <div id="nama_posyanduFeedback" class="invalid-feedback">
                                         <?= $validation->getError('nama_posyandu'); ?>
                                     </div>
@@ -48,9 +55,9 @@
                                 <div class="form-group">
                                     <label for="alamat_posyandu">Alamat</label>
                                     <input name="alamat_posyandu" type="text"
-                                           class="form-control form-control-user <?= ($validation->hasError('alamat_posyandu')) ? 'is-invalid' : ''; ?>"
-                                           id="input-alamat_posyandu" placeholder="Masukkan Alamat Posyandu"
-                                           value="<?= old('alamat_posyandu'); ?>" required />
+                                        class="form-control <?= ($validation->hasError('alamat_posyandu')) ? 'is-invalid' : ''; ?>"
+                                        id="alamat_posyandu" placeholder="Masukkan Alamat Posyandu"
+                                        value="<?= old('alamat_posyandu'); ?>" required />
                                     <div id="alamat_posyanduFeedback" class="invalid-feedback">
                                         <?= $validation->getError('alamat_posyandu'); ?>
                                     </div>
@@ -59,13 +66,10 @@
                                 <!-- Kader Posyandu -->
                                 <div class="form-group">
                                     <label for="kader_posyandu">Pilih Kader</label>
-                                    <select name="kader_posyandu"
-                                            class="form-control <?= ($validation->hasError('kader_posyandu')) ? 'is-invalid' : ''; ?>"
-                                            id="input-kader_posyandu" required>
+                                    <select name="kader_posyandu" class="form-control" id="kader_posyandu" required>
                                         <option value="">Pilih kader</option>
                                         <?php foreach ($users as $user): ?>
-                                            <option value="<?= $user->id; ?>"
-                                                <?= old('kader_posyandu') == $user->id ? 'selected' : ''; ?>>
+                                            <option value="<?= $user->id; ?>" <?= old('kader_posyandu') == $user->id ? 'selected' : ''; ?>>
                                                 <?= $user->username; ?>
                                             </option>
                                         <?php endforeach; ?>
@@ -75,24 +79,12 @@
                                     </div>
                                 </div>
 
-                                <!-- Bidan -->
-                                <div class="form-group">
-                                    <label for="bidan">Bidan</label>
-                                    <input name="bidan" type="text"
-                                           class="form-control form-control-user <?= ($validation->hasError('bidan')) ? 'is-invalid' : ''; ?>"
-                                           id="input-bidan" placeholder="Masukkan Nama Bidan"
-                                           value="<?= old('bidan'); ?>" required />
-                                    <div id="bidanFeedback" class="invalid-feedback">
-                                        <?= $validation->getError('bidan'); ?>
-                                    </div>
-                                </div>
-
                                 <!-- Tanggal -->
                                 <div class="form-group">
                                     <label for="tanggal">Tanggal</label>
                                     <input name="tanggal" type="date"
-                                           class="form-control <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>"
-                                           id="input-tanggal" value="<?= old('tanggal'); ?>" required />
+                                        class="form-control <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>"
+                                        id="input-tanggal" value="<?= old('tanggal'); ?>" required />
                                     <div id="tanggalFeedback" class="invalid-feedback">
                                         <?= $validation->getError('tanggal'); ?>
                                     </div>
@@ -102,8 +94,8 @@
                                 <div class="form-group">
                                     <label for="jam">Jam</label>
                                     <input name="jam" type="time"
-                                           class="form-control <?= ($validation->hasError('jam')) ? 'is-invalid' : ''; ?>"
-                                           id="input-jam" value="<?= old('jam'); ?>" required />
+                                        class="form-control <?= ($validation->hasError('jam')) ? 'is-invalid' : ''; ?>"
+                                        id="input-jam" value="<?= old('jam'); ?>" required />
                                     <div id="jamFeedback" class="invalid-feedback">
                                         <?= $validation->getError('jam'); ?>
                                     </div>
@@ -124,9 +116,40 @@
 </div>
 
 <?= $this->endSection(); ?>
+
 <?= $this->section('additional-js'); ?>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const posyanduSelect = document.getElementById('posyandu_id');
+        const alamatInput = document.getElementById('alamat_posyandu');
+        const kaderSelect = document.getElementById('kader_posyandu');
+
+        // Ketika posyandu dipilih
+        posyanduSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+
+            // Ambil data-alamat dan data-kader dari option yang dipilih
+            const alamat = selectedOption.getAttribute('data-alamat');
+            const kader = selectedOption.getAttribute('data-kader');
+
+            // Isi otomatis input alamat
+            alamatInput.value = alamat;
+
+            // Pilih kader yang sesuai di select kader_posyandu
+            kaderSelect.value = kader ? kader : '';
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        const tanggalInput = document.getElementById('input-tanggal');
+
+        // Set the minimum date to today
+        tanggalInput.setAttribute('min', today);
+    });
+
     $(document).ready(function() {
+        // Auto-dismiss alert after 3 seconds
         window.setTimeout(function() {
             $(".alert").fadeTo(500, 0).slideUp(500, function() {
                 $(this).remove();

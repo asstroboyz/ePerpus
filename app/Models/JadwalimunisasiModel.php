@@ -9,12 +9,8 @@ class JadwalimunisasiModel extends Model
     protected $table = 'jadwal_imunisasi';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'nama_posyandu',
-        'alamat_posyandu',
-        'kader_posyandu',
-        'bidan',
         'tanggal',
-        'jam',
+        'jam','posyandu_id',
         'created_at',
         'updated_at'
     ];

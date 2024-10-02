@@ -22,20 +22,19 @@
                         <th>Nama Posyandu</th>
                         <th>Alamat</th>
                         <th>Kader Posyandu</th>
-                        <!-- <th>Bidan</th> -->
+                       
                         <th>Tanggal</th>
                         <th>Jam</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($jadwal as $index => $data) : ?>
+                <?php foreach ($jadwal as $index => $data) : ?>
                         <tr>
                             <td><?= $index + 1; ?></td>
                             <td><?= esc($data['nama_posyandu']); ?></td>
                             <td><?= esc($data['alamat_posyandu']); ?></td>
                             <td><?= esc($data['username']); ?></td>
-                            <!-- <td><?= esc($data['bidan']); ?></td> -->
                             <td><?= esc($data['tanggal']); ?></td>
                             <td><?= esc($data['jam']); ?></td>
                             <td>

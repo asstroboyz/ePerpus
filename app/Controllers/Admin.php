@@ -2395,47 +2395,59 @@ class Admin extends BaseController
 
    public function Jadwal()
 {
-    $userModel = new \Myth\Auth\Models\UserModel(); // Pastikan ini mengacu ke Myth\Auth UserModel
-    $users = $userModel->findAll(); // Mengambil semua user sebagai objek
+    $userModel = new \Myth\Auth\Models\UserModel(); // Model untuk pengguna/kader
+    $users = $userModel->findAll(); // Mengambil semua pengguna (kader)
 
-    // Ambil semua data jadwal imunisasi
-    $jadwal = $this->JadwalimunisasiModel->findAll(); 
+    // Menginisialisasi model
+    $jadwalModel = new JadwalimunisasiModel();
+   
+    $posyanduModel = new PosyanduModel(); // Model untuk posyandu
 
-    // Gabungkan data jadwal dengan username dari tabel users
-    foreach ($jadwal as &$item) {
-        // Inisialisasi 'username' agar tidak undefined
-        $item['username'] = 'Unknown'; // Jika tidak ditemukan user, tampilkan 'Unknown'
-        
-        // Cari user yang sesuai dengan user_id di kader_posyandu
-        foreach ($users as $user) {
-            if ($user->id == $item['kader_posyandu']) { // Akses properti sebagai objek
-                $item['username'] = $user->username; // Akses username sebagai properti objek
-                break; // Berhenti mencari setelah ditemukan
-            }
-        }
-    }
+    // Mengambil data jadwal dengan join ke tabel posyandu dan users
+    $data['jadwal'] = $jadwalModel
+        ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
+        ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id') // Join dengan tabel posyandu
+        ->join('users', 'users.id = posyandu.kader_posyandu') // Join dengan tabel users
+        ->findAll(); 
 
     // Kirimkan data ke view
-    $data = [
-        'title' => 'Daftar Jadwal Imunisasi',
-        'validation' => $this->validation,
-        'jadwal' => $jadwal, // Data jadwal yang sudah ditambahkan username
-    ];
-
+    $data['title'] = 'Daftar Jadwal Imunisasi';
     return view('admin/jadwal/index', $data);
 }
 
 
+    // public function tambahJadwalPosyandu()
+    // {
+    //     $userModel = new UserModel(); 
+    //     $users = $userModel->findAll();
+    //     $data = [
+
+    //         'title' => 'Daftar Jadwal Imunisasi',
+    //         'validation' => $this->validation,
+    //         'users' => $users,
+    //     ];
+    //     return view('Admin/jadwal/tambah', $data);
+    // }
+
     public function tambahJadwalPosyandu()
     {
-        $userModel = new UserModel(); // Pastikan model ini sesuai dengan nama model Anda
+        $userModel = new UserModel(); 
         $users = $userModel->findAll();
         $data = [
 
             'title' => 'Daftar Jadwal Imunisasi',
             'validation' => $this->validation,
             'users' => $users,
+            'posyanduList' => $this->PosyanduModel->select('posyandu.*')->findAll(),
+            'selectedPosyandu' => null,
         ];
+        $posyandu_id = $this->request->getPost('posyandu_id');
+        if ($posyandu_id) {
+            $selectedPosyandu = $this->PosyanduModel->find($posyandu_id);
+            if ($selectedPosyandu) {
+                $data['selectedPosyandu'] = $selectedPosyandu;
+            }
+        }
         return view('Admin/jadwal/tambah', $data);
     }
 
@@ -2443,10 +2455,10 @@ class Admin extends BaseController
     public function simpanJadwalPosyandu()
     {
         if (!$this->validate([
-            'nama_posyandu' => 'required',
-            'alamat_posyandu' => 'required',
+            // 'nama_posyandu' => 'required',
+            // 'alamat_posyandu' => 'required',
             'kader_posyandu' => 'required',
-            'bidan' => 'required',
+            // 'bidan' => 'required',
             'tanggal' => 'required|valid_date',
             'jam' => 'required'
         ])) {
@@ -2454,10 +2466,11 @@ class Admin extends BaseController
         }
 
         $this->JadwalimunisasiModel->save([
-            'nama_posyandu' => $this->request->getPost('nama_posyandu'),
-            'alamat_posyandu' => $this->request->getPost('alamat_posyandu'),
+            // 'nama_posyandu' => $this->request->getPost('nama_posyandu'),
+            // 'alamat_posyandu' => $this->request->getPost('alamat_posyandu'),
             'kader_posyandu' => $this->request->getPost('kader_posyandu'),
-            'bidan' => $this->request->getPost('bidan'),
+            'posyandu_id' => $this->request->getPost('posyandu_id'),
+            // 'bidan' => $this->request->getPost('bidan'),
             'tanggal' => $this->request->getPost('tanggal'),
             'jam' => $this->request->getPost('jam')
         ]);

@@ -51,9 +51,9 @@
                     Jenis Imunisasi</a>
                 <!-- <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('user/vitamin'); ?>">
                 Vitamin</a> -->
-                <a class="collapse-item" style="font-size: 16px;"
+                <!-- <a class="collapse-item" style="font-size: 16px;"
                     href="<?= base_url('user/gizi'); ?>">
-                    Penentuan Gizi</a>
+                    Penentuan Gizi</a> -->
                 <a class="collapse-item" style="font-size: 16px;"
                     href="<?= base_url('user/balita'); ?>">
                     Data Ibu & Balita</a>
