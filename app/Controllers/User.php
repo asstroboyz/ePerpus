@@ -457,7 +457,6 @@ class User extends BaseController
             'no_kk' => $this->request->getPost('no_kk'), //
             'nik_ortu' => $this->request->getPost('nik_ortu'), //
             'alamat' => $this->request->getPost('alamat'), //
-          
             'umur' => $this->request->getPost('umur'), //
             'bb_awal' => $this->request->getPost('bb_awal'), //
             'tb_awal' => $this->request->getPost('tb_awal'), //
