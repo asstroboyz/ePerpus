@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\DataBalitaModel;
 use App\Models\JadwalimunisasiModel;
+use App\Models\PosyanduModel;
 
 class Home extends BaseController
 {
@@ -13,34 +14,26 @@ class Home extends BaseController
     {
         $this->DataBalitaModel = new DataBalitaModel();
         $this->JadwalimunisasiModel = new JadwalimunisasiModel();
+        $this->PosyanduModel = new PosyanduModel();
     }
     public function index()
     {
-        $userModel = new \Myth\Auth\Models\UserModel(); // Pastikan ini mengacu ke Myth\Auth UserModel
-$users = $userModel->findAll(); // Mengambil semua user sebagai objek
+        $userModel = new \Myth\Auth\Models\UserModel(); // Model untuk pengguna/kader
+    $users = $userModel->findAll(); // Mengambil semua pengguna (kader)
 
-// Ambil semua data jadwal imunisasi
-$jadwal = $this->JadwalimunisasiModel->findAll();
+    // Menginisialisasi model
+    $jadwalModel = new JadwalimunisasiModel();
+    $posyanduModel = new PosyanduModel(); // Model untuk posyandu
 
-// Gabungkan data jadwal dengan username dari tabel users
-foreach ($jadwal as &$item) {
-    // Inisialisasi 'username' agar tidak undefined
-    $item['username'] = 'Unknown'; // Jika tidak ditemukan user, tampilkan 'Unknown'
-        
-    // Cari user yang sesuai dengan user_id di kader_posyandu
-    foreach ($users as $user) {
-        if ($user->id == $item['kader_posyandu']) { // Akses properti sebagai objek
-            $item['username'] = $user->username; // Akses username sebagai properti objek
-            break; // Berhenti mencari setelah ditemukan
-        }
-    }
-}
+    // Mengambil data jadwal dengan join ke tabel posyandu dan users
+    $data['jadwal'] = $jadwalModel
+        ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
+        ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id') // Join dengan tabel posyandu
+        ->join('users', 'users.id = posyandu.kader_posyandu') // Join dengan tabel users
+        ->findAll();
 
-        $data = [
-            'title' => 'Daftar Jadwal Imunisasi',
-             'jadwal' => $jadwal,
-            'jumlah_balita' => $this->DataBalitaModel->getTotalBalita(),
-        ];
+    $data['title'] = 'Daftar Jadwal Imunisasi'; // Judul untuk halaman
+    $data['jumlah_balita'] = $this->DataBalitaModel->getTotalBalita();
     //   dd($data);
         //  $data['jumlah_balita'] = $this->DataBalitaModel->getJumlahBalitaPerPosyandu();
         return view('page/templates/content', $data);

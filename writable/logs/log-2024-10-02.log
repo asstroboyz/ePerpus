@@ -170,3 +170,62 @@ CRITICAL - 2024-10-02 08:23:59 --> Undefined array key "alamat"
 #8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
 #10 {main}
+CRITICAL - 2024-10-02 08:28:30 --> Undefined array key "kader_posyandu"
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\Home.php(32): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\Users\\E-RM7\\...', 32)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#6 {main}
+CRITICAL - 2024-10-02 08:29:10 --> Class "App\Controllers\PosyanduModel" not found
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#5 {main}
+CRITICAL - 2024-10-02 08:29:35 --> Undefined variable $jadwal
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\Home.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\Users\\E-RM7\\...', 38)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#6 {main}
+CRITICAL - 2024-10-02 08:29:55 --> Undefined variable $jadwal
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Views\page\templates\content.php(123): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\Users\\E-RM7\\...', 123)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\E-RM7\\...')
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('page/templates/...', Array, true)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\Home.php(43): view('page/templates/...', Array)
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#10 {main}
+CRITICAL - 2024-10-02 08:30:31 --> Undefined variable $data
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Views\page\templates\content.php(123): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\Users\\E-RM7\\...', 123)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\E-RM7\\...')
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('page/templates/...', Array, true)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\Home.php(43): view('page/templates/...', Array)
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#10 {main}
+CRITICAL - 2024-10-02 08:32:18 --> Undefined array key "bidan"
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Views\page\templates\content.php(136): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\Users\\E-RM7\\...', 136)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\E-RM7\\...')
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('page/templates/...', Array, true)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\Home.php(39): view('page/templates/...', Array)
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#10 {main}

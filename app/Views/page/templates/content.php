@@ -120,7 +120,7 @@
 
             $hasUpcomingSchedule = false;
 
-            foreach ($jadwal as $imunisasi):
+            foreach ($jadwal as $imunisasi): // Menggunakan $jadwal dari controller
                 // Ambil tanggal dan jam dari jadwal
                 $jadwalDate = $imunisasi['tanggal']; // Format: Y-m-d
                 $jadwalTime = $imunisasi['jam'];     // Format: H:i:s (atau H:i)
@@ -133,7 +133,6 @@
                         <div class="card h-100 shadow-sm">
                             <div class="card-body p-4">
                                 <h4 class="card-title mb-3">
-                                    <?= esc($imunisasi['bidan']) ?>
                                     (<?= esc($imunisasi['nama_posyandu']) ?>)
                                 </h4>
                                 <div class="card-text small mb-2">
@@ -161,6 +160,7 @@
         </div>
     </div>
 </div>
+
 
 
 
