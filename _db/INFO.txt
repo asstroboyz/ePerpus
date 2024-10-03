@@ -9,3 +9,6 @@ admin : Riski123
 bidan : Bidan123
 kader : Kader123
 https://chatgpt.com/c/66fc7ed8-5ccc-8007-8ef0-046e178f3bad
+
+
+ubah db php 8 ke 7 : https://chatgpt.com/c/66ec22cc-8b4c-8007-ae79-272110515080
