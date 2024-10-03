@@ -53,9 +53,9 @@
                 <!-- <a class="collapse-item" style="font-size: 16px;"
                     href="<?= base_url('Admin/daftar_hadir'); ?>">
                     Daftar Hadir</a> -->
-                <a class="collapse-item" style="font-size: 16px;"
+                <!-- <a class="collapse-item" style="font-size: 16px;"
                     href="<?= base_url('Admin/jadwal'); ?>">
-                    Jadwal</a>
+                    Jadwal</a> -->
             </div>
         </div>
     </li>
