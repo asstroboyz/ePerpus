@@ -91,3 +91,26 @@ CRITICAL - 2024-10-03 08:18:47 --> date_create(): Passing null to parameter #1 (
 #9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #10 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
 #11 {main}
+ERROR - 2024-10-03 20:55:37 --> Unknown column 'posyandu.nama' in 'field list'
+CRITICAL - 2024-10-03 20:55:37 --> Unknown column 'posyandu.nama' in 'field list'
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `users`....', 0)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `users`....')
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `users`....')
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT `users`....', Array, false)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\Admin.php(1729): CodeIgniter\BaseModel->findAll()
+#7 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\Admin->kelola_user()
+#8 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#9 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#11 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#12 {main}
+CRITICAL - 2024-10-03 20:55:56 --> Undefined variable: users
+#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\Admin.php(1730): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\Users\\ganda\\...', 1730, Array)
+#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\Admin->kelola_user()
+#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
+#6 {main}

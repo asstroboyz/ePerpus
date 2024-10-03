@@ -1723,8 +1723,12 @@ class Admin extends BaseController
     public function kelola_user()
     {
         $userModel = new UserModel();
-        $data['users'] = $userModel->findAll();
-
+        // $data['users'] = $userModel->findAll();
+         $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
+                               ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
+                               ->orderBy('users.posyandu_id', 'ASC')
+                               ->findAll();
+// dd($data);
         $groupModel = new GroupModel();
         $no = 1;
 
