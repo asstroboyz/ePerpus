@@ -8,6 +8,7 @@ use App\Models\profil;
 use App\Models\DataBalitaModel;
 use App\Models\PosyanduModel;
 use App\Models\DataBalitaDetailModel;
+use App\Models\JadwalimunisasiModel;
 use App\Models\JenisImunisasiModel;
 use CodeIgniter\Database\Query;
 use Myth\Auth\Entities\passwd;
@@ -22,10 +23,9 @@ class User extends BaseController
 
         $this->db      = \Config\Database::connect();
         $this->builder = $this->db->table('users');
-        // $this->pengaduan = new pengaduan();
+        $this->JadwalimunisasiModel = new JadwalimunisasiModel();
         // $this->bukti = new bukti();
         $this->PosyanduModel = new PosyanduModel();
-      
         $this->DataBalitaModel = new DataBalitaModel();
         $this->DataBalitaDetailModel = new DataBalitaDetailModel();
         $this->JenisImunisasiModel = new JenisImunisasiModel();
@@ -256,7 +256,7 @@ class User extends BaseController
         // Kirim data ke view
         return view('user/posyandu/EditPosyandu', $data);
     }
-    
+
     public function updateposyandu()
     {
 
@@ -339,105 +339,105 @@ class User extends BaseController
     {
         // Validasi input
         if (!$this->validate([
-        'nama' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Nama balita harus diisi',
+            'nama' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama balita harus diisi',
+                ],
             ],
-        ],
-        'jenis_kelamin' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Jenis kelamin harus dipilih',
+            'jenis_kelamin' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Jenis kelamin harus dipilih',
+                ],
             ],
-        ],
-        'tgl_lahir' => [
-            'rules' => 'required|valid_date', // Pastikan valid_date diatur dengan benar di konfigurasi validasi
-            'errors' => [
-                'required' => 'Tanggal lahir harus diisi',
-                'valid_date' => 'Format tanggal lahir tidak valid',
+            'tgl_lahir' => [
+                'rules' => 'required|valid_date', // Pastikan valid_date diatur dengan benar di konfigurasi validasi
+                'errors' => [
+                    'required' => 'Tanggal lahir harus diisi',
+                    'valid_date' => 'Format tanggal lahir tidak valid',
+                ],
             ],
-        ],
-        'nama_ortu' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Nama orang tua harus diisi',
+            'nama_ortu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama orang tua harus diisi',
+                ],
             ],
-        ],
-        'bbl' => [
-            'rules' => 'required|integer',
-            'errors' => [
-                'required' => 'Berat Badan Lahir harus diisi',
-                'integer' => 'Berat Badan Lahir harus berupa angka',
+            'bbl' => [
+                'rules' => 'required|integer',
+                'errors' => [
+                    'required' => 'Berat Badan Lahir harus diisi',
+                    'integer' => 'Berat Badan Lahir harus berupa angka',
+                ],
             ],
-        ],
-        'pbl' => [
-            'rules' => 'required|integer',
-            'errors' => [
-                'required' => 'Panjang Badan Lahir harus diisi',
-                'integer' => 'Panjang Badan Lahir harus berupa angka',
+            'pbl' => [
+                'rules' => 'required|integer',
+                'errors' => [
+                    'required' => 'Panjang Badan Lahir harus diisi',
+                    'integer' => 'Panjang Badan Lahir harus berupa angka',
+                ],
             ],
-        ],
-        'nik_balita' => [
-            'rules' => 'required|numeric|exact_length[16]',
-            'errors' => [
-                'required' => 'NIK Balita harus diisi',
-                'numeric' => 'NIK Balita harus berupa angka',
-                'exact_length' => 'NIK Balita harus berisi 16 digit angka',
+            'nik_balita' => [
+                'rules' => 'required|numeric|exact_length[16]',
+                'errors' => [
+                    'required' => 'NIK Balita harus diisi',
+                    'numeric' => 'NIK Balita harus berupa angka',
+                    'exact_length' => 'NIK Balita harus berisi 16 digit angka',
+                ],
             ],
-        ],
-        'nik_ortu' => [
-            'rules' => 'required|numeric|exact_length[16]',
-            'errors' => [
-                'required' => 'NIK Orang Tua harus diisi',
-                'numeric' => 'NIK Orang Tua harus berupa angka',
-                'exact_length' => 'NIK Orang Tua harus berisi 16 digit angka',
+            'nik_ortu' => [
+                'rules' => 'required|numeric|exact_length[16]',
+                'errors' => [
+                    'required' => 'NIK Orang Tua harus diisi',
+                    'numeric' => 'NIK Orang Tua harus berupa angka',
+                    'exact_length' => 'NIK Orang Tua harus berisi 16 digit angka',
+                ],
             ],
-        ],
-        'no_kk' => [
-            'rules' => 'required|numeric|exact_length[16]',
-            'errors' => [
-                'required' => 'Nomor Kartu Keluarga harus diisi',
-                'numeric' => 'Nomor Kartu Keluarga harus berupa angka',
-                'exact_length' => 'Nomor Kartu Keluarga harus berisi 16 digit angka',
+            'no_kk' => [
+                'rules' => 'required|numeric|exact_length[16]',
+                'errors' => [
+                    'required' => 'Nomor Kartu Keluarga harus diisi',
+                    'numeric' => 'Nomor Kartu Keluarga harus berupa angka',
+                    'exact_length' => 'Nomor Kartu Keluarga harus berisi 16 digit angka',
+                ],
             ],
-        ],
-        'alamat' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Alamat harus diisi',
+            'alamat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Alamat harus diisi',
+                ],
             ],
-        ],
-        'umur' => [
-            'rules' => 'required|integer',
-            'errors' => [
-                'required' => 'Umur harus diisi',
-                'integer' => 'Umur harus berupa angka',
+            'umur' => [
+                'rules' => 'required|integer',
+                'errors' => [
+                    'required' => 'Umur harus diisi',
+                    'integer' => 'Umur harus berupa angka',
+                ],
             ],
-        ],
-        'bb_awal' => [
-            'rules' => 'required|integer',
-            'errors' => [
-                'required' => 'Berat Badan Awal harus diisi',
-                'integer' => 'Berat Badan Awal harus berupa angka',
+            'bb_awal' => [
+                'rules' => 'required|integer',
+                'errors' => [
+                    'required' => 'Berat Badan Awal harus diisi',
+                    'integer' => 'Berat Badan Awal harus berupa angka',
+                ],
             ],
-        ],
-        'tb_awal' => [
-            'rules' => 'required|integer',
-            'errors' => [
-                'required' => 'Tinggi Badan Awal harus diisi',
-                'integer' => 'Tinggi Badan Awal harus berupa angka',
+            'tb_awal' => [
+                'rules' => 'required|integer',
+                'errors' => [
+                    'required' => 'Tinggi Badan Awal harus diisi',
+                    'integer' => 'Tinggi Badan Awal harus berupa angka',
+                ],
             ],
-        ],
-        'lk_awal' => [
-            'rules' => 'required|integer',
-            'errors' => [
-                'required' => 'Lingkar Kepala Awal harus diisi',
-                'integer' => 'Lingkar Kepala Awal harus berupa angka',
+            'lk_awal' => [
+                'rules' => 'required|integer',
+                'errors' => [
+                    'required' => 'Lingkar Kepala Awal harus diisi',
+                    'integer' => 'Lingkar Kepala Awal harus berupa angka',
+                ],
             ],
-        ],
-        // Tambahkan validasi lain sesuai kebutuhan
-    ])) {
+            // Tambahkan validasi lain sesuai kebutuhan
+        ])) {
             // Jika validasi gagal, redirect kembali dengan input yang sudah ada
             return redirect()->to('/user/tambahBalita')->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -463,8 +463,8 @@ class User extends BaseController
             'lk_awal' => $this->request->getPost('lk_awal'), //
             'bbl' => $this->request->getPost('bbl'), //
             'pbl' => $this->request->getPost('pbl'), //
-             'tgl_pemeriksaan_awal' => date('Y-m-d'),
-          
+            'tgl_pemeriksaan_awal' => date('Y-m-d'),
+
         ];
         //  dd($data);
         // Simpan data ke model
@@ -477,8 +477,8 @@ class User extends BaseController
             'bb_awal' => $this->request->getPost('bb_awal'),
             'tb_awal' => $this->request->getPost('tb_awal'),
             'lk_awal' => $this->request->getPost('lk_awal'),
-            'tgl_pemeriksaan' => $this->request->getPost('tgl_pemeriksaan'),
-            'balita_id' => $balita_id, 
+            'tgl_pemeriksaan' =>date('Y-m-d'),
+            'balita_id' => $balita_id,
         ];
 
         $this->DataBalitaDetailModel->insert($dataDetail);
@@ -532,7 +532,7 @@ class User extends BaseController
 
         // Update data balita berdasarkan ID yang diberikan
         $this->DataBalitaModel->update($id, [
-              'nama' => $this->request->getPost('nama'), //
+            'nama' => $this->request->getPost('nama'), //
             'jenis_kelamin' => $this->request->getPost('jenis_kelamin'), //
             'tgl_lahir' => $this->request->getPost('tgl_lahir'), //
             'nama_ortu' => $this->request->getPost('nama_ortu'), //
@@ -589,6 +589,84 @@ class User extends BaseController
 
         return view('user/jenis_imunisasi/index', $data);
     }
+    public function Jadwal()
+    {
+        $userModel = new \Myth\Auth\Models\UserModel();
+        $users = $userModel->findAll();
+
+        $jadwalModel = new JadwalimunisasiModel();
+        $posyanduModel = new PosyanduModel();
+
+        $userlogin = user()->posyandu_id;
+
+
+        $data['jadwal'] = $jadwalModel
+            ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
+            ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id')
+            ->join('users', 'users.id = posyandu.kader_posyandu')
+            ->where('jadwal_imunisasi.posyandu_id', $userlogin)
+            ->findAll();
+
+        $data['title'] = 'Daftar Jadwal Imunisasi';
+        return view('user/jadwal/index', $data);
+    }
+
+    public function tambahJadwalPosyandu()
+    {
+        // Ambil user yang sedang login
+        $user = user(); // Mengambil data user yang sedang login
+        $posyanduId = $user->posyandu_id; // Ambil posyandu_id dari user yang login
+
+        // Ambil data posyandu berdasarkan posyandu_id user yang login
+        $posyanduModel = new PosyanduModel();
+        $selectedPosyandu = $posyanduModel->find($posyanduId);
+
+        // Ambil data kader terkait dengan posyandu yang sedang login
+        $userModel = new UserModel();
+        $kaderPosyandu = $userModel->find($selectedPosyandu['kader_posyandu']);
+
+        // Mengirim data ke view
+        $data = [
+            'title' => 'Tambah Jadwal Posyandu',
+            'validation' => \Config\Services::validation(),
+            'selectedPosyandu' => $selectedPosyandu, // Data posyandu yang sesuai dengan user login
+            'kaderPosyandu' => $kaderPosyandu, // Data kader (username, dsb.)
+        ];
+
+        return view('user/jadwal/tambah', $data);
+    }
+
+    // Proses tambah jadwal Posyandu
+    public function simpanJadwalPosyandu()
+    {
+        // Validasi data input
+        if (!$this->validate([
+            // 'posyandu_id' => 'required', 
+            'kader_posyandu' => 'required',
+            'tanggal' => 'required|valid_date',
+            'jam' => 'required'
+        ])) {
+            return redirect()->back()->withInput()->with('pesanGagal', 'Input tidak valid, periksa kembali.');
+        }
+    
+        // Persiapkan data yang akan disimpan
+        $data = [
+            'posyandu_id' => $this->request->getPost('posyandu_id'),
+            'kader_posyandu' => $this->request->getPost('kader_posyandu'), // Asumsi ini adalah ID kader
+            'tanggal' => $this->request->getPost('tanggal'),
+            'jam' => $this->request->getPost('jam')
+        ];
+    
+        // Lakukan dd sebelum save untuk debug
+        // dd($data); // Ini akan menampilkan data dan menghentikan eksekusi script
+    
+        // Simpan data ke dalam database
+        $this->JadwalimunisasiModel->save($data);
+    
+        // Redirect setelah data berhasil disimpan
+        return redirect()->to(base_url('user/jadwal'))->with('pesanBerhasil', 'Jadwal berhasil ditambahkan');
+    }
+    
     public function print()
     {
         $data = [

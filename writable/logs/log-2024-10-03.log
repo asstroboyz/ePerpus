@@ -1,0 +1,93 @@
+CRITICAL - 2024-10-03 07:42:52 --> Attempt to read property "posyandu_id" on null
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\User.php(312): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read...', 'C:\\Users\\E-RM7\\...', 312)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#6 {main}
+CRITICAL - 2024-10-03 07:47:15 --> Undefined array key "kader_posyandu"
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Views\User\Jadwal\Index.php(37): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\Users\\E-RM7\\...', 37)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\E-RM7\\...')
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/jadwal/ind...', Array, true)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\User.php(611): view('user/jadwal/ind...', Array)
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->Jadwal()
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#10 {main}
+CRITICAL - 2024-10-03 07:54:18 --> Cannot use object of type Myth\Auth\Entities\User as array
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(210): include()
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/jadwal/tam...', Array, true)
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\User.php(639): view('user/jadwal/tam...', Array)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->tambahJadwalPosyandu()
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#9 {main}
+CRITICAL - 2024-10-03 08:01:36 --> Cannot use object of type Myth\Auth\Entities\User as array
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(210): include()
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/jadwal/tam...', Array, true)
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\User.php(636): view('user/jadwal/tam...', Array)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->tambahJadwalPosyandu()
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#9 {main}
+CRITICAL - 2024-10-03 08:04:21 --> Undefined property: App\Controllers\User::$JadwalimunisasiModel
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\User.php(651): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined prope...', 'C:\\Users\\E-RM7\\...', 651)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->simpanJadwalPosyandu()
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#6 {main}
+ERROR - 2024-10-03 08:04:51 --> Column 'posyandu_id' cannot be null
+CRITICAL - 2024-10-03 08:04:51 --> Column 'posyandu_id' cannot be null
+#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO `ja...', 0)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ja...')
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ja...')
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Database\BaseBuilder.php(1771): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ja...', Array, false)
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Model.php(239): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\BaseModel.php(738): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Model.php(625): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\BaseModel.php(658): CodeIgniter\Model->insert(Array, false)
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\User.php(656): CodeIgniter\BaseModel->save(Array)
+#9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->simpanJadwalPosyandu()
+#10 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#11 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#14 {main}
+CRITICAL - 2024-10-03 08:17:34 --> date_create(): Passing null to parameter #1 ($datetime) of type string is deprecated
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(8192, 'date_create(): ...', 'C:\\Users\\E-RM7\\...', 93)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Views\User\Balita\Index.php(93): date_create(NULL)
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\E-RM7\\...')
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/Balita/Ind...', Array, true)
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\User.php(323): view('user/Balita/Ind...', Array)
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#11 {main}
+CRITICAL - 2024-10-03 08:18:47 --> date_create(): Passing null to parameter #1 ($datetime) of type string is deprecated
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(8192, 'date_create(): ...', 'C:\\Users\\E-RM7\\...', 93)
+#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Views\User\Balita\Index.php(93): date_create(NULL)
+#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(210): include('C:\\Users\\E-RM7\\...')
+#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Common.php(1089): CodeIgniter\View\View->render('user/Balita/Ind...', Array, true)
+#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\app\Controllers\User.php(323): view('user/Balita/Ind...', Array)
+#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->balita()
+#7 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#8 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
+#11 {main}

@@ -1,4 +1,4 @@
-<?= $this->extend('User/Templates/Index'); ?>
+<?= $this->extend('user/Templates/Index'); ?>
 
 <?= $this->section('page-content'); ?>
 <div class="container-fluid">
@@ -12,43 +12,55 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="<?= base_url('Admin/tambahJadwalPosyandu'); ?>" class="btn btn-primary">Tambah Jadwal</a>
+            <a href="<?= base_url('user/tambahJadwalPosyandu'); ?>" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Tambah Jadwal
+            </a>
         </div>
         <div class="card-body">
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Posyandu</th>
-                        <th>Alamat</th>
-                        <th>Kader Posyandu</th>
-                        <th>Bidan</th>
-                        <th>Tanggal</th>
-                        <th>Jam</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($jadwal as $index => $data) : ?>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
                         <tr>
-                            <td><?= $index + 1; ?></td>
-                            <td><?= esc($data['nama_posyandu']); ?></td>
-                            <td><?= esc($data['alamat_posyandu']); ?></td>
-                            <td><?= esc($data['kader_posyandu']); ?></td>
-                            <td><?= esc($data['bidan']); ?></td>
-                            <td><?= esc($data['tanggal']); ?></td>
-                            <td><?= esc($data['jam']); ?></td>
-                            <td>
-                                <a href="<?= base_url('Admin/editJadwalPosyandu/' . $data['id']); ?>" class="btn btn-warning">Edit</a>
-                                <form action="<?= base_url('Admin/deleteJadwalPosyandu/' . $data['id']); ?>" method="post" class="d-inline">
-                                    <?= csrf_field(); ?>
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
-                                </form>
-                            </td>
+                            <th>No</th>
+                            <th>Nama Posyandu</th>
+                            <th>Alamat</th>
+                            <th>Kader Posyandu</th>
+                            <th>Tanggal</th>
+                            <th>Jam</th>
+                            <th>Aksi</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($jadwal)): ?>
+                            <tr>
+                                <td colspan="7" class="text-center">Tidak ada jadwal yang tersedia.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($jadwal as $index => $data) : ?>
+                                <tr>
+                                    <td><?= $index + 1; ?></td>
+                                    <td><?= esc($data['nama_posyandu']); ?></td>
+                                    <td><?= esc($data['alamat_posyandu']); ?></td>
+                                    <td><?= esc($data['username']); ?></td>
+                                    <td><?= date('d-m-Y', strtotime($data['tanggal'])); ?></td>
+                                    <td><?= date('H:i', strtotime($data['jam'])); ?> WIB</td>
+                                    <td>
+                                        <a href="<?= base_url('Admin/editJadwalPosyandu/' . $data['id']); ?>" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <form action="<?= base_url('Admin/deleteJadwalPosyandu/' . $data['id']); ?>" method="post" class="d-inline">
+                                            <?= csrf_field(); ?>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus jadwal Posyandu ini?')">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
