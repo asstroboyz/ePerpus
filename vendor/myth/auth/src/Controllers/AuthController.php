@@ -196,7 +196,7 @@ class AuthController extends Controller
         }
 
        
-        return redirect()->route('login')->with('message', lang('Auth.registerSuccess'));
+        return redirect()->to('admin/kelola_user')->with('message', lang('Auth.registerSuccess'));
     }
 
     //--------------------------------------------------------------------
