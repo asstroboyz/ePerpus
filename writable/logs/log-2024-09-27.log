@@ -1,8 +1,0 @@
-CRITICAL - 2024-09-27 22:05:53 --> Undefined property: App\Controllers\User::$JenisImunisasiModel
-#0 C:\Users\ganda\Documents\GitHub\e-Posyandu\app\Controllers\User.php(516): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\Users\\ganda\\...', 516, Array)
-#1 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): App\Controllers\User->jenis_imunisasi()
-#2 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
-#3 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#4 C:\Users\ganda\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
-#5 C:\Users\ganda\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\ganda\\...')
-#6 {main}

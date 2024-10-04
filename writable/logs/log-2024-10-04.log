@@ -1,9 +1,0 @@
-CRITICAL - 2024-10-04 07:49:28 -->  route cannot be found while reverse-routing.
-#0 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\HTTP\RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
-#1 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\vendor\myth\auth\src\Controllers\AuthController.php(199): CodeIgniter\HTTP\RedirectResponse->route(false)
-#2 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(832): Myth\Auth\Controllers\AuthController->attemptRegister()
-#3 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(Myth\Auth\Controllers\AuthController))
-#4 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#5 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\public\index.php(37): CodeIgniter\CodeIgniter->run()
-#6 C:\Users\E-RM7\Documents\GitHub\e-Posyandu\system\Commands\Server\rewrite.php(43): require_once('C:\\Users\\E-RM7\\...')
-#7 {main}
