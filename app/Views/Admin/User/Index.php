@@ -33,8 +33,10 @@
                                 <tr style="text-align:center;">
                                     <th>No</th>
                                     <th>Username</th>
-                                    <th>Role</th>
                                     <th>Email</th>
+                                    <th>Role</th>
+                                  
+                                    <th>Nama Posyandu</th>
                                     <!-- activasi user berfungsi hanya saja di nonaktifkan -->
                                     <!-- <th>Active User</th> -->
                                     <th>Opsi</th>
@@ -44,8 +46,10 @@
                                 <tr style="text-align:center;">
                                     <th>No</th>
                                     <th>Username</th>
-                                    <th>Role</th>
                                     <th>Email</th>
+                                    <th>Role</th>
+                                  
+                                    <th>Nama Posyandu</th>
                                     <!-- <th>Active User</th> -->
                                     <th>Opsi</th>
                                 </tr>

@@ -4,8 +4,10 @@
     <td><?= $row->username; ?></td>
     <!-- <td><?= empty($group) ? '' : $group[0]['name']; ?>
     </td> -->
-    <td><?= $row->posisi; ?></td>
-    <td><?= $row->email; ?></td>
+        <td><?= $row->email; ?></td>
+    <td>  <?= ($row->id == 1) ? '' : $row->posisi; ?></td>
+
+    <td><?= $row->posyandu_nama ; ?></td>
 
     <!-- <a href="<?= base_url('Admin/activateUser/' . $row->id . '/' . ($row->active == 1 ? 0 : 1)); ?>"
     class="btn btn-lg btn-circle btn-active-users" title="Klik untuk Mengaktifkan atau Menonaktifkan">
