@@ -13,6 +13,7 @@ use App\Models\JenisImunisasiModel;
 use CodeIgniter\Database\Query;
 use Myth\Auth\Entities\passwd;
 use Myth\Auth\Models\UserModel;
+use Myth\Auth\Models\GroupModel;
 
 class User extends BaseController
 {
@@ -168,10 +169,36 @@ class User extends BaseController
     }
 
 
-    public function pengguna()
-    {
-        return view('user/pengguna');
+    public function kelola_user()
+{
+    $userModel = new UserModel();
+    $groupModel = new GroupModel();
+    $posyanduId = user()->posyandu_id; // Mengambil posyandu_id dari user yang login
+    $no = 1;
+
+    // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
+    $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
+                               ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
+                               ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
+                               ->orderBy('users.posyandu_id', 'ASC')
+                               ->findAll();
+
+    // Iterasi data users untuk menambahkan data group
+    foreach ($data['users'] as $row) {
+        $dataRow['group'] = $groupModel->getGroupsForUser($row->id);
+        $dataRow['row'] = $row;
+        $dataRow['no'] = $no++;
+        $data['row' . $row->id] = view('User/User/Row', $dataRow);
     }
+
+    // Ambil semua group yang tersedia
+    $data['groups'] = $groupModel->findAll();
+    $data['title'] = 'Daftar Pengguna';
+
+    // Tampilkan view dengan data yang sudah disusun
+    return view('User/User/Index', $data);
+}
+
 
     public function posyandu()
     {

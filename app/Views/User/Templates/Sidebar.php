@@ -1,19 +1,24 @@
+<?php
+$posyanduModel = new \App\Models\PosyanduModel(); 
+$posyandu = $posyanduModel->where('id', user()->posyandu_id)->first();
+?>
+
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="<?= base_url(); ?>">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(); ?>">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-user-cog"></i>
+            <i class="fas fa-clinic-medical"></i>
         </div>
-        <?php if (user()->posisi === 'kader'): ?>
-        <div class="sidebar-brand-text mx-3">Kader Panel</div>
-        <?php elseif (user()->posisi === 'bidan'): ?>
-        <div class="sidebar-brand-text mx-3">Bidan Panel</div>
-        <?php else: ?>
-        <div class="sidebar-brand-text mx-3">Admin Panel</div>
-        <?php endif; ?>
-
+        <div class="sidebar-brand-text mx-3">
+            <?php if (user()->posisi === 'kader'): ?>
+                Kader Panel (<?= $posyandu['nama_posyandu']; ?>)
+            <?php elseif (user()->posisi === 'bidan'): ?>
+                Bidan Panel (<?= $posyandu['nama_posyandu']; ?>)
+            <?php else: ?>
+                Admin Panel (<?= $posyandu['nama_posyandu']; ?>)
+            <?php endif; ?>
+        </div>
     </a>
 
     <!-- Divider -->
@@ -22,8 +27,8 @@
     <!-- Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="<?= base_url() ?>/user">
-            <i class="fas fa-home mr-2"></i>
-            <span class="ml-2" style="font-size: 16px;">Dashboard</span>
+            <i class="fas fa-home"></i>
+            <span class="ml-2">Dashboard</span>
         </a>
     </li>
 
@@ -36,35 +41,38 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#kelolaPosyanduMenu"
-            aria-expanded="true" aria-controls="kelolaPosyanduMenu">
-            <i class="fas fa-users mr-2"></i>
-            <span style="font-size: 16px;">Kelola Posyandu</span>
+        <a class="nav-link" href="<?= base_url('user/posyandu'); ?>">
+            <i class="fas fa-users"></i>
+            <span>Kelola Posyandu</span>
         </a>
-        <div id="kelolaPosyanduMenu" class="collapse" aria-labelledby="headingPosyandu" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" style="font-size: 16px;"
-                    href="<?= base_url('user/posyandu'); ?>">
-                    Posyandu</a>
-                <a class="collapse-item" style="font-size: 16px;"
-                    href="<?= base_url('user/jenis_imunisasi'); ?>">
-                    Jenis Imunisasi</a>
-                <!-- <a class="collapse-item" style="font-size: 16px;" href="<?= base_url('user/vitamin'); ?>">
-                Vitamin</a> -->
-                <!-- <a class="collapse-item" style="font-size: 16px;"
-                    href="<?= base_url('user/gizi'); ?>">
-                    Penentuan Gizi</a> -->
-                <a class="collapse-item" style="font-size: 16px;"
-                    href="<?= base_url('user/balita'); ?>">
-                    Data Ibu & Balita</a>
-                <a class="collapse-item" style="font-size: 16px;"
-                    href="<?= base_url('user/daftar_hadir'); ?>">
-                    Daftar Hadir</a>
-                <a class="collapse-item" style="font-size: 16px;"
-                    href="<?= base_url('user/jadwal'); ?>">
-                    Jadwal</a>
-            </div>
-        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('user/jenis_imunisasi'); ?>">
+            <i class="fas fa-syringe"></i>
+            <span>Jenis Imunisasi</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('user/balita'); ?>">
+            <i class="fas fa-baby"></i>
+            <span>Data Ibu & Balita</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('user/daftar_hadir'); ?>">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Daftar Hadir</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('user/jadwal'); ?>">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Jadwal</span>
+        </a>
     </li>
 
     <!-- Divider -->
@@ -72,28 +80,18 @@
     <hr class="sidebar-divider">
 
     <!-- User Management Section -->
-
     <div class="sidebar-heading">
         Manajemen Pengguna
     </div>
 
-
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#manajemenUserMenu"
-            aria-expanded="true" aria-controls="manajemenUserMenu">
-            <i class="fas fa-fw fa-cog mr-2"></i>
-            <span style="font-size: 16px;">Manajemen Users</span>
+        <a class="nav-link" href="<?= base_url('user/kelola_user'); ?>">
+            <i class="fas fa-user-cog"></i>
+            <span>Manajemen Users</span>
         </a>
-        <div id="manajemenUserMenu" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" style="font-size: 16px;"
-                    href="<?= base_url('user/kelola_user'); ?>">Manajemen
-                    Users</a>
-            </div>
-        </div>
     </li>
+ 
     <?php endif; ?>
-
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -105,17 +103,16 @@
 
     <!-- Logout -->
     <li class="nav-item">
-        <a class="nav-link"
-            href="<?= base_url('logout'); ?>">
-            <i class="fas fa-sign-out-alt mr-2"></i>
-            <span style="font-size: 16px;">Logout</span>
+        <a class="nav-link" href="<?= base_url('logout'); ?>">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
         </a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
+    <!-- Sidebar Toggler -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>

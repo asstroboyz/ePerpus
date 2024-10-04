@@ -1724,11 +1724,11 @@ class Admin extends BaseController
     {
         $userModel = new UserModel();
         // $data['users'] = $userModel->findAll();
-         $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
-                               ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
-                               ->orderBy('users.posyandu_id', 'ASC')
-                               ->findAll();
-// dd($data);
+        $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
+                              ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
+                              ->orderBy('users.posyandu_id', 'ASC')
+                              ->findAll();
+        // dd($data);
         $groupModel = new GroupModel();
         $no = 1;
 
@@ -2397,32 +2397,32 @@ class Admin extends BaseController
         return view('Admin/Daftar_hadir/Index', $data);
     }
 
-   public function Jadwal()
-{
-    $userModel = new \Myth\Auth\Models\UserModel(); // Model untuk pengguna/kader
-    $users = $userModel->findAll(); // Mengambil semua pengguna (kader)
+    public function Jadwal()
+    {
+        $userModel = new \Myth\Auth\Models\UserModel(); // Model untuk pengguna/kader
+        $users = $userModel->findAll(); // Mengambil semua pengguna (kader)
 
-    // Menginisialisasi model
-    $jadwalModel = new JadwalimunisasiModel();
+        // Menginisialisasi model
+        $jadwalModel = new JadwalimunisasiModel();
    
-    $posyanduModel = new PosyanduModel(); // Model untuk posyandu
+        $posyanduModel = new PosyanduModel(); // Model untuk posyandu
 
-    // Mengambil data jadwal dengan join ke tabel posyandu dan users
-    $data['jadwal'] = $jadwalModel
-        ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
-        ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id') // Join dengan tabel posyandu
-        ->join('users', 'users.id = posyandu.kader_posyandu') // Join dengan tabel users
-        ->findAll(); 
+        // Mengambil data jadwal dengan join ke tabel posyandu dan users
+        $data['jadwal'] = $jadwalModel
+            ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
+            ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id') // Join dengan tabel posyandu
+            ->join('users', 'users.id = posyandu.kader_posyandu') // Join dengan tabel users
+            ->findAll();
 
-    // Kirimkan data ke view
-    $data['title'] = 'Daftar Jadwal Imunisasi';
-    return view('admin/jadwal/index', $data);
-}
+        // Kirimkan data ke view
+        $data['title'] = 'Daftar Jadwal Imunisasi';
+        return view('admin/jadwal/index', $data);
+    }
 
 
     // public function tambahJadwalPosyandu()
     // {
-    //     $userModel = new UserModel(); 
+    //     $userModel = new UserModel();
     //     $users = $userModel->findAll();
     //     $data = [
 
@@ -2435,7 +2435,7 @@ class Admin extends BaseController
 
     public function tambahJadwalPosyandu()
     {
-        $userModel = new UserModel(); 
+        $userModel = new UserModel();
         $users = $userModel->findAll();
         $data = [
 

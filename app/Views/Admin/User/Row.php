@@ -30,12 +30,12 @@
         </a>
 
 
-        <a href="#" class="btn btn-success btn-circle"
+        <a href="#" class="btn btn-success btn-circle btn-change-group"
             data-id="<?= $row->id; ?>" title="Ubah Grup"
             style=" width: 40px; height: 40px; border-radius: 50%; border: 1px solid #28a745; background-color: #28a745; color: white;">
             <i class="fas fa-tasks" style="font-size: 1.2em;"></i>
         </a>
-        <a href="#" class="btn btn-info btn-circle" title="Detail"
+        <a href="#" class="btn btn-info btn-circle btn-detail" title="Detail"
             data-id="<?= $row->id; ?>" data-url="/Admin/detail/<?= $row->id; ?>"
             style=" width: 40px; height: 40px; border-radius: 50%; border: 1px solid #17a2b8; background-color: #17a2b8; color: white;">
             <i class="fa fa-info-circle" style="font-size: 1.2em;"></i>
