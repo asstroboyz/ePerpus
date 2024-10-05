@@ -193,34 +193,34 @@ class User extends BaseController
 
 
     public function kelola_user()
-{
-    $userModel = new UserModel();
-    $groupModel = new GroupModel();
-    $posyanduId = user()->posyandu_id; // Mengambil posyandu_id dari user yang login
-    $no = 1;
+    {
+        $userModel = new UserModel();
+        $groupModel = new GroupModel();
+        $posyanduId = user()->posyandu_id; // Mengambil posyandu_id dari user yang login
+        $no = 1;
 
-    // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
-    $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
-                               ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
-                               ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
-                               ->orderBy('users.posyandu_id', 'ASC')
-                               ->findAll();
+        // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
+        $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
+                                   ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
+                                   ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
+                                   ->orderBy('users.posyandu_id', 'ASC')
+                                   ->findAll();
 
-    // Iterasi data users untuk menambahkan data group
-    foreach ($data['users'] as $row) {
-        $dataRow['group'] = $groupModel->getGroupsForUser($row->id);
-        $dataRow['row'] = $row;
-        $dataRow['no'] = $no++;
-        $data['row' . $row->id] = view('User/User/Row', $dataRow);
+        // Iterasi data users untuk menambahkan data group
+        foreach ($data['users'] as $row) {
+            $dataRow['group'] = $groupModel->getGroupsForUser($row->id);
+            $dataRow['row'] = $row;
+            $dataRow['no'] = $no++;
+            $data['row' . $row->id] = view('User/User/Row', $dataRow);
+        }
+
+        // Ambil semua group yang tersedia
+        $data['groups'] = $groupModel->findAll();
+        $data['title'] = 'Daftar Pengguna';
+
+        // Tampilkan view dengan data yang sudah disusun
+        return view('User/User/Index', $data);
     }
-
-    // Ambil semua group yang tersedia
-    $data['groups'] = $groupModel->findAll();
-    $data['title'] = 'Daftar Pengguna';
-
-    // Tampilkan view dengan data yang sudah disusun
-    return view('User/User/Index', $data);
-}
 
 
     public function posyandu()
@@ -691,7 +691,7 @@ class User extends BaseController
     {
         // Validasi data input
         if (!$this->validate([
-            // 'posyandu_id' => 'required', 
+            // 'posyandu_id' => 'required',
             'kader_posyandu' => 'required',
             'tanggal' => 'required|valid_date',
             'jam' => 'required'
@@ -758,4 +758,58 @@ class User extends BaseController
         $dompdf->render();
         $dompdf->stream('Detail Pengaduan.pdf', array("Attachment" => false));
     }
+    public function softDelete($id = null)
+    {
+        if ($id === null) {
+            return redirect()->to('user/balita')->with('error', 'ID tidak valid.');
+        }
+
+        $barangModel = new DataBalitaModel();
+
+        // Cek apakah data dengan ID tertentu ada
+        $barang = $barangModel->find($id);
+
+        if ($barang) {
+            // Lakukan soft delete (hanya mengisi kolom deleted_at)
+            $barangModel->delete($id);
+
+            return redirect()->to('user/balita')->with('success', 'Data berhasil dihapus secara soft delete.');
+        } else {
+            return redirect()->to('user/balita')->with('error', 'Data tidak ditemukan.');
+        }
+    }
+    public function arsipBalita()
+    {
+        $barangModel = new DataBalitaModel();
+
+        // Mengambil semua data yang di-soft delete
+        // $data['balitaTerhapus'] = $barangModel->onlyDeleted()->findAll();
+        $data = [
+            'balitaTerhapus' => $barangModel->onlyDeleted()->findAll(),
+            'title' => 'Data Arsip'
+        ];
+
+        // Tampilkan halaman arsip
+        return view('User/balita/ArsipBalita', $data);
+    }
+public function restoreBalita($id)
+{
+    $balitaModel = new DataBalitaModel();
+
+    // Cek apakah data ditemukan
+    $balita = $balitaModel->onlyDeleted()->find($id);
+    if ($balita) {
+        // Restore data dengan menghapus nilai deleted_at
+        $balitaModel->restoreBalita($id);
+
+        // Redirect dengan pesan sukses
+        return redirect()->to('user/arsipBalita')->with('msg', 'Data berhasil dipulihkan.');
+    } else {
+        // Jika data tidak ditemukan, tampilkan pesan error
+        return redirect()->to('user/arsipBalita')->with('error-msg', 'Data tidak ditemukan atau belum diarsipkan.');
+    }
+}
+
+
+
 }

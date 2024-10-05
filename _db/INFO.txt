@@ -16,3 +16,28 @@ ubah db php 8 ke 7 : https://chatgpt.com/c/66ec22cc-8b4c-8007-ae79-272110515080
 ubah db :
 Cari semua instance dari utf8mb4_0900_ai_ci di dalam file .sql.
 Ganti semua utf8mb4_0900_ai_ci dengan utf8mb4_unicode_ci atau utf8mb4_general_ci.
+
+
+ <!-- <td style="text-align:center;">
+                                        <div class="d-flex justify-content-around">
+                                            <?php if ($pengecekan) {
+                                                $date1 = date_create($pengecekan['tgl_pemeriksaan']);
+                                                $date2 = date_create($daynow);
+                                                $diff = date_diff($date1, $date2);
+                                                $hari = $diff->format("%a");
+                                                if ($hari > $rule_cek) {
+                                                    echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
+                                                } else {
+                                                    echo '<a href="' . site_url('/user/detail_balita/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
+                                                    echo '<a href="/user/ubah/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
+                                                    echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
+                                                }
+                                            } else {
+                                                echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
+                                                echo '<a href="' . site_url('/user/detail_balita/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
+                                                echo '<a href="/user/editBalita/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
+                                                echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiBanned" data-delete-url="' . site_url('/user/deleteBalita/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
+                                            }
+                                        ?>
+                    </div>
+                    </td> -->

@@ -562,21 +562,21 @@ class Admin extends BaseController
 
 
 
-    public function atk_trash()
+    public function soft_deleted()
     {
-        $barangs = $this->BarangModel->onlyDeleted()->getBarang();
+        $barangModel = new DataBalitaModel();
 
-        // Menyaring data yang belum di-restore
-        $barangsNotRestored = array_filter($barangs, function ($barang) {
-            return $barang['deleted_at'] !== null; // Filter barang yang sudah di-restore
-        });
+        // Cek apakah barang dengan kode_barang tertentu ada
+        $barang = $barangModel->find($id);
 
-        $data = [
-            'title' => 'e-Posyandu - Barang',
-            'barangs' => $barangsNotRestored,
-        ];
+        if ($barang) {
+            // Lakukan soft delete dengan menghapus record di tabel Barang dan TransaksiBarang
+            $barangModel->softDeleteWithRelations($id);
 
-        return view('Admin/Barang/Soft_deleted', $data);
+            return redirect()->to('user/balita')->with('success', 'Data berhasil dihapus secara soft delete.');
+        } else {
+            return redirect()->to('user/balita')->with('error', 'Data tidak ditemukan.');
+        }
     }
 
     public function tambahForm()

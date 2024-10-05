@@ -8,7 +8,9 @@ class DataBalitaModel extends Model
 {
     protected $table = 'data_balita';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama', 'jenis_kelamin', 'tgl_lahir', 'nama_ortu', 'posyandu_id','anak_ke','bbl','pbl','nik_balita','no_kk','nik_ortu','rt','rw','umur','bb_awal','tb_awal','lk_awal','tgl_pemeriksaan_awal','alamat'];
+    protected $allowedFields = ['nama', 'jenis_kelamin', 'tgl_lahir', 'nama_ortu', 'posyandu_id','anak_ke','bbl','pbl','nik_balita','no_kk','nik_ortu','rt','rw','umur','bb_awal','tb_awal','lk_awal','tgl_pemeriksaan_awal','alamat','deleted_at'];
+     protected $useSoftDeletes = true;
+    protected $deletedField = 'deleted_at';
 
     public function getBalita($id = false)
     {
@@ -51,5 +53,22 @@ class DataBalitaModel extends Model
             ->get()
             ->getResultArray();
     }
+
+    public function softDeleteWithRelations($id)
+{
+    // Hapus soft delete di tabel Barang
+    $this->delete($id);
+
+    // Hapus record di tabel TransaksiBarang terkait
+    $transaksiModel = new DataBalitaDetailModel();
+    $transaksiModel->where('balita_id', $id)->delete();
+}
+
+
+public function restoreBalita($id)
+{
+    // Update deleted_at menjadi null untuk merestore data
+    return $this->update($id, ['deleted_at' => null]);
+}
 
 }
