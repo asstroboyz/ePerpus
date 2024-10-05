@@ -175,6 +175,30 @@
         </div>
     </div>
 </div>
+<div class="container-fluid bg-light py-5">
+    <div class="container">
+        <div class="row text-center text-md-start">
+            <div class="col-md-4 mb-4">
+                <h5 class="text-uppercase fw-bold">Quick </h5>
+                
+            </div>
+        </div>
+
+        <div class="row py-4 border-top">
+            <div class="col-md-6 text-center text-md-start">
+                <span class="text-dark"><i class="fas fa-copyright me-2"></i>Posyandu Ceria, All rights reserved.</span>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <span class="text-dark">
+                    Designed by <a class="border-bottom text-primary" href="https://htmlcodex.com">Riski</a> | 
+                    Distributed by <a class="border-bottom text-primary" href="https://themewagon.com">ThemeWagon</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 
