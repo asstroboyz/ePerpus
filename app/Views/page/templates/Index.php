@@ -131,6 +131,52 @@
             animation: float 3s ease-in-out infinite;
         }
 
+        .table-container {
+            overflow: hidden;
+            /* Menghindari teks mentok di tepi */
+            white-space: nowrap;
+            /* Mencegah teks terpotong */
+            padding: 0 20px;
+            /* Menambahkan padding di kiri dan kanan */
+        }
+
+
+
+        @keyframes slide-right {
+            0% {
+                transform: translateX(-40%);
+            }
+
+            25% {
+                transform: translateX(0);
+               
+            }
+
+            50% {
+                transform: translateX(40%);
+                
+            }
+
+            75% {
+                transform: translateX(0);
+               
+            }
+
+            100% {
+                transform: translateX(-40%);
+        
+            }
+        }
+
+        .slide-right {
+            display: inline-block;
+            animation: slide-right 10s linear infinite;
+            /* Durasi 10 detik dengan linear untuk stabilitas */
+            margin: 0;
+        }
+
+
+
         /* Animasi Floating pada gambar */
         @keyframes float {
             0% {
@@ -356,10 +402,10 @@
 
 
     <!-- Navbar & Hero Start -->
-    <?=$this->include('Page/Templates/Navbar');?>
+    <?= $this->include('Page/Templates/Navbar'); ?>
 
 
-    <?=$this->renderSection('content');?>
+    <?= $this->renderSection('content'); ?>
 
 
 

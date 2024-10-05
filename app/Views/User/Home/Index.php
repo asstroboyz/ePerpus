@@ -15,7 +15,7 @@
                                 Hari Ini
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-black">
-                                <?= format_tanggal(date('Y-m-d')); ?>
+                            <?= format_hari(date('Y-m-d')) . ', ' . format_tanggal(date('Y-m-d')); ?>
                             </div>
                         </div>
                         <div class="col-auto">
@@ -92,6 +92,7 @@
 
 <?php
 date_default_timezone_set("Asia/Jakarta");
+
 function format_tanggal($tanggal)
 {
     $bulan = array(
@@ -112,6 +113,27 @@ function format_tanggal($tanggal)
 
     return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
 }
+
+function format_hari($tanggal)
+{
+    // Nama hari dalam bahasa Indonesia
+    $hari = array(
+        'Sunday'    => 'Minggu',
+        'Monday'    => 'Senin',
+        'Tuesday'   => 'Selasa',
+        'Wednesday' => 'Rabu',
+        'Thursday'  => 'Kamis',
+        'Friday'    => 'Jumat',
+        'Saturday'  => 'Sabtu'
+    );
+    
+    // Mengambil hari dari tanggal
+    $day = date('l', strtotime($tanggal));
+    
+    // Mengembalikan nama hari dalam bahasa Indonesia
+    return $hari[$day];
+}
 ?>
+
 
 <?= $this->endSection(); ?>

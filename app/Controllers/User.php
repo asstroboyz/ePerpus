@@ -92,29 +92,52 @@ class User extends BaseController
     public function tentang()
     {
 
+        $data['title'] = 'User Profile ';
         $userlogin = user()->username;
         $userid = user()->id;
         $role = $this->db->table('auth_groups_users')->where('user_id', $userid)->get()->getRow();
-        $role == '1' ? $role_echo = 'Admin' : $role_echo = 'User';
+        $role == '1' ? $role_echo = 'Admin' : $role_echo = 'Pegawai'; // $data['title'] = 'User Profile ';
+        $userlogin = user()->username;
+        $userid = user()->id;
 
+        // Mengambil data role dari tabel auth_groups_users
+        $roleData = $this->db->table('auth_groups_users')->where('user_id', $userid)->get()->getRow();
 
+        // Memeriksa apakah data role ditemukan
+        if ($roleData) {
 
-        $data = $this->db->table('pengaduan');
-        $query1 = $data->where('id_user', $userid)->get()->getResult();
+            $adminRoleId = 1;
+            $petugasPengadaan = 2;
+
+            // Menentukan status role berdasarkan ID role
+            if ($roleData->group_id == $adminRoleId) {
+                $role_echo = 'Admin';
+            } elseif ($roleData->group_id == $petugasPengadaan) {
+                $role_echo = 'Petugas Pengadaan';
+            } else {
+                $role_echo = 'Pegawai';
+            }
+        } else {
+            // Jika data role tidak ditemukan, mengatur nilai default sebagai 'Pegawai'
+            $role_echo = 'Pegawai';
+        }
+
+        // $data = $this->db->table('permintaan_barang');
+        // $query1 = $data->where('id_user', $userid)->get()->getResult();
         $builder = $this->db->table('users');
-        $builder->select('id,username,email,created_at,foto');
+        $builder->select('id,username,fullname,email,created_at,foto');
         $builder->where('username', $userlogin);
         $query = $builder->get();
-        $semua = count($query1);
+        // $semua = count($query1);
         $data = [
-            'semua' => $semua,
+            // 'semua' => $semua,
             'user' => $query->getRow(),
-            'title' => 'Home',
-            'role' => $role_echo
-
+            'title' => 'Profil - e-Posyandu',
+            'role' => $role_echo,
 
         ];
-        return view('user/profil/index', $data);
+
+        return view('user/home/profil', $data);
     }
 
     public function profile($id)

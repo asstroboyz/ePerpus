@@ -40,20 +40,7 @@ $posyandu = $posyanduModel->where('id', user()->posyandu_id)->first();
         Manajemen Posyandu
     </div>
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('user/posyandu'); ?>">
-            <i class="fas fa-users"></i>
-            <span>Kelola Posyandu</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('user/jenis_imunisasi'); ?>">
-            <i class="fas fa-syringe"></i>
-            <span>Jenis Imunisasi</span>
-        </a>
-    </li>
-
+    <!-- Data Ibu & Balita -->
     <li class="nav-item">
         <a class="nav-link" href="<?= base_url('user/balita'); ?>">
             <i class="fas fa-baby"></i>
@@ -61,17 +48,27 @@ $posyandu = $posyanduModel->where('id', user()->posyandu_id)->first();
         </a>
     </li>
 
+    <!-- Jenis Imunisasi -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('user/daftar_hadir'); ?>">
-            <i class="fas fa-clipboard-list"></i>
-            <span>Daftar Hadir</span>
+        <a class="nav-link" href="<?= base_url('user/jenis_imunisasi'); ?>">
+            <i class="fas fa-syringe"></i>
+            <span>Jenis Imunisasi</span>
         </a>
     </li>
 
+    <!-- Jadwal -->
     <li class="nav-item">
         <a class="nav-link" href="<?= base_url('user/jadwal'); ?>">
             <i class="fas fa-calendar-alt"></i>
             <span>Jadwal</span>
+        </a>
+    </li>
+
+    <!-- Daftar Hadir -->
+    <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('user/daftar_hadir'); ?>">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Daftar Hadir</span>
         </a>
     </li>
 
@@ -84,13 +81,14 @@ $posyandu = $posyanduModel->where('id', user()->posyandu_id)->first();
         Manajemen Pengguna
     </div>
 
+    <!-- Manajemen Users -->
     <li class="nav-item">
         <a class="nav-link" href="<?= base_url('user/kelola_user'); ?>">
             <i class="fas fa-user-cog"></i>
             <span>Manajemen Users</span>
         </a>
     </li>
- 
+
     <?php endif; ?>
 
     <!-- Divider -->

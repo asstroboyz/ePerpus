@@ -22,7 +22,6 @@
                         <th>Nama Posyandu</th>
                         <th>Alamat</th>
                         <th>Kader Posyandu</th>
-                       
                         <th>Tanggal</th>
                         <th>Jam</th>
                         <th>Aksi</th>
