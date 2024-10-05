@@ -190,8 +190,8 @@
             </div>
             <div class="col-md-6 text-center text-md-end">
                 <span class="text-dark">
-                    Designed by <a class="border-bottom text-primary" href="https://htmlcodex.com">Riski</a> | 
-                    Distributed by <a class="border-bottom text-primary" href="https://themewagon.com">ThemeWagon</a>
+                    Designed by <a class="border-bottom text-primary" href="#">Riski</a> | 
+                    Distributed by <a class="border-bottom text-primary" href="#">ThemeWagon</a>
                 </span>
             </div>
         </div>

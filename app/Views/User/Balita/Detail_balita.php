@@ -124,10 +124,10 @@ $pengecekanModel = new DataBalitaDetailModel();
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="font-weight-bold text-primary">Informasi Balita</h5>
                 <div class="d-flex gap-2">
-                    <a href="<?= base_url('Admin/cetak_qr_id/' . $data_balita->id); ?>"
+                    <!-- <a href="<?= base_url('Admin/cetak_qr_id/' . $data_balita->id); ?>"
                         class="btn btn-success font-weight-bold" target="_blank">
                         <i class="fa fa-print"></i> Cetak QR ID
-                    </a>
+                    </a> -->
                     <a href="/User/balita" class="btn btn-secondary font-weight-bold ml-2"
                         style="background-color: #ffffff; border-color: #17a2b8; color: black;"
                         onmouseover="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
@@ -146,10 +146,10 @@ $pengecekanModel = new DataBalitaDetailModel();
         <div class="card border-info shadow-sm h-100">
             <div class="card-body">
                 <h6 class="card-title text-black font-weight-bold">Data Balita</h6>
-                <p class="card-text"><strong>Nama:</strong> <?= $data_balita->nama; ?></p>
-                <p class="card-text"><strong>Jenis Kelamin:</strong> <?= $data_balita->jenis_kelamin; ?></p>
-                <p class="card-text"><strong>Tanggal Lahir:</strong> <?= date('d-m-Y', strtotime($data_balita->tgl_lahir)); ?></p>
-                <p class="card-text"><strong>Umur:</strong> <?= $data_balita->umur; ?> Tahun</p>
+                <p class="card-text"><strong>Nama :</strong> <?= $data_balita->nama; ?></p>
+                <p class="card-text"><strong>Jenis Kelamin :</strong> <?= $data_balita->jenis_kelamin; ?></p>
+                <p class="card-text"><strong>Tanggal Lahir :</strong> <?= date('d-m-Y', strtotime($data_balita->tgl_lahir)); ?></p>
+                <p class="card-text"><strong>Umur :</strong> <?= $data_balita->umur; ?> Tahun</p>
             </div>
         </div>
     </div>
@@ -159,9 +159,9 @@ $pengecekanModel = new DataBalitaDetailModel();
         <div class="card border-info shadow-sm h-100">
             <div class="card-body">
                 <h6 class="card-title text-black font-weight-bold">Data Orang Tua</h6>
-                <p class="card-text"><strong>Nama Orang Tua:</strong> <?= $data_balita->nama_ortu; ?></p>
-                <p class="card-text"><strong>NIK Balita:</strong> <?= $data_balita->nik_balita; ?></p>
-                <p class="card-text"><strong>NIK Orang Tua:</strong> <?= $data_balita->nik_ortu; ?></p>
+                <p class="card-text"><strong>Nama Orang Tua :</strong> <?= $data_balita->nama_ortu; ?></p>
+                <p class="card-text"><strong>NIK Balita :</strong> <?= $data_balita->nik_balita; ?></p>
+                <p class="card-text"><strong>NIK Orang Tua :</strong> <?= $data_balita->nik_ortu; ?></p>
             </div>
         </div>
     </div>
@@ -171,8 +171,8 @@ $pengecekanModel = new DataBalitaDetailModel();
         <div class="card border-info shadow-sm h-100">
             <div class="card-body">
                 <h6 class="card-title text-black font-weight-bold">Identitas Keluarga</h6>
-                <p class="card-text"><strong>No KK:</strong> <?= $data_balita->no_kk; ?></p>
-                <p class="card-text"><strong>Alamat:</strong> Rt: <?= $data_balita->rt; ?>, Rw: <?= $data_balita->rw; ?></p>
+                <p class="card-text"><strong>No KK :</strong> <?= $data_balita->no_kk; ?></p>
+                <p class="card-text"><strong>Alamat :</strong>  <?= $data_balita->alamat ?></p>
             </div>
         </div>
     </div>

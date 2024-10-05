@@ -1,7 +1,6 @@
 <?= $this->extend('User/Templates/Index'); ?>
 
 <?= $this->section('page-content'); ?>
-<!-- Begin Page Content -->
 <?php
 
 use App\Models\DataBalitaDetailModel;
@@ -10,7 +9,6 @@ $pengecekanModel = new DataBalitaDetailModel();
 ?>
 
 <div class="container-fluid">
-    <!-- Page Heading -->
     <?php if (session()->has('pesanBerhasil')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session('pesanBerhasil') ?>
@@ -44,6 +42,7 @@ $pengecekanModel = new DataBalitaDetailModel();
                                     <th>Nama Balita</th>
                                     <th style="width: 10%; text-align:center;">Jenis Kelamin</th>
                                     <th style="width: 15%; text-align:center;">Tanggal Lahir</th>
+                                    <th style="width: 15%; text-align:center;">Umur Saat Ini</th>
                                     <th>Nama Orang Tua</th>
                                     <th>Nik Anak</th>
                                     <th style="width: 15%; text-align:center;">Aksi</th>
@@ -55,6 +54,7 @@ $pengecekanModel = new DataBalitaDetailModel();
                                     <th>Nama Balita</th>
                                     <th style="width: 10%; text-align:center;">Jenis Kelamin</th>
                                     <th style="width: 15%; text-align:center;">Tanggal Lahir</th>
+                                    <th style="width: 15%; text-align:center;">Umur Saat Ini</th>
                                     <th>Nama Orang Tua</th>
                                     <th>Nik Anak</th>
                                     <th style="width: 15%; text-align:center;">Aksi</th>
@@ -63,31 +63,66 @@ $pengecekanModel = new DataBalitaDetailModel();
 
                             <tbody>
                                 <?php if ($balita) { ?>
-                                <?php
-        $rule_cek = 1;
+                                    <?php
+                                    $rule_cek = 1;
                                     $daynow = date('Y-m-d');
                                     foreach ($balita as $num => $data) {
                                         $pengecekan = $pengecekanModel->where('balita_id', $data['id'])->orderBy('id_detail', 'DESC')->first();
-                                        ?>
-                                <tr>
-                                    <td style="text-align:center;">
-                                        <?= $num + 1; ?>
-                                    </td>
-                                    <td><?= $data['nama']; ?>
-                                    </td>
-                                    <td style="text-align:center;">
-                                        <?= ($data['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?>
-                                    </td>
+                                    ?>
+                                        <tr>
+                                            <td style="text-align:center;">
+                                                <?= $num + 1; ?>
+                                            </td>
+                                            <td><?= $data['nama']; ?>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <?= ($data['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?>
+                                            </td>
 
-                                    <td style="text-align:center;">
-                                        <?= date('d-m-Y', strtotime($data['tgl_lahir'])); ?>
-                                    </td>
+                                            <td style="text-align:center;">
+                                                <?= date('d-m-Y', strtotime($data['tgl_lahir'])); ?>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <?php
 
-                                    <td><?= $data['nama_ortu']; ?>
-                                    </td>
-                                    <td><?= $data['nik_balita']; ?>
-                                    </td>
-                                    <td style="text-align:center;">
+                                                $tanggalLahir = $data['tgl_lahir'];
+
+                                                $birthDate = new DateTime($tanggalLahir);
+                                                $today = new DateTime("today");
+                                                $diff = $birthDate->diff($today);
+
+
+                                                echo $diff->y . " tahun, " . $diff->m . " bulan, " . $diff->d . " hari";
+                                                ?>
+                                            </td>
+
+
+
+                                            <td><?= $data['nama_ortu']; ?>
+                                            </td>
+                                            <td><?= $data['nik_balita']; ?>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <div class="d-flex justify-content-around">
+                                                    <a href="<?php echo site_url('/user/pengecekan/' . $data['id']); ?>" class="btn btn-info mx-1">
+                                                        <i class="fa fa-stethoscope"></i>
+                                                    </a>
+                                                    <a href="<?php echo site_url('/user/detail_balita/' . $data['id']); ?>" class="btn btn-primary mx-1">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    <a href="/user/editBalita/<?php echo $data['id']; ?>" class="btn btn-warning mx-1">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="<?php echo site_url('/user/deleteBalita/' . $data['id']); ?>">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                    <a href="<?php echo site_url('/user/nonaktifkan/' . $data['id']); ?>" class="btn btn-secondary mx-1">
+                                                        <i class="fa fa-ban"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+
+                                            <!-- <td style="text-align:center;">
                                         <div class="d-flex justify-content-around">
                                             <?php if ($pengecekan) {
                                                 $date1 = date_create($pengecekan['tgl_pemeriksaan']);
@@ -107,17 +142,17 @@ $pengecekanModel = new DataBalitaDetailModel();
                                                 echo '<a href="/user/editBalita/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
                                                 echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/deleteBalita/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
                                             }
-                                        ?>
+                                            ?>
                                         </div>
-                                    </td>
-                                </tr>
-                                <?php } ?>
+                                    </td> -->
+                                        </tr>
+                                    <?php } ?>
                                 <?php } else { ?>
-                                <tr>
-                                    <td colspan="4">
-                                        <h3 class="text-gray-900 text-center">Data belum ada.</h3>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <h3 class="text-gray-900 text-center">Data belum ada.</h3>
+                                        </td>
+                                    </tr>
                                 <?php } ?>
                             </tbody>
                         </table>

@@ -34,6 +34,7 @@
                                     <th>Nama Balita</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Tanggal Lahir</th>
+                                    <th>Umur Saat Ini</th>
                                     <th>Nama Orang Tua</th>
                                     <th>Posyandu</th>
                                     <!-- <th style="width: 10%;">Aksi</th> -->
@@ -45,6 +46,7 @@
                                     <th>Nama Balita</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Tanggal Lahir</th>
+                                    <th>Umur Saat Ini</th>
                                     <th>Nama Orang Tua</th>
                                     <th>Posyandu</th>
                                     <!-- <th style="width: 10%;">Aksi</th> -->
@@ -57,11 +59,24 @@
                                             <td><?= $index + 1; ?></td>
                                             <td><?= esc($data['nama']); ?></td>
                                             <td>
-                                        <?= ($data['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?>
-                                    </td>
-                                              <td>
-                                        <?= date('d-m-Y', strtotime($data['tgl_lahir'])); ?>
-                                    </td>
+                                                <?= ($data['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?>
+                                            </td>
+                                            <td>
+                                                <?= date('d-m-Y', strtotime($data['tgl_lahir'])); ?>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <?php
+
+                                                $tanggalLahir = $data['tgl_lahir'];
+
+                                                $birthDate = new DateTime($tanggalLahir);
+                                                $today = new DateTime("today");
+                                                $diff = $birthDate->diff($today);
+
+
+                                                echo $diff->y . " tahun, " . $diff->m . " bulan, " . $diff->d . " hari";
+                                                ?>
+                                            </td>
                                             <td><?= esc($data['nama_ortu']); ?></td>
                                             <td><?= esc($data['nama_posyandu']); ?></td>
                                             <!-- <td>

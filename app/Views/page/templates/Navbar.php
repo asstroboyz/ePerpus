@@ -11,7 +11,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="<?= base_url() ?>"
+                    <a href="#"
                         class="nav-item nav-link active">Home</a>
                    
                     <a href="<?= base_url() ?>/#statistik-anak" class="nav-item nav-link">Jumlah anak</a>

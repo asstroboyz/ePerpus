@@ -25,7 +25,7 @@
         
             <img class="img-profile rounded-circle"
      src="<?= empty(user()->foto) ? '/uploads/profil.svg' : '/uploads/profile/' . user()->foto; ?>">
-
+        
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
