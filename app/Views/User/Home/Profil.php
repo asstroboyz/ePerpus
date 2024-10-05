@@ -1,39 +1,39 @@
-<?= $this->extend('Admin/Templates/Index') ?>
+<?= $this->extend('user/Templates/Index') ?>
 
 <?= $this->section('page-content') ?>
 <div class="container-fluid">
     <?php if (session()->getFlashdata('error-msg')) : ?>
-    <div class="row">
-        <div class="col-12">
-            <div class="alert alert-danger alert-dismissible show fade" role="alert">
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger alert-dismissible show fade" role="alert">
 
-                <div class="alert-body">
-                    <button class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <b><i class="fa fa-check"></i></b>
-                    <?= session()->getFlashdata('error-msg'); ?>
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <b><i class="fa fa-check"></i></b>
+                        <?= session()->getFlashdata('error-msg'); ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <?php if (session()->getFlashdata('msg')) : ?>
-    <div class="row">
-        <div class="col-12">
-            <div class="alert alert-success alert-dismissible show fade" role="alert">
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible show fade" role="alert">
 
-                <div class="alert-body">
-                    <button class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <b><i class="fa fa-check"></i></b>
-                    <?= session()->getFlashdata('msg'); ?>
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <b><i class="fa fa-check"></i></b>
+                        <?= session()->getFlashdata('msg'); ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <div class="row">
@@ -64,7 +64,7 @@
                             </li>
                             <li class="list-group-item"><i class="fa fa-calendar mr-1"></i> terdaftar sejak.
                                 <?php $date = date_create($user->created_at);
-echo (date_format($date, "d F Y H:i:s")) ?>
+                                echo (date_format($date, "d F Y H:i:s")) ?>
                             </li>
 
                         </ul>
@@ -97,7 +97,7 @@ echo (date_format($date, "d F Y H:i:s")) ?>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/Admin/simpanProfile/<?= $user->id; ?>"
+                <form action="/user/simpanProfile/<?= $user->id; ?>"
                     method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <?= csrf_field(); ?>
@@ -113,7 +113,7 @@ echo (date_format($date, "d F Y H:i:s")) ?>
                                 value="<?= $user->username ?>">
                             <div class="invalid-feedback"></div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="fullname">fullname</label>
                             <input type="text" name="fullname" id="fullname" class="form-control"
@@ -152,7 +152,7 @@ echo (date_format($date, "d F Y H:i:s")) ?>
                     </button>
                 </div>
                 <form
-                    action="/Admin/updatePassword/<?= user()->id ?>"
+                    action="/user/updatePassword/<?= user()->id ?>"
                     method="post">
                     <div class="modal-body">
                         <?= csrf_field(); ?>
