@@ -71,20 +71,13 @@
     </div>
 
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#manajemenUserMenu"
-            aria-expanded="true" aria-controls="manajemenUserMenu">
-            <i class="fas fa-fw fa-cog mr-2"></i>
-            <span style="font-size: 16px;">Manajemen Users</span>
+     <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/kelola_user'); ?>">
+            <i class="fas fa-user-cog"></i>
+            <span>Manajemen Users</span>
         </a>
-        <div id="manajemenUserMenu" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" style="font-size: 16px;"
-                    href="<?= base_url('Admin/kelola_user'); ?>">Manajemen
-                    Users</a>
-            </div>
-        </div>
     </li>
+
     <?php endif; ?>
 
 
