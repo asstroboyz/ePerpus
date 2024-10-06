@@ -1,19 +1,34 @@
-<?= $this->extend('Admin/Templates/Index') ?>
+<?=$this->extend('Admin/Templates/Index')?>
 
-<?= $this->section('page-content') ?>
+<?=$this->section('page-content')?>
 
-<?= view('Myth\Auth\Views\_message_block') ?>
+
 
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                               <div class="col-md-12">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <?=view('Myth\Auth\Views\_message_block')?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- <div class="card-header"> -->
 
                     <!-- <h3>Daftar Pengguna</h3>
                         <a href="#" class="btn btn-primary"
-                            data-id="<?= $row->id; ?>"
+                            data-id="<?=$row->id;?>"
                     data-toggle="modal" data-target="#tambahUserModal">
                     <i class="fas fa-plus"> Tambah</i>
                     </a>
@@ -21,8 +36,8 @@
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <h3 class="m-0">Daftar Pengguna</h3>
                     <a href="#" class="btn btn-primary"
-                        data-id="<?= $row->id; ?>"
-                        data-toggle="modal" data-target="#tambahUserModal"><i class="fa fa-plus"></i> Tambah
+                        data-id="<?=$row->id;?>" data-toggle="modal"
+                        data-target="#tambahUserModal"><i class="fa fa-plus"></i> Tambah
                         Pengguna</a>
                 </div>
                 <div class="card-body">
@@ -35,7 +50,7 @@
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                  
+
                                     <th>Nama Posyandu</th>
                                     <!-- activasi user berfungsi hanya saja di nonaktifkan -->
                                     <!-- <th>Active User</th> -->
@@ -48,7 +63,7 @@
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                  
+
                                     <th>Nama Posyandu</th>
                                     <!-- <th>Active User</th> -->
                                     <th>Opsi</th>
@@ -56,7 +71,7 @@
                             </tfoot>
                             <tbody>
                                 <?php
-                                $no = 1;
+$no = 1;
 
 foreach ($users as $rw) {
     $row = "row" . $rw->id;
@@ -94,25 +109,25 @@ foreach ($users as $rw) {
             <div class="modal-body">
                 <!-- Isi modal (formulir tambah user) -->
                 <form class="user"
-                    action="<?= url_to('register') ?>"
+                    action="<?=url_to('register')?>"
                     method="post">
-                    <?= csrf_field() ?>
+                    <?=csrf_field()?>
                     <!-- Isian formulir tambah user -->
                     <div class="form-group">
                         <input type="text" class="form-control form-control-user" name="username" placeholder="Username"
-                            value="<?= old('username') ?>">
+                            value="<?=old('username')?>">
                     </div>
                     <div class="form-group">
                         <input type="email" class="form-control form-control-user" name="email" placeholder="Email"
-                            value="<?= old('email') ?>">
+                            value="<?=old('email')?>">
                     </div>
                     <div class="form-group">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
                         <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="L" <?= old('jenis_kelamin') == 'L' ? 'selected' : ''; ?>>Laki-laki
+                            <option value="L" <?=old('jenis_kelamin') == 'L' ? 'selected' : '';?>>Laki-laki
                             </option>
-                            <option value="P" <?= old('jenis_kelamin') == 'P' ? 'selected' : ''; ?>>Perempuan
+                            <option value="P" <?=old('jenis_kelamin') == 'P' ? 'selected' : '';?>>Perempuan
                             </option>
                         </select>
                     </div>
@@ -120,13 +135,27 @@ foreach ($users as $rw) {
                         <label for="posisi">Posisi</label>
                         <select class="form-control" id="posisi" name="posisi" required>
                             <option value="">Pilih Posisi</option>
-                            <option value="kader" <?= old('posisi') == 'kader' ? 'selected' : ''; ?>>Kader
+                            <option value="kader" <?=old('posisi') == 'kader' ? 'selected' : '';?>>Kader
                             </option>
-                            <option value="bidan" <?= old('posisi') == 'bidan' ? 'selected' : ''; ?>>Bidan
+                            <option value="bidan" <?=old('posisi') == 'bidan' ? 'selected' : '';?>>Bidan
                             </option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="posyandu_id">Nama Posyandu</label>
+                        <select name="posyandu_id" class="form-control">
+                             <option value="">Pilih Posyandu</option>
+                            <?php foreach ($posyandus as $posyandu): ?>
 
+                            <option
+                                value="<?=htmlspecialchars($posyandu['id'], ENT_QUOTES, 'UTF-8');?>">
+                                <?=htmlspecialchars($posyandu['nama_posyandu'], ENT_QUOTES, 'UTF-8');?>
+                            </option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <input type="hidden" name="groupNamesString"
+                        value="<?=$groupNamesString;?>">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="password" class="form-control form-control-user" name="password"
@@ -146,8 +175,8 @@ foreach ($users as $rw) {
     </div>
 </div>
 <!-- Modal for Ubah Grup -->
-<form action="<?= base_url(); ?>/Admin/changeGroup" method="post">
-    <?= csrf_field() ?>
+<form action="<?=base_url();?>/Admin/changeGroup" method="post">
+    <?=csrf_field()?>
     <div class="modal fade" id="changeGroupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -171,13 +200,13 @@ foreach ($users as $rw) {
                             <div class="col mb-8pt mb-md-0">
                                 <select name="group" class="form-control" data-toggle="select">
                                     <?php
-    foreach ($groups as $key => $row) {
-        ?>
-                                    <option value="<?= $row->id; ?>">
-                                        <?= $row->name; ?>
+foreach ($groups as $key => $row) {
+    ?>
+                                    <option value="<?=$row->id;?>">
+                                        <?=$row->name;?>
                                     </option>
                                     <?php
-    }
+}
 ?>
                                 </select>
                             </div>
@@ -195,7 +224,7 @@ foreach ($users as $rw) {
 </form>
 
 
-<form action="<?= base_url(); ?>Admin/changePassword" method="post">
+<form action="<?=base_url();?>Admin/changePassword" method="post">
     <div class="modal fade" id="ubah_password" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -247,4 +276,14 @@ foreach ($users as $rw) {
     </div>
 </form>
 
-<?= $this->endSection() ?>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Menghilangkan alert setelah 3 detik (3000 ms)
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 1200);
+    });
+</script>
+<?=$this->endSection()?>

@@ -35,7 +35,7 @@
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                  
+
                                     <th>Nama Posyandu</th>
                                     <!-- activasi user berfungsi hanya saja di nonaktifkan -->
                                     <!-- <th>Active User</th> -->
@@ -48,7 +48,7 @@
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                  
+
                                     <th>Nama Posyandu</th>
                                     <!-- <th>Active User</th> -->
                                     <th>Opsi</th>
@@ -116,17 +116,16 @@ foreach ($users as $rw) {
                             </option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display:none;">
                         <label for="posisi">Posisi</label>
                         <select class="form-control" id="posisi" name="posisi" required>
-                            <option value="">Pilih Posisi</option>
-                            <option value="kader" <?= old('posisi') == 'kader' ? 'selected' : ''; ?>>Kader
-                            </option>
-                            <option value="bidan" <?= old('posisi') == 'bidan' ? 'selected' : ''; ?>>Bidan
-                            </option>
+                            <option value="bidan" selected>Bidan</option>
                         </select>
                     </div>
-
+                    <input type="hidden" name="posyandu_id"
+                        value="<?= esc($posyanduId); ?>">
+                    <input type="hidden" name="groupNamesString"
+                        value="<?= $groupNamesString; ?>">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="password" class="form-control form-control-user" name="password"

@@ -37,7 +37,12 @@ class DataBalitaDetailModel extends Model
             ->join('data_balita', 'data_balita.id = data_balita_detail.balita_id')
             ->first();
     }
-    
+    public function getDetailsWithBalita()
+    {
+        return $this->select('data_balita_detail.*, data_balita.nama') // Sesuaikan field yang ingin ditampilkan
+                    ->join('data_balita', 'data_balita.id = data_balita_detail.balita_id')
+                    ->findAll();
+    }
     public function getBalitaDetail($id = false)
     {
         if ($id == false) {

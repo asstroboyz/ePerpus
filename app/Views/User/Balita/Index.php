@@ -40,18 +40,19 @@ $pengecekanModel = new DataBalitaDetailModel();
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th style="text-align:center; width: 5%;">No</th>
-                                    <th>Nama Balita</th>
-                                    <th style="text-align:center; width: 10%;">Jenis Kelamin</th>
-                                    <th style="text-align:center; width: 15%;">Tanggal Lahir</th>
-                                    <th style="text-align:center; width: 15%;">Umur Saat Ini</th>
-                                    <th>Nama Orang Tua</th>
-                                    <th>Nik Anak</th>
-                                    <th style="text-align:center; width: 20%;">Aksi</th>
-                                </tr>
-                            </thead>
+                          <thead class="thead">
+    <tr>
+        <th style="text-align:center; width: 5%;">No</th>
+        <th style="text-align:left; width: 30%;">Nama Balita</th>
+        <th style="text-align:center; width: 10%;">Jenis Kelamin</th>
+        <th style="text-align:center; width: 15%;">Tanggal Lahir</th>
+        <th style="text-align:center; width: 15%; ">Umur Saat Ini</th>
+
+        <th style="text-align:left; width: 25%;">Nama Orang Tua</th>
+        <th style="text-align:center; width: 20%;">Aksi</th>
+    </tr>
+</thead>
+
                             <tbody>
                                 <?php if ($balita) : ?>
                                     <?php foreach ($balita as $num => $data) : ?>
@@ -60,7 +61,7 @@ $pengecekanModel = new DataBalitaDetailModel();
                                             <td><?= $data['nama']; ?></td>
                                             <td style="text-align:center;"><?= ($data['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?></td>
                                             <td style="text-align:center;"><?= date('d-m-Y', strtotime($data['tgl_lahir'])); ?></td>
-                                            <td style="text-align:center;">
+                                            <td style="text-align:center; font-size: 1rem;">
                                                 <?php
                                                 $tanggalLahir = $data['tgl_lahir'];
                                                 $birthDate = new DateTime($tanggalLahir);
@@ -70,7 +71,7 @@ $pengecekanModel = new DataBalitaDetailModel();
                                                 ?>
                                             </td>
                                             <td><?= $data['nama_ortu']; ?></td>
-                                            <td><?= $data['nik_balita']; ?></td>
+                                            <!-- <td><?= $data['nik_balita']; ?></td> -->
                                             <td style="text-align:center;">
                                                 <div class="btn-group" role="group">
                                                     <a href="<?= site_url('/user/pengecekan/' . $data['id']); ?>" class="btn btn-info btn-sm mx-1">
@@ -82,9 +83,9 @@ $pengecekanModel = new DataBalitaDetailModel();
                                                     <a href="/user/editBalita/<?= $data['id']; ?>" class="btn btn-warning btn-sm mx-1">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-secondary btn-sm mx-1 btn-delete" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="<?= site_url('/user/deleteBalita/' . $data['id']); ?>">
+                                                    <!-- <a href="#" class="btn btn-secondary btn-sm mx-1 btn-delete" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="<?= site_url('/user/deleteBalita/' . $data['id']); ?>">
                                                         <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    </a> -->
                                                     <a href="#" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modalKonfirmasiBanned" data-id="<?= $data['id'] ?>">
                                                         <i class="fa fa-ban"></i>
                                                     </a>

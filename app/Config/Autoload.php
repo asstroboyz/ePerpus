@@ -39,7 +39,9 @@ class Autoload extends AutoloadConfig
      *```
      *
      * @var array<string, string>
+     * 
      */
+      public $helpers = ['auth'];
     public $psr4 = [
         APP_NAMESPACE => APPPATH, // For custom app namespace
         'Config' => APPPATH . 'Config',

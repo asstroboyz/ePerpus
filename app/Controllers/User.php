@@ -196,9 +196,26 @@ class User extends BaseController
     {
         $userModel = new UserModel();
         $groupModel = new GroupModel();
-        $posyanduId = user()->posyandu_id; // Mengambil posyandu_id dari user yang login
+        $posyanduId = user()->posyandu_id;
+        $data['posyanduId'] = $posyanduId;
+        // dd($posyanduId);
         $no = 1;
+        $currentUser  = user();
+   
+$currentUser   = user();
+$userGroups = $groupModel->getGroupsForUser ($currentUser ->id);
 
+// Mengumpulkan semua 'name' ke dalam array
+$groupNames = array_map(function($group) {
+    return $group['name'];
+}, $userGroups);
+
+// Mengonversi array menjadi string
+$groupNamesString = implode(',', $groupNames);
+
+
+// Menampilkan hasil
+// dd($groupNames);
         // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
         $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
                                    ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
@@ -216,8 +233,8 @@ class User extends BaseController
 
         // Ambil semua group yang tersedia
         $data['groups'] = $groupModel->findAll();
+        $data['groupNamesString'] = $groupNamesString;
         $data['title'] = 'Daftar Pengguna';
-
         // Tampilkan view dengan data yang sudah disusun
         return view('User/User/Index', $data);
     }
@@ -614,21 +631,35 @@ class User extends BaseController
 
     public function detail_balita($id)
     {
-        $data['title'] = 'Detail Data Balita'; // Pindahkan ini ke atas agar tidak terjadi override
-        $this->builder = $this->db->table('data_balita'); // Gunakan $this->builder untuk mengakses builder
+        $data['title'] = 'Detail Data Balita';
 
+        // Load model DataBalitaDetailModel
+        $balitaDetailModel = new DataBalitaDetailModel();
+
+        // Query data_balita dan join dengan posyandu
+        $this->builder = $this->db->table('data_balita');
         $this->builder->select('data_balita.*, posyandu.*,');
         $this->builder->join('posyandu', 'posyandu.id = data_balita.posyandu_id');
         $this->builder->where('data_balita.id', $id);
         $query = $this->builder->get();
+
+        // Mengambil data balita
         $data['data_balita'] = $query->getRow();
-        // dd($data);
+
+        // Mengambil data pengecekan dari data_balita_detail berdasarkan balita_id
+        $data['pengecekan'] = $balitaDetailModel->where('balita_id', $id)->findAll();
+
+        // Jika data balita tidak ditemukan, redirect
         if (empty($data['data_balita'])) {
             return redirect()->to('/user/balita');
         }
 
+        // Load view dengan data yang didapatkan
         return view('User/Balita/Detail_balita', $data);
     }
+
+
+
 
     public function jenis_imunisasi()
     {
@@ -792,23 +823,23 @@ class User extends BaseController
         // Tampilkan halaman arsip
         return view('User/balita/ArsipBalita', $data);
     }
-public function restoreBalita($id)
-{
-    $balitaModel = new DataBalitaModel();
+    public function restoreBalita($id)
+    {
+        $balitaModel = new DataBalitaModel();
 
-    // Cek apakah data ditemukan
-    $balita = $balitaModel->onlyDeleted()->find($id);
-    if ($balita) {
-        // Restore data dengan menghapus nilai deleted_at
-        $balitaModel->restoreBalita($id);
+        // Cek apakah data ditemukan
+        $balita = $balitaModel->onlyDeleted()->find($id);
+        if ($balita) {
+            // Restore data dengan menghapus nilai deleted_at
+            $balitaModel->restoreBalita($id);
 
-        // Redirect dengan pesan sukses
-        return redirect()->to('user/arsipBalita')->with('msg', 'Data berhasil dipulihkan.');
-    } else {
-        // Jika data tidak ditemukan, tampilkan pesan error
-        return redirect()->to('user/arsipBalita')->with('error-msg', 'Data tidak ditemukan atau belum diarsipkan.');
+            // Redirect dengan pesan sukses
+            return redirect()->to('user/arsipBalita')->with('msg', 'Data berhasil dipulihkan.');
+        } else {
+            // Jika data tidak ditemukan, tampilkan pesan error
+            return redirect()->to('user/arsipBalita')->with('error-msg', 'Data tidak ditemukan atau belum diarsipkan.');
+        }
     }
-}
 
 
 

@@ -170,7 +170,10 @@ class AuthController extends Controller
         $user              = new User($this->request->getPost($allowedPostFields));
         $user->jenis_kelamin = $this->request->getPost('jenis_kelamin');
         $user->posisi = $this->request->getPost('posisi');
-
+        $user->posyandu_id = $this->request->getPost('posyandu_id');
+        $user->groupNamesString = $this->request->getPost('groupNamesString');
+        $grup_pengguna = $user->groupNamesString;
+        // dd($user);
 
         $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
 
@@ -194,9 +197,9 @@ class AuthController extends Controller
             // Success!
             return redirect()->route('login')->with('message', lang('Auth.activationSuccess'));
         }
-
+        return redirect()->to($grup_pengguna . '/kelola_user')->with('message', lang('Auth.registerSuccess'));
        
-        return redirect()->to('admin/kelola_user')->with('message', lang('Auth.registerSuccess'));
+        // return redirect()->to('user/kelola_user')->with('message', lang('Auth.registerSuccess'));
     }
 
     //--------------------------------------------------------------------

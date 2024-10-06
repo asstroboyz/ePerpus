@@ -1731,7 +1731,22 @@ class Admin extends BaseController
         // dd($data);
         $groupModel = new GroupModel();
         $no = 1;
+ $currentUser  = user();
+$userGroups = $groupModel->getGroupsForUser ($currentUser ->id);
 
+// Mengumpulkan semua 'name' ke dalam array
+$groupNames = array_map(function($group) {
+    return $group['name'];
+}, $userGroups);
+
+// Menghilangkan nama duplikat
+$groupNames = array_unique($groupNames);
+
+// Mengonversi array menjadi string
+$groupNamesString = implode(',', $groupNames);
+
+// Debugging
+// dd($groupNamesString);
         foreach ($data['users'] as $row) {
             $dataRow['group'] = $groupModel->getGroupsForUser($row->id);
             $dataRow['row'] = $row;
@@ -1739,6 +1754,10 @@ class Admin extends BaseController
             $data['row' . $row->id] = view('Admin/User/Row', $dataRow);
         }
         $data['groups'] = $groupModel->findAll();
+         $data['groupNamesString'] = $groupNamesString;
+        //  dd($groupNamesString);
+         $posyanduModel = new PosyanduModel();
+    $data['posyandus'] = $posyanduModel->findAll();
         $data['title'] = 'Daftar Pengguna';
         return view('Admin/User/Index', $data);
     }
