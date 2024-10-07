@@ -93,6 +93,7 @@
                                 <th>Nama Posyandu</th>
                                 <th>Alamat</th>
                                 <th>Kader Posyandu</th>
+                                <th>Bidan Posyandu</th>
                                 <th>Tanggal</th>
                                 <th>Jam</th>
                             </tr>
@@ -124,7 +125,8 @@
                                         <td><?= $no++ ?></td>
                                         <td><?= esc($imunisasi['nama_posyandu']) ?></td>
                                         <td><?= esc($imunisasi['alamat_posyandu']) ?></td>
-                                        <td><?= esc($imunisasi['username']) ?></td>
+                                         <td><?= esc($imunisasi['kader_username']) ?></td>
+                <td><?= esc($imunisasi['bidan_username']) ?></td>
                                         <td><?= $formattedDate ?></td>
                                         <td><?= $formattedTime ?> WIB</td>
                                     </tr>

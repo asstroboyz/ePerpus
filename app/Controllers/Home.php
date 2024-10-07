@@ -27,10 +27,19 @@ class Home extends BaseController
 
         // Mengambil data jadwal dengan join ke tabel posyandu dan users
         $data['jadwal'] = $jadwalModel
-            ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
-            ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id') // Join dengan tabel posyandu
-            ->join('users', 'users.id = posyandu.kader_posyandu') // Join dengan tabel users
-            ->findAll();
+    ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, 
+              kader.username as kader_username, bidan.username as bidan_username')
+    ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id') // Join dengan tabel posyandu
+    ->join('users kader', 'kader.id = posyandu.kader_posyandu') // Join dengan kader posyandu
+    ->join('users bidan', 'bidan.posyandu_id = posyandu.id AND bidan.posisi = "bidan"') // Join dengan bidan
+    ->findAll();
+
+        // $data['jadwal'] = $jadwalModel
+        //     ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
+        //     ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id') // Join dengan tabel posyandu
+        //      ->join('posyandu', 'posyandu.id = users.posyandu_id')
+        //     ->join('users', 'users.id = posyandu.kader_posyandu') // Join dengan tabel users
+        //     ->findAll();
 
         $data['title'] = 'Daftar Jadwal Imunisasi'; // Judul untuk halaman
         $data['jumlah_balita'] = $this->DataBalitaModel->getTotalBalita();
