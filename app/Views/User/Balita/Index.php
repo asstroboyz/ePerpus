@@ -74,9 +74,13 @@ $pengecekanModel = new DataBalitaDetailModel();
                                             <!-- <td><?= $data['nik_balita']; ?></td> -->
                                             <td style="text-align:center;">
                                                 <div class="btn-group" role="group">
+                                                      <?php if (user()->posisi === 'bidan'): ?>
+    <?php endif; ?>
+
                                                     <a href="<?= site_url('/user/pengecekan/' . $data['id']); ?>" class="btn btn-info btn-sm mx-1">
                                                         <i class="fa fa-stethoscope"></i>
                                                     </a>
+                                                    
                                                     <a href="<?= site_url('/user/detail_balita/' . $data['id']); ?>" class="btn btn-primary btn-sm mx-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>

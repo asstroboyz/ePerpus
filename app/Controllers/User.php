@@ -201,21 +201,21 @@ class User extends BaseController
         // dd($posyanduId);
         $no = 1;
         $currentUser  = user();
-   
-$currentUser   = user();
-$userGroups = $groupModel->getGroupsForUser ($currentUser ->id);
+        
+        $currentUser   = user();
+        $userGroups = $groupModel->getGroupsForUser($currentUser ->id);
 
-// Mengumpulkan semua 'name' ke dalam array
-$groupNames = array_map(function($group) {
-    return $group['name'];
-}, $userGroups);
+        // Mengumpulkan semua 'name' ke dalam array
+        $groupNames = array_map(function ($group) {
+            return $group['name'];
+        }, $userGroups);
 
-// Mengonversi array menjadi string
-$groupNamesString = implode(',', $groupNames);
+        // Mengonversi array menjadi string
+        $groupNamesString = implode(',', $groupNames);
 
 
-// Menampilkan hasil
-// dd($groupNames);
+        // Menampilkan hasil
+        // dd($groupNames);
         // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
         $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
                                    ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
@@ -656,6 +656,39 @@ $groupNamesString = implode(',', $groupNames);
 
         // Load view dengan data yang didapatkan
         return view('User/Balita/Detail_balita', $data);
+    }
+    public function pengecekan($id)
+    {
+        // $data['title'] = 'Detail Data Balita';
+        $data = [
+                   'title' => 'Detail Balita',
+                   'validation' => $this->validation,
+                   // 'balita' => $balita,
+                   // 'posyandus' => $posyandus, // Kirim data posyandu ke view
+               ];
+        // Load model DataBalitaDetailModel
+        $balitaDetailModel = new DataBalitaDetailModel();
+
+        // Query data_balita dan join dengan posyandu
+        $this->builder = $this->db->table('data_balita');
+        $this->builder->select('data_balita.*, posyandu.*,');
+        $this->builder->join('posyandu', 'posyandu.id = data_balita.posyandu_id');
+        $this->builder->where('data_balita.id', $id);
+        $query = $this->builder->get();
+
+        // Mengambil data balita
+        $data['data_balita'] = $query->getRow();
+
+        // Mengambil data pengecekan dari data_balita_detail berdasarkan balita_id
+        $data['pengecekan'] = $balitaDetailModel->where('balita_id', $id)->findAll();
+
+        // Jika data balita tidak ditemukan, redirect
+        if (empty($data['data_balita'])) {
+            return redirect()->to('/user/balita');
+        }
+
+        // Load view dengan data yang didapatkan
+        return view('User/Pengecekan/index', $data);
     }
 
 
