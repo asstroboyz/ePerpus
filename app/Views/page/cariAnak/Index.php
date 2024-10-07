@@ -11,7 +11,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Pencarian Data Balita</h6>
                     </div>
                     <div class="card-body">
-                        <form method="get" action="<?= base_url('home/search'); ?>" onsubmit="return validateForm()">
+                        <!-- <form method="get" action="<?= base_url('home/search'); ?>" onsubmit="return validateForm()">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -35,7 +35,34 @@
                             <div class="text-right mt-3">
                                 <button type="submit" class="btn btn-primary">Cari</button>
                             </div>
-                        </form>
+                        </form> -->
+<form method="get" action="<?= base_url('home/search'); ?>" onsubmit="return validateForm()">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="nama">Nama Orang Tua</label>
+                <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" placeholder="Masukkan Nama orang tua balita">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="nik_ortu">NIK Orang Tua <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="nik_ortu_display" placeholder="Masukkan NIK Balita" maxlength="16" oninput="maskInput(this, 'nik_ortu')" required>
+                <input type="hidden" id="nik_ortu" name="nik_ortu">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="no_kk">Nomor KK <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="no_kk_display" placeholder="Masukkan No. KK" maxlength="16" oninput="maskInput(this, 'no_kk')" required>
+                <input type="hidden" id="no_kk" name="no_kk">
+            </div>
+        </div>
+    </div>
+    <div class="text-right mt-3">
+        <button type="submit" class="btn btn-primary">Cari</button>
+    </div>
+</form>
 
                     </div>
                 </div>
@@ -80,5 +107,19 @@
         </div>
     </div>
 
+<script>
+function maskInput(displayInput, hiddenInputId) {
+    const originalValue = displayInput.value.replace(/\*/g, '');
+    const maskedValue = originalValue.slice(0, -4).replace(/./g, '*') + originalValue.slice(-4);
+    displayInput.value = maskedValue;
+    
+    document.getElementById(hiddenInputId).value = originalValue;
+}
+
+function validateForm() {
+    // Implement your form validation logic here
+    return true;
+}
+</script>
     <?= $this->endSection(); ?>
 </section>
