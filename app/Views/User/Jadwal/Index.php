@@ -12,9 +12,12 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="<?= base_url('user/tambahJadwalPosyandu'); ?>" class="btn btn-primary">
+             <?php if (user()->posisi === 'kader'): ?>
+                 <a href="<?= base_url('user/tambahJadwalPosyandu'); ?>" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Tambah Jadwal
             </a>
+    <?php endif; ?>
+           
         </div>
         <div class="card-body">
             <div class="table-responsive">

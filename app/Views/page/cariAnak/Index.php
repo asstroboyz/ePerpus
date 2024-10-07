@@ -15,14 +15,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="nama">Nama Balita</label>
-                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama balita">
+                                        <label for="nama">Nama Orang Tua</label>
+                                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" placeholder="Masukkan Nama orang tua balita">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="nik_balita">NIK Balita <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="nik_balita" name="nik_balita" placeholder="Masukkan NIK Balita" maxlength="16" oninput="maskInput(this, 5)" required>
+                                        <label for="nik_ortu">NIK Orang Tua <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="nik_ortu" name="nik_ortu" placeholder="Masukkan NIK Balita" maxlength="16" oninput="maskInput(this, 5)" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">

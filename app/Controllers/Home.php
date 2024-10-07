@@ -116,8 +116,8 @@ class Home extends BaseController
         $model = new DataBalitaModel();
 
         // Ambil data dari form pencarian
-        $nama = $this->request->getGet('nama');
-        $nik_balita = $this->request->getGet('nik_balita');
+        $nama_ortu = $this->request->getGet('nama_ortu');
+        $nik_ortu = $this->request->getGet('nik_ortu');
         $no_kk = $this->request->getGet('no_kk');
 
         // Lihat data inputan dari form
@@ -125,11 +125,11 @@ class Home extends BaseController
 
         // Buat query untuk pencarian
         $query = $model->where('1=1'); // Kondisi awal, selalu benar
-        if (!empty($nama)) {
-            $query->like('nama', $nama);
+        if (!empty($nama_ortu)) {
+            $query->like('nama_ortu', $nama_ortu);
         }
-        if (!empty($nik_balita)) {
-            $query->like('nik_balita', $nik_balita);
+        if (!empty($nik_ortu)) {
+            $query->like('nik_ortu', $nik_ortu);
         }
         if (!empty($no_kk)) {
             $query->like('no_kk', $no_kk);

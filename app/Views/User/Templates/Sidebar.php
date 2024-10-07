@@ -12,11 +12,11 @@ $posyandu = $posyanduModel->where('id', user()->posyandu_id)->first();
         </div>
         <div class="sidebar-brand-text mx-3">
             <?php if (user()->posisi === 'kader'): ?>
-                Kader Panel (<?= $posyandu['nama_posyandu']; ?>)
+                Kader <?= $posyandu['nama_posyandu']; ?>
             <?php elseif (user()->posisi === 'bidan'): ?>
-                Bidan Panel (<?= $posyandu['nama_posyandu']; ?>)
+                Bidan <?= $posyandu['nama_posyandu']; ?>
             <?php else: ?>
-                Admin Panel (<?= $posyandu['nama_posyandu']; ?>)
+                Admin <?= $posyandu['nama_posyandu']; ?>
             <?php endif; ?>
         </div>
     </a>
