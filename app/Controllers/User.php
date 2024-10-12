@@ -2,18 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Models\Pengaduan;
-use App\Models\bukti;
-use App\Models\profil;
-use App\Models\DataBalitaModel;
-use App\Models\PosyanduModel;
 use App\Models\DataBalitaDetailModel;
+use App\Models\DataBalitaModel;
 use App\Models\JadwalimunisasiModel;
 use App\Models\JenisImunisasiModel;
-use CodeIgniter\Database\Query;
+use App\Models\Pengaduan;
+use App\Models\PosyanduModel;
+use App\Models\profil;
 use Myth\Auth\Entities\passwd;
-use Myth\Auth\Models\UserModel;
 use Myth\Auth\Models\GroupModel;
+use Myth\Auth\Models\UserModel;
 
 class User extends BaseController
 {
@@ -22,7 +20,7 @@ class User extends BaseController
     public function __construct()
     {
 
-        $this->db      = \Config\Database::connect();
+        $this->db = \Config\Database::connect();
         $this->builder = $this->db->table('users');
         $this->JadwalimunisasiModel = new JadwalimunisasiModel();
         // $this->bukti = new bukti();
@@ -48,13 +46,11 @@ class User extends BaseController
         // // $query1 = $builder->where('status', 'diproses')->get()->getResult();
         // $semua = count($query1);
 
-
-
         $data = [
             // 'semua' => $semua,
             // 'proses' => count($query2),
             // 'selesai' => count($query3),
-            'title' => 'Home'
+            'title' => 'Home',
         ];
         // dd($data);
         return view('User/home/index', $data);
@@ -79,7 +75,7 @@ class User extends BaseController
             $users = model(UserModel::class);
             $entity = new passwd();
             $entity->setPassword($passwordbaru);
-            $hash  = $entity->password_hash;
+            $hash = $entity->password_hash;
             $users->update($id, ['password_hash' => $hash]);
             session()->setFlashdata('msg', 'Password berhasil Diubah');
             return redirect()->to('/user/tentang/' . $id);
@@ -150,7 +146,7 @@ class User extends BaseController
 
             'user' => $query,
             'validation' => $this->validation,
-            'title' => 'Update Profile'
+            'title' => 'Update Profile',
         ];
         // dd($data['user']);
 
@@ -164,8 +160,6 @@ class User extends BaseController
         $builder->select('*');
         $query = $builder->where('username', $userlogin)->get()->getRowArray();
 
-
-
         $foto = $this->request->getFile('foto');
         if ($foto->getError() == 4) {
             $this->profil->update($id, [
@@ -173,7 +167,6 @@ class User extends BaseController
                 'username' => $this->request->getPost('username'),
             ]);
         } else {
-
 
             $nama_foto = 'UserFoto_' . $this->request->getPost('username') . '.' . $foto->guessExtension();
             if (!(empty($query['foto']))) {
@@ -184,13 +177,12 @@ class User extends BaseController
             $this->profil->update($id, [
                 'email' => $this->request->getPost('email'),
                 'username' => $this->request->getPost('username'),
-                'foto' => $nama_foto
+                'foto' => $nama_foto,
             ]);
         }
         session()->setFlashdata('msg', 'Profil Pengaduan  berhasil Diubah');
         return redirect()->to('/user');
     }
-
 
     public function kelola_user()
     {
@@ -200,10 +192,10 @@ class User extends BaseController
         $data['posyanduId'] = $posyanduId;
         // dd($posyanduId);
         $no = 1;
-        $currentUser  = user();
-        
-        $currentUser   = user();
-        $userGroups = $groupModel->getGroupsForUser($currentUser ->id);
+        $currentUser = user();
+
+        $currentUser = user();
+        $userGroups = $groupModel->getGroupsForUser($currentUser->id);
 
         // Mengumpulkan semua 'name' ke dalam array
         $groupNames = array_map(function ($group) {
@@ -213,15 +205,14 @@ class User extends BaseController
         // Mengonversi array menjadi string
         $groupNamesString = implode(',', $groupNames);
 
-
         // Menampilkan hasil
         // dd($groupNames);
         // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
         $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
-                                   ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
-                                   ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
-                                   ->orderBy('users.posyandu_id', 'ASC')
-                                   ->findAll();
+            ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
+            ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
+            ->orderBy('users.posyandu_id', 'ASC')
+            ->findAll();
 
         // Iterasi data users untuk menambahkan data group
         foreach ($data['users'] as $row) {
@@ -239,13 +230,12 @@ class User extends BaseController
         return view('User/User/Index', $data);
     }
 
-
     public function posyandu()
     {
         $data = [
             'title' => 'Data Posyandu',
             // 'posyandu' => $this->PosyanduModel->findAll(),
-            'posyandu' => $this->PosyanduModel->getPosyanduWithKader(),  // Mengambil semua data posyandu
+            'posyandu' => $this->PosyanduModel->getPosyanduWithKader(), // Mengambil semua data posyandu
         ];
         // dd($data);
         return view('user/Posyandu/Index', $data); // Menampilkan view untuk data posyandu
@@ -384,7 +374,6 @@ class User extends BaseController
         ];
         $data['pengecekan'] = $this->DataBalitaDetailModel->getPengecekan();
 
-
         // Debugging
         // dd($data['balita']);
         return view('user/Balita/Index', $data);
@@ -509,7 +498,6 @@ class User extends BaseController
             return redirect()->to('/user/tambahBalita')->withInput()->with('errors', $this->validator->getErrors());
         }
 
-
         // Ambil data dari form
         $data = [
             'nama' => $this->request->getPost('nama'), //
@@ -544,7 +532,7 @@ class User extends BaseController
             'bb_awal' => $this->request->getPost('bb_awal'),
             'tb_awal' => $this->request->getPost('tb_awal'),
             'lk_awal' => $this->request->getPost('lk_awal'),
-            'tgl_pemeriksaan' =>date('Y-m-d'),
+            'tgl_pemeriksaan' => date('Y-m-d'),
             'balita_id' => $balita_id,
         ];
 
@@ -597,27 +585,26 @@ class User extends BaseController
             return redirect()->back()->with('error', 'Data balita tidak ditemukan.');
         }
 
-        // Update data balita berdasarkan ID yang diberikan
         $this->DataBalitaModel->update($id, [
-            'nama' => $this->request->getPost('nama'), //
-            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'), //
-            'tgl_lahir' => $this->request->getPost('tgl_lahir'), //
-            'nama_ortu' => $this->request->getPost('nama_ortu'), //
+            'nama' => $this->request->getPost('nama'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'tgl_lahir' => $this->request->getPost('tgl_lahir'),
+            'nama_ortu' => $this->request->getPost('nama_ortu'),
             'posyandu_id' => user()->posyandu_id,
-            'anak_ke' => $this->request->getPost('anak_ke'), //
+            'anak_ke' => $this->request->getPost('anak_ke'),
             'bbl' => $this->request->getPost('bbl'),
             'pbl' => $this->request->getPost('pbl'),
-            'nik_balita' => $this->request->getPost('nik_balita'), //
-            'no_kk' => $this->request->getPost('no_kk'), //
-            'nik_ortu' => $this->request->getPost('nik_ortu'), //
-            'rt' => $this->request->getPost('rt'), //
-            'rw' => $this->request->getPost('rw'), //
-            'umur' => $this->request->getPost('umur'), //
-            'bb_awal' => $this->request->getPost('bb_awal'), //
-            'tb_awal' => $this->request->getPost('tb_awal'), //
-            'lk_awal' => $this->request->getPost('lk_awal'), //
-            'bbl' => $this->request->getPost('bbl'), //
-            'pbl' => $this->request->getPost('pbl'), //
+            'nik_balita' => $this->request->getPost('nik_balita'),
+            'no_kk' => $this->request->getPost('no_kk'),
+            'nik_ortu' => $this->request->getPost('nik_ortu'),
+            'rt' => $this->request->getPost('rt'),
+            'rw' => $this->request->getPost('rw'),
+            'umur' => $this->request->getPost('umur'),
+            'bb_awal' => $this->request->getPost('bb_awal'),
+            'tb_awal' => $this->request->getPost('tb_awal'),
+            'lk_awal' => $this->request->getPost('lk_awal'),
+            'bbl' => $this->request->getPost('bbl'),
+            'pbl' => $this->request->getPost('pbl'),
         ]);
 
         return redirect()->to('/user/balita');
@@ -657,15 +644,16 @@ class User extends BaseController
         // Load view dengan data yang didapatkan
         return view('User/Balita/Detail_balita', $data);
     }
+
     public function pengecekan($id)
     {
         // $data['title'] = 'Detail Data Balita';
         $data = [
-                   'title' => 'Detail Balita',
-                   'validation' => $this->validation,
-                   // 'balita' => $balita,
-                   // 'posyandus' => $posyandus, // Kirim data posyandu ke view
-               ];
+            'title' => 'Detail Balita',
+            'validation' => $this->validation,
+            // 'balita' => $balita,
+            // 'posyandus' => $posyandus, // Kirim data posyandu ke view
+        ];
         // Load model DataBalitaDetailModel
         $balitaDetailModel = new DataBalitaDetailModel();
 
@@ -681,7 +669,7 @@ class User extends BaseController
 
         // Mengambil data pengecekan dari data_balita_detail berdasarkan balita_id
         $data['pengecekan'] = $balitaDetailModel->where('balita_id', $id)->findAll();
-
+        // dd($data);
         // Jika data balita tidak ditemukan, redirect
         if (empty($data['data_balita'])) {
             return redirect()->to('/user/balita');
@@ -691,8 +679,36 @@ class User extends BaseController
         return view('User/Pengecekan/index', $data);
     }
 
+    public function savePengecekan()
+    {
+        $data = $this->request->getPost();
+        $data = [
+            // 'balita_id' => $data['id'],
+            'balita_id' => $this->request->getPost('balita_id'),
+            'posyandu_id' => user()->posyandu_id,
+            'bb_u' => $this->request->getPost('bb_u'),
+            'bb_tb' => $this->request->getPost('bb_tb'),
+            'tb_u' => $this->request->getPost('tb_u'),
+            'rambu_gizi' => $this->request->getPost('rambu_gizi'),
+            // 'jenis_imunisasi_id' => $this->request->getPost('jenis_imunisasi_id'),
+            'tgl_pemeriksaan' => date('Y-m-d'),
+            'asi_eks' => $this->request->getPost('asi_eks'),
+            'no_hp' => $this->request->getPost('no_hp'),
+            'bb_awal' => $this->request->getPost('bb_awal'),
+            'tb_awal' => $this->request->getPost('tb_awal'),
+            'lk_awal' => $this->request->getPost('lk_awal'),
 
+            // 'lokasi_baru' => $data['lokasi'],
+        ];
+        // dd($data);
+        $this->DataBalitaDetailModel->save($data);
+        session()->setFlashdata('msg', 'Status permintaan berhasil Diubah');
+      $balitaId = $this->request->getPost('balita_id');
 
+// Redirect ke halaman pengecekan untuk balita tertentu
+return redirect()->to("User/pengecekan/$balitaId");
+
+    }
 
     public function jenis_imunisasi()
     {
@@ -712,7 +728,6 @@ class User extends BaseController
         $posyanduModel = new PosyanduModel();
 
         $userlogin = user()->posyandu_id;
-
 
         $data['jadwal'] = $jadwalModel
             ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
@@ -758,34 +773,34 @@ class User extends BaseController
             // 'posyandu_id' => 'required',
             'kader_posyandu' => 'required',
             'tanggal' => 'required|valid_date',
-            'jam' => 'required'
+            'jam' => 'required',
         ])) {
             return redirect()->back()->withInput()->with('pesanGagal', 'Input tidak valid, periksa kembali.');
         }
-    
+
         // Persiapkan data yang akan disimpan
         $data = [
             'posyandu_id' => $this->request->getPost('posyandu_id'),
             'kader_posyandu' => $this->request->getPost('kader_posyandu'), // Asumsi ini adalah ID kader
             'tanggal' => $this->request->getPost('tanggal'),
-            'jam' => $this->request->getPost('jam')
+            'jam' => $this->request->getPost('jam'),
         ];
-    
+
         // Lakukan dd sebelum save untuk debug
         // dd($data); // Ini akan menampilkan data dan menghentikan eksekusi script
-    
+
         // Simpan data ke dalam database
         $this->JadwalimunisasiModel->save($data);
-    
+
         // Redirect setelah data berhasil disimpan
         return redirect()->to(base_url('user/jadwal'))->with('pesanBerhasil', 'Jadwal berhasil ditambahkan');
     }
-    
+
     public function print()
     {
         $data = [
             'pengaduan' => $this->pengaduan->getAll(),
-            'title' => 'Cetak Data'
+            'title' => 'Cetak Data',
         ];
 
         $dompdf = new \Dompdf\Dompdf();
@@ -804,10 +819,8 @@ class User extends BaseController
         // $aduan = $this->pengaduan->where(['id' => $id])->first();
         // $id = $id;
         // $data['detail']   = $aduan;
-        $data['title']   = 'cetak';
+        $data['title'] = 'cetak';
         $data['detail'] = $this->pengaduan->where(['id' => $id])->first();
-
-
 
         //Cetak dengan dompdf
         $dompdf = new \Dompdf\Dompdf();
@@ -850,7 +863,7 @@ class User extends BaseController
         // $data['balitaTerhapus'] = $barangModel->onlyDeleted()->findAll();
         $data = [
             'balitaTerhapus' => $barangModel->onlyDeleted()->findAll(),
-            'title' => 'Data Arsip'
+            'title' => 'Data Arsip',
         ];
 
         // Tampilkan halaman arsip
@@ -873,7 +886,5 @@ class User extends BaseController
             return redirect()->to('user/arsipBalita')->with('error-msg', 'Data tidak ditemukan atau belum diarsipkan.');
         }
     }
-
-
 
 }
