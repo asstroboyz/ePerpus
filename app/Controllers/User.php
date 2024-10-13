@@ -656,21 +656,20 @@ class User extends BaseController
         ];
         // Load model DataBalitaDetailModel
         $balitaDetailModel = new DataBalitaDetailModel();
+        $jenisImunisasiModel = new JenisImunisasiModel();
 
         // Query data_balita dan join dengan posyandu
         $this->builder = $this->db->table('data_balita');
-        $this->builder->select('data_balita.*, posyandu.*,');
+        $this->builder->select('data_balita.*, posyandu.*, data_balita_detail.*, jenis_imunisasi.usia_anak, jenis_imunisasi.jenis_imunisasi');
         $this->builder->join('posyandu', 'posyandu.id = data_balita.posyandu_id');
+        $this->builder->join('data_balita_detail', 'data_balita_detail.balita_id = data_balita.id');
+        $this->builder->join('jenis_imunisasi', 'jenis_imunisasi.id = data_balita_detail.jenis_imunisasi_id');
         $this->builder->where('data_balita.id', $id);
         $query = $this->builder->get();
-
-        // Mengambil data balita
         $data['data_balita'] = $query->getRow();
-
-        // Mengambil data pengecekan dari data_balita_detail berdasarkan balita_id
         $data['pengecekan'] = $balitaDetailModel->where('balita_id', $id)->findAll();
+          $data['jenis_imunisasi'] = $jenisImunisasiModel->findAll();
         // dd($data);
-        // Jika data balita tidak ditemukan, redirect
         if (empty($data['data_balita'])) {
             return redirect()->to('/user/balita');
         }
@@ -690,7 +689,7 @@ class User extends BaseController
             'bb_tb' => $this->request->getPost('bb_tb'),
             'tb_u' => $this->request->getPost('tb_u'),
             'rambu_gizi' => $this->request->getPost('rambu_gizi'),
-            // 'jenis_imunisasi_id' => $this->request->getPost('jenis_imunisasi_id'),
+            'jenis_imunisasi_id' => $this->request->getPost('jenis_imunisasi_id'),
             'tgl_pemeriksaan' => date('Y-m-d'),
             'asi_eks' => $this->request->getPost('asi_eks'),
             'no_hp' => $this->request->getPost('no_hp'),
@@ -703,10 +702,10 @@ class User extends BaseController
         // dd($data);
         $this->DataBalitaDetailModel->save($data);
         session()->setFlashdata('msg', 'Status permintaan berhasil Diubah');
-      $balitaId = $this->request->getPost('balita_id');
+        $balitaId = $this->request->getPost('balita_id');
 
-// Redirect ke halaman pengecekan untuk balita tertentu
-return redirect()->to("User/pengecekan/$balitaId");
+        // Redirect ke halaman pengecekan untuk balita tertentu
+        return redirect()->to("User/pengecekan/$balitaId");
 
     }
 

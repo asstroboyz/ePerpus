@@ -373,15 +373,26 @@ echo $totalBulan . " Bulan";
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="jenis_imunisasi_id">Jenis Imunisasi</label>
-                                        <input type="number"
+                                        <select
                                             class="form-control <?=($validation->hasError('jenis_imunisasi_id')) ? 'is-invalid' : '';?>"
-                                            id="jenis_imunisasi_id" name="jenis_imunisasi_id"
-                                            value="<?=old('jenis_imunisasi_id');?>">
+                                            id="jenis_imunisasi_id" name="jenis_imunisasi_id">
+                                            <option value="">Pilih Jenis Imunisasi</option>
+                                            <?php foreach($jenis_imunisasi as $imunisasi): ?>
+                                            <option
+                                                value="<?= $imunisasi['id']; ?>"
+                                                <?= old('jenis_imunisasi_id') == $imunisasi['id'] ? 'selected' : ''; ?>>
+                                                <?= $imunisasi['jenis_imunisasi']; ?>
+                                                - Usia:
+                                                <?= $imunisasi['usia_anak']; ?>
+                                            </option>
+                                            <?php endforeach; ?>
+                                        </select>
                                         <div class="invalid-feedback">
-                                            <?=$validation->getError('jenis_imunisasi_id');?>
+                                            <?= $validation->getError('jenis_imunisasi_id'); ?>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="lk_awal">Lingkar Kepala (cm)</label>
@@ -454,10 +465,7 @@ echo $totalBulan . " Bulan";
                                 </div>
                             </div>
 
-                            <div class="row">
 
-
-                            </div>
                         </div>
                     </div>
 
@@ -479,6 +487,33 @@ echo $totalBulan . " Bulan";
     // Button untuk menutup form
     closeButton.addEventListener('click', function() {
         formTambah.style.display = 'none';
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to calculate and set values
+        function calculateAndSetValues() {
+            // Get input values
+            const bbAwal = parseFloat(document.getElementById('bb_awal').value) || 0;
+            const tbAwal = parseFloat(document.getElementById('tb_awal').value) || 0;
+            const
+            umur = <?= $totalBulan; ?> ; // Replace with your PHP variable for age in months
+
+            // Calculate values
+            const bbU = umur > 0 ? (bbAwal / umur).toFixed(2) : 0; // BB/U
+            const tbU = umur > 0 ? (tbAwal / umur).toFixed(2) : 0; // TB/U
+            const bbTb = tbAwal > 0 ? (bbAwal / tbAwal).toFixed(2) : 0; // BB/TB
+
+            // Set calculated values into the inputs
+            document.getElementById('bb_u').value = bbU;
+            document.getElementById('tb_u').value = tbU;
+            document.getElementById('bb_tb').value = bbTb;
+        }
+
+        // Attach the function to the submit event of the form
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            // Call the calculation function before form submission
+            calculateAndSetValues();
+        });
     });
 </script>
 <?=$this->endSection('page-content');?>
