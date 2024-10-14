@@ -24,7 +24,7 @@ class User extends BaseController
         $this->db = \Config\Database::connect();
         $this->builder = $this->db->table('users');
         $this->JadwalimunisasiModel = new JadwalimunisasiModel();
-        // $this->bukti = new bukti();
+        $this->DaftarHadirModel = new DaftarHadirModel(); 
         $this->PosyanduModel = new PosyanduModel();
         $this->DataBalitaModel = new DataBalitaModel();
         $this->DataBalitaDetailModel = new DataBalitaDetailModel();
@@ -32,6 +32,7 @@ class User extends BaseController
         $this->profil = new profil();
         $this->validation = \Config\Services::validation();
     }
+
     public function index()
     {
 
@@ -901,16 +902,87 @@ class User extends BaseController
         // Tampilkan halaman arsip
         return view('User/Daftar_hadir/index', $data);
     }
-    public function tambahDaftarHadir()
+    public function tambahDaftarHadir($id)
     {
-        $posyanduModel = new PosyanduModel(); // Model untuk mengambil data posyandu
-        $posyandus = $posyanduModel->findAll(); // Mengambil semua data posyandu
+        $posyanduModel = new PosyanduModel();
+        $posyandus = $posyanduModel->findAll();
+        $userModel = new \Myth\Auth\Models\UserModel();
+        $users = $userModel->findAll();
+        $jadwalModel = new JadwalimunisasiModel();
 
+        $userlogin = user()->posyandu_id;
         $data = [
-            'title' => 'Tambah Balita',
+            'title' => 'Tambah Daftar Hadir',
             'validation' => $this->validation,
-            'posyandus' => $posyandus, // Kirim data posyandu ke view
+            'posyandus' => $posyandus,
+            'id' => $id,
         ];
-        return view('user/Daftar_hadir/Tambah', $data); // Menampilkan view untuk tambah data balita
+        $data['jadwal'] = $jadwalModel
+            ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu, users.username')
+            ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id')
+            ->join('users', 'users.id = posyandu.kader_posyandu')
+            ->where('jadwal_imunisasi.posyandu_id', $userlogin)
+            ->findAll();
+        // dd($data);
+        return view('user/Daftar_hadir/Tambah', $data);
+    }
+
+    public function saveDaftarHadir($id)
+    {
+        // Ambil semua input dari form (array)
+        $namaBalita = $this->request->getPost('nama');
+        $jenisKelamin = $this->request->getPost('jenis_kelamin');
+        $tglLahir = $this->request->getPost('tgl_lahir');
+        $namaOrtu = $this->request->getPost('nama_ortu');
+        $nikOrtu = $this->request->getPost('nik_ortu');
+
+        // Validasi input, Anda bisa membuat validasi per field (seperti yang Anda miliki sebelumnya)
+        $validation = \Config\Services::validation();
+        $DaftarHadirModel = new DaftarHadirModel();
+
+        // $validation->setRules([
+        //     'nama.*' => 'required',
+        //     'jenis_kelamin.*' => 'required',
+        //     'tgl_lahir.*' => 'required|valid_date',
+        //     'nama_ortu.*' => 'required',
+        //     'nik_ortu.*' => 'required|numeric|exact_length[16]',
+        // ]);
+
+        // // Jika validasi gagal
+        // if (!$validation->withRequest($this->request)->run()) {
+        //     return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        // }
+
+        // Loop melalui data yang diterima dari form
+        foreach ($namaBalita as $key => $nama) {
+            // Siapkan data untuk setiap balita
+            $dataBalita = [
+                'nama' => $nama,
+                'jenis_kelamin' => $jenisKelamin[$key],
+                'tgl_lahir' => $tglLahir[$key],
+                'nama_ortu' => $namaOrtu[$key],
+                'nik_ortu' => $nikOrtu[$key],
+                'posyandu_id' => user()->posyandu_id,
+                'tgl_pemeriksaan_awal' => date('Y-m-d'),
+            ];
+           
+            // Simpan data ke model balita (misal DataBalitaModel)
+            $this->DataBalitaModel->insert($dataBalita);
+
+            // Siapkan data untuk daftar hadir
+            $dataDaftarHadir = [
+                'jadwal_imunisasi_id' => $id,
+                'nama_peserta' => $nama,
+                'status_kehadiran' => 'Hadir',
+                'created_at' => date('Y-m-d H:i:s'),
+            ];
+
+            // Simpan data ke model daftar hadir
+            $this->DaftarHadirModel->insert($dataDaftarHadir);
+        }
+
+        // Set flash message dan redirect
+        session()->setFlashdata('pesan', 'Data balita dan kehadiran berhasil ditambahkan');
+        return redirect()->to('/user/balita');
     }
 }

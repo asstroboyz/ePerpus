@@ -1,4 +1,4 @@
-<?= $this->extend('Admin/Templates/Index'); ?>
+<?= $this->extend('User/Templates/Index'); ?>
 
 <?= $this->section('page-content'); ?>
 <div class="container-fluid">
@@ -12,12 +12,12 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card shadow mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center py-3">
+                <div class="card-header d-flex justify-content-between align-items-center py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Form Tambah Daftar Hadir Balita</h6>
                     <button type="button" class="btn btn-secondary" id="add-balita">Tambah Balita</button>
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url('Admin/saveDaftarhadir'); ?>" method="post">
+                    <form action="<?= base_url('user/saveDaftarHadir/' . $id); ?>" method="post">
                         <?= csrf_field(); ?>
 
                         <div id="balita-forms" class="row">
@@ -54,23 +54,19 @@
                                             <label for="nama_ortu[]">Nama Orang Tua</label>
                                             <input type="text" class="form-control" name="nama_ortu[]" value="<?= old('nama_ortu.0'); ?>" required>
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="posyandu_id[]">Posyandu</label>
-                                            <select class="form-control" name="posyandu_id[]" required>
-                                                <option value="">Pilih Posyandu</option>
-                                                <?php foreach ($posyandus as $p) : ?>
-                                                    <option value="<?= $p['id']; ?>" <?= old('posyandu_id.0') == $p['id'] ? 'selected' : ''; ?>><?= $p['nama_posyandu']; ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <label for="nik_ortu[]">Nik Orang Tua</label>
+                                            <input type="number" class="form-control" name="nik_ortu[]" value="<?= old('nik_ortu.0'); ?>" required>
                                         </div>
+
+
                                     </div>
                                 </div>
                             </div>
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary mt-3">Tambah Data</button>
+                        <button type="submit" class="btn btn-primary mt-3 btn-block">Simpan Daftar Hadir</button>
                     </form>
                 </div>
             </div>
@@ -81,17 +77,30 @@
 <script>
     document.getElementById('add-balita').addEventListener('click', function() {
         const balitaForms = document.getElementById('balita-forms');
+        const nikInputs = document.querySelectorAll('.nik-input');
+
+        // Ambil semua nik_ortu yang sudah ada
+        const nikValues = Array.from(nikInputs).map(input => input.value);
+
+        // Cek apakah nik_ortu sudah ada
+        const newNikInput = document.querySelector('input[name="nik_ortu[]"]');
+
+        // Validasi apakah nik sudah ada
+        if (nikValues.includes(newNikInput.value)) {
+            alert('Nik Orang Tua sudah ada. Silakan masukkan nik yang berbeda.');
+            return; // Jika ada yang sama, tidak lanjut menambah form
+        }
 
         // Buat form baru tanpa menggunakan formCount
         const newForm = `
         <div class="col-lg-6 mb-3">
             <div class="card shadow">
-                <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Data Balita</h6>
-                    <button type="button" class="close" onclick="removeBalitaForm(this)" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+               <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Data Balita</h6>
+                <button type="button" class="btn btn-sm btn-danger closeButton"  onclick="removeBalitaForm(this)">
+                                <i class="fas fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
                 <div class="card-body">
                     <div class="form-group">
                         <label for="nama[]">Nama Balita</label>
@@ -116,16 +125,12 @@
                         <label for="nama_ortu[]">Nama Orang Tua</label>
                         <input type="text" class="form-control" name="nama_ortu[]" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="posyandu_id[]">Posyandu</label>
-                        <select class="form-control" name="posyandu_id[]" required>
-                            <option value="">Pilih Posyandu</option>
-                            <?php foreach ($posyandus as $p) : ?>
-                                <option value="<?= $p['id']; ?>"><?= $p['nama_posyandu']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <label for="nik_ortu[]">Nik Orang Tua</label>
+                        <input type="text" class="form-control" name="nik_ortu[]" required>
                     </div>
+
+                
                 </div>
             </div>
         </div>

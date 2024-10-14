@@ -12,17 +12,17 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-             <?php if (user()->posisi === 'kader'): ?>
-                 <a href="<?= base_url('user/tambahJadwalPosyandu'); ?>" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Tambah Jadwal
-            </a>
-    <?php endif; ?>
-           
+            <?php if (user()->posisi === 'kader'): ?>
+                <a href="<?= base_url('user/tambahJadwalPosyandu'); ?>" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Tambah Jadwal
+                </a>
+            <?php endif; ?>
+
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead class="thead-dark">
+                    <thead class="thead-dark">
                         <tr>
                             <th>No</th>
                             <th>Nama Posyandu</th>
@@ -48,9 +48,13 @@
                                     <td><?= date('d-m-Y', strtotime($data['tanggal'])); ?></td>
                                     <td><?= date('H:i', strtotime($data['jam'])); ?> WIB</td>
                                     <td>
+                                        <a href="<?= base_url('User/tambahDaftarHadir/' . $data['id']); ?>" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i> Add Kehadiran
+                                        </a>
                                         <a href="<?= base_url('Admin/editJadwalPosyandu/' . $data['id']); ?>" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
+
                                         <form action="<?= base_url('Admin/deleteJadwalPosyandu/' . $data['id']); ?>" method="post" class="d-inline">
                                             <?= csrf_field(); ?>
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus jadwal Posyandu ini?')">
