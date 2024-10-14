@@ -647,42 +647,42 @@ class User extends BaseController
 
     public function pengecekan($id)
     {
-        // $data['title'] = 'Detail Data Balita';
         $data = [
             'title' => 'Detail Balita',
             'validation' => $this->validation,
-            // 'balita' => $balita,
-            // 'posyandus' => $posyandus, // Kirim data posyandu ke view
         ];
-        // Load model DataBalitaDetailModel
+    
         $balitaDetailModel = new DataBalitaDetailModel();
         $jenisImunisasiModel = new JenisImunisasiModel();
-
-        // Query data_balita dan join dengan posyandu
+    
+       
         $this->builder = $this->db->table('data_balita');
         $this->builder->select('data_balita.*, posyandu.*, data_balita_detail.*, jenis_imunisasi.usia_anak, jenis_imunisasi.jenis_imunisasi');
-        $this->builder->join('posyandu', 'posyandu.id = data_balita.posyandu_id');
-        $this->builder->join('data_balita_detail', 'data_balita_detail.balita_id = data_balita.id');
-        $this->builder->join('jenis_imunisasi', 'jenis_imunisasi.id = data_balita_detail.jenis_imunisasi_id');
+        $this->builder->join('posyandu', 'posyandu.id = data_balita.posyandu_id', 'left');
+        $this->builder->join('data_balita_detail', 'data_balita_detail.balita_id = data_balita.id', 'left');
+        $this->builder->join('jenis_imunisasi', 'jenis_imunisasi.id = data_balita_detail.jenis_imunisasi_id', 'left');
         $this->builder->where('data_balita.id', $id);
+        
+        // Debugging
         $query = $this->builder->get();
+        // dd($query->getResult());
+    
         $data['data_balita'] = $query->getRow();
         $data['pengecekan'] = $balitaDetailModel->where('balita_id', $id)->findAll();
-          $data['jenis_imunisasi'] = $jenisImunisasiModel->findAll();
+            $data['jenis_imunisasi'] = $jenisImunisasiModel->findAll();
         // dd($data);
         if (empty($data['data_balita'])) {
             return redirect()->to('/user/balita');
         }
-
-        // Load view dengan data yang didapatkan
+    
         return view('User/Pengecekan/index', $data);
     }
+    
 
     public function savePengecekan()
     {
         $data = $this->request->getPost();
         $data = [
-            // 'balita_id' => $data['id'],
             'balita_id' => $this->request->getPost('balita_id'),
             'posyandu_id' => user()->posyandu_id,
             'bb_u' => $this->request->getPost('bb_u'),
@@ -701,7 +701,7 @@ class User extends BaseController
         ];
         // dd($data);
         $this->DataBalitaDetailModel->save($data);
-        session()->setFlashdata('msg', 'Status permintaan berhasil Diubah');
+        session()->setFlashdata('msg', 'Berhasil di tambahnkan');
         $balitaId = $this->request->getPost('balita_id');
 
         // Redirect ke halaman pengecekan untuk balita tertentu
