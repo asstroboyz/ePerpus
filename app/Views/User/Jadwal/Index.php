@@ -48,13 +48,15 @@
                                     <td><?= date('d-m-Y', strtotime($data['tanggal'])); ?></td>
                                     <td><?= date('H:i', strtotime($data['jam'])); ?> WIB</td>
                                     <td>
+                                        <a href="<?= base_url('User/detailJadwal/' . $data['id']); ?>" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i> Detail
+                                        </a>
                                         <a href="<?= base_url('User/tambahDaftarHadir/' . $data['id']); ?>" class="btn btn-primary btn-sm">
                                             <i class="fas fa-edit"></i> Add Kehadiran
                                         </a>
                                         <a href="<?= base_url('Admin/editJadwalPosyandu/' . $data['id']); ?>" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-
                                         <form action="<?= base_url('Admin/deleteJadwalPosyandu/' . $data['id']); ?>" method="post" class="d-inline">
                                             <?= csrf_field(); ?>
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus jadwal Posyandu ini?')">
@@ -62,6 +64,7 @@
                                             </button>
                                         </form>
                                     </td>
+
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

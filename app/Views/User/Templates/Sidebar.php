@@ -65,12 +65,12 @@ $posyandu = $posyanduModel->where('id', user()->posyandu_id)->first();
     </li>
 
     <!-- Daftar Hadir -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link" href="<?= base_url('user/daftarHadir'); ?>">
             <i class="fas fa-clipboard-list"></i>
             <span>Daftar Hadir</span>
         </a>
-    </li>
+    </li> -->
 
     <!-- Divider -->
     <?php if (user()->posisi === 'kader'): ?>

@@ -22,8 +22,8 @@ $pengecekanModel = new DataBalitaDetailModel();
                     <h3>Daftar Balita</h3>
                     <div class="btn-group">
                         <!-- Tombol Tambah Balita -->
-                       
-<a href="<?php echo base_url('User/tambahBalita/'); ?>" class="btn btn-primary mr-1"  style="background-color: #17a2b8; border-color: #17a2b8; color: black;"
+
+                        <a href="<?php echo base_url('User/tambahBalita/'); ?>" class="btn btn-primary mr-1" style="background-color: #17a2b8; border-color: #17a2b8; color: black;"
                             onmouseover="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
                             onmouseout="this.style.backgroundColor='#17a2b8'; this.style.color='black';"
                             onmousedown="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
@@ -40,18 +40,18 @@ $pengecekanModel = new DataBalitaDetailModel();
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                          <thead class="thead">
-    <tr>
-        <th style="text-align:center; width: 5%;">No</th>
-        <th style="text-align:left; width: 30%;">Nama Balita</th>
-        <th style="text-align:center; width: 10%;">Jenis Kelamin</th>
-        <th style="text-align:center; width: 15%;">Tanggal Lahir</th>
-        <th style="text-align:center; width: 15%; ">Umur Saat Ini</th>
+                            <thead class="thead">
+                                <tr>
+                                    <th style="text-align:center; width: 5%;">No</th>
+                                    <th style="text-align:left; width: 30%;">Nama Balita</th>
+                                    <th style="text-align:center; width: 10%;">Jenis Kelamin</th>
+                                    <th style="text-align:center; width: 15%;">Tanggal Lahir</th>
+                                    <th style="text-align:center; width: 15%; ">Umur Saat Ini</th>
 
-        <th style="text-align:left; width: 25%;">Nama Orang Tua</th>
-        <th style="text-align:center; width: 20%;">Aksi</th>
-    </tr>
-</thead>
+                                    <th style="text-align:left; width: 25%;">Nama Orang Tua</th>
+                                    <th style="text-align:center; width: 20%;">Aksi</th>
+                                </tr>
+                            </thead>
 
                             <tbody>
                                 <?php if ($balita) : ?>
@@ -74,13 +74,13 @@ $pengecekanModel = new DataBalitaDetailModel();
                                             <!-- <td><?= $data['nik_balita']; ?></td> -->
                                             <td style="text-align:center;">
                                                 <div class="btn-group" role="group">
-                                                      <?php if (user()->posisi === 'bidan'): ?>
-    <?php endif; ?>
+                                                    <?php if (user()->posisi === 'bidan'): ?>
+                                                    <?php endif; ?>
 
                                                     <a href="<?= site_url('/user/pengecekan/' . $data['id']); ?>" class="btn btn-info btn-sm mx-1">
                                                         <i class="fa fa-stethoscope"></i>
                                                     </a>
-                                                    
+
                                                     <a href="<?= site_url('/user/detail_balita/' . $data['id']); ?>" class="btn btn-primary btn-sm mx-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>

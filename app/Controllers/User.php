@@ -24,7 +24,7 @@ class User extends BaseController
         $this->db = \Config\Database::connect();
         $this->builder = $this->db->table('users');
         $this->JadwalimunisasiModel = new JadwalimunisasiModel();
-        $this->DaftarHadirModel = new DaftarHadirModel(); 
+        $this->DaftarHadirModel = new DaftarHadirModel();
         $this->PosyanduModel = new PosyanduModel();
         $this->DataBalitaModel = new DataBalitaModel();
         $this->DataBalitaDetailModel = new DataBalitaDetailModel();
@@ -965,7 +965,7 @@ class User extends BaseController
                 'posyandu_id' => user()->posyandu_id,
                 'tgl_pemeriksaan_awal' => date('Y-m-d'),
             ];
-           
+
             // Simpan data ke model balita (misal DataBalitaModel)
             $this->DataBalitaModel->insert($dataBalita);
 
@@ -984,5 +984,38 @@ class User extends BaseController
         // Set flash message dan redirect
         session()->setFlashdata('pesan', 'Data balita dan kehadiran berhasil ditambahkan');
         return redirect()->to('/user/balita');
+    }
+    public function detailJadwal($id)
+    {
+        // Retrieve schedule details with related posyandu
+        $jadwal = $this->db->table('jadwal_imunisasi')
+            ->select('jadwal_imunisasi.*, posyandu.nama_posyandu, posyandu.alamat_posyandu')
+            ->join('posyandu', 'posyandu.id = jadwal_imunisasi.posyandu_id')
+            ->where('jadwal_imunisasi.id', $id)
+            ->get()
+            ->getRowArray();
+
+        // Redirect if the schedule does not exist
+        if (empty($jadwal)) {
+            return redirect()->to('/user/balita')->with('pesanBerhasil', 'Jadwal tidak ditemukan.');
+        }
+
+        // Retrieve related data balita with posyandu details
+        $dataBalita = $this->db->table('data_balita')
+            ->select('data_balita.*, posyandu.nama_posyandu, posyandu.alamat_posyandu')
+            ->join('posyandu', 'posyandu.id = data_balita.posyandu_id')
+            ->where('data_balita.posyandu_id', $jadwal['posyandu_id'])
+            ->get()
+            ->getResultArray();
+
+        // Prepare data for the view
+        $data = [
+            'jadwal' => $jadwal,
+            'dataBalita' => $dataBalita,
+            'title' => 'Data Hadir',
+        ];
+
+        // dd($dataBalita, $data); // Debugging line to inspect data
+        return view('user/jadwal/detailJadwal', $data);
     }
 }
