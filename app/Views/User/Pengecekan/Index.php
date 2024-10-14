@@ -51,7 +51,10 @@
                                             <tr>
                                                 <th scope="row">Jenis Kelamin</th>
                                                 <td>:
-                                                    <?= $data_balita->jenis_kelamin; ?>
+                                                    <?php
+                                                    echo ($data_balita->jenis_kelamin === 'P') ? 'Perempuan' : (($data_balita->jenis_kelamin === 'L') ? 'Laki-laki' : 'Jenis kelamin tidak diketahui');
+                                                    ?>
+
                                                 </td>
                                             </tr>
                                             <tr>
