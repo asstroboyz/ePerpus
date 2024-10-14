@@ -12,7 +12,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="<?= base_url('Admin/tambahDaftarHadir'); ?>" class="btn btn-primary">Tambah Daftar Hadir</a>
+            <a href="<?= base_url('User/tambahDaftarHadir'); ?>" class="btn btn-primary">Tambah Daftar Hadir</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered" width="100%" cellspacing="0">

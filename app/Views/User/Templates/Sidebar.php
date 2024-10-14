@@ -66,7 +66,7 @@ $posyandu = $posyanduModel->where('id', user()->posyandu_id)->first();
 
     <!-- Daftar Hadir -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('user/daftar_hadir'); ?>">
+        <a class="nav-link" href="<?= base_url('user/daftarHadir'); ?>">
             <i class="fas fa-clipboard-list"></i>
             <span>Daftar Hadir</span>
         </a>

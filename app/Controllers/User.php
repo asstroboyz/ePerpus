@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\DaftarHadirModel;
 use App\Models\DataBalitaDetailModel;
 use App\Models\DataBalitaModel;
 use App\Models\JadwalimunisasiModel;
@@ -651,33 +652,33 @@ class User extends BaseController
             'title' => 'Detail Balita',
             'validation' => $this->validation,
         ];
-    
+
         $balitaDetailModel = new DataBalitaDetailModel();
         $jenisImunisasiModel = new JenisImunisasiModel();
-    
-       
+
+
         $this->builder = $this->db->table('data_balita');
         $this->builder->select('data_balita.*, posyandu.*, data_balita_detail.*, jenis_imunisasi.usia_anak, jenis_imunisasi.jenis_imunisasi');
         $this->builder->join('posyandu', 'posyandu.id = data_balita.posyandu_id', 'left');
         $this->builder->join('data_balita_detail', 'data_balita_detail.balita_id = data_balita.id', 'left');
         $this->builder->join('jenis_imunisasi', 'jenis_imunisasi.id = data_balita_detail.jenis_imunisasi_id', 'left');
         $this->builder->where('data_balita.id', $id);
-        
+
         // Debugging
         $query = $this->builder->get();
         // dd($query->getResult());
-    
+
         $data['data_balita'] = $query->getRow();
         $data['pengecekan'] = $balitaDetailModel->where('balita_id', $id)->findAll();
-            $data['jenis_imunisasi'] = $jenisImunisasiModel->findAll();
+        $data['jenis_imunisasi'] = $jenisImunisasiModel->findAll();
         // dd($data);
         if (empty($data['data_balita'])) {
             return redirect()->to('/user/balita');
         }
-    
+
         return view('User/Pengecekan/index', $data);
     }
-    
+
 
     public function savePengecekan()
     {
@@ -706,7 +707,6 @@ class User extends BaseController
 
         // Redirect ke halaman pengecekan untuk balita tertentu
         return redirect()->to("User/pengecekan/$balitaId");
-
     }
 
     public function jenis_imunisasi()
@@ -886,4 +886,31 @@ class User extends BaseController
         }
     }
 
+    public function daftarHadir()
+    {
+        $daftarHadirModel = new DaftarHadirModel();
+
+        // Mengambil semua data yang di-soft delete
+        // $data['balitaTerhapus'] = $daftarHadirModel->onlyDeleted()->findAll();
+        $data = [
+            'daftar_hadir' => $daftarHadirModel->findAll(),
+            'validation' => $this->validation,
+            'title' => 'Data Hadir',
+        ];
+
+        // Tampilkan halaman arsip
+        return view('User/Daftar_hadir/index', $data);
+    }
+    public function tambahDaftarHadir()
+    {
+        $posyanduModel = new PosyanduModel(); // Model untuk mengambil data posyandu
+        $posyandus = $posyanduModel->findAll(); // Mengambil semua data posyandu
+
+        $data = [
+            'title' => 'Tambah Balita',
+            'validation' => $this->validation,
+            'posyandus' => $posyandus, // Kirim data posyandu ke view
+        ];
+        return view('user/Daftar_hadir/Tambah', $data); // Menampilkan view untuk tambah data balita
+    }
 }
