@@ -9,31 +9,31 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?=$title;?></title>
+    <title><?= $title; ?></title>
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo base_url() ?>/assets/img/bps.ico"
         rel="icon">
     <link
-        href="<?=base_url()?>/vendor/fontawesome-free/css/all.min.css"
+        href="<?= base_url() ?>/vendor/fontawesome-free/css/all.min.css"
         rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-<!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Custom styles for this template-->
-    <link href="<?=base_url('css/custom.css');?>"
+    <link href="<?= base_url('css/custom.css'); ?>"
         rel="stylesheet">
-    <link href="<?=base_url()?>/css/sb-admin-2.min.css"
+    <link href="<?= base_url() ?>/css/sb-admin-2.min.css"
         rel="stylesheet">
-    <link href="<?=base_url()?>/assets/timeline.css"
+    <link href="<?= base_url() ?>/assets/timeline.css"
         rel="stylesheet">
     <link
-        href="<?=base_url()?>/assets/css/bootstrap-datepicker.min.css"
+        href="<?= base_url() ?>/assets/css/bootstrap-datepicker.min.css"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css"
-        href="<?=base_url();?>/vendor/datatables/dataTables.bootstrap4.min.css">
+        href="<?= base_url(); ?>/vendor/datatables/dataTables.bootstrap4.min.css">
 </head>
 
 <body id="page-top">
@@ -42,7 +42,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?=$this->include('User/Templates/Sidebar');?>
+        <?= $this->include('User/Templates/Sidebar'); ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -52,11 +52,11 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?=$this->include('User/Templates/Topbar');?>
+                <?= $this->include('User/Templates/Topbar'); ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <?=$this->renderSection('page-content');?>
+                <?= $this->renderSection('page-content'); ?>
                 <!-- /.container-fluid -->
 
             </div>
@@ -99,44 +99,44 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary"
-                        href="<?=base_url('logout');?>">Logout</a>
+                        href="<?= base_url('logout'); ?>">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <!-- <script src="<?=base_url()?>/js/demo/chart-area-demo.js"></script>-->
+    <!-- <script src="<?= base_url() ?>/js/demo/chart-area-demo.js"></script>-->
     <script
-        src="<?=base_url('autoNumeric')?>/src/AutoNumeric.js">
-    </script> 
-    <script src="<?=base_url();?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?=base_url()?>/vendor/bootstrap/js/bootstrap.bundle.min.js">
+        src="<?= base_url('autoNumeric') ?>/src/AutoNumeric.js">
+    </script>
+    <script src="<?= base_url(); ?>/vendor/jquery/jquery.min.js"></script>
+    <script src="<?= base_url() ?>/vendor/bootstrap/js/bootstrap.bundle.min.js">
     </script>
 
-    <script src="<?=base_url()?>/vendor/bootstrap/js/bootstrap.bundle.min.js">
+    <script src="<?= base_url() ?>/vendor/bootstrap/js/bootstrap.bundle.min.js">
     </script>
-    <script src="<?=base_url()?>/vendor/jquery-easing/jquery.easing.min.js">
+    <script src="<?= base_url() ?>/vendor/jquery-easing/jquery.easing.min.js">
     </script>
-    <script src="<?=base_url();?>/vendor/datatables/jquery.dataTables.min.js">
+    <script src="<?= base_url(); ?>/vendor/datatables/jquery.dataTables.min.js">
     </script>
     <script
-        src="<?=base_url();?>/vendor/datatables/dataTables.bootstrap4.min.js">
+        src="<?= base_url(); ?>/vendor/datatables/dataTables.bootstrap4.min.js">
     </script>
-    <script src="<?=base_url()?>/js/sb-admin-2.min.js"></script>
-    <script src="<?=base_url()?>/assets/js/bootstrap-datepicker.min.js">
+    <script src="<?= base_url() ?>/js/sb-admin-2.min.js"></script>
+    <script src="<?= base_url() ?>/assets/js/bootstrap-datepicker.min.js">
     </script>
-    <script src="<?=base_url();?>/assets/js/demo/datatables-demo.js"></script>
-    <script src="<?=base_url();?>/assets/js/demo/chart-area-demo.js"></script>
+    <script src="<?= base_url(); ?>/assets/js/demo/chart-area-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
 
 
-<!-- Select2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
-    <?=$this->renderSection('additional-js')?>
-    
+    <?= $this->renderSection('additional-js') ?>
+
     <script>
         $('.btn-change-group').on('click', function() {
             const id = $(this).data('id');
