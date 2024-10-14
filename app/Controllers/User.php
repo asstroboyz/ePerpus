@@ -13,6 +13,8 @@ use App\Models\profil;
 use Myth\Auth\Entities\passwd;
 use Myth\Auth\Models\GroupModel;
 use Myth\Auth\Models\UserModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class User extends BaseController
 {
@@ -645,6 +647,18 @@ class User extends BaseController
 
         // Load view dengan data yang didapatkan
         return view('User/Balita/Detail_balita', $data);
+    }
+
+    public function cetak_Laporan($id)
+    {
+
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        $activeWorksheet->setCellValue('A1', 'Hello World !');
+        
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('hello world.xlsx');
+
     }
 
     public function pengecekan($id)

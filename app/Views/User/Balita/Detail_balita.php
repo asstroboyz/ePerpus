@@ -3,6 +3,7 @@
 <?= $this->section('page-content'); ?>
 
 <?php
+
 use App\Models\DataBalitaDetailModel;
 
 $pengecekanModel = new DataBalitaDetailModel();
@@ -16,10 +17,11 @@ $pengecekanModel = new DataBalitaDetailModel();
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="font-weight-bold text-primary">Informasi Balita</h5>
                     <div class="d-flex gap-2">
-                        <!-- <a href="<?= base_url('Admin/cetak_qr_id/' . $data_balita->id); ?>"
-                        class="btn btn-success font-weight-bold" target="_blank">
-                        <i class="fa fa-print"></i> Cetak QR ID
-                        </a> -->
+                        <a href="<?= base_url('user/cetak_Laporan/' . $data_balita->id); ?>"
+                            class="btn btn-success font-weight-bold" target="_blank">
+                            <i class="fa fa-print"></i> Cetak Laporan
+                        </a>
+
                         <a href="/User/balita" class="btn btn-secondary font-weight-bold ml-2"
                             style="background-color: #ffffff; border-color: #17a2b8; color: black;"
                             onmouseover="this.style.backgroundColor='#17a2b8'; this.style.color='white';"
@@ -126,81 +128,81 @@ $pengecekanModel = new DataBalitaDetailModel();
                 </div>
 
 
-</div>
-</div>
-</div>
-
-<div class="row mt-4">
-    <div class="col-lg-12">
-        <div class="card shadow p-4">
-            <div class="card-header">
-                <h5 class="font-weight-bold">Detail Pengecekan Balita</h5>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Tanggal Pemeriksaan</th>
-                                <th>BB Awal</th>
-                                <th>TB Awal</th>
-                                <th>LK Awal</th>
-                                <th>BB / U</th>
-                                <th>BB / TB</th>
-                                <th>TB / U</th>
-                                <th>Rambu Gizi</th>
-                                <th>Jenis Imunisasi</th>
-                                <th>ASI Eksklusif</th>
-                                <th>No HP</th>
-                                <th>Alamat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1; ?>
-                            <?php if (!empty($pengecekan)): ?>
-                            <?php foreach ($pengecekan as $p): ?>
-                            <tr>
-                                <td><?= $i++; ?></td>
-                                <td><?= date('d-m-Y', strtotime($p['tgl_pemeriksaan'])); ?>
-                                </td>
-                                <td><?= $p['bb_awal']; ?>
-                                    kg</td>
-                                <td><?= $p['tb_awal']; ?>
-                                    cm</td>
-                                <td><?= $p['lk_awal']; ?>
-                                    cm</td>
-                                <td><?= $p['bb_u']; ?>
-                                </td>
-                                <td><?= $p['bb_tb']; ?>
-                                </td>
-                                <td><?= $p['tb_u']; ?>
-                                </td>
-                                <td><?= $p['rambu_gizi']; ?>
-                                </td>
-                                <td><?= $p['jenis_imunisasi_id']; ?>
-                                </td>
-                                <td><?= $p['asi_eks']; ?>
-                                </td>
-                                <td><?= $p['no_hp']; ?>
-                                </td>
-                                <td><?= $data_balita->alamat_posyandu; ?>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                            <?php else: ?>
-                            <tr>
-                                <td colspan="13" style="text-align:center;">Data tidak ditemukan</td>
-                            </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+        </div>
+    </div>
 
+    <div class="row mt-4">
+        <div class="col-lg-12">
+            <div class="card shadow p-4">
+                <div class="card-header">
+                    <h5 class="font-weight-bold">Detail Pengecekan Balita</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal Pemeriksaan</th>
+                                    <th>BB Awal</th>
+                                    <th>TB Awal</th>
+                                    <th>LK Awal</th>
+                                    <th>BB / U</th>
+                                    <th>BB / TB</th>
+                                    <th>TB / U</th>
+                                    <th>Rambu Gizi</th>
+                                    <th>Jenis Imunisasi</th>
+                                    <th>ASI Eksklusif</th>
+                                    <th>No HP</th>
+                                    <th>Alamat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; ?>
+                                <?php if (!empty($pengecekan)): ?>
+                                    <?php foreach ($pengecekan as $p): ?>
+                                        <tr>
+                                            <td><?= $i++; ?></td>
+                                            <td><?= date('d-m-Y', strtotime($p['tgl_pemeriksaan'])); ?>
+                                            </td>
+                                            <td><?= $p['bb_awal']; ?>
+                                                kg</td>
+                                            <td><?= $p['tb_awal']; ?>
+                                                cm</td>
+                                            <td><?= $p['lk_awal']; ?>
+                                                cm</td>
+                                            <td><?= $p['bb_u']; ?>
+                                            </td>
+                                            <td><?= $p['bb_tb']; ?>
+                                            </td>
+                                            <td><?= $p['tb_u']; ?>
+                                            </td>
+                                            <td><?= $p['rambu_gizi']; ?>
+                                            </td>
+                                            <td><?= $p['jenis_imunisasi_id']; ?>
+                                            </td>
+                                            <td><?= $p['asi_eks']; ?>
+                                            </td>
+                                            <td><?= $p['no_hp']; ?>
+                                            </td>
+                                            <td><?= $data_balita->alamat_posyandu; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="13" style="text-align:center;">Data tidak ditemukan</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
 
