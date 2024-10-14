@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <div class="card shadow p-4 mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="font-weight-bold text-dark">Informasi Balita</h5>
+                    
                     <div class="d-flex gap-2">
                         <!-- <a href="<?= base_url('Admin/cetak_qr_id/' . $data_balita->id); ?>"
                         class="btn btn-success font-weight-bold" target="_blank">
