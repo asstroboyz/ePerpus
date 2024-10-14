@@ -910,7 +910,7 @@ class User extends BaseController
         $data = [
             'daftar_hadir' => $daftarHadirModel->findAll(),
             'validation' => $this->validation,
-            'title' => 'Data Hadir',
+            'title' => 'Daftar Hadir',
         ];
 
         // Tampilkan halaman arsip

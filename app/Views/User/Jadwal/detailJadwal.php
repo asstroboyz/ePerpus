@@ -46,7 +46,7 @@
                                     <th>Jenis Kelamin</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Nama Ortu</th>
-                                    <th>Umur</th>
+                                    <!-- <th>Umur</th> -->
 
                                 </tr>
                             </thead>
@@ -64,9 +64,9 @@
                                             <td style="text-align:center;"><?= ($balita['jenis_kelamin'] == 'L') ? 'Laki-Laki' : 'Perempuan'; ?></td>
                                             <td style="text-align:center;"><?= date('d-m-Y', strtotime($balita['tgl_lahir'])); ?></td>
                                             <td><?= esc($balita['nama_ortu']); ?> </td>
-                                            <td>
+                                            <!-- <td>
                                                 <?= esc($balita['umur']) ? esc($balita['umur']) . ' tahun' : ''; ?>
-                                            </td>
+                                            </td> -->
 
 
                                         </tr>
