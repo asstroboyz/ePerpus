@@ -31,7 +31,16 @@
         rel="stylesheet">
     <link rel="stylesheet" type="text/css"
         href="<?= base_url(); ?>/vendor/datatables/dataTables.bootstrap4.min.css">
-   
+          <link rel="shortcut icon" href="/img/logo.jpg" type="image/x-icon">
+    <style>
+        body {
+            background-image: url('/img/bg.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 
 <body>

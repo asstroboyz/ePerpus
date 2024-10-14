@@ -10,7 +10,6 @@
 
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg">
                             <div class="p-5">
@@ -96,6 +95,16 @@
         </div>
 
     </div>
+<div id="layoutAuthentication_footer">
+    <footer class="py-4 bg-light mt-auto" style="position: fixed; bottom: 0; width: 100%; background-color: #f8f9fa; padding: 10px 0; border-top: 1px solid #e3e6f0; text-align: center;">
+        <div class="container-fluid px-4" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="text-muted" style="color: #6c757d; font-size: 14px;">Copyright &copy; SMPN 6 BATANG 2024</div>
+            <div>
+            </div>
+        </div>
+    </footer>
+</div>
 
 </div>
+
 <?= $this->endSection(); ?>
