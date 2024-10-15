@@ -1,4 +1,4 @@
-<?= $this->extend('Baru/layout/index'); ?>
+<?= $this->extend('user/layout/index'); ?>
 
 <?= $this->section('content'); ?>
 <style>

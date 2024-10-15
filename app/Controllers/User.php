@@ -2,13 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\DaftarHadirModel;
-use App\Models\DataBalitaDetailModel;
-use App\Models\DataBalitaModel;
-use App\Models\JadwalimunisasiModel;
-use App\Models\JenisImunisasiModel;
-use App\Models\Pengaduan;
-use App\Models\PosyanduModel;
+
+use App\Models\JenisBukuModel;
 use App\Models\profil;
 use App\Models\DataKunjunganModel;
 use Myth\Auth\Entities\passwd;
@@ -29,12 +24,12 @@ class User extends BaseController
         $this->builder = $this->db->table('users');
         $this->PeminjamModel = new PeminjamModel();
         $this->DataKunjunganModel = new DataKunjunganModel();
-        $this->JadwalimunisasiModel = new JadwalimunisasiModel();
-        $this->DaftarHadirModel = new DaftarHadirModel();
-        $this->PosyanduModel = new PosyanduModel();
-        $this->DataBalitaModel = new DataBalitaModel();
-        $this->DataBalitaDetailModel = new DataBalitaDetailModel();
-        $this->JenisImunisasiModel = new JenisImunisasiModel();
+        $this->JenisBukuModel = new JenisBukuModel();
+        // $this->DaftarHadirModel = new DaftarHadirModel();
+        // $this->PosyanduModel = new PosyanduModel();
+        // $this->DataBalitaModel = new DataBalitaModel();
+        // $this->DataBalitaDetailModel = new DataBalitaDetailModel();
+        // $this->JenisImunisasiModel = new JenisImunisasiModel();
         $this->profil = new profil();
         $this->validation = \Config\Services::validation();
     }
@@ -50,7 +45,7 @@ class User extends BaseController
             'title' => 'Home',
         ];
         // dd($data);
-        return view('Baru/dashboard/index', $data);
+        return view('user/dashboard/index', $data);
     }
     public function updatePassword($id)
     {
@@ -236,7 +231,7 @@ class User extends BaseController
             'kunjungan' => $kunjungan->getDataKunjungan(),
             'title' => 'Data Kunjungan Perpustakaaan',
         ];
-        return view('baru/data_kunjungan/index', $data);
+        return view('user/data_kunjungan/index', $data);
     }
 
     public function tambahkunjungan()
@@ -246,7 +241,7 @@ class User extends BaseController
             'kunjungan' => $kunjungan->findAll(),
             'title' => 'Tambah Data Kunjungan Perpustakaaan',
         ];
-        return view('baru/data_kunjungan/add', $data);
+        return view('user/data_kunjungan/add', $data);
     }
 
     public function saveKunjungan()
@@ -288,7 +283,7 @@ class User extends BaseController
             'validation' => \Config\Services::validation(),
         ];
 
-        return view('baru/data_kunjungan/edit', $data);
+        return view('user/data_kunjungan/edit', $data);
     }
 
     public function updateDataKunjungan($id)
@@ -330,7 +325,7 @@ class User extends BaseController
             'peminjam' => $peminjam->getDataPeminjam(),
             'title' => 'Data Peminjam Buku Perpustakaaan',
         ];
-        return view('baru/data_peminjam/index', $data);
+        return view('user/data_peminjam/index', $data);
     }
 
     public function formTambahPeminjam()
@@ -340,7 +335,7 @@ class User extends BaseController
             'peminjam' => $peminjam->findAll(),
             'title' => 'Tambah Data Peminjam Perpustakaaan',
         ];
-        return view('baru/data_peminjam/add', $data);
+        return view('user/data_peminjam/add', $data);
     }
 
     public function savePeminjam()
@@ -369,7 +364,7 @@ class User extends BaseController
 
         return redirect()->to('/User/Peminjam')->with('pesanBerhasil', 'Peminjam berhasil ditambahkan.');
     }
-    
+
     //edit
     public function editPeminjam($id)
     {
@@ -386,7 +381,7 @@ class User extends BaseController
             'validation' => \Config\Services::validation(),
         ];
 
-        return view('baru/data_peminjam/edit', $data);
+        return view('user/data_peminjam/edit', $data);
     }
 
     public function updateDataPeminjam($id)
@@ -436,5 +431,122 @@ class User extends BaseController
     }
     // End data peminjam
 
-    
+
+    // Jenis Buku
+    public function JenisBuku()
+    {
+        $buku = new JenisBukuModel();
+        $data = [
+            'buku' => $buku->getDataBuku(),
+            'title' => 'Data Jenis Buku Perpustakaaan',
+        ];
+
+        return view('user/jenis_buku/index', $data);
+    }
+
+    public function formTambahJenisBuku()
+    {
+        $peminjam = new JenisBukuModel();
+        $data = [
+            'peminjam' => $peminjam->findAll(),
+            'title' => 'Tambah Data Jenis Buku Perpustakaaan',
+        ];
+        return view('user/jenis_buku/add', $data);
+    }
+
+    public function saveJenisBuku()
+    {
+        // Aturan validasi
+        $rules = [
+            'kode_buku' => 'required',
+           
+        ];
+
+
+        if (!$this->validate($rules)) {
+
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+
+        // Jika validasi berhasil, simpan data
+        $this->JenisBukuModel->save([
+            'kode_buku' => strtoupper($this->request->getVar('kode_buku')),
+            'judul_buku' => $this->request->getVar('judul'),
+            'pengarang' => $this->request->getVar('pengarang'),
+            'penerbit' => $this->request->getVar('penerbit'),
+            'tahun_terbit' => $this->request->getVar('tahun_terbit'),
+            'tempat_terbit' => $this->request->getVar('tempat_terbit'),
+            'jumlah_buku' => $this->request->getVar('jumlah_buku'),
+            'isbn' => $this->request->getVar('isbn'),
+        ]);
+
+        return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Peminjam berhasil ditambahkan.');
+    }
+
+    //edit
+    public function editJenisBuku($id)
+    {
+        $peminjam = $this->PeminjamModel->find($id);
+        if (!$peminjam) {
+            // Jika data tidak ditemukan, tampilkan pesan error atau redirect
+            session()->setFlashdata('error', 'Data peminjam tidak ditemukan.');
+            return redirect()->to('/user/peminjam');
+        }
+
+        $data = [
+            'title' => 'Edit Data Peminjam',
+            'peminjam' => $peminjam,
+            'validation' => \Config\Services::validation(),
+        ];
+
+        return view('user/data_peminjam/edit', $data);
+    }
+
+    public function updateDataPeminjam($id)
+    {
+        // Validate the input fields
+        if (!$this->validate([
+            'nama' => 'required',
+            'kelas' => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required|numeric',
+        ])) {
+            // If validation fails, redirect back with input and validation errors
+            return redirect()->back()->withInput()->with('validation', \Config\Services::validation());
+        }
+
+        // Collect data from the form
+        $data = [
+            'nama' => $this->request->getVar('nama'),
+            'kelas' => $this->request->getVar('kelas'),
+            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+            'alamat' => $this->request->getVar('alamat'),
+            'no_hp' => $this->request->getVar('no_hp'),
+        ];
+
+        // Update the data in the database
+        $this->PeminjamModel->update($id, $data);
+
+        // Set success flash message and redirect
+        session()->setFlashData('pesan_tambah', "Data Peminjam Berhasil Diupdate");
+        return redirect()->to('/user/peminjam');
+    }
+
+    // Hapus
+    public function hapusdataPeminjam($id)
+    {
+        $model = new PeminjamModel();
+        $getData = $model->getDataPeminjam($id)->getRow();
+        if (isset($getData)) {
+            $model->hapusDataPeminjam($id);
+            session()->setFlashData('pesan_hapus', "Data berhasil dihapus");
+            return redirect()->to('user/peminjam');
+        } else {
+            session()->setFlashData('pesan_hapus', "Data gagal dihapus");
+            return redirect()->to('user/peminjam');
+        }
+    }
+    // Jenis Buku End
+
 }

@@ -1,4 +1,4 @@
-<?= $this->extend('baru/layout/index'); ?>
+<?= $this->extend('user/layout/index'); ?>
 
 
 <?= $this->section('content'); ?>
@@ -19,7 +19,8 @@
     <div class="card-body">
         <?php $validation = \Config\Services::validation(); ?>
         <?php $session = session() ?>
-        <form action="simpandatabuku" method="post">
+        <form action="/updatedatabuku/<?= $buku->kode_buku; ?>"
+            method="post">
             <div class="mb-3">
                 <label for="exampleFormControlInput1">Kode Buku</label>
                 <input
@@ -27,7 +28,7 @@
                     id="kode_buku" name="kode_buku" type="text"
                     oninvalid="this.setCustomValidity('Kode Buku Tidak Boleh Kosong')"
                     oninput="this.setCustomValidity('')" required
-                    value="<?= old('kode_buku'); ?>">
+                    value="<?= $buku->kode_buku; ?>" disabled>
                 <div class="invalid-feedback">
                     <?php if ($session->getFlashdata('pesan_error')) : ?>
                     <?= $session->getFlashdata('pesan_error'); ?>
@@ -40,15 +41,14 @@
                 <label for="exampleFormControlInput1">Judul Buku</label>
                 <input class="form-control" id="judul" name="judul" type="text"
                     oninvalid="this.setCustomValidity('Judul Tidak Boleh Kosong')" oninput="this.setCustomValidity('')"
-                    required
-                    value="<?= old('judul'); ?>">
+                    required value="<?= $buku->judul_buku; ?>">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1">Pengarang</label>
                 <input class="form-control" id="pengarang" name="pengarang" type="text"
                     oninvalid="this.setCustomValidity('Pengarang Tidak Boleh Kosong')"
                     oninput="this.setCustomValidity('')" required
-                    value="<?= old('pengarang'); ?>">
+                    value="<?= $buku->pengarang; ?>">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1">Penerbit</label>
@@ -62,28 +62,27 @@
                 <input class="form-control" id="tahun_terbit" name="tahun_terbit" type="number" min="1900" max="2099"
                     step="1" oninvalid="this.setCustomValidity('Tahun Terbit Tidak Boleh Kosong')"
                     oninput="this.setCustomValidity('')" required
-                    value="<?= old('tahub_terbit'); ?>">
+                    value="<?= $buku->tahun_terbit; ?>">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1">Tempat Terbit</label>
                 <input class="form-control" id="tempat_terbit" name="tempat_terbit" type="text"
                     oninvalid="this.setCustomValidity('Tempat Terbit Tidak Boleh Kosong')"
                     oninput="this.setCustomValidity('')" required
-                    value="<?= old('tempat_terbit'); ?>">
+                    value="<?= $buku->tempat_terbit; ?>">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1">Jumlah Buku</label>
                 <input class="form-control" id="jumlah_buku" name="jumlah_buku" type="number"
                     oninvalid="this.setCustomValidity('Jumlah Buku Tidak Boleh Kosong')"
                     oninput="this.setCustomValidity('')" required
-                    value="<?= old('jumlah_buku'); ?>">
+                    value="<?= $buku->jumlah_buku; ?>">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1">isbn</label>
+                <label for="exampleFormControlInput1">Isbn</label>
                 <input class="form-control" id="isbn" name="isbn" type="number"
                     oninvalid="this.setCustomValidity('isbn Tidak Boleh Kosong')" oninput="this.setCustomValidity('')"
-                    required
-                    value="<?= old('isbn'); ?>">
+                    required value="<?= $buku->jumlah_buku; ?>">
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Simpan</button>

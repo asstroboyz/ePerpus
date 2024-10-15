@@ -1,4 +1,4 @@
-<?= $this->extend('baru/layout/index'); ?>
+<?= $this->extend('user/layout/index'); ?>
 
 <?= $this->section('content'); ?>
 

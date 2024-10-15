@@ -1,4 +1,4 @@
-<?= $this->extend('baru/layout/index'); ?>
+<?= $this->extend('user/layout/index'); ?>
 
 <?= $this->section('content'); ?>
 <?php if (session()->getFlashdata('pesan_tambah')) : ?>

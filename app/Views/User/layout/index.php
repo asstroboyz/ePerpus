@@ -55,21 +55,21 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
                             Data Siswa Peminjam
                         </a>
-                        <a class="nav-link" href="<?= base_url('databuku'); ?>">
+                        <a class="nav-link" href="<?= base_url('user/JenisBuku'); ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Jenis Buku
                         </a>
-                        <a class="nav-link" href="<?= base_url('databukurusak'); ?>">
+                        <a class="nav-link" href="<?= base_url('user/databukurusak'); ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                             Buku Rusak
                         </a>
-                        <a class="nav-link" href="<?= base_url('datapeminjaman'); ?>">
+                        <a class="nav-link" href="<?= base_url('user/datapeminjaman'); ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
                             Peminjaman
                         </a>
                         <div class="sb-sidenav-menu-heading">Laporan</div>
 
-                        <a class="nav-link" href="<?= base_url('laporandatapeminjaman'); ?>">
+                        <a class="nav-link" href="<?= base_url('user/laporandatapeminjaman'); ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
                             Laporan Data Peminjaman
                         </a>

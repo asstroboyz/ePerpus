@@ -1,4 +1,4 @@
-<?= $this->extend('baru/layout/index'); ?>
+<?= $this->extend('user/layout/index'); ?>
 
 
 <?= $this->section('content'); ?>
@@ -23,8 +23,8 @@
                 <?= $title; ?>
             </div>
             <div class="col-md-6 d-flex justify-content-end gap-2">
-                <a href="<?= base_url('cetakdatabuku'); ?>" class="btn btn-success float-end "><i class="fas fa-print me-1"></i>Print</a>
-                <a href="<?= base_url('tambahdatabuku'); ?>" class="btn btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
+                <a href="<?= base_url('user/cetakdatabuku'); ?>" class="btn btn-success float-end "><i class="fas fa-print me-1"></i>Print</a>
+                <a href="<?= base_url('user/tambahdatabuku'); ?>" class="btn btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
             </div>
         </div>
     </div>
@@ -69,8 +69,8 @@
                         <td><?= $data['isbn']; ?></td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="<?= base_url('editdatabuku/' . $data['kode_buku']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
-                                <form action="<?= base_url('hapusdatabuku/' . $data['kode_buku']); ?>" method="post">
+                                <a href="<?= base_url('user/editdatabuku/' . $data['kode_buku']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                <form action="<?= base_url('user/hapusdatabuku/' . $data['kode_buku']); ?>" method="post">
                                     <?= csrf_field(); ?>
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?');"><i class="fas fa-trash"></i></button>

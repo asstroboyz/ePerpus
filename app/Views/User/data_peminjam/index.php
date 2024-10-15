@@ -1,5 +1,4 @@
-<?= $this->extend('baru/layout/index'); ?>
-
+<?= $this->extend('user/layout/index'); ?>
 
 <?= $this->section('content'); ?>
 <?php if (session()->getFlashdata('pesan_tambah')) : ?>
@@ -22,9 +21,8 @@
                 <i class="fas fa-table me-1"></i>
                 <?= $title; ?>
             </div>
-            <div class="col-md-6 d-flex justify-content-end gap-2">
-                <a href="<?= base_url('cetakdatabukurusak'); ?>" class="btn btn-success float-end "><i class="fas fa-print me-1"></i>Print</a>
-                <a href="<?= base_url('tambahdatabukurusak'); ?>" class="btn btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
+            <div class="col-md-6 ">
+                <a href="<?= base_url('user/formTambahPeminjam'); ?>" class="btn btn-sm btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
             </div>
         </div>
     </div>
@@ -32,42 +30,38 @@
         <table id="datatablesSimple">
             <thead>
                 <tr>
-                    <th>Kode Buku Rusak</th>
-                    <th>Kode Buku</th>
-                    <th>Judul Buku</th>
-                    <th>Pengarang</th>
-                    <th>Tahun Terbit</th>
-                    <th>Tempat Terbit</th>
-                    <th>Jumlah Buku</th>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Jenis kelamin</th>
+                    <th>Alamat</th>
+                    <th>No.HP</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>Kode Buku Rusak</th>
-                    <th>Kode Buku</th>
-                    <th>Judul Bukui</th>
-                    <th>Pengarang</th>
-                    <th>Tahun Terbit</th>
-                    <th>Tempat Terbit</th>
-                    <th>Jumlah Buku</th>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>jenis_kelamin</th>
+                    <th>Alamat</th>
                     <th>Aksi</th>
                 </tr>
             </tfoot>
             <tbody>
-                <?php foreach ($bukurusak as $data) : ?>
+                <?php foreach ($peminjam as $data) : ?>
                     <tr>
-                        <td><?= $data['kode_buku_rusak']; ?></td>
-                        <td><?= $data['kode_buku']; ?></td>
-                        <td><?= $data['judul_buku']; ?></td>
-                        <td><?= $data['pengarang']; ?></td>
-                        <td><?= $data['tahun_terbit']; ?></td>
-                        <td><?= $data['tempat_terbit']; ?></td>
-                        <td><?= $data['jumlah_buku_rusak']; ?></td>
+                        <td><?= $data['id']; ?></td>
+                        <td><?= $data['nama']; ?></td>
+                        <td><?= $data['kelas']; ?></td>
+                        <td><?= $data['jenis_kelamin']; ?></td>
+                        <td><?= $data['alamat']; ?></td>
+                        <td><?= $data['no_hp']; ?></td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="<?= base_url('editdatabukurusak/' . $data['kode_buku_rusak']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
-                                <form action="<?= base_url('hapusdatabukurusak/' . $data['kode_buku']); ?>" method="post">
+                                <a href="<?= base_url('user/editPeminjam/' . $data['id']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                <form action="<?= base_url('user/hapusdataPeminjam/' . $data['id']); ?>" method="post">
                                     <?= csrf_field(); ?>
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?');"><i class="fas fa-trash"></i></button>
