@@ -456,32 +456,38 @@ class User extends BaseController
 
     public function saveJenisBuku()
     {
-        // Aturan validasi
-        $rules = [
-            'kode_buku' => 'required',
-           
-        ];
-
-
-        if (!$this->validate($rules)) {
-
-            return redirect()->back()->withInput()->with('validation', $this->validator);
+        // Validasi form input
+        if (!$this->validate([
+            'kode_buku' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kode Buku Sudah Ada, Silahkan periksa lagi kode buku yang anda masukkan'
+                ]
+            ]
+        ])) {
+            $validation = \Config\Services::validation();
+            $error = $validation->getError('kode_buku');
+            $session = session();
+            $session->setFlashdata('pesan_error', $error);
+            return redirect()->back()->withInput();
         }
 
-        // Jika validasi berhasil, simpan data
-        $this->JenisBukuModel->save([
+        $model = new JenisBukuModel();
+        $data = [
             'kode_buku' => strtoupper($this->request->getVar('kode_buku')),
-            'judul_buku' => $this->request->getVar('judul'),
+            'judul_buku' => $this->request->getVar('judul_buku'),
             'pengarang' => $this->request->getVar('pengarang'),
             'penerbit' => $this->request->getVar('penerbit'),
             'tahun_terbit' => $this->request->getVar('tahun_terbit'),
             'tempat_terbit' => $this->request->getVar('tempat_terbit'),
             'jumlah_buku' => $this->request->getVar('jumlah_buku'),
             'isbn' => $this->request->getVar('isbn'),
-        ]);
-
-        return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Peminjam berhasil ditambahkan.');
+        ];
+        // dd($data);
+        $model->insert($data);
+        return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Buku berhasil ditambahkan.');
     }
+
 
     //edit
     public function editJenisBuku($id)
@@ -490,7 +496,7 @@ class User extends BaseController
         if (!$peminjam) {
             // Jika data tidak ditemukan, tampilkan pesan error atau redirect
             session()->setFlashdata('error', 'Data peminjam tidak ditemukan.');
-            return redirect()->to('/user/peminjam');
+            return redirect()->to('/user/JenisBuku');
         }
 
         $data = [
@@ -502,7 +508,7 @@ class User extends BaseController
         return view('user/data_peminjam/edit', $data);
     }
 
-    public function updateDataPeminjam($id)
+    public function updateDataPeminjam1($id)
     {
         // Validate the input fields
         if (!$this->validate([
@@ -530,11 +536,11 @@ class User extends BaseController
 
         // Set success flash message and redirect
         session()->setFlashData('pesan_tambah', "Data Peminjam Berhasil Diupdate");
-        return redirect()->to('/user/peminjam');
+        return redirect()->to('/user/JenisBuku');
     }
 
     // Hapus
-    public function hapusdataPeminjam($id)
+    public function hapusdataJenisBuku($id)
     {
         $model = new PeminjamModel();
         $getData = $model->getDataPeminjam($id)->getRow();
@@ -544,7 +550,7 @@ class User extends BaseController
             return redirect()->to('user/peminjam');
         } else {
             session()->setFlashData('pesan_hapus', "Data gagal dihapus");
-            return redirect()->to('user/peminjam');
+            return redirect()->to('user/JenisBuku');
         }
     }
     // Jenis Buku End

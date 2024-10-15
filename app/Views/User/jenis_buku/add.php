@@ -19,76 +19,54 @@
     <div class="card-body">
         <?php $validation = \Config\Services::validation(); ?>
         <?php $session = session() ?>
-        <form action="simpandatabuku" method="post">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">Kode Buku</label>
-                <input
-                    class="form-control <?= $session->getFlashdata('pesan_error') ? 'is-invalid' : ''; ?>"
-                    id="kode_buku" name="kode_buku" type="text"
-                    oninvalid="this.setCustomValidity('Kode Buku Tidak Boleh Kosong')"
-                    oninput="this.setCustomValidity('')" required
-                    value="<?= old('kode_buku'); ?>">
-                <div class="invalid-feedback">
-                    <?php if ($session->getFlashdata('pesan_error')) : ?>
-                    <?= $session->getFlashdata('pesan_error'); ?>
-                    <?php endif ?>
 
+        <form action="<?= base_url('user/saveJenisBuku'); ?>" method="post">
+            <?= csrf_field(); ?>
 
-                </div>
+            <div class="form-group">
+                <label for="kode_buku">Kode Buku</label>
+                <input type="text" class="form-control" id="kode_buku" name="kode_buku" value="<?= old('kode_buku'); ?>" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">Judul Buku</label>
-                <input class="form-control" id="judul" name="judul" type="text"
-                    oninvalid="this.setCustomValidity('Judul Tidak Boleh Kosong')" oninput="this.setCustomValidity('')"
-                    required
-                    value="<?= old('judul'); ?>">
+
+            <div class="form-group">
+                <label for="judul_buku">Judul Buku</label>
+                <input type="text" class="form-control" id="judul_buku" name="judul_buku" value="<?= old('judul_buku'); ?>" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">Pengarang</label>
-                <input class="form-control" id="pengarang" name="pengarang" type="text"
-                    oninvalid="this.setCustomValidity('Pengarang Tidak Boleh Kosong')"
-                    oninput="this.setCustomValidity('')" required
-                    value="<?= old('pengarang'); ?>">
+
+            <div class="form-group">
+                <label for="pengarang">Pengarang</label>
+                <input type="text" class="form-control" id="pengarang" name="pengarang" value="<?= old('pengarang'); ?>" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">Penerbit</label>
-                <input class="form-control" id="penerbit" name="penerbit" type="text"
-                    oninvalid="this.setCustomValidity('Penerbit Tidak Boleh Kosong')"
-                    oninput="this.setCustomValidity('')" required
-                    value="<?= old('pengarang'); ?>">
+
+            <div class="form-group">
+                <label for="penerbit">Penerbit</label>
+                <input type="text" class="form-control" id="penerbit" name="penerbit" value="<?= old('penerbit'); ?>" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">Tahun Terbit</label>
-                <input class="form-control" id="tahun_terbit" name="tahun_terbit" type="number" min="1900" max="2099"
-                    step="1" oninvalid="this.setCustomValidity('Tahun Terbit Tidak Boleh Kosong')"
-                    oninput="this.setCustomValidity('')" required
-                    value="<?= old('tahub_terbit'); ?>">
+
+            <div class="form-group">
+                <label for="tahun_terbit">Tahun Terbit</label>
+                <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" value="<?= old('tahun_terbit'); ?>" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">Tempat Terbit</label>
-                <input class="form-control" id="tempat_terbit" name="tempat_terbit" type="text"
-                    oninvalid="this.setCustomValidity('Tempat Terbit Tidak Boleh Kosong')"
-                    oninput="this.setCustomValidity('')" required
-                    value="<?= old('tempat_terbit'); ?>">
+
+            <div class="form-group">
+                <label for="tempat_terbit">Tempat Terbit</label>
+                <input type="text" class="form-control" id="tempat_terbit" name="tempat_terbit" value="<?= old('tempat_terbit'); ?>" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">Jumlah Buku</label>
-                <input class="form-control" id="jumlah_buku" name="jumlah_buku" type="number"
-                    oninvalid="this.setCustomValidity('Jumlah Buku Tidak Boleh Kosong')"
-                    oninput="this.setCustomValidity('')" required
-                    value="<?= old('jumlah_buku'); ?>">
+
+            <div class="form-group">
+                <label for="jumlah_buku">Jumlah Buku</label>
+                <input type="number" class="form-control" id="jumlah_buku" name="jumlah_buku" value="<?= old('jumlah_buku'); ?>" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">isbn</label>
-                <input class="form-control" id="isbn" name="isbn" type="number"
-                    oninvalid="this.setCustomValidity('isbn Tidak Boleh Kosong')" oninput="this.setCustomValidity('')"
-                    required
-                    value="<?= old('isbn'); ?>">
+
+            <div class="form-group">
+                <label for="isbn">ISBN</label>
+                <input type="text" class="form-control" id="isbn" name="isbn" value="<?= old('isbn'); ?>" required>
             </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
+
+            <button type="submit" class="btn btn-primary">Tambah Data</button>
         </form>
+
+
     </div>
 </div>
 
