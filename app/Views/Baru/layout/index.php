@@ -51,7 +51,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
                             Data Kunjungan
                         </a>
-                        <a class="nav-link" href="<?= base_url('datapeminjam'); ?>">
+                        <a class="nav-link" href="<?= base_url('user/Peminjam'); ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
                             Data Siswa Peminjam
                         </a>

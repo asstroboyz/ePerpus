@@ -22,7 +22,7 @@
                 <?= $title; ?>
             </div>
             <div class="col-md-6 ">
-                <a href="<?= base_url('datapeminjam/formTambah'); ?>" class="btn btn-sm btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
+                <a href="<?= base_url('user/formTambahPeminjam'); ?>" class="btn btn-sm btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
             </div>
         </div>
     </div>
@@ -60,8 +60,8 @@
                         <td><?= $data['no_hp']; ?></td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="<?= base_url('editdatapeminjam/' . $data['id']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
-                                <form action="<?= base_url('hapusdatapeminjam/' . $data['id']); ?>" method="post">
+                                <a href="<?= base_url('user/editPeminjam/' . $data['id']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                <form action="<?= base_url('user/hapusdataPeminjam/' . $data['id']); ?>" method="post">
                                     <?= csrf_field(); ?>
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?');"><i class="fas fa-trash"></i></button>

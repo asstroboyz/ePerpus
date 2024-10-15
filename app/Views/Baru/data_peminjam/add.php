@@ -10,7 +10,7 @@
                 <?= $title; ?>
             </div>
             <div class="col-md-6 ">
-                <a href="<?= base_url('datapeminjam'); ?>" class="btn btn-sm btn-secondary float-end ">
+                <a href="<?= base_url('user/peminjam'); ?>" class="btn btn-sm btn-secondary float-end ">
                     <i class="fas fa-arrow-circle-left me-1"></i>Kembali
                 </a>
             </div>
@@ -20,8 +20,9 @@
         <?php $validation = \Config\Services::validation(); ?>
         <?php $session = session(); ?>
 
-        <!-- Formulir input data peminjam -->
-        <form action="<?= base_url('datapeminjam/add'); ?>" method="post">
+        
+        <form action="<?= base_url('user/savePeminjam'); ?>" method="post">
+        <?= csrf_field(); ?>
             <!-- NIS -->
             <div class="mb-3">
                 <label for="nis">NIS</label>

@@ -14,6 +14,7 @@ use App\Models\DataKunjunganModel;
 use Myth\Auth\Entities\passwd;
 use Myth\Auth\Models\GroupModel;
 use Myth\Auth\Models\UserModel;
+use App\Models\PeminjamModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -26,6 +27,7 @@ class User extends BaseController
 
         $this->db = \Config\Database::connect();
         $this->builder = $this->db->table('users');
+        $this->PeminjamModel = new PeminjamModel();
         $this->DataKunjunganModel = new DataKunjunganModel();
         $this->JadwalimunisasiModel = new JadwalimunisasiModel();
         $this->DaftarHadirModel = new DaftarHadirModel();
@@ -44,7 +46,7 @@ class User extends BaseController
 
 
         $data = [
-         
+
             'title' => 'Home',
         ];
         // dd($data);
@@ -255,9 +257,9 @@ class User extends BaseController
             'keanggotaan' => 'required',
         ];
 
- 
+
         if (!$this->validate($rules)) {
-   
+
             return redirect()->back()->withInput()->with('validation', $this->validator);
         }
 
@@ -321,6 +323,118 @@ class User extends BaseController
     // end Kunjungan
 
     // data Peminjam
+    public function Peminjam()
+    {
+        $peminjam = new PeminjamModel();
+        $data = [
+            'peminjam' => $peminjam->getDataPeminjam(),
+            'title' => 'Data Peminjam Buku Perpustakaaan',
+        ];
+        return view('baru/data_peminjam/index', $data);
+    }
 
+    public function formTambahPeminjam()
+    {
+        $peminjam = new PeminjamModel();
+        $data = [
+            'peminjam' => $peminjam->findAll(),
+            'title' => 'Tambah Data Peminjam Perpustakaaan',
+        ];
+        return view('baru/data_peminjam/add', $data);
+    }
+
+    public function savePeminjam()
+    {
+        // Aturan validasi
+        $rules = [
+            'nis' => 'required',
+            'nama' => 'required',
+        ];
+
+
+        if (!$this->validate($rules)) {
+
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+
+        // Jika validasi berhasil, simpan data
+        $this->PeminjamModel->save([
+            'nis' => $this->request->getVar('nis'),  // Pastikan kolom sesuai dengan tabel
+            'nama' => $this->request->getVar('nama'),
+            'kelas' => $this->request->getVar('kelas'),
+            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+            'alamat' => $this->request->getVar('alamat'),
+            'no_hp' => $this->request->getVar('no_hp')
+        ]);
+
+        return redirect()->to('/User/Peminjam')->with('pesanBerhasil', 'Peminjam berhasil ditambahkan.');
+    }
+    
+    //edit
+    public function editPeminjam($id)
+    {
+        $peminjam = $this->PeminjamModel->find($id);
+        if (!$peminjam) {
+            // Jika data tidak ditemukan, tampilkan pesan error atau redirect
+            session()->setFlashdata('error', 'Data peminjam tidak ditemukan.');
+            return redirect()->to('/user/peminjam');
+        }
+
+        $data = [
+            'title' => 'Edit Data Peminjam',
+            'peminjam' => $peminjam,
+            'validation' => \Config\Services::validation(),
+        ];
+
+        return view('baru/data_peminjam/edit', $data);
+    }
+
+    public function updateDataPeminjam($id)
+    {
+        // Validate the input fields
+        if (!$this->validate([
+            'nama' => 'required',
+            'kelas' => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required|numeric',
+        ])) {
+            // If validation fails, redirect back with input and validation errors
+            return redirect()->back()->withInput()->with('validation', \Config\Services::validation());
+        }
+
+        // Collect data from the form
+        $data = [
+            'nama' => $this->request->getVar('nama'),
+            'kelas' => $this->request->getVar('kelas'),
+            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+            'alamat' => $this->request->getVar('alamat'),
+            'no_hp' => $this->request->getVar('no_hp'),
+        ];
+
+        // Update the data in the database
+        $this->PeminjamModel->update($id, $data);
+
+        // Set success flash message and redirect
+        session()->setFlashData('pesan_tambah', "Data Peminjam Berhasil Diupdate");
+        return redirect()->to('/user/peminjam');
+    }
+
+    // Hapus
+    public function hapusdataPeminjam($id)
+    {
+        $model = new PeminjamModel();
+        $getData = $model->getDataPeminjam($id)->getRow();
+        if (isset($getData)) {
+            $model->hapusDataPeminjam($id);
+            session()->setFlashData('pesan_hapus', "Data berhasil dihapus");
+            return redirect()->to('user/peminjam');
+        } else {
+            session()->setFlashData('pesan_hapus', "Data gagal dihapus");
+            return redirect()->to('user/peminjam');
+        }
+    }
     // End data peminjam
+
+    
 }
