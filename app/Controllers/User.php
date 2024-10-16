@@ -380,7 +380,7 @@ class User extends BaseController
             'peminjam' => $peminjam,
             'validation' => \Config\Services::validation(),
         ];
-
+// dd($data);
         return view('user/data_peminjam/edit', $data);
     }
 

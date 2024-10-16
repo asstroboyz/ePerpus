@@ -7,12 +7,12 @@ use CodeIgniter\Model;
 class JenisBukuModel extends Model
 {
     protected $table            = 'jenis_buku';
-    protected $primaryKey       = 'kode_buku';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kode_buku', 'judul_buku', 'pengarang', 'penerbit', 'tahun_terbit', 'tempat_terbit', 'jumlah_buku', 'isbn'];
+    protected $allowedFields    = ['id','kode_buku', 'judul_buku', 'pengarang', 'penerbit', 'tahun_terbit', 'tempat_terbit', 'jumlah_buku', 'isbn'];
 
     protected bool $allowEmptyInserts = false;
 
@@ -21,13 +21,13 @@ class JenisBukuModel extends Model
         if ($id === false) {
             return $this->findAll();
         } else {
-            return $this->getWhere(['kode_buku' => $id]);
+            return $this->getWhere(['id' => $id]);
         }
     }
 
     public function hapusDataBuku($id)
     {
         $builder = $this->db->table($this->table);
-        return $builder->delete(['kode_buku' => $id]);
+        return $builder->delete(['id' => $id]);
     }
 }

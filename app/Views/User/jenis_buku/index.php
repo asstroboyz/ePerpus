@@ -69,8 +69,8 @@
                         <td><?= $data['isbn']; ?></td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="<?= base_url('user/editJenisBuku/' . $data['kode_buku']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
-                                <form action="<?= base_url('user/hapusdataJenisBuku/' . $data['kode_buku']); ?>" method="post">
+                                <a href="<?= base_url('user/editJenisBuku/' . $data['id']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                <form action="<?= base_url('user/hapusdataJenisBuku/' . $data['id']); ?>" method="post">
                                     <?= csrf_field(); ?>
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?');"><i class="fas fa-trash"></i></button>
