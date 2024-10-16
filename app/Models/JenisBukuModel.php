@@ -18,11 +18,13 @@ class JenisBukuModel extends Model
 
     public function getDataBuku($id = false)
     {
-        if ($id === false) {
-            return $this->findAll();
-        } else {
-            return $this->getWhere(['id' => $id]);
-        }
+        // if ($id === false) {
+        //     return $this->findAll();
+        // } else {
+        //     return $this->getWhere(['id' => $id]);
+        // }
+
+        return $this->findAll(); // Mengambil semua data buku
     }
 
     public function hapusDataBuku($id)

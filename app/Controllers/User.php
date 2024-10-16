@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-
+use App\Models\BukuRusakModel;
 use App\Models\JenisBukuModel;
 use App\Models\profil;
 use App\Models\DataKunjunganModel;
@@ -380,7 +380,7 @@ class User extends BaseController
             'peminjam' => $peminjam,
             'validation' => \Config\Services::validation(),
         ];
-// dd($data);
+        // dd($data);
         return view('user/data_peminjam/edit', $data);
     }
 
@@ -554,5 +554,72 @@ class User extends BaseController
         }
     }
     // Jenis Buku End
+
+
+    // BUku RUsak
+    public function databukurusak() {
+        session();
+        $model = new BukuRusakModel();
+        $data = [
+            'bukurusak' => $model->getDataBukuRusak(),
+            'title' => 'Data Buku Rusak',
+        ];
+
+        return view('user/buku_rusak/index', $data);
+    }
+
+    public function tambahbukuRusak (){
+        session();
+        $modelBuku = new JenisBukuModel();
+        $data = [
+            'buku' => $modelBuku->getDataBuku(),
+            'title' => 'Form Tambah Data Buku Rusak',
+        ];
+        return view('user/buku_rusak/add', $data);
+    }
+    
+    public function saveBukurusak() {
+        if (!$this->validate([
+            'kode_buku_rusak' => [
+                'rules' => 'is_unique[buku_rusak.kode_buku_rusak]',
+                'errors' => [
+                    'is_unique' => 'Kode Buku Rusak Sudah Ada, Silahkan periksa lagi kode buku yang anda masukkan'
+                ]
+            ],
+            'buku' => [
+                'rules' => 'is_unique[buku_rusak.kode_buku]',
+                'errors' => [
+                    'is_unique' => 'Kode Buku Sudah Ada, Silahkan update jumlah pada data kode buku tersebut'
+                ]
+            ]
+        ])) {
+            $validation = \Config\Services::validation();
+            $error1 = $validation->getError('kode_buku_rusak');
+            $error2 = $validation->getError('buku');
+            $session = session();
+            $session->setFlashdata('pesan_error_kd_rusak', $error1);
+            $session->setFlashdata('pesan_error_kd_buku', $error2);
+            return redirect()->back()->withInput();
+        }
+    
+        // Ambil data dari request, cek apakah kode_buku null
+        $kodeBukuRusak = $this->request->getPost('kode_buku_rusak');
+        $kodeBuku = $this->request->getPost('judul_buku') ?? '';  // Default ke string kosong jika null
+    
+        // Proses strtoupper hanya jika tidak null atau kosong
+        $data = [
+            'kode_buku_rusak' => strtoupper($kodeBukuRusak),
+            'kode_buku' =>strtoupper($kodeBukuRusak),
+            'jumlah_buku_rusak' => $this->request->getPost('jumlah_buku')
+        ];
+        // dd($data);
+        $model = new BukuRusakModel();
+        $model->insert($data);
+        session()->setFlashData('pesan_tambah', "Data Buku Rusak Berhasil Ditambah");
+        return redirect()->to('user/databukurusak');
+    }
+    
+    
+// End Buku Rusak
 
 }

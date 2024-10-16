@@ -81,34 +81,17 @@ class Admin extends BaseController
         $this->PosyanduModel = new PosyanduModel();
         $this->JenisImunisasiModel = new JenisImunisasiModel();
         $this->DataBalitaModel = new DataBalitaModel();
-        $this->riwayatSaldo = new riwayatSaldo();
-        $this->pembayaranPiutangModel = new pembayaranPiutangModel();
-        $this->piutangModel = new piutangModel();
+   
         $this->Profil = new Profil();
-        $this->asetModel = new asetModel();
-        $this->hutangModel = new hutangModel();
-        $this->modalTokoModel = new modalTokoModel();
-        $this->restokModel = new restokModel();
-        $this->supplierModel = new supplierModel();
-        $this->tipeBarangModel = new tipeBarangModel();
+       
         $this->pengecekanModel = new pengecekanModel();
-        $this->BarangModel = new BarangModel();
-        $this->satuanModel = new satuanModel();
-        $this->KasModel = new KasModel();
-        $this->TransaksiBarangModel = new TransaksiBarangModel();
+        
+     
         $this->db = \Config\Database::connect();
         $this->builder = $this->db->table('users');
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
-        $this->masterBarangModel = new masterBarangModel();
-        $this->perkiraanModel = new perkiraanModel();
-        $this->PelangganModel = new PelangganModel();
-        $this->SaldoModel = new SaldoModel();
-        $this->PemasukanModel = new PemasukanModel();
-        $this->PengeluaranModel = new PengeluaranModel();
-        $this->PenjualanBarangModel = new PenjualanBarangModel();
-        $this->detailPenjualanBarangModel = new detailPenjualanBarangModel();
-        $this->detailRestokModel = new detailRestokModel();
+       
     }
 
     // public function index()

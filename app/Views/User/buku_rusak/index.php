@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-6 d-flex justify-content-end gap-2">
                 <a href="<?= base_url('cetakdatabukurusak'); ?>" class="btn btn-success float-end "><i class="fas fa-print me-1"></i>Print</a>
-                <a href="<?= base_url('tambahdatabukurusak'); ?>" class="btn btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
+                <a href="<?= base_url('user/tambahbukuRusak'); ?>" class="btn btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
             </div>
         </div>
     </div>

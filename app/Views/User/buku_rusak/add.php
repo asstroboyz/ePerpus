@@ -18,47 +18,35 @@
     <div class="card-body">
         <?php $validation = \Config\Services::validation(); ?>
         <?php $session = session() ?>
-        <form action="simpandatabukurusak" method="post">
+      
+        <form action="<?= base_url('user/saveBukurusak'); ?>" method="post">
+        <?= csrf_field(); ?>
             <div class="mb-3">
-                <label for="exampleFormControlInput1">Kode Buku Rusak</label>
-                <input
-                    class="form-control <?= $session->getFlashdata('pesan_error_kd_rusak') ? 'is-invalid' : ''; ?>"
-                    id="kode_buku_rusak" name="kode_buku_rusak" type="text"
-                    oninvalid="this.setCustomValidity('Kode Buku Rusak Tidak Boleh Kosong')"
-                    oninput="this.setCustomValidity('')" required
-                    value="<?= old('kode_buku_rusak'); ?>">
-                <div class="invalid-feedback">
-                    <?php if ($session->getFlashdata('pesan_error_kd_rusak')) : ?>
-                    <?= $session->getFlashdata('pesan_error_kd_rusak'); ?>
-                    <?php endif ?>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1">Pilih Buku</label>
+                <label for="kode_buku_rusak">Kode Buku Rusak</label>
                 <select
-                    class="form-control <?= $session->getFlashdata('pesan_error_kd_buku') ? 'is-invalid' : ''; ?>"
-                    id="buku" name="buku" oninvalid="this.setCustomValidity('Bukurr Tidak Boleh Kosong')"
+                    class="form-control <?= $session->getFlashdata('pesan_error_kd_rusak') ? 'is-invalid' : ''; ?>"
+                    id="kode_buku_rusak" name="kode_buku_rusak"
+                    oninvalid="this.setCustomValidity('Kode Buku Rusak Tidak Boleh Kosong')"
                     oninput="this.setCustomValidity('')" required>
-                    <option value="">--Pilih Buku--</option>
-                    <?php foreach ($buku as $row) : ?>
-                    <option
-                        value="<?= $row['kode_buku']; ?>"
-                        <?php if (old('buku') == $row['kode_buku']) {
-                            echo 'selected';
-                        } ?>><?= $row['kode_buku']; ?>
-                        -
-                        <?= $row['judul_buku']; ?>
-                    </option>
 
+                    <option value="">-- Pilih Kode Buku --</option>
+                    <?php foreach ($buku as $item): ?>
+                        <option value="<?= $item['kode_buku']; ?>" <?= old('kode_buku_rusak') == $item['kode_buku'] ? 'selected' : ''; ?>>
+                            <?= $item['kode_buku']; ?> - <?= $item['judul_buku']; ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
+
+        
+               
                 <div class="invalid-feedback">
-                    <?php if ($session->getFlashdata('pesan_error_kd_buku')) : ?>
-                    <?= $session->getFlashdata('pesan_error_kd_buku'); ?>
+                    <?php if ($session->getFlashdata('pesan_error_kd_rusak')): ?>
+                        <?= $session->getFlashdata('pesan_error_kd_rusak'); ?>
                     <?php endif ?>
                 </div>
-
             </div>
+
+       
             <div class="mb-3">
                 <label for="exampleFormControlInput1">Jumlah Buku</label>
                 <input class="form-control" id="jumlah_buku" name="jumlah_buku" type="number"
