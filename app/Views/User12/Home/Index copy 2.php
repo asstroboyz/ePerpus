@@ -1,5 +1,5 @@
 <!-- app/Views/Admin/Home/Index.php -->
-<?= $this->extend('Admin/Templates/Index') ?>
+<?= $this->extend('Admin/layout/index'); ?>
 
 <?= $this->section('page-content'); ?>
 

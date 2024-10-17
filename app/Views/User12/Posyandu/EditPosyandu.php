@@ -1,4 +1,4 @@
-<?= $this->extend('Admin/Templates/Index') ?>
+<?= $this->extend('Admin/layout/index'); ?>
 
 <?= $this->section('page-content'); ?>
 <!-- Begin Page Content -->

@@ -126,7 +126,7 @@ class Admin extends BaseController
     {
        
         $data = [
-            'title' => 'e-Posyandu - Home',
+            'title' => 'e-Perpus - Home',
             // 'saldo_terakhir' => $saldoTerakhir,
             // 'stokdibawah10' => $stokdibawah10,
             // 'totalKasMasuk' => $totalKasMasuk,
@@ -135,7 +135,7 @@ class Admin extends BaseController
             // 'dataPenjualan' => $dataPenjualan,
         ];
 
-        return view('Admin/Home/Index', $data);
+        return view('Admin/dashboard/Index', $data);
     }
 
     public function user_list()

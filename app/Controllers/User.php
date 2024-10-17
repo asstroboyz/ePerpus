@@ -602,11 +602,9 @@ class User extends BaseController
             return redirect()->back()->withInput();
         }
     
-        // Ambil data dari request, cek apakah kode_buku null
+ 
         $kodeBukuRusak = $this->request->getPost('kode_buku_rusak');
-        $kodeBuku = $this->request->getPost('judul_buku') ?? '';  // Default ke string kosong jika null
-    
-        // Proses strtoupper hanya jika tidak null atau kosong
+        $kodeBuku = $this->request->getPost('judul_buku') ?? ''; 
         $data = [
             'kode_buku_rusak' => strtoupper($kodeBukuRusak),
             'kode_buku' =>strtoupper($kodeBukuRusak),
