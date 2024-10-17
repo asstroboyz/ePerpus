@@ -617,7 +617,73 @@ class User extends BaseController
         return redirect()->to('user/databukurusak');
     }
     
+    public function editBukuRusak($id)
+{
+    session();
+    $modelBukuRusak = new BukuRusakModel();
+    $modelJenisBuku = new JenisBukuModel();
+
+    // Dapatkan data buku rusak berdasarkan ID
+    $bukuRusak = $modelBukuRusak->find($id);
     
+    // Jika data buku rusak tidak ditemukan
+    if (!$bukuRusak) {
+        session()->setFlashdata('pesan_error', 'Data buku rusak tidak ditemukan.');
+        return redirect()->to('user/databukurusak');
+    }
+
+    // Siapkan data untuk view
+    $data = [
+        'bukuRusak' => $bukuRusak,
+        'buku' => $modelJenisBuku->getDataBuku(),
+        'title' => 'Form Edit Data Buku Rusak',
+    ];
+
+    return view('user/buku_rusak/edit', $data);
+}
+
+public function updateBukuRusak($id)
+{
+    if (!$this->validate([
+        'kode_buku_rusak' => [
+            'rules' => 'is_unique[buku_rusak.kode_buku_rusak,id,' . $id . ']',
+            'errors' => [
+                'is_unique' => 'Kode Buku Rusak sudah ada, silahkan periksa lagi kode buku yang Anda masukkan.'
+            ]
+        ],
+        'buku' => [
+            'rules' => 'is_unique[buku_rusak.kode_buku,id,' . $id . ']',
+            'errors' => [
+                'is_unique' => 'Kode Buku sudah ada, silahkan update jumlah pada data kode buku tersebut.'
+            ]
+        ]
+    ])) {
+        $validation = \Config\Services::validation();
+        $error1 = $validation->getError('kode_buku_rusak');
+        $error2 = $validation->getError('buku');
+        $session = session();
+        $session->setFlashdata('pesan_error_kd_rusak', $error1);
+        $session->setFlashdata('pesan_error_kd_buku', $error2);
+        return redirect()->back()->withInput();
+    }
+
+    $kodeBukuRusak = $this->request->getPost('kode_buku_rusak');
+    $kodeBuku = $this->request->getPost('judul_buku') ?? '';
+
+    $data = [
+        'kode_buku_rusak' => strtoupper($kodeBukuRusak),
+        'kode_buku' => strtoupper($kodeBuku),
+        'jumlah_buku_rusak' => $this->request->getPost('jumlah_buku'),
+    ];
+
+    // Update data di database
+    $model = new BukuRusakModel();
+    $model->update($id, $data);
+
+    session()->setFlashData('pesan_update', "Data Buku Rusak Berhasil Diperbarui");
+    return redirect()->to('user/databukurusak');
+}
+
 // End Buku Rusak
 
 }
