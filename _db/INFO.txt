@@ -14,30 +14,49 @@ https://chatgpt.com/c/66fc7ed8-5ccc-8007-8ef0-046e178f3bad
 ubah db php 8 ke 7 : https://chatgpt.com/c/66ec22cc-8b4c-8007-ae79-272110515080
 
 ubah db :
-Cari semua instance dari utf8mb4_0900_ai_ci di dalam file .sql.
-Ganti semua utf8mb4_0900_ai_ci dengan utf8mb4_unicode_ci atau utf8mb4_general_ci.
+Cari semua instance dari utf8mb4_unicode_ci di dalam file .sql.
+Ganti semua utf8mb4_unicode_ci dengan utf8mb4_unicode_ci atau utf8mb4_general_ci.
 
 
- <!-- <td style="text-align:center;">
-                                        <div class="d-flex justify-content-around">
-                                            <?php if ($pengecekan) {
-                                                $date1 = date_create($pengecekan['tgl_pemeriksaan']);
-                                                $date2 = date_create($daynow);
-                                                $diff = date_diff($date1, $date2);
-                                                $hari = $diff->format("%a");
-                                                if ($hari > $rule_cek) {
-                                                    echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
-                                                } else {
-                                                    echo '<a href="' . site_url('/user/detail_balita/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
-                                                    echo '<a href="/user/ubah/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
-                                                    echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiDelete" data-delete-url="' . site_url('/user/delete/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
-                                                }
-                                            } else {
-                                                echo '<a href="' . site_url('/user/pengecekan/' . $data['id']) . '" class="btn btn-info mx-1"><i class="fa fa-stethoscope"></i></a>';
-                                                echo '<a href="' . site_url('/user/detail_balita/' . $data['id']) . '" class="btn btn-primary mx-1"><i class="fa fa-eye"></i></a>';
-                                                echo '<a href="/user/editBalita/' . $data['id'] . '" class="btn btn-warning mx-1"><i class="fa fa-edit"></i></a>';
-                                                echo '<a href="#" class="btn btn-danger btn-delete mx-1" data-toggle="modal" data-target="#modalKonfirmasiBanned" data-delete-url="' . site_url('/user/deleteBalita/' . $data['id']) . '"><i class="fa fa-trash"></i></a>';
-                                            }
-                                        ?>
-                    </div>
-                    </td> -->
+CREATE TABLE `jenis_buku` (
+  `kode_buku` VARCHAR(10) PRIMARY KEY,
+  `judul_buku` VARCHAR(50) NOT NULL,
+  `pengarang` VARCHAR(50) NOT NULL,
+  `penerbit` VARCHAR(30) NOT NULL,
+  `tahun_terbit` VARCHAR(4) NOT NULL,
+  `tempat_terbit` VARCHAR(50) NOT NULL,
+  `jumlah_buku` INT NOT NULL,
+  `isbn` VARCHAR(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+// sudah
+
+CREATE TABLE `datasiswa_peminjam` (
+  `nis` VARCHAR(20) PRIMARY KEY,
+  `nama` VARCHAR(100) NOT NULL,
+  `kelas` VARCHAR(10) NOT NULL,
+  `jenis_kelamin` VARCHAR(10) NOT NULL,
+  `alamat` VARCHAR(200) NOT NULL,
+  `no_hp` VARCHAR(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `peminjaman` (
+  `kode_pinjam` VARCHAR(20) PRIMARY KEY,
+  `kode_buku` VARCHAR(10) NOT NULL,
+  `nis` VARCHAR(20) NOT NULL,
+  `id_user` INT NOT NULL,
+  `tanggal_pinjam` DATE NOT NULL,
+  `tanggal_pengembalian` DATE NOT NULL,
+  `status` VARCHAR(20) NOT NULL,
+  `jumlah_pinjam` INT NOT NULL,
+  `kondisi_buku` VARCHAR(50) NOT NULL,
+  FOREIGN KEY (`kode_buku`) REFERENCES `jenis_buku`(`kode_buku`),
+  FOREIGN KEY (`nis`) REFERENCES `datasiswa_peminjam`(`nis`),
+  FOREIGN KEY (`id_user`) REFERENCES `users`(`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `buku_rusak` (
+  `kode_buku_rusak` INT AUTO_INCREMENT PRIMARY KEY,
+  `kode_buku` VARCHAR(10) NOT NULL,
+  `jumlah_buku_rusak` INT NOT NULL,
+  FOREIGN KEY (`kode_buku`) REFERENCES `jenis_buku`(`kode_buku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 03, 2024 at 03:30 AM
+-- Generation Time: Oct 18, 2024 at 05:30 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `eposyandu`
+-- Database: `eperpus`
 --
 
 -- --------------------------------------------------------
@@ -115,7 +115,24 @@ INSERT INTO `auth_groups_users` (`group_id`, `user_id`) VALUES
 (5, 24),
 (5, 25),
 (5, 26),
-(5, 27);
+(5, 27),
+(5, 28),
+(5, 29),
+(5, 30),
+(5, 31),
+(5, 32),
+(5, 33),
+(5, 34),
+(5, 35),
+(5, 36),
+(5, 37),
+(5, 38),
+(5, 39),
+(5, 40),
+(5, 41),
+(5, 42),
+(5, 43),
+(5, 44);
 
 -- --------------------------------------------------------
 
@@ -988,7 +1005,29 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (848, '::1', 'admin@gmail.com', 1, '2024-10-03 08:09:33', 1),
 (849, '::1', 'kader@gmail.com', 27, '2024-10-03 10:15:32', 1),
 (850, '::1', 'admin@gmail.com', 1, '2024-10-03 10:15:50', 1),
-(851, '::1', 'kader', 27, '2024-10-03 10:19:35', 0);
+(851, '::1', 'kader', 27, '2024-10-03 10:19:35', 0),
+(852, '::1', 'admin@gmail.com', 1, '2024-10-03 20:52:19', 1),
+(853, '::1', 'kader@gmail.com', 27, '2024-10-05 05:36:47', 1),
+(854, '::1', 'kader@gmail.com', 27, '2024-10-05 18:39:50', 1),
+(855, '::1', 'kader@gmail.com', 27, '2024-10-05 22:15:37', 1),
+(856, '::1', 'kader@gmail.com', 27, '2024-10-06 00:39:43', 1),
+(857, '::1', 'kader@gmail.com', 27, '2024-10-06 20:23:34', 1),
+(858, '::1', 'admin@gmail.com', 1, '2024-10-06 21:21:48', 1),
+(859, '::1', 'kader@gmail.com', 27, '2024-10-07 17:35:50', 1),
+(860, '::1', 'kader@gmail.com', 27, '2024-10-12 18:44:51', 1),
+(861, '::1', 'kader@gmail.com', 27, '2024-10-13 20:52:43', 1),
+(862, '::1', 'kader@gmail.com', 27, '2024-10-14 05:13:17', 1),
+(863, '::1', 'kader@gmail.com', 27, '2024-10-14 17:09:59', 1),
+(864, '::1', 'kader@gmail.com', 27, '2024-10-14 20:20:55', 1),
+(865, '::1', 'kader@gmail.com', 27, '2024-10-14 20:44:20', 1),
+(866, '::1', 'kader@gmail.com', 27, '2024-10-15 08:07:41', 1),
+(867, '::1', 'kader@gmail.com', 27, '2024-10-15 10:59:21', 1),
+(868, '::1', 'kader@gmail.com', 27, '2024-10-15 13:16:05', 1),
+(869, '::1', 'kader@gmail.com', 27, '2024-10-16 20:51:38', 1),
+(870, '::1', 'admin@gmail.com', 1, '2024-10-16 20:52:39', 1),
+(871, '::1', 'admin@gmail.com', 1, '2024-10-17 05:39:50', 1),
+(872, '::1', 'kader@gmail.com', 27, '2024-10-17 08:38:40', 1),
+(873, '::1', 'kader@gmail.com', 27, '2024-10-18 12:26:59', 1);
 
 -- --------------------------------------------------------
 
@@ -1053,179 +1092,112 @@ CREATE TABLE `auth_users_permissions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `daftar_hadir`
+-- Table structure for table `buku_rusak`
 --
 
-CREATE TABLE `daftar_hadir` (
-  `id` int NOT NULL,
-  `jadwal_imunisasi_id` int NOT NULL,
-  `nama_peserta` varchar(255) NOT NULL,
-  `status_kehadiran` enum('hadir','tidak hadir') NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `buku_rusak` (
+  `kode_buku_rusak` int NOT NULL,
+  `kode_buku` varchar(20) NOT NULL,
+  `jumlah_buku_rusak` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `buku_rusak`
+--
+
+INSERT INTO `buku_rusak` (`kode_buku_rusak`, `kode_buku`, `jumlah_buku_rusak`) VALUES
+(0, 'NININII', '1'),
+(444, '444', '8');
+
+--
+-- Triggers `buku_rusak`
+--
+DELIMITER $$
+CREATE TRIGGER `Delete_BR` AFTER DELETE ON `buku_rusak` FOR EACH ROW UPDATE jenis_buku SET jenis_buku.jumlah_buku = jenis_buku.jumlah_buku + OLD.jumlah_buku_rusak
+WHERE jenis_buku.kode_buku = OLD.kode_buku
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insert_BR` AFTER INSERT ON `buku_rusak` FOR EACH ROW UPDATE jenis_buku SET jenis_buku.jumlah_buku = jenis_buku.jumlah_buku - NEW.jumlah_buku_rusak
+WHERE jenis_buku.kode_buku = NEW.kode_buku
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_BR` AFTER UPDATE ON `buku_rusak` FOR EACH ROW UPDATE jenis_buku SET jenis_buku.jumlah_buku = jenis_buku.jumlah_buku - (NEW.jumlah_buku_rusak-OLD.jumlah_buku_rusak)
+WHERE jenis_buku.kode_buku = NEW.kode_buku
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `daftar_hadir_imunisasi`
+-- Table structure for table `datasiswa_peminjam`
 --
 
-CREATE TABLE `daftar_hadir_imunisasi` (
-  `id` int NOT NULL,
-  `jadwal_imunisasi_id` int NOT NULL,
-  `kehadiran` enum('Hadir','Tidak Hadir') DEFAULT 'Hadir',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `balita_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_balita`
---
-
-CREATE TABLE `data_balita` (
-  `id` int NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `jenis_kelamin` enum('L','P') NOT NULL,
-  `tgl_lahir` date NOT NULL,
-  `nama_ortu` varchar(100) NOT NULL,
-  `posyandu_id` int NOT NULL,
-  `anak_ke` varchar(100) DEFAULT NULL,
-  `bbl` varchar(100) DEFAULT NULL,
-  `pbl` varchar(100) DEFAULT NULL,
-  `nik_balita` varchar(100) DEFAULT NULL,
-  `no_kk` varchar(100) DEFAULT NULL,
-  `nik_ortu` varchar(100) DEFAULT NULL,
-  `alamat` text NOT NULL,
-  `rt` varchar(100) DEFAULT NULL,
-  `rw` varchar(100) DEFAULT NULL,
-  `umur` varchar(100) DEFAULT NULL,
-  `bb_awal` varchar(100) DEFAULT NULL,
-  `tb_awal` varchar(100) DEFAULT NULL,
-  `lk_awal` varchar(100) DEFAULT NULL,
-  `tgl_pemeriksaan_awal` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `data_balita`
---
-
-INSERT INTO `data_balita` (`id`, `nama`, `jenis_kelamin`, `tgl_lahir`, `nama_ortu`, `posyandu_id`, `anak_ke`, `bbl`, `pbl`, `nik_balita`, `no_kk`, `nik_ortu`, `alamat`, `rt`, `rw`, `umur`, `bb_awal`, `tb_awal`, `lk_awal`, `tgl_pemeriksaan_awal`) VALUES
-(13, 'anisa', 'P', '2009-09-12', 'Badriyah', 5, '1', '25', '45', '1111111111111111', '2222222222222222', '3333333333333333', 'pekalongan', NULL, NULL, '2', '23', '45', '15', '2024-10-02'),
-(14, 'Ara', 'P', '2006-06-06', 'Gatau', 5, '2', '45', '50', '3455237645852834', '7547548756476585', '6757685764576454', 'Kedungwuni', NULL, NULL, '45', '34', '48', '24', '2024-10-03');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_balita_detail`
---
-
-CREATE TABLE `data_balita_detail` (
-  `id_detail` int NOT NULL,
-  `bb_awal` varchar(50) DEFAULT NULL,
-  `tb_awal` varchar(50) DEFAULT NULL,
-  `lk_awal` varchar(50) DEFAULT NULL,
-  `bb_u` varchar(50) DEFAULT NULL,
-  `bb_tb` varchar(50) DEFAULT NULL,
-  `tb_u` varchar(50) DEFAULT NULL,
-  `rambu_gizi` varchar(50) DEFAULT NULL,
-  `vitamin` varchar(50) DEFAULT NULL,
-  `tgl_pemeriksaan` date DEFAULT NULL,
-  `asi_eks` varchar(50) DEFAULT NULL,
-  `no_hp` varchar(20) DEFAULT NULL,
-  `balita_id` int DEFAULT NULL,
-  `jenis_imunisasi_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `data_balita_detail`
---
-
-INSERT INTO `data_balita_detail` (`id_detail`, `bb_awal`, `tb_awal`, `lk_awal`, `bb_u`, `bb_tb`, `tb_u`, `rambu_gizi`, `vitamin`, `tgl_pemeriksaan`, `asi_eks`, `no_hp`, `balita_id`, `jenis_imunisasi_id`) VALUES
-(3, '23', '45', '15', NULL, NULL, NULL, NULL, NULL, '2024-10-02', NULL, NULL, 13, NULL),
-(4, '34', '48', '24', NULL, NULL, NULL, NULL, NULL, '2024-10-03', NULL, NULL, 14, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `imunisasi`
---
-
-CREATE TABLE `imunisasi` (
+CREATE TABLE `datasiswa_peminjam` (
   `id` int NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `jenis_kelamin` varchar(1) NOT NULL,
-  `tgl_lahir` date NOT NULL,
-  `nama_ortu` varchar(100) NOT NULL,
-  `posyandu_id` int NOT NULL,
-  `bb_awal` varchar(10) NOT NULL,
-  `tb_awal` varchar(10) NOT NULL,
-  `bb_u` varchar(10) NOT NULL,
-  `tb_u` varchar(10) NOT NULL,
-  `bb_tb` varchar(10) NOT NULL,
-  `jenis_imunisasi` varchar(100) NOT NULL,
-  `tgl_imunisasi` date NOT NULL,
-  `keterangan` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `kelas` varchar(10) NOT NULL,
+  `jenis_kelamin` varchar(10) NOT NULL,
+  `alamat` varchar(200) NOT NULL,
+  `no_hp` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `datasiswa_peminjam`
+--
+
+INSERT INTO `datasiswa_peminjam` (`id`, `nama`, `kelas`, `jenis_kelamin`, `alamat`, `no_hp`) VALUES
+(1, 'Namabuku', '9d', 'Laki-laki', 'Alamat', '08796');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jadwal_imunisasi`
+-- Table structure for table `jenis_buku`
 --
 
-CREATE TABLE `jadwal_imunisasi` (
+CREATE TABLE `jenis_buku` (
   `id` int NOT NULL,
-  `tanggal` date NOT NULL,
-  `jam` time NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `posyandu_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `kode_buku` varchar(10) NOT NULL,
+  `judul_buku` varchar(50) NOT NULL,
+  `pengarang` varchar(50) NOT NULL,
+  `penerbit` varchar(30) NOT NULL,
+  `tahun_terbit` varchar(50) NOT NULL,
+  `tempat_terbit` varchar(50) NOT NULL,
+  `jumlah_buku` varchar(50) NOT NULL,
+  `isbn` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `jadwal_imunisasi`
+-- Dumping data for table `jenis_buku`
 --
 
-INSERT INTO `jadwal_imunisasi` (`id`, `tanggal`, `jam`, `created_at`, `updated_at`, `posyandu_id`) VALUES
-(4, '2024-10-02', '08:21:00', '2024-10-02 01:16:52', '2024-10-02 01:16:52', 5),
-(5, '2024-10-03', '08:34:00', '2024-10-02 01:32:15', '2024-10-03 01:20:03', 4),
-(6, '2024-10-03', '08:11:00', '2024-10-03 01:08:36', '2024-10-03 01:08:36', 5);
+INSERT INTO `jenis_buku` (`id`, `kode_buku`, `judul_buku`, `pengarang`, `penerbit`, `tahun_terbit`, `tempat_terbit`, `jumlah_buku`, `isbn`) VALUES
+(1, '444', 'sikancil', 'botak', 'ido', '0', 'is', '-8', '3'),
+(2, 'ASD', 'asd', 'asd', 'asd', '324', 'dfs', '234', '234'),
+(3, 'NININII', 'asd', 'asd', 'asd', '324', 'dfs', '233', '234'),
+(4, 'NININII', 'kokoko', 'asd', 'asd', '324', 'dfs', '233', '234'),
+(5, 'NIOKAO', 'kjhugy', 'gvhg', 'fyt', '2020', 'pekal', '12', '8976');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis_imunisasi`
+-- Table structure for table `kunjungan`
 --
 
-CREATE TABLE `jenis_imunisasi` (
-  `id` int NOT NULL,
-  `usia_anak` varchar(20) NOT NULL,
-  `jenis_imunisasi` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `kunjungan` (
+  `id_kunjungan` int NOT NULL,
+  `nama` varchar(25) NOT NULL,
+  `keanggotaan` enum('Guru','Siswa') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `jenis_imunisasi`
+-- Dumping data for table `kunjungan`
 --
 
-INSERT INTO `jenis_imunisasi` (`id`, `usia_anak`, `jenis_imunisasi`) VALUES
-(2, '0 Bulan', 'Hepatitis B'),
-(3, '0-2 Bulan', 'BCG'),
-(4, '2 Bulan', 'DPT-HB-Hib'),
-(5, '2 Bulan', 'Polio'),
-(6, '4 Bulan', 'DPT-HB-Hib'),
-(7, '4 Bulan', 'Polio'),
-(8, '6 Bulan', 'DPT-HB-Hib'),
-(9, '6 Bulan', 'Polio'),
-(10, '9 Bulan', 'Campak/MR'),
-(11, '18 Bulan', 'DPT-HB-Hib'),
-(12, '18 Bulan', 'MR'),
-(13, '1 Tahun', 'PCV'),
-(14, '6 Bulan', 'Rotavirus'),
-(15, '12 Bulan', 'Varicella'),
-(16, 'Setiap Tahun', 'Influenza');
+INSERT INTO `kunjungan` (`id_kunjungan`, `nama`, `keanggotaan`) VALUES
+(1, 'Hermanto', 'Guru'),
+(4, 'few', 'Siswa');
 
 -- --------------------------------------------------------
 
@@ -1253,25 +1225,47 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posyandu`
+-- Table structure for table `peminjaman`
 --
 
-CREATE TABLE `posyandu` (
-  `id` int NOT NULL,
-  `nama_posyandu` varchar(255) NOT NULL,
-  `alamat_posyandu` text,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `kader_posyandu` int UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `peminjaman` (
+  `kode_pinjam` varchar(20) NOT NULL,
+  `nomor_buku` varchar(20) NOT NULL,
+  `kode_buku` varchar(20) NOT NULL,
+  `nis` varchar(20) NOT NULL,
+  `tanggal_pinjam` date NOT NULL,
+  `tanggal_pengembalian` date NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `jumlah_pinjam` int NOT NULL,
+  `kondisi_buku` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `posyandu`
+-- Dumping data for table `peminjaman`
 --
 
-INSERT INTO `posyandu` (`id`, `nama_posyandu`, `alamat_posyandu`, `created_at`, `updated_at`, `kader_posyandu`) VALUES
-(4, 'Ceria 1', 'Pekalongan Barat', '2024-10-02 01:05:06', '2024-10-02 01:05:06', 25),
-(5, 'Ceria 2', 'Panjang', '2024-10-02 01:05:21', '2024-10-02 01:05:21', 27);
+INSERT INTO `peminjaman` (`kode_pinjam`, `nomor_buku`, `kode_buku`, `nis`, `tanggal_pinjam`, `tanggal_pengembalian`, `status`, `jumlah_pinjam`, `kondisi_buku`) VALUES
+('04B0023-049', '049', 'B0023', '049', '2024-04-04', '2024-04-02', 'Belum Kembali', 33, ''),
+('04B0023-2023', '0021', 'B0023', '2023', '2024-04-04', '2024-04-05', 'Kembali', 30, ''),
+('06S001-049', '049', 'S001', '049', '2024-04-06', '2024-04-06', 'Kembali', 5, ''),
+('06S001-2023', '0021', 'S001', '2023', '2024-04-06', '2024-04-08', 'Kembali', 5, ''),
+('2513-13974', '', '13', '13974', '2024-04-25', '2024-04-26', 'Belum Kembali', 3, ''),
+('25444-234', '4321', '444', '234', '2024-04-25', '2024-04-30', 'Kembali', 3, ''),
+('25990-13974', '6789', '990', '13974', '2024-04-25', '2024-04-28', 'Belum Kembali', 4, 'Baik');
+
+--
+-- Triggers `peminjaman`
+--
+DELIMITER $$
+CREATE TRIGGER `Add_pinjam` AFTER INSERT ON `peminjaman` FOR EACH ROW UPDATE jenis_buku SET jenis_buku.jumlah_buku = jenis_buku.jumlah_buku - NEW.jumlah_pinjam
+WHERE jenis_buku.kode_buku = NEW.kode_buku
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_pinjam` AFTER UPDATE ON `peminjaman` FOR EACH ROW UPDATE jenis_buku SET jenis_buku.jumlah_buku = jenis_buku.jumlah_buku + NEW.jumlah_pinjam
+WHERE jenis_buku.kode_buku = NEW.kode_buku
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -1298,18 +1292,21 @@ CREATE TABLE `users` (
   `force_pass_reset` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  `posyandu_id` int DEFAULT NULL
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `username`, `fullname`, `jenis_kelamin`, `posisi`, `foto`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`, `posyandu_id`) VALUES
-(1, 'admin@gmail.com', 'admin', 'Riski', 'L', 'kader', 'AdminFOTOadmin.jpeg', '$2y$10$.wbak6k4o.votDwz7JVbIuU2CsaqMYsY4uC.O9FYVSSKSlc1U4SL6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-10-02 17:15:56', '2024-10-03 10:21:22', NULL, NULL),
-(25, 'bidan@gmail.com', 'bidan', 'bidan namanya', 'L', 'bidan', 'profil.svg', '$2y$10$aY5/0VD0gD1VRxG3vHQn8OsMzaq4.OnDLvwYvAsvagZ5RSc/l.L3a', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:44:11', '2024-09-30 22:36:42', NULL, 4),
-(27, 'kader@gmail.com', 'kader', 'Namanya kader', 'P', 'kader', 'profil.svg', '$2y$10$tQ3lBKzyrpvM50p2GGi0RePoJBM0PDZpSmcSr5LyVhbzeFvC4UPie', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:47:12', '2024-10-03 10:29:04', NULL, 5);
+INSERT INTO `users` (`id`, `email`, `username`, `fullname`, `jenis_kelamin`, `posisi`, `foto`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'admin@gmail.com', 'admin', 'Riski', 'L', 'kader', 'AdminFOTOadmin.jpeg', '$2y$10$.wbak6k4o.votDwz7JVbIuU2CsaqMYsY4uC.O9FYVSSKSlc1U4SL6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-10-02 17:15:56', '2024-10-03 10:21:22', NULL),
+(25, 'bidan@gmail.com', 'bidan', 'bidan namanya', 'L', 'bidan', 'profil.svg', '$2y$10$aY5/0VD0gD1VRxG3vHQn8OsMzaq4.OnDLvwYvAsvagZ5RSc/l.L3a', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:44:11', '2024-09-30 22:36:42', NULL),
+(27, 'kader@gmail.com', 'kader', 'Namanya kader', 'P', 'kader', 'profil.svg', '$2y$10$tQ3lBKzyrpvM50p2GGi0RePoJBM0PDZpSmcSr5LyVhbzeFvC4UPie', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-09-24 16:47:12', '2024-10-03 10:29:04', NULL),
+(41, 'gggg@gmail.com', 'adminom', NULL, 'L', 'kader', 'profil.svg', '$2y$10$w5XQEAdDYs/Zt.AIk9v0JuM1UGGdjIbVAc3uzVZQ5KdJ71q2U8DmS', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-10-06 21:30:06', '2024-10-06 21:30:06', NULL),
+(42, 'nina@gmail.com', 'nina', NULL, 'P', 'bidan', 'profil.svg', '$2y$10$kn7at5FiWsCSggoulW94Tu0wUGNoDEfTC8ItTohzQS8XP4KMG3l2G', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-10-06 21:41:12', '2024-10-06 21:41:12', NULL),
+(43, 'ani@gmail.com', 'minah', NULL, 'P', 'bidan', 'profil.svg', '$2y$10$TO3ArDOk4p1PxCEgQGShxe5Bfs6Wtlzt/wpNkH4njy27eNNU1pedu', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-10-06 21:44:24', '2024-10-06 21:44:24', NULL),
+(44, 'byoncm@gmail.com', 'byon', NULL, 'L', 'kader', 'profil.svg', '$2y$10$lDqXQUmjkL2EVDvTl8JIiOkxvlYIch7Md0CjTXP.IxGoCJhiT/CbG', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-10-06 21:53:50', '2024-10-06 21:53:50', NULL);
 
 --
 -- Indexes for dumped tables
@@ -1377,54 +1374,22 @@ ALTER TABLE `auth_users_permissions`
   ADD KEY `user_id_permission_id` (`user_id`,`permission_id`);
 
 --
--- Indexes for table `daftar_hadir`
+-- Indexes for table `datasiswa_peminjam`
 --
-ALTER TABLE `daftar_hadir`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `jadwal_imunisasi_id` (`jadwal_imunisasi_id`);
-
---
--- Indexes for table `daftar_hadir_imunisasi`
---
-ALTER TABLE `daftar_hadir_imunisasi`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `jadwal_imunisasi_id` (`jadwal_imunisasi_id`),
-  ADD KEY `balita_id` (`balita_id`);
-
---
--- Indexes for table `data_balita`
---
-ALTER TABLE `data_balita`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `posyandu_id` (`posyandu_id`);
-
---
--- Indexes for table `data_balita_detail`
---
-ALTER TABLE `data_balita_detail`
-  ADD PRIMARY KEY (`id_detail`),
-  ADD KEY `fk_jenis_imunisasi` (`jenis_imunisasi_id`),
-  ADD KEY `data_balita_detail_ibfk_1` (`balita_id`);
-
---
--- Indexes for table `imunisasi`
---
-ALTER TABLE `imunisasi`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `posyandu_id` (`posyandu_id`);
-
---
--- Indexes for table `jadwal_imunisasi`
---
-ALTER TABLE `jadwal_imunisasi`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_posyandu_jadwal` (`posyandu_id`);
-
---
--- Indexes for table `jenis_imunisasi`
---
-ALTER TABLE `jenis_imunisasi`
+ALTER TABLE `datasiswa_peminjam`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jenis_buku`
+--
+ALTER TABLE `jenis_buku`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `kunjungan`
+--
+ALTER TABLE `kunjungan`
+  ADD PRIMARY KEY (`id_kunjungan`);
 
 --
 -- Indexes for table `migrations`
@@ -1433,20 +1398,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `posyandu`
---
-ALTER TABLE `posyandu`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `kader_posyandu` (`kader_posyandu`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD KEY `fk_posyandu` (`posyandu_id`);
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1468,7 +1425,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=852;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=874;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -1489,46 +1446,22 @@ ALTER TABLE `auth_tokens`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `daftar_hadir`
+-- AUTO_INCREMENT for table `datasiswa_peminjam`
 --
-ALTER TABLE `daftar_hadir`
+ALTER TABLE `datasiswa_peminjam`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `jenis_buku`
+--
+ALTER TABLE `jenis_buku`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `daftar_hadir_imunisasi`
+-- AUTO_INCREMENT for table `kunjungan`
 --
-ALTER TABLE `daftar_hadir_imunisasi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `data_balita`
---
-ALTER TABLE `data_balita`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `data_balita_detail`
---
-ALTER TABLE `data_balita_detail`
-  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `imunisasi`
---
-ALTER TABLE `imunisasi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `jadwal_imunisasi`
---
-ALTER TABLE `jadwal_imunisasi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `jenis_imunisasi`
---
-ALTER TABLE `jenis_imunisasi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+ALTER TABLE `kunjungan`
+  MODIFY `id_kunjungan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -1537,70 +1470,10 @@ ALTER TABLE `migrations`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `posyandu`
---
-ALTER TABLE `posyandu`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `daftar_hadir`
---
-ALTER TABLE `daftar_hadir`
-  ADD CONSTRAINT `daftar_hadir_ibfk_1` FOREIGN KEY (`jadwal_imunisasi_id`) REFERENCES `jadwal_imunisasi` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `daftar_hadir_imunisasi`
---
-ALTER TABLE `daftar_hadir_imunisasi`
-  ADD CONSTRAINT `daftar_hadir_imunisasi_ibfk_1` FOREIGN KEY (`jadwal_imunisasi_id`) REFERENCES `jadwal_imunisasi` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `daftar_hadir_imunisasi_ibfk_2` FOREIGN KEY (`balita_id`) REFERENCES `data_balita` (`id`);
-
---
--- Constraints for table `data_balita`
---
-ALTER TABLE `data_balita`
-  ADD CONSTRAINT `data_balita_ibfk_1` FOREIGN KEY (`posyandu_id`) REFERENCES `posyandu` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `data_balita_detail`
---
-ALTER TABLE `data_balita_detail`
-  ADD CONSTRAINT `data_balita_detail_ibfk_1` FOREIGN KEY (`balita_id`) REFERENCES `data_balita` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_jenis_imunisasi` FOREIGN KEY (`jenis_imunisasi_id`) REFERENCES `jenis_imunisasi` (`id`);
-
---
--- Constraints for table `imunisasi`
---
-ALTER TABLE `imunisasi`
-  ADD CONSTRAINT `imunisasi_ibfk_1` FOREIGN KEY (`posyandu_id`) REFERENCES `posyandu` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `jadwal_imunisasi`
---
-ALTER TABLE `jadwal_imunisasi`
-  ADD CONSTRAINT `fk_posyandu_jadwal` FOREIGN KEY (`posyandu_id`) REFERENCES `posyandu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `posyandu`
---
-ALTER TABLE `posyandu`
-  ADD CONSTRAINT `fk_kader_user` FOREIGN KEY (`kader_posyandu`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `fk_posyandu` FOREIGN KEY (`posyandu_id`) REFERENCES `posyandu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

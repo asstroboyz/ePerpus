@@ -19,7 +19,7 @@ class Peminjaman extends BaseController
             'Peminjaman' => $model->getDataPeminjaman(),
             'title' => 'Data Peminjaman',
         ];
-        return view('peminjaman/index', $data);
+        return view('user/peminjaman/index', $data);
     }
 
     public function formTambah()
@@ -32,7 +32,7 @@ class Peminjaman extends BaseController
             'siswa' => $modelSiswa->getDataPeminjam(),
             'title' => 'Form Tambah Data Peminjaman',
         ];
-        return view('baru/peminjaman/add', $data);
+        return view('user/peminjaman/add', $data);
     }
     public function add()
     {

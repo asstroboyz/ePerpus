@@ -1,4 +1,4 @@
-<?= $this->extend('layout/index'); ?>
+<?= $this->extend('user/layout/index'); ?>
 
 
 <?= $this->section('content'); ?>
@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-6 d-flex justify-content-end gap-2">
                 
-                <a href="<?= base_url('tambahdatapeminjaman'); ?>" class="btn  btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
+                <a href="<?= base_url('peminjaman/formTambah'); ?>" class="btn  btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
             </div>
         </div>
     </div>
