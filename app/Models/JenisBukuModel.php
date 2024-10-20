@@ -7,12 +7,11 @@ use CodeIgniter\Model;
 class JenisBukuModel extends Model
 {
     protected $table            = 'jenis_buku';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'kode_buku';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id','kode_buku', 'judul_buku', 'pengarang', 'penerbit', 'tahun_terbit', 'tempat_terbit', 'jumlah_buku', 'isbn'];
+    protected $allowedFields    = ['kode_buku', 'judul_buku', 'pengarang', 'penerbit', 'tahun_terbit', 'tempat_terbit', 'jumlah_buku', 'isbn'];
 
     protected bool $allowEmptyInserts = false;
 

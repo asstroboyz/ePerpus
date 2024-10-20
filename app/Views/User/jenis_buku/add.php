@@ -23,51 +23,78 @@
         <form action="<?= base_url('user/saveJenisBuku'); ?>" method="post">
             <?= csrf_field(); ?>
 
-            <div class="form-group">
-                <label for="kode_buku">Kode Buku</label>
-                <input type="text" class="form-control" id="kode_buku" name="kode_buku" value="<?= old('kode_buku'); ?>" required>
-            </div>
+            <!-- Kode Buku tidak perlu ditampilkan lagi, karena di-generate secara otomatis -->
 
             <div class="form-group">
                 <label for="judul_buku">Judul Buku</label>
-                <input type="text" class="form-control" id="judul_buku" name="judul_buku" value="<?= old('judul_buku'); ?>" required>
+                <input type="text" class="form-control <?= ($validation->hasError('judul_buku')) ? 'is-invalid' : ''; ?>" id="judul_buku" name="judul_buku" value="<?= old('judul_buku'); ?>" required>
+                <div class="invalid-feedback">
+                    <?= $validation->getError('judul_buku'); ?>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="pengarang">Pengarang</label>
-                <input type="text" class="form-control" id="pengarang" name="pengarang" value="<?= old('pengarang'); ?>" required>
+                <input type="text" class="form-control <?= ($validation->hasError('pengarang')) ? 'is-invalid' : ''; ?>" id="pengarang" name="pengarang" value="<?= old('pengarang'); ?>" required>
+                <div class="invalid-feedback">
+                    <?= $validation->getError('pengarang'); ?>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="penerbit">Penerbit</label>
-                <input type="text" class="form-control" id="penerbit" name="penerbit" value="<?= old('penerbit'); ?>" required>
+                <input type="text" class="form-control <?= ($validation->hasError('penerbit')) ? 'is-invalid' : ''; ?>" id="penerbit" name="penerbit" value="<?= old('penerbit'); ?>" required>
+                <div class="invalid-feedback">
+                    <?= $validation->getError('penerbit'); ?>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="tahun_terbit">Tahun Terbit</label>
-                <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" value="<?= old('tahun_terbit'); ?>" required>
+                <input type="number"
+                    class="form-control <?= ($validation->hasError('tahun_terbit')) ? 'is-invalid' : ''; ?>"
+                    id="tahun_terbit"
+                    name="tahun_terbit"
+                    value="<?= old('tahun_terbit'); ?>"
+                    required
+                    min="1000"
+                    max="9999"
+                    oninput="this.value = this.value.slice(0, 4)">
+                <div class="invalid-feedback">
+                    <?= $validation->getError('tahun_terbit'); ?>
+                </div>
             </div>
+
+
 
             <div class="form-group">
                 <label for="tempat_terbit">Tempat Terbit</label>
-                <input type="text" class="form-control" id="tempat_terbit" name="tempat_terbit" value="<?= old('tempat_terbit'); ?>" required>
+                <input type="text" class="form-control <?= ($validation->hasError('tempat_terbit')) ? 'is-invalid' : ''; ?>" id="tempat_terbit" name="tempat_terbit" value="<?= old('tempat_terbit'); ?>" required>
+                <div class="invalid-feedback">
+                    <?= $validation->getError('tempat_terbit'); ?>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="jumlah_buku">Jumlah Buku</label>
-                <input type="number" class="form-control" id="jumlah_buku" name="jumlah_buku" value="<?= old('jumlah_buku'); ?>" required>
+                <input type="number" class="form-control <?= ($validation->hasError('jumlah_buku')) ? 'is-invalid' : ''; ?>" id="jumlah_buku" name="jumlah_buku" value="<?= old('jumlah_buku'); ?>" required>
+                <div class="invalid-feedback">
+                    <?= $validation->getError('jumlah_buku'); ?>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="isbn">ISBN</label>
-                <input type="text" class="form-control" id="isbn" name="isbn" value="<?= old('isbn'); ?>" required>
+                <input type="text" class="form-control <?= ($validation->hasError('isbn')) ? 'is-invalid' : ''; ?>" id="isbn" name="isbn" value="<?= old('isbn'); ?>" required>
+                <div class="invalid-feedback">
+                    <?= $validation->getError('isbn'); ?>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Tambah Data</button>
         </form>
-
-
     </div>
+
 </div>
 
 <?= $this->endSection(); ?>

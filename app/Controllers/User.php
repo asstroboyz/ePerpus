@@ -25,11 +25,6 @@ class User extends BaseController
         $this->PeminjamModel = new PeminjamModel();
         $this->DataKunjunganModel = new DataKunjunganModel();
         $this->JenisBukuModel = new JenisBukuModel();
-        // $this->DaftarHadirModel = new DaftarHadirModel();
-        // $this->PosyanduModel = new PosyanduModel();
-        // $this->DataBalitaModel = new DataBalitaModel();
-        // $this->DataBalitaDetailModel = new DataBalitaDetailModel();
-        // $this->JenisImunisasiModel = new JenisImunisasiModel();
         $this->profil = new profil();
         $this->validation = \Config\Services::validation();
     }
@@ -454,28 +449,171 @@ class User extends BaseController
         return view('user/jenis_buku/add', $data);
     }
 
+    // public function saveJenisBuku()
+    // {
+    //     // Validasi form input
+    //     if (!$this->validate([
+    //         'kode_buku' => [
+    //             'rules' => 'required',
+    //             'errors' => [
+    //                 'required' => 'Kode Buku Sudah Ada, Silahkan periksa lagi kode buku yang anda masukkan'
+    //             ]
+    //         ]
+    //     ])) {
+    //         $validation = \Config\Services::validation();
+    //         $error = $validation->getError('kode_buku');
+    //         $session = session();
+    //         $session->setFlashdata('pesan_error', $error);
+    //         return redirect()->back()->withInput();
+    //     }
+
+    //     $model = new JenisBukuModel();
+    //     $data = [
+    //         'kode_buku' => strtoupper($this->request->getVar('kode_buku')),
+    //         'judul_buku' => $this->request->getVar('judul_buku'),
+    //         'pengarang' => $this->request->getVar('pengarang'),
+    //         'penerbit' => $this->request->getVar('penerbit'),
+    //         'tahun_terbit' => $this->request->getVar('tahun_terbit'),
+    //         'tempat_terbit' => $this->request->getVar('tempat_terbit'),
+    //         'jumlah_buku' => $this->request->getVar('jumlah_buku'),
+    //         'isbn' => $this->request->getVar('isbn'),
+    //     ];
+    //     // dd($data);
+    //     $model->insert($data);
+    //     return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Buku berhasil ditambahkan.');
+    // }
+
+    // public function saveJenisBuku()
+    // {
+    //     $model = new JenisBukuModel();
+
+    //     // Generate kode buku otomatis di dalam function saveJenisBuku
+    //     // Mendapatkan jumlah total buku untuk dijadikan sebagai penanda increment
+    //     $lastEntry = $model->orderBy('kode_buku', 'DESC')->first();
+    //     $lastKodeBuku = $lastEntry ? (int)substr($lastEntry['kode_buku'], 2) : 0;
+
+    //     // Generate kode baru dengan prefix "BK" dan increment
+    //     $newKodeBuku = 'BK' . str_pad($lastKodeBuku + 1, 4, '0', STR_PAD_LEFT);
+
+    //     // Validasi form input (tanpa kode_buku karena sudah otomatis di-generate)
+    //     if (!$this->validate([
+    //         'judul_buku' => [
+    //             'rules' => 'required',
+    //             'errors' => [
+    //                 'required' => 'Judul Buku wajib diisi'
+    //             ]
+    //         ],
+    //         'pengarang' => [
+    //             'rules' => 'required',
+    //             'errors' => [
+    //                 'required' => 'Pengarang wajib diisi'
+    //             ]
+    //         ],
+    //         'penerbit' => [
+    //             'rules' => 'required',
+    //             'errors' => [
+    //                 'required' => 'Penerbit wajib diisi'
+    //             ]
+    //         ],
+    //         'tahun_terbit' => [
+    //             'rules' => 'required|numeric|exact_length[4]',
+    //             'errors' => [
+    //                 'required' => 'Tahun Terbit wajib diisi',
+    //                 'numeric' => 'Tahun Terbit harus berupa angka',
+    //                 'exact_length' => 'Tahun Terbit harus terdiri dari 4 angka'
+    //             ]
+    //         ],
+    //         // Validasi field lainnya seperti pengarang, penerbit, dll
+    //     ])) {
+    //         $validation = \Config\Services::validation();
+    //         $error = $validation->getErrors();
+    //         $session = session();
+    //         $session->setFlashdata('pesan_error', $error);
+    //         return redirect()->back()->withInput();
+    //     }
+
+    //     // Persiapan data untuk disimpan, kode buku otomatis disertakan
+    //     $data = [
+    //         'kode_buku' => $newKodeBuku, // Kode buku otomatis
+    //         'judul_buku' => $this->request->getVar('judul_buku'),
+    //         'pengarang' => $this->request->getVar('pengarang'),
+    //         'penerbit' => $this->request->getVar('penerbit'),
+    //         'tahun_terbit' => $this->request->getVar('tahun_terbit'),
+    //         'tempat_terbit' => $this->request->getVar('tempat_terbit'),
+    //         'jumlah_buku' => $this->request->getVar('jumlah_buku'),
+    //         'isbn' => $this->request->getVar('isbn'),
+    //     ];
+
+    //     // Insert data ke database
+    //     $model->insert($data);
+
+    //     // Redirect setelah sukses menyimpan
+    //     return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Buku berhasil ditambahkan.');
+    // }
     public function saveJenisBuku()
     {
-        // Validasi form input
+        $model = new JenisBukuModel();
+    
+        // Generate kode buku otomatis di dalam function saveJenisBuku
+        $lastEntry = $model->orderBy('kode_buku', 'DESC')->first();
+        $lastKodeBuku = $lastEntry ? (int)substr($lastEntry['kode_buku'], 2) : 0;
+    
+        // Generate kode baru dengan prefix "BK" dan increment
+        $newKodeBuku = 'BK' . str_pad($lastKodeBuku + 1, 4, '0', STR_PAD_LEFT);
+    
+        // Validasi form input (tanpa kode_buku karena sudah otomatis di-generate)
         if (!$this->validate([
-            'kode_buku' => [
+            'judul_buku' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Kode Buku Sudah Ada, Silahkan periksa lagi kode buku yang anda masukkan'
+                    'required' => 'Judul Buku wajib diisi'
                 ]
-            ]
+            ],
+            'pengarang' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Pengarang wajib diisi'
+                ]
+            ],
+            'penerbit' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Penerbit wajib diisi'
+                ]
+            ],
+            'tahun_terbit' => [
+                'rules' => 'required|numeric|exact_length[4]',
+                'errors' => [
+                    'required' => 'Tahun Terbit wajib diisi',
+                    'numeric' => 'Tahun Terbit harus berupa angka',
+                    'exact_length' => 'Tahun Terbit harus terdiri dari 4 angka'
+                ]
+            ],
         ])) {
             $validation = \Config\Services::validation();
-            $error = $validation->getError('kode_buku');
+            $error = $validation->getErrors();
             $session = session();
             $session->setFlashdata('pesan_error', $error);
             return redirect()->back()->withInput();
         }
-
-        $model = new JenisBukuModel();
+    
+        // Ambil judul buku
+        $judulBuku = $this->request->getVar('judul_buku');
+        
+        // Mengambil karakter acak dari judul buku
+        $kataDariJudul = '';
+        $kataArray = str_split(strtoupper($judulBuku)); // Ubah judul menjadi array karakter
+        
+        // Ambil 3 karakter acak dari array
+        $randomKeys = array_rand($kataArray, min(3, count($kataArray))); // Ambil kunci acak
+        foreach ($randomKeys as $key) {
+            $kataDariJudul .= $kataArray[$key]; // Gabungkan karakter acak menjadi string
+        }
+    
+        // Persiapan data untuk disimpan, kode buku otomatis disertakan
         $data = [
-            'kode_buku' => strtoupper($this->request->getVar('kode_buku')),
-            'judul_buku' => $this->request->getVar('judul_buku'),
+            'kode_buku' => $newKodeBuku . '-' . $kataDariJudul . '-' . (int)date('Y'), // Gabungkan kode buku dengan karakter acak dari judul dan tahun
+            'judul_buku' => $judulBuku,
             'pengarang' => $this->request->getVar('pengarang'),
             'penerbit' => $this->request->getVar('penerbit'),
             'tahun_terbit' => $this->request->getVar('tahun_terbit'),
@@ -483,30 +621,96 @@ class User extends BaseController
             'jumlah_buku' => $this->request->getVar('jumlah_buku'),
             'isbn' => $this->request->getVar('isbn'),
         ];
-        // dd($data);
+    
+        // Insert data ke database
         $model->insert($data);
+    
+        // Redirect setelah sukses menyimpan
         return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Buku berhasil ditambahkan.');
     }
+    
+    
 
 
     //edit
-    public function editJenisBuku($id)
+    public function editJenisBuku($kode_buku)
     {
-        $peminjam = $this->PeminjamModel->find($id);
-        if (!$peminjam) {
-            // Jika data tidak ditemukan, tampilkan pesan error atau redirect
-            session()->setFlashdata('error', 'Data peminjam tidak ditemukan.');
-            return redirect()->to('/user/JenisBuku');
+        $model = new JenisBukuModel();
+
+        // Ambil data buku berdasarkan kode_buku
+        $dataBuku = $model->find($kode_buku);
+
+        // Jika buku tidak ditemukan, redirect dengan pesan error
+        if (!$dataBuku) {
+            return redirect()->to('/User/JenisBuku')->with('pesan_error', 'Buku tidak ditemukan.');
         }
 
+        // Siapkan data untuk dikirim ke view
         $data = [
-            'title' => 'Edit Data Peminjam',
-            'peminjam' => $peminjam,
-            'validation' => \Config\Services::validation(),
+            'dataBuku' => $dataBuku,
+            'title' => 'Jenis Buku',
+            'kode_buku' => $kode_buku // Mengirim kode buku untuk form action
         ];
-
-        return view('user/data_peminjam/edit', $data);
+        // dd($data);
+        // Tampilkan view form edit dengan data
+        return view('user/jenis_buku/edit', $data);
     }
+
+
+    public function updateDataBuku($kode_buku)
+    {
+
+        // dd($kode_buku);
+        // Validate the input fields
+        if (!$this->validate([
+            'judul_buku' => 'required',
+
+        ])) {
+            // If validation fails, redirect back with input and validation errors
+            return redirect()->back()->withInput()->with('validation', \Config\Services::validation());
+        }
+
+        // Collect data from the form
+        $data = [
+            'judul_buku' => $this->request->getPost('judul_buku'),
+            'pengarang' => $this->request->getPost('pengarang'),
+            'penerbit' => $this->request->getPost('penerbit'),
+            'tahun_terbit' => $this->request->getPost('tahun_terbit'),
+            'tempat_terbit' => $this->request->getPost('tempat_terbit'),
+            'jumlah_buku' => $this->request->getPost('jumlah_buku'),
+            'isbn' => $this->request->getPost('isbn')
+        ];
+        // dd($data);
+        // Update the data in the database
+        $this->JenisBukuModel->update($kode_buku, $data);
+
+        // Set success flash message and redirect
+        session()->setFlashData('pesan_tambah', "Data Peminjam Berhasil Diupdate");
+        return redirect()->to('/user/JenisBuku');
+    }
+
+    public function deleteDataBuku($kode_buku)
+    {
+        // Cek jika kode_buku tidak kosong
+        if (empty($kode_buku)) {
+            // Tangani kesalahan jika diperlukan
+            return redirect()->back()->with('error', 'Kode Buku tidak valid');
+        }
+
+        // Hapus data dari database menggunakan model
+        $deleted = $this->JenisBukuModel->delete($kode_buku);
+
+        // Cek apakah penghapusan berhasil
+        if ($deleted) {
+            session()->setFlashData('pesan_hapus', "Data Buku Berhasil Dihapus");
+        } else {
+            session()->setFlashData('pesan_error', "Gagal menghapus data Buku");
+        }
+
+        // Redirect ke halaman daftar buku
+        return redirect()->to('/user/JenisBuku');
+    }
+
 
     public function updateDataPeminjam1($id)
     {
@@ -557,7 +761,8 @@ class User extends BaseController
 
 
     // BUku RUsak
-    public function databukurusak() {
+    public function databukurusak()
+    {
         session();
         $model = new BukuRusakModel();
         $data = [
@@ -568,7 +773,8 @@ class User extends BaseController
         return view('user/buku_rusak/index', $data);
     }
 
-    public function tambahbukuRusak (){
+    public function tambahbukuRusak()
+    {
         session();
         $modelBuku = new JenisBukuModel();
         $data = [
@@ -577,8 +783,9 @@ class User extends BaseController
         ];
         return view('user/buku_rusak/add', $data);
     }
-    
-    public function saveBukurusak() {
+
+    public function saveBukurusak()
+    {
         if (!$this->validate([
             'kode_buku_rusak' => [
                 'rules' => 'is_unique[buku_rusak.kode_buku_rusak]',
@@ -601,13 +808,13 @@ class User extends BaseController
             $session->setFlashdata('pesan_error_kd_buku', $error2);
             return redirect()->back()->withInput();
         }
-    
- 
+
+
         $kodeBukuRusak = $this->request->getPost('kode_buku_rusak');
-        $kodeBuku = $this->request->getPost('judul_buku') ?? ''; 
+        $kodeBuku = $this->request->getPost('judul_buku') ?? '';
         $data = [
             'kode_buku_rusak' => strtoupper($kodeBukuRusak),
-            'kode_buku' =>strtoupper($kodeBukuRusak),
+            'kode_buku' => strtoupper($kodeBukuRusak),
             'jumlah_buku_rusak' => $this->request->getPost('jumlah_buku')
         ];
         // dd($data);
@@ -616,74 +823,74 @@ class User extends BaseController
         session()->setFlashData('pesan_tambah', "Data Buku Rusak Berhasil Ditambah");
         return redirect()->to('user/databukurusak');
     }
-    
-    public function editBukuRusak($id)
-{
-    session();
-    $modelBukuRusak = new BukuRusakModel();
-    $modelJenisBuku = new JenisBukuModel();
 
-    // Dapatkan data buku rusak berdasarkan ID
-    $bukuRusak = $modelBukuRusak->find($id);
-    
-    // Jika data buku rusak tidak ditemukan
-    if (!$bukuRusak) {
-        session()->setFlashdata('pesan_error', 'Data buku rusak tidak ditemukan.');
+    public function editBukuRusak($id)
+    {
+        session();
+        $modelBukuRusak = new BukuRusakModel();
+        $modelJenisBuku = new JenisBukuModel();
+
+        // Dapatkan data buku rusak berdasarkan ID
+        $bukurusak = $modelBukuRusak->find($id);
+
+        // Jika data buku rusak tidak ditemukan
+        if (!$bukurusak) {
+            session()->setFlashdata('pesan_error', 'Data buku rusak tidak ditemukan.');
+            return redirect()->to('user/databukurusak');
+        }
+
+        // Siapkan data untuk view
+        $data = [
+            'bukurusak' => $bukurusak,
+            'buku' => $modelJenisBuku->getDataBuku(),
+            'title' => 'Form Edit Data Buku Rusak',
+        ];
+
+        return view('user/buku_rusak/edit', $data);
+    }
+
+    public function updateBukuRusak($id)
+    {
+        if (!$this->validate([
+            'kode_buku_rusak' => [
+                'rules' => 'is_unique[buku_rusak.kode_buku_rusak,id,' . $id . ']',
+                'errors' => [
+                    'is_unique' => 'Kode Buku Rusak sudah ada, silahkan periksa lagi kode buku yang Anda masukkan.'
+                ]
+            ],
+            'buku' => [
+                'rules' => 'is_unique[buku_rusak.kode_buku,id,' . $id . ']',
+                'errors' => [
+                    'is_unique' => 'Kode Buku sudah ada, silahkan update jumlah pada data kode buku tersebut.'
+                ]
+            ]
+        ])) {
+            $validation = \Config\Services::validation();
+            $error1 = $validation->getError('kode_buku_rusak');
+            $error2 = $validation->getError('buku');
+            $session = session();
+            $session->setFlashdata('pesan_error_kd_rusak', $error1);
+            $session->setFlashdata('pesan_error_kd_buku', $error2);
+            return redirect()->back()->withInput();
+        }
+
+        $kodeBukuRusak = $this->request->getPost('kode_buku_rusak');
+        $kodeBuku = $this->request->getPost('judul_buku') ?? '';
+
+        $data = [
+            'kode_buku_rusak' => strtoupper($kodeBukuRusak),
+            'kode_buku' => strtoupper($kodeBuku),
+            'jumlah_buku_rusak' => $this->request->getPost('jumlah_buku'),
+        ];
+
+        // Update data di database
+        $model = new BukuRusakModel();
+        $model->update($id, $data);
+
+        session()->setFlashData('pesan_update', "Data Buku Rusak Berhasil Diperbarui");
         return redirect()->to('user/databukurusak');
     }
 
-    // Siapkan data untuk view
-    $data = [
-        'bukuRusak' => $bukuRusak,
-        'buku' => $modelJenisBuku->getDataBuku(),
-        'title' => 'Form Edit Data Buku Rusak',
-    ];
-
-    return view('user/buku_rusak/edit', $data);
-}
-
-public function updateBukuRusak($id)
-{
-    if (!$this->validate([
-        'kode_buku_rusak' => [
-            'rules' => 'is_unique[buku_rusak.kode_buku_rusak,id,' . $id . ']',
-            'errors' => [
-                'is_unique' => 'Kode Buku Rusak sudah ada, silahkan periksa lagi kode buku yang Anda masukkan.'
-            ]
-        ],
-        'buku' => [
-            'rules' => 'is_unique[buku_rusak.kode_buku,id,' . $id . ']',
-            'errors' => [
-                'is_unique' => 'Kode Buku sudah ada, silahkan update jumlah pada data kode buku tersebut.'
-            ]
-        ]
-    ])) {
-        $validation = \Config\Services::validation();
-        $error1 = $validation->getError('kode_buku_rusak');
-        $error2 = $validation->getError('buku');
-        $session = session();
-        $session->setFlashdata('pesan_error_kd_rusak', $error1);
-        $session->setFlashdata('pesan_error_kd_buku', $error2);
-        return redirect()->back()->withInput();
-    }
-
-    $kodeBukuRusak = $this->request->getPost('kode_buku_rusak');
-    $kodeBuku = $this->request->getPost('judul_buku') ?? '';
-
-    $data = [
-        'kode_buku_rusak' => strtoupper($kodeBukuRusak),
-        'kode_buku' => strtoupper($kodeBuku),
-        'jumlah_buku_rusak' => $this->request->getPost('jumlah_buku'),
-    ];
-
-    // Update data di database
-    $model = new BukuRusakModel();
-    $model->update($id, $data);
-
-    session()->setFlashData('pesan_update', "Data Buku Rusak Berhasil Diperbarui");
-    return redirect()->to('user/databukurusak');
-}
-
-// End Buku Rusak
+    // End Buku Rusak
 
 }
