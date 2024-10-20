@@ -12,7 +12,7 @@ class PeminjamanModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kode_pinjam', 'nomor_buku', 'kode_buku', 'nis', 'tanggal_pinjam', 'tanggal_pengembalian', 'status', 'jumlah_pinjam', 'kondisi_buku'];
+     protected $allowedFields    = ['kode_pinjam', 'id_siswa_peminjaman', 'kode_buku', 'tanggal_pinjam', 'tanggal_pengembalian', 'status','jumlah_pinjam','kondisi_buku','id_user'];
 
 
     public function getDataPeminjaman($id = false)

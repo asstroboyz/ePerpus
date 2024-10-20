@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-6 d-flex justify-content-end gap-2">
                 
-                <a href="<?= base_url('peminjaman/formTambah'); ?>" class="btn  btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
+                <a href="<?= base_url('user/createPeminjaman'); ?>" class="btn  btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
             <thead>
                 <tr>
                     <th>Kode Pinjam</th>
-                    <th>Nomor Buku</th>
+                   
                     <th>Kode Buku</th>
                     <th>Judul Buku</th>
                     <th>nama Siswa</th>
@@ -50,7 +50,6 @@
             <tfoot>
                 <tr>
                     <th>Kode Pinjam</th>
-                    <th>Nomor Buku</th>
                     <th>Kode Buku</th>
                     <th>Judul Buku</th>
                     <th>nama Siswa</th>
@@ -65,13 +64,13 @@
                 </tr>
             </tfoot>
             <tbody>
-                <?php foreach ($Peminjaman as $data) : ?>
+                <?php foreach ($peminjaman as $data) : ?>
                     <tr>
                         <td><?= $data['kode_pinjam']; ?></td>
-                        <td><?= $data['nomor_buku']; ?></td>
+                   
                         <td><?= $data['kode_buku']; ?></td>
                         <td><?= $data['judul_buku']; ?></td>
-                        <td><?= $data['nama']; ?></td>
+                        <td><?= $data['username']; ?></td>
                         <td><?= $data['kelas']; ?></td>
                         <td><?= $data['jumlah_pinjam']; ?></td>
                         <td><?= $data['kondisi_buku']; ?></td>

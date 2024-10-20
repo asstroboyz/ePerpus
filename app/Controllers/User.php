@@ -10,6 +10,8 @@ use Myth\Auth\Entities\passwd;
 use Myth\Auth\Models\GroupModel;
 use Myth\Auth\Models\UserModel;
 use App\Models\PeminjamModel;
+use App\Models\HistoriPeminjamanModel;
+use App\Models\PeminjamanModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -17,6 +19,9 @@ class User extends BaseController
 {
     protected $db;
     protected $builder;
+    protected $HistoriPeminjamanModel;
+    protected $PeminjamanModel;
+    protected $PeminjamModel;
 
     public function __construct()
     {
@@ -27,7 +32,9 @@ class User extends BaseController
         $this->DataKunjunganModel = new DataKunjunganModel();
         $this->JenisBukuModel = new JenisBukuModel();
         $this->BukuRusakModel = new BukuRusakModel();
+        $this->PeminjamanModel = new PeminjamanModel();
         $this->profil = new profil();
+        $this->HistoriPeminjamanModel = new HistoriPeminjamanModel();
         $this->validation = \Config\Services::validation();
     }
 
@@ -717,39 +724,7 @@ class User extends BaseController
         return redirect()->to('/user/JenisBuku');
     }
 
-    public function updateDataPeminjam1($id)
-    {
-        // Validate the input fields
-        if (!$this->validate([
-            'nama' => 'required',
-            'kelas' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
-            'no_hp' => 'required|numeric',
-        ])) {
-            // If validation fails, redirect back with input and validation errors
-            return redirect()->back()->withInput()->with('validation', \Config\Services::validation());
-        }
-
-        // Collect data from the form
-        $data = [
-            'nama' => $this->request->getVar('nama'),
-            'kelas' => $this->request->getVar('kelas'),
-            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-            'alamat' => $this->request->getVar('alamat'),
-            'no_hp' => $this->request->getVar('no_hp'),
-        ];
-
-        // Update the data in the database
-        $this->PeminjamModel->update($id, $data);
-
-        // Set success flash message and redirect
-        session()->setFlashData('pesan_tambah', 'Data Peminjam Berhasil Diupdate');
-        return redirect()->to('/user/JenisBuku');
-    }
-
     // Hapus
-
     public function hapusdataJenisBuku($id)
     {
         $model = new PeminjamModel();
@@ -764,7 +739,6 @@ class User extends BaseController
         }
     }
     // Jenis Buku End
-
     // BUku RUsak
 
     public function databukurusak()
@@ -876,5 +850,102 @@ class User extends BaseController
     }
 
     // End Buku Rusak
+
+    //peminjaman
+    public function peminjamanBuku()
+    {
+        $data[ 'title' ] = 'Peminjaman';
+        session();
+        $data['peminjaman'] = $this->PeminjamanModel
+         ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*')
+         ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
+         ->join('users', 'peminjaman.id_user = users.id', 'left')
+         ->findAll();
+        //  dd($data);
+        return view('user/peminjaman/index', $data);
+    }
+
+    public function createPeminjaman()
+    {
+        $userModel = new \Myth\Auth\Models\UserModel(); // Model untuk pengguna/kader
+        $users = $userModel->findAll();
+        $data = [
+          'buku' => $this->JenisBukuModel->findAll(),
+          'title' => 'Form Tambah Data Buku Rusak',
+          'siswa' => $users,
+        ];
+        return view('user/peminjaman/add', $data);
+    }
+
+    public function savePeminjaman()
+    {
+        // Validasi input
+        $this->validate([
+            'nomor' => 'required',
+            'buku' => 'required',
+            'siswa' => 'required',
+            'tanggal_pinjam' => 'required',
+            'tanggal_kembali' => 'required',
+            'jumlah' => 'required',
+            'kondisi_buku' => 'required',
+        ]);
+
+        // Mengambil data dari input
+        $kodeBuku = $this->request->getPost('buku');
+        $jumlahPinjam = (int) $this->request->getPost('jumlah');
+
+        // Mengambil informasi buku untuk memastikan ada cukup stok
+        $buku = $this->JenisBukuModel->find($kodeBuku);
+    
+        // Mengecek apakah cukup stok untuk peminjaman
+        if ($buku['jumlah_buku'] < $jumlahPinjam) {
+            return redirect()->back()->with('pesan_pinjam', 'Stok buku tidak cukup')->withInput();
+        }
+
+        // Mengurangi jumlah buku
+        $this->JenisBukuModel->where('kode_buku', $kodeBuku)
+            ->set('jumlah_buku', "jumlah_buku - $jumlahPinjam", false)
+            ->update();
+
+        // Membuat kode pinjam acak dengan awalan "KP"
+     $kodePinjam = 'KP' . strtoupper(bin2hex(random_bytes(4))); // Menghasilkan string 6 karakter acak
+
+        // Menyimpan data peminjaman
+        $dataPeminjaman = [
+            'kode_pinjam' => $kodePinjam, // Tambahkan kode pinjam yang acak
+            'nomor' => $this->request->getPost('nomor'),
+            'id_siswa_peminjaman' => $this->request->getPost('siswa'),
+            'kode_buku' => $kodeBuku,
+            'tanggal_pinjam' => $this->request->getPost('tanggal_pinjam'),
+            'tanggal_kembali' => $this->request->getPost('tanggal_kembali'),
+            'status' => 'Belum Kembali',
+            'jumlah_pinjam' => $jumlahPinjam,
+            'kondisi_buku' => $this->request->getPost('kondisi_buku'),
+            'id_user' => user()->id, // asumsikan ada session user_id
+        ];
+
+        // Menyimpan data peminjaman ke database
+        $this->PeminjamanModel->insert($dataPeminjaman);
+    
+        // Mengambil kembali kode_pinjam yang baru saja disimpan
+        $kodePinjamTerbaru = $this->PeminjamanModel->insertID(); // Atau ambil dari $dataPeminjaman['kode_pinjam'] jika sudah ada
+
+        
+
+        // Menyimpan histori peminjaman
+        $keterangan = 'Peminjaman Buku - Jumlah: ' . $jumlahPinjam;
+
+        $dataHistori = [
+            'kode_pinjam' => $kodePinjam, 
+            'tanggal_status' => date('Y-m-d'),
+            'keterangan' => $keterangan, 
+        ];
+
+        // Simpan histori peminjaman
+        $this->HistoriPeminjamanModel->insert($dataHistori);
+
+        return redirect()->to('/user/peminjamanBuku')->with('success', 'Buku berhasil dipinjam');
+    }
+
 
 }

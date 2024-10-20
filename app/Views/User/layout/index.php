@@ -63,7 +63,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                             Buku Rusak
                         </a>
-                        <a class="nav-link" href="<?= base_url('Peminjaman'); ?>">
+                        <a class="nav-link" href="<?= base_url('user/peminjamanBuku'); ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
                             Peminjaman
                         </a>
