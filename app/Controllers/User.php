@@ -17,6 +17,7 @@ class User extends BaseController
 {
     protected $db;
     protected $builder;
+
     public function __construct()
     {
 
@@ -25,6 +26,7 @@ class User extends BaseController
         $this->PeminjamModel = new PeminjamModel();
         $this->DataKunjunganModel = new DataKunjunganModel();
         $this->JenisBukuModel = new JenisBukuModel();
+        $this->BukuRusakModel = new BukuRusakModel();
         $this->profil = new profil();
         $this->validation = \Config\Services::validation();
     }
@@ -34,14 +36,14 @@ class User extends BaseController
 
         $userlogin = user()->id;
 
-
         $data = [
 
             'title' => 'Home',
         ];
-        // dd($data);
+        // dd( $data );
         return view('user/dashboard/index', $data);
     }
+
     public function updatePassword($id)
     {
         $passwordLama = $this->request->getPost('passwordLama');
@@ -57,13 +59,13 @@ class User extends BaseController
         $query = $this->builder->get()->getRow();
         $verify_pass = password_verify(base64_encode(hash('sha384', $passwordLama, true)), $query->password_hash);
 
-        // dd($passwordbaru);
+        // dd( $passwordbaru );
         if ($verify_pass) {
             $users = model(UserModel::class);
             $entity = new passwd();
             $entity->setPassword($passwordbaru);
             $hash = $entity->password_hash;
-            $users->update($id, ['password_hash' => $hash]);
+            $users->update($id, [ 'password_hash' => $hash ]);
             session()->setFlashdata('msg', 'Password berhasil Diubah');
             return redirect()->to('/user/tentang/' . $id);
         } else {
@@ -75,11 +77,12 @@ class User extends BaseController
     public function tentang()
     {
 
-        $data['title'] = 'User Profile ';
+        $data[ 'title' ] = 'User Profile ';
         $userlogin = user()->username;
         $userid = user()->id;
         $role = $this->db->table('auth_groups_users')->where('user_id', $userid)->get()->getRow();
-        $role == '1' ? $role_echo = 'Admin' : $role_echo = 'Pegawai'; // $data['title'] = 'User Profile ';
+        $role == '1' ? $role_echo = 'Admin' : $role_echo = 'Pegawai';
+        // $data[ 'title' ] = 'User Profile ';
         $userlogin = user()->username;
         $userid = user()->id;
 
@@ -105,13 +108,13 @@ class User extends BaseController
             $role_echo = 'Pegawai';
         }
 
-        // $data = $this->db->table('permintaan_barang');
-        // $query1 = $data->where('id_user', $userid)->get()->getResult();
+        // $data = $this->db->table( 'permintaan_barang' );
+        // $query1 = $data->where( 'id_user', $userid )->get()->getResult();
         $builder = $this->db->table('users');
         $builder->select('id,username,fullname,email,created_at,foto');
         $builder->where('username', $userlogin);
         $query = $builder->get();
-        // $semua = count($query1);
+        // $semua = count( $query1 );
         $data = [
             // 'semua' => $semua,
             'user' => $query->getRow(),
@@ -135,7 +138,7 @@ class User extends BaseController
             'validation' => $this->validation,
             'title' => 'Update Profile',
         ];
-        // dd($data['user']);
+        // dd( $data[ 'user' ] );
 
         return view('user/profil/ubah_profil', $data);
     }
@@ -156,8 +159,8 @@ class User extends BaseController
         } else {
 
             $nama_foto = 'UserFoto_' . $this->request->getPost('username') . '.' . $foto->guessExtension();
-            if (!(empty($query['foto']))) {
-                unlink('uploads/profile/' . $query['foto']);
+            if (!(empty($query[ 'foto' ]))) {
+                unlink('uploads/profile/' . $query[ 'foto' ]);
             }
             $foto->move('uploads/profile', $nama_foto);
 
@@ -176,8 +179,8 @@ class User extends BaseController
         $userModel = new UserModel();
         $groupModel = new GroupModel();
         $posyanduId = user()->posyandu_id;
-        $data['posyanduId'] = $posyanduId;
-        // dd($posyanduId);
+        $data[ 'posyanduId' ] = $posyanduId;
+        // dd( $posyanduId );
         $no = 1;
         $currentUser = user();
 
@@ -186,39 +189,39 @@ class User extends BaseController
 
         // Mengumpulkan semua 'name' ke dalam array
         $groupNames = array_map(function ($group) {
-            return $group['name'];
+            return $group[ 'name' ];
         }, $userGroups);
 
         // Mengonversi array menjadi string
         $groupNamesString = implode(',', $groupNames);
 
         // Menampilkan hasil
-        // dd($groupNames);
+        // dd( $groupNames );
         // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
-        $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
-            ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
-            ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
-            ->orderBy('users.posyandu_id', 'ASC')
-            ->findAll();
+        $data[ 'users' ] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
+        ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
+        ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
+        ->orderBy('users.posyandu_id', 'ASC')
+        ->findAll();
 
         // Iterasi data users untuk menambahkan data group
-        foreach ($data['users'] as $row) {
-            $dataRow['group'] = $groupModel->getGroupsForUser($row->id);
-            $dataRow['row'] = $row;
-            $dataRow['no'] = $no++;
-            $data['row' . $row->id] = view('User/User/Row', $dataRow);
+        foreach ($data[ 'users' ] as $row) {
+            $dataRow[ 'group' ] = $groupModel->getGroupsForUser($row->id);
+            $dataRow[ 'row' ] = $row;
+            $dataRow[ 'no' ] = $no++;
+            $data[ 'row' . $row->id ] = view('User/User/Row', $dataRow);
         }
 
         // Ambil semua group yang tersedia
-        $data['groups'] = $groupModel->findAll();
-        $data['groupNamesString'] = $groupNamesString;
-        $data['title'] = 'Daftar Pengguna';
+        $data[ 'groups' ] = $groupModel->findAll();
+        $data[ 'groupNamesString' ] = $groupNamesString;
+        $data[ 'title' ] = 'Daftar Pengguna';
         // Tampilkan view dengan data yang sudah disusun
         return view('User/User/Index', $data);
     }
 
-
     // Kunjungan
+
     public function kunjungan()
     {
         $kunjungan = new DataKunjunganModel();
@@ -247,7 +250,6 @@ class User extends BaseController
             'keanggotaan' => 'required',
         ];
 
-
         if (!$this->validate($rules)) {
 
             return redirect()->back()->withInput()->with('validation', $this->validator);
@@ -265,7 +267,7 @@ class User extends BaseController
     public function editKunjungan($id_kunjungan)
     {
         $kunjungan = $this->DataKunjunganModel->find($id_kunjungan);
-        // dd($kunjungan);
+        // dd( $kunjungan );
         if (!$kunjungan) {
             // Jika data tidak ditemukan, tampilkan pesan error atau redirect
             session()->setFlashdata('error', 'Data kunjungan tidak ditemukan.');
@@ -289,23 +291,24 @@ class User extends BaseController
             'nama' => $this->request->getVar('nama'),
             'keanggotaan' => $this->request->getVar('keanggotaan'),
         ];
-        // dd($data);
+        // dd( $data );
         $kunjungan->update($id, $data);
-        session()->setFlashData('pesan_tambah', "Data Siswa Peminjam Berhasil Diupdate");
+        session()->setFlashData('pesan_tambah', 'Data Siswa Peminjam Berhasil Diupdate');
         return redirect()->to('user/kunjungan');
     }
 
     // Hapus
+
     public function hapusdatakunjungan($id)
     {
         $model = new DataKunjunganModel();
         $getData = $model->getDataKunjungan($id)->getRow();
         if (isset($getData)) {
             $model->hapusDataKunjungan($id);
-            session()->setFlashData('pesan_hapus', "Data berhasil dihapus");
+            session()->setFlashData('pesan_hapus', 'Data berhasil dihapus');
             return redirect()->to('user/kunjungan');
         } else {
-            session()->setFlashData('pesan_hapus', "Data gagal dihapus");
+            session()->setFlashData('pesan_hapus', 'Data gagal dihapus');
             return redirect()->to('user/kunjungan');
         }
     }
@@ -313,6 +316,7 @@ class User extends BaseController
     // end Kunjungan
 
     // data Peminjam
+
     public function Peminjam()
     {
         $peminjam = new PeminjamModel();
@@ -341,7 +345,6 @@ class User extends BaseController
             'nama' => 'required',
         ];
 
-
         if (!$this->validate($rules)) {
 
             return redirect()->back()->withInput()->with('validation', $this->validator);
@@ -361,6 +364,7 @@ class User extends BaseController
     }
 
     //edit
+
     public function editPeminjam($id)
     {
         $peminjam = $this->PeminjamModel->find($id);
@@ -375,7 +379,7 @@ class User extends BaseController
             'peminjam' => $peminjam,
             'validation' => \Config\Services::validation(),
         ];
-        // dd($data);
+        // dd( $data );
         return view('user/data_peminjam/edit', $data);
     }
 
@@ -406,28 +410,29 @@ class User extends BaseController
         $this->PeminjamModel->update($id, $data);
 
         // Set success flash message and redirect
-        session()->setFlashData('pesan_tambah', "Data Peminjam Berhasil Diupdate");
+        session()->setFlashData('pesan_tambah', 'Data Peminjam Berhasil Diupdate');
         return redirect()->to('/user/peminjam');
     }
 
     // Hapus
+
     public function hapusdataPeminjam($id)
     {
         $model = new PeminjamModel();
         $getData = $model->getDataPeminjam($id)->getRow();
         if (isset($getData)) {
             $model->hapusDataPeminjam($id);
-            session()->setFlashData('pesan_hapus', "Data berhasil dihapus");
+            session()->setFlashData('pesan_hapus', 'Data berhasil dihapus');
             return redirect()->to('user/peminjam');
         } else {
-            session()->setFlashData('pesan_hapus', "Data gagal dihapus");
+            session()->setFlashData('pesan_hapus', 'Data gagal dihapus');
             return redirect()->to('user/peminjam');
         }
     }
     // End data peminjam
 
-
     // Jenis Buku
+
     public function JenisBuku()
     {
         $buku = new JenisBukuModel();
@@ -452,35 +457,35 @@ class User extends BaseController
     // public function saveJenisBuku()
     // {
     //     // Validasi form input
-    //     if (!$this->validate([
+    //     if ( !$this->validate( [
     //         'kode_buku' => [
     //             'rules' => 'required',
     //             'errors' => [
     //                 'required' => 'Kode Buku Sudah Ada, Silahkan periksa lagi kode buku yang anda masukkan'
-    //             ]
-    //         ]
-    //     ])) {
+    // ]
+    // ]
+    // ] ) ) {
     //         $validation = \Config\Services::validation();
-    //         $error = $validation->getError('kode_buku');
+    //         $error = $validation->getError( 'kode_buku' );
     //         $session = session();
-    //         $session->setFlashdata('pesan_error', $error);
+    //         $session->setFlashdata( 'pesan_error', $error );
     //         return redirect()->back()->withInput();
     //     }
 
     //     $model = new JenisBukuModel();
     //     $data = [
-    //         'kode_buku' => strtoupper($this->request->getVar('kode_buku')),
-    //         'judul_buku' => $this->request->getVar('judul_buku'),
-    //         'pengarang' => $this->request->getVar('pengarang'),
-    //         'penerbit' => $this->request->getVar('penerbit'),
-    //         'tahun_terbit' => $this->request->getVar('tahun_terbit'),
-    //         'tempat_terbit' => $this->request->getVar('tempat_terbit'),
-    //         'jumlah_buku' => $this->request->getVar('jumlah_buku'),
-    //         'isbn' => $this->request->getVar('isbn'),
-    //     ];
-    //     // dd($data);
-    //     $model->insert($data);
-    //     return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Buku berhasil ditambahkan.');
+    //         'kode_buku' => strtoupper( $this->request->getVar( 'kode_buku' ) ),
+    //         'judul_buku' => $this->request->getVar( 'judul_buku' ),
+    //         'pengarang' => $this->request->getVar( 'pengarang' ),
+    //         'penerbit' => $this->request->getVar( 'penerbit' ),
+    //         'tahun_terbit' => $this->request->getVar( 'tahun_terbit' ),
+    //         'tempat_terbit' => $this->request->getVar( 'tempat_terbit' ),
+    //         'jumlah_buku' => $this->request->getVar( 'jumlah_buku' ),
+    //         'isbn' => $this->request->getVar( 'isbn' ),
+    // ];
+    //     // dd( $data );
+    //     $model->insert( $data );
+    //     return redirect()->to( '/User/JenisBuku' )->with( 'pesanBerhasil', 'Buku berhasil ditambahkan.' );
     // }
 
     // public function saveJenisBuku()
@@ -489,79 +494,80 @@ class User extends BaseController
 
     //     // Generate kode buku otomatis di dalam function saveJenisBuku
     //     // Mendapatkan jumlah total buku untuk dijadikan sebagai penanda increment
-    //     $lastEntry = $model->orderBy('kode_buku', 'DESC')->first();
-    //     $lastKodeBuku = $lastEntry ? (int)substr($lastEntry['kode_buku'], 2) : 0;
+    //     $lastEntry = $model->orderBy( 'kode_buku', 'DESC' )->first();
+    //     $lastKodeBuku = $lastEntry ? ( int )substr( $lastEntry[ 'kode_buku' ], 2 ) : 0;
 
-    //     // Generate kode baru dengan prefix "BK" dan increment
-    //     $newKodeBuku = 'BK' . str_pad($lastKodeBuku + 1, 4, '0', STR_PAD_LEFT);
+    //     // Generate kode baru dengan prefix 'BK' dan increment
+    //     $newKodeBuku = 'BK' . str_pad( $lastKodeBuku + 1, 4, '0', STR_PAD_LEFT );
 
-    //     // Validasi form input (tanpa kode_buku karena sudah otomatis di-generate)
-    //     if (!$this->validate([
+    //     // Validasi form input ( tanpa kode_buku karena sudah otomatis di-generate )
+    //     if ( !$this->validate( [
     //         'judul_buku' => [
     //             'rules' => 'required',
     //             'errors' => [
     //                 'required' => 'Judul Buku wajib diisi'
-    //             ]
-    //         ],
+    // ]
+    // ],
     //         'pengarang' => [
     //             'rules' => 'required',
     //             'errors' => [
     //                 'required' => 'Pengarang wajib diisi'
-    //             ]
-    //         ],
+    // ]
+    // ],
     //         'penerbit' => [
     //             'rules' => 'required',
     //             'errors' => [
     //                 'required' => 'Penerbit wajib diisi'
-    //             ]
-    //         ],
+    // ]
+    // ],
     //         'tahun_terbit' => [
     //             'rules' => 'required|numeric|exact_length[4]',
     //             'errors' => [
     //                 'required' => 'Tahun Terbit wajib diisi',
     //                 'numeric' => 'Tahun Terbit harus berupa angka',
     //                 'exact_length' => 'Tahun Terbit harus terdiri dari 4 angka'
-    //             ]
-    //         ],
+    // ]
+    // ],
     //         // Validasi field lainnya seperti pengarang, penerbit, dll
-    //     ])) {
+    // ] ) ) {
     //         $validation = \Config\Services::validation();
     //         $error = $validation->getErrors();
     //         $session = session();
-    //         $session->setFlashdata('pesan_error', $error);
+    //         $session->setFlashdata( 'pesan_error', $error );
     //         return redirect()->back()->withInput();
     //     }
 
     //     // Persiapan data untuk disimpan, kode buku otomatis disertakan
     //     $data = [
     //         'kode_buku' => $newKodeBuku, // Kode buku otomatis
-    //         'judul_buku' => $this->request->getVar('judul_buku'),
-    //         'pengarang' => $this->request->getVar('pengarang'),
-    //         'penerbit' => $this->request->getVar('penerbit'),
-    //         'tahun_terbit' => $this->request->getVar('tahun_terbit'),
-    //         'tempat_terbit' => $this->request->getVar('tempat_terbit'),
-    //         'jumlah_buku' => $this->request->getVar('jumlah_buku'),
-    //         'isbn' => $this->request->getVar('isbn'),
-    //     ];
+    //         'judul_buku' => $this->request->getVar( 'judul_buku' ),
+    //         'pengarang' => $this->request->getVar( 'pengarang' ),
+    //         'penerbit' => $this->request->getVar( 'penerbit' ),
+    //         'tahun_terbit' => $this->request->getVar( 'tahun_terbit' ),
+    //         'tempat_terbit' => $this->request->getVar( 'tempat_terbit' ),
+    //         'jumlah_buku' => $this->request->getVar( 'jumlah_buku' ),
+    //         'isbn' => $this->request->getVar( 'isbn' ),
+    // ];
 
     //     // Insert data ke database
-    //     $model->insert($data);
+    //     $model->insert( $data );
 
     //     // Redirect setelah sukses menyimpan
-    //     return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Buku berhasil ditambahkan.');
+    //     return redirect()->to( '/User/JenisBuku' )->with( 'pesanBerhasil', 'Buku berhasil ditambahkan.' );
     // }
+
     public function saveJenisBuku()
     {
         $model = new JenisBukuModel();
-    
+
         // Generate kode buku otomatis di dalam function saveJenisBuku
         $lastEntry = $model->orderBy('kode_buku', 'DESC')->first();
-        $lastKodeBuku = $lastEntry ? (int)substr($lastEntry['kode_buku'], 2) : 0;
-    
-        // Generate kode baru dengan prefix "BK" dan increment
+        $lastKodeBuku = $lastEntry ? ( int )substr($lastEntry[ 'kode_buku' ], 2) : 0;
+
+        // Generate kode baru dengan prefix 'BK' dan increment
         $newKodeBuku = 'BK' . str_pad($lastKodeBuku + 1, 4, '0', STR_PAD_LEFT);
-    
-        // Validasi form input (tanpa kode_buku karena sudah otomatis di-generate)
+
+        // Validasi form input ( tanpa kode_buku karena sudah otomatis di-generate )
         if (!$this->validate([
             'judul_buku' => [
                 'rules' => 'required',
@@ -596,23 +602,26 @@ class User extends BaseController
             $session->setFlashdata('pesan_error', $error);
             return redirect()->back()->withInput();
         }
-    
+
         // Ambil judul buku
         $judulBuku = $this->request->getVar('judul_buku');
-        
+
         // Mengambil karakter acak dari judul buku
         $kataDariJudul = '';
-        $kataArray = str_split(strtoupper($judulBuku)); // Ubah judul menjadi array karakter
-        
+        $kataArray = str_split(strtoupper($judulBuku));
+        // Ubah judul menjadi array karakter
+
         // Ambil 3 karakter acak dari array
-        $randomKeys = array_rand($kataArray, min(3, count($kataArray))); // Ambil kunci acak
+        $randomKeys = array_rand($kataArray, min(3, count($kataArray)));
+        // Ambil kunci acak
         foreach ($randomKeys as $key) {
-            $kataDariJudul .= $kataArray[$key]; // Gabungkan karakter acak menjadi string
+            $kataDariJudul .= $kataArray[ $key ];
+            // Gabungkan karakter acak menjadi string
         }
-    
+
         // Persiapan data untuk disimpan, kode buku otomatis disertakan
         $data = [
-            'kode_buku' => $newKodeBuku . '-' . $kataDariJudul . '-' . (int)date('Y'), // Gabungkan kode buku dengan karakter acak dari judul dan tahun
+            'kode_buku' => $newKodeBuku . '-' . $kataDariJudul . '-' . ( int )date('Y'), // Gabungkan kode buku dengan karakter acak dari judul dan tahun
             'judul_buku' => $judulBuku,
             'pengarang' => $this->request->getVar('pengarang'),
             'penerbit' => $this->request->getVar('penerbit'),
@@ -621,18 +630,16 @@ class User extends BaseController
             'jumlah_buku' => $this->request->getVar('jumlah_buku'),
             'isbn' => $this->request->getVar('isbn'),
         ];
-    
+
         // Insert data ke database
         $model->insert($data);
-    
+
         // Redirect setelah sukses menyimpan
         return redirect()->to('/User/JenisBuku')->with('pesanBerhasil', 'Buku berhasil ditambahkan.');
     }
-    
-    
-
 
     //edit
+
     public function editJenisBuku($kode_buku)
     {
         $model = new JenisBukuModel();
@@ -651,16 +658,15 @@ class User extends BaseController
             'title' => 'Jenis Buku',
             'kode_buku' => $kode_buku // Mengirim kode buku untuk form action
         ];
-        // dd($data);
+        // dd( $data );
         // Tampilkan view form edit dengan data
         return view('user/jenis_buku/edit', $data);
     }
 
-
     public function updateDataBuku($kode_buku)
     {
 
-        // dd($kode_buku);
+        // dd( $kode_buku );
         // Validate the input fields
         if (!$this->validate([
             'judul_buku' => 'required',
@@ -680,12 +686,12 @@ class User extends BaseController
             'jumlah_buku' => $this->request->getPost('jumlah_buku'),
             'isbn' => $this->request->getPost('isbn')
         ];
-        // dd($data);
+        // dd( $data );
         // Update the data in the database
         $this->JenisBukuModel->update($kode_buku, $data);
 
         // Set success flash message and redirect
-        session()->setFlashData('pesan_tambah', "Data Peminjam Berhasil Diupdate");
+        session()->setFlashData('pesan_tambah', 'Data Peminjam Berhasil Diupdate');
         return redirect()->to('/user/JenisBuku');
     }
 
@@ -702,15 +708,14 @@ class User extends BaseController
 
         // Cek apakah penghapusan berhasil
         if ($deleted) {
-            session()->setFlashData('pesan_hapus', "Data Buku Berhasil Dihapus");
+            session()->setFlashData('pesan_hapus', 'Data Buku Berhasil Dihapus');
         } else {
-            session()->setFlashData('pesan_error', "Gagal menghapus data Buku");
+            session()->setFlashData('pesan_error', 'Gagal menghapus data Buku');
         }
 
         // Redirect ke halaman daftar buku
         return redirect()->to('/user/JenisBuku');
     }
-
 
     public function updateDataPeminjam1($id)
     {
@@ -739,28 +744,29 @@ class User extends BaseController
         $this->PeminjamModel->update($id, $data);
 
         // Set success flash message and redirect
-        session()->setFlashData('pesan_tambah', "Data Peminjam Berhasil Diupdate");
+        session()->setFlashData('pesan_tambah', 'Data Peminjam Berhasil Diupdate');
         return redirect()->to('/user/JenisBuku');
     }
 
     // Hapus
+
     public function hapusdataJenisBuku($id)
     {
         $model = new PeminjamModel();
         $getData = $model->getDataPeminjam($id)->getRow();
         if (isset($getData)) {
             $model->hapusDataPeminjam($id);
-            session()->setFlashData('pesan_hapus', "Data berhasil dihapus");
+            session()->setFlashData('pesan_hapus', 'Data berhasil dihapus');
             return redirect()->to('user/peminjam');
         } else {
-            session()->setFlashData('pesan_hapus', "Data gagal dihapus");
+            session()->setFlashData('pesan_hapus', 'Data gagal dihapus');
             return redirect()->to('user/JenisBuku');
         }
     }
     // Jenis Buku End
 
-
     // BUku RUsak
+
     public function databukurusak()
     {
         session();
@@ -809,7 +815,6 @@ class User extends BaseController
             return redirect()->back()->withInput();
         }
 
-
         $kodeBukuRusak = $this->request->getPost('kode_buku_rusak');
         $kodeBuku = $this->request->getPost('judul_buku') ?? '';
         $data = [
@@ -817,77 +822,56 @@ class User extends BaseController
             'kode_buku' => strtoupper($kodeBukuRusak),
             'jumlah_buku_rusak' => $this->request->getPost('jumlah_buku')
         ];
-        // dd($data);
+        // dd( $data );
         $model = new BukuRusakModel();
         $model->insert($data);
-        session()->setFlashData('pesan_tambah', "Data Buku Rusak Berhasil Ditambah");
+        session()->setFlashData('pesan_tambah', 'Data Buku Rusak Berhasil Ditambah');
         return redirect()->to('user/databukurusak');
     }
 
-    public function editBukuRusak($id)
+    public function editBukurusak($id)
     {
-        session();
-        $modelBukuRusak = new BukuRusakModel();
-        $modelJenisBuku = new JenisBukuModel();
+        $model = new BukuRusakModel();
+        $jenisBukuModel = new JenisBukuModel();
+        // Inisialisasi JenisBukuModel
 
-        // Dapatkan data buku rusak berdasarkan ID
-        $bukurusak = $modelBukuRusak->find($id);
+        $data[ 'bukurusak' ] = $model->find($id);
+        $data[ 'buku' ] = $jenisBukuModel->findAll();
+        // Ambil semua data dari JenisBukuModel
+        $data[ 'title' ] = 'Buku Rusak Edit';
 
-        // Jika data buku rusak tidak ditemukan
-        if (!$bukurusak) {
-            session()->setFlashdata('pesan_error', 'Data buku rusak tidak ditemukan.');
+        if (!$data[ 'bukurusak' ]) {
+            session()->setFlashData('pesan_error', 'Data Buku Rusak tidak ditemukan');
             return redirect()->to('user/databukurusak');
         }
-
-        // Siapkan data untuk view
-        $data = [
-            'bukurusak' => $bukurusak,
-            'buku' => $modelJenisBuku->getDataBuku(),
-            'title' => 'Form Edit Data Buku Rusak',
-        ];
+        // dd( $data );
 
         return view('user/buku_rusak/edit', $data);
     }
 
-    public function updateBukuRusak($id)
+    public function updateBukurusak($id)
     {
         if (!$this->validate([
-            'kode_buku_rusak' => [
-                'rules' => 'is_unique[buku_rusak.kode_buku_rusak,id,' . $id . ']',
-                'errors' => [
-                    'is_unique' => 'Kode Buku Rusak sudah ada, silahkan periksa lagi kode buku yang Anda masukkan.'
-                ]
-            ],
-            'buku' => [
-                'rules' => 'is_unique[buku_rusak.kode_buku,id,' . $id . ']',
-                'errors' => [
-                    'is_unique' => 'Kode Buku sudah ada, silahkan update jumlah pada data kode buku tersebut.'
-                ]
-            ]
+            'kode_buku' => 'required',
+
         ])) {
-            $validation = \Config\Services::validation();
-            $error1 = $validation->getError('kode_buku_rusak');
-            $error2 = $validation->getError('buku');
-            $session = session();
-            $session->setFlashdata('pesan_error_kd_rusak', $error1);
-            $session->setFlashdata('pesan_error_kd_buku', $error2);
-            return redirect()->back()->withInput();
+            // If validation fails, redirect back with input and validation errors
+            return redirect()->back()->withInput()->with('validation', \Config\Services::validation());
         }
 
-        $kodeBukuRusak = $this->request->getPost('kode_buku_rusak');
-        $kodeBuku = $this->request->getPost('judul_buku') ?? '';
-
+        // Collect data from the form
         $data = [
-            'kode_buku_rusak' => strtoupper($kodeBukuRusak),
-            'kode_buku' => strtoupper($kodeBuku),
-            'jumlah_buku_rusak' => $this->request->getPost('jumlah_buku'),
+            'kode_buku' => $this->request->getPost('kode_buku'),
+            'jumlah_buku_rusak' => $this->request->getPost('jumlah_buku_rusak'),
+
         ];
+        // dd( $data );
+        // Update the data in the database
+        $this->BukuRusakModel->update($id, $data);
 
-        // Update data di database
-        $model = new BukuRusakModel();
-        $model->update($id, $data);
+        // Set success flash message and redirect
+        session()->setFlashData('pesan_tambah', 'Data Peminjam Berhasil Diupdate');
 
-        session()->setFlashData('pesan_update', "Data Buku Rusak Berhasil Diperbarui");
         return redirect()->to('user/databukurusak');
     }
 
