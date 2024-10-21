@@ -23,7 +23,7 @@
                 <?= $title; ?>
             </div>
             <div class="col-md-6 d-flex justify-content-end gap-2">
-                
+
                 <a href="<?= base_url('user/createPeminjaman'); ?>" class="btn  btn-primary float-end "><i class="fas fa-plus-square me-1"></i>Tambah Data</a>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <thead>
                 <tr>
                     <th>Kode Pinjam</th>
-                   
+
                     <th>Kode Buku</th>
                     <th>Judul Buku</th>
                     <th>nama Siswa</th>
@@ -67,7 +67,7 @@
                 <?php foreach ($peminjaman as $data) : ?>
                     <tr>
                         <td><?= $data['kode_pinjam']; ?></td>
-                   
+
                         <td><?= $data['kode_buku']; ?></td>
                         <td><?= $data['judul_buku']; ?></td>
                         <td><?= $data['username']; ?></td>
@@ -77,11 +77,27 @@
                         <td><?= $data['tanggal_pinjam']; ?></td>
                         <td><?= $data['tanggal_pengembalian']; ?></td>
                         <td><?= $data['status']; ?></td>
-                        <?php $date1 = new DateTime($data['tanggal_pengembalian']) ?>
-                        <?php $date2 = new DateTime(date('Y-m-d')) ?>
-                        <?php $days  = $date2->diff($date1)->format('%a'); ?>
-                        <!-- Denda -->
-                        <?php $denda = 2000 * $days ?>
+                     
+                        <?php
+                        // Check if tanggal_pengembalian is set and not null
+                        if (!empty($data['tanggal_pengembalian'])) {
+                            $date1 = new DateTime($data['tanggal_pengembalian']);
+                        } else {
+                            // Handle the case where tanggal_pengembalian is not set
+                            // You can set $date1 to a default date or handle the error accordingly
+                            $date1 = new DateTime(); // Or choose a default date
+                        }
+
+                        // Get today's date
+                        $date2 = new DateTime(date('Y-m-d'));
+
+                        // Calculate the difference in days
+                        $days = $date2->diff($date1)->format('%a');
+
+                        // Calculate the penalty
+                        $denda = 2000 * $days;
+                        ?>
+
                         <td><?= date('Y-m-d') > $data['tanggal_pengembalian'] ? "Rp $denda" : "Tidak Denda"; ?></td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
