@@ -205,11 +205,8 @@ class User extends BaseController
         // Menampilkan hasil
         // dd( $groupNames );
         // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
-        $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
-            ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
-            ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
-            ->orderBy('users.posyandu_id', 'ASC')
-            ->findAll();
+        $data['users'] = $userModel->select('users.*,')
+        ->findAll();
 
         // Iterasi data users untuk menambahkan data group
         foreach ($data['users'] as $row) {

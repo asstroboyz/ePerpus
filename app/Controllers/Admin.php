@@ -81,17 +81,16 @@ class Admin extends BaseController
         $this->PosyanduModel = new PosyanduModel();
         $this->JenisImunisasiModel = new JenisImunisasiModel();
         $this->DataBalitaModel = new DataBalitaModel();
-   
+
         $this->Profil = new Profil();
-       
+
         $this->pengecekanModel = new pengecekanModel();
-        
-     
+
+
         $this->db = \Config\Database::connect();
         $this->builder = $this->db->table('users');
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
-       
     }
 
     // public function index()
@@ -124,7 +123,7 @@ class Admin extends BaseController
 
     public function index()
     {
-       
+
         $data = [
             'title' => 'e-Perpus - Home',
             // 'saldo_terakhir' => $saldoTerakhir,
@@ -1708,28 +1707,28 @@ class Admin extends BaseController
         $userModel = new UserModel();
         // $data['users'] = $userModel->findAll();
         $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
-                              ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
-                              ->orderBy('users.posyandu_id', 'ASC')
-                              ->findAll();
+            ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
+            ->orderBy('users.posyandu_id', 'ASC')
+            ->findAll();
         // dd($data);
         $groupModel = new GroupModel();
         $no = 1;
- $currentUser  = user();
-$userGroups = $groupModel->getGroupsForUser ($currentUser ->id);
+        $currentUser  = user();
+        $userGroups = $groupModel->getGroupsForUser($currentUser->id);
 
-// Mengumpulkan semua 'name' ke dalam array
-$groupNames = array_map(function($group) {
-    return $group['name'];
-}, $userGroups);
+        // Mengumpulkan semua 'name' ke dalam array
+        $groupNames = array_map(function ($group) {
+            return $group['name'];
+        }, $userGroups);
 
-// Menghilangkan nama duplikat
-$groupNames = array_unique($groupNames);
+        // Menghilangkan nama duplikat
+        $groupNames = array_unique($groupNames);
 
-// Mengonversi array menjadi string
-$groupNamesString = implode(',', $groupNames);
+        // Mengonversi array menjadi string
+        $groupNamesString = implode(',', $groupNames);
 
-// Debugging
-// dd($groupNamesString);
+        // Debugging
+        // dd($groupNamesString);
         foreach ($data['users'] as $row) {
             $dataRow['group'] = $groupModel->getGroupsForUser($row->id);
             $dataRow['row'] = $row;
@@ -1737,10 +1736,10 @@ $groupNamesString = implode(',', $groupNames);
             $data['row' . $row->id] = view('Admin/User/Row', $dataRow);
         }
         $data['groups'] = $groupModel->findAll();
-         $data['groupNamesString'] = $groupNamesString;
+        $data['groupNamesString'] = $groupNamesString;
         //  dd($groupNamesString);
-         $posyanduModel = new PosyanduModel();
-    $data['posyandus'] = $posyanduModel->findAll();
+        $posyanduModel = new PosyanduModel();
+        $data['posyandus'] = $posyanduModel->findAll();
         $data['title'] = 'Daftar Pengguna';
         return view('Admin/User/Index', $data);
     }
@@ -2346,7 +2345,7 @@ $groupNamesString = implode(',', $groupNames);
         $data = [
             'title' => 'Edit Jenis Imunisasi',
             'jenis_imunisasi' => $jenisImunisasi,  // Menyimpan data jenis imunisasi
-             'validation' => $this->validation,
+            'validation' => $this->validation,
         ];
 
         // Mengembalikan view edit dengan data yang sesuai
@@ -2406,7 +2405,7 @@ $groupNamesString = implode(',', $groupNames);
 
         // Menginisialisasi model
         $jadwalModel = new JadwalimunisasiModel();
-   
+
         $posyanduModel = new PosyanduModel(); // Model untuk posyandu
 
         // Mengambil data jadwal dengan join ke tabel posyandu dan users

@@ -67,6 +67,10 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
                             Peminjaman
                         </a>
+                        <a class="nav-link" href="<?= base_url('user/kelola_user'); ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
+                            Kelola User
+                        </a>
                         <div class="sb-sidenav-menu-heading">Laporan</div>
 
                         <a class="nav-link" href="<?= base_url('user/laporandatapeminjaman'); ?>">

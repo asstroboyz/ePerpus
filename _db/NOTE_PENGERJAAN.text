@@ -1,3 +1,12 @@
 - Jenis Buku ( CRUD)
 - BUKU rusak (CRUD)
 -
+
+
+data siswa peminjam tidak usah
+harusnya  histori peminjaman dan dibuat iisnya mengambil dariu data siswa
+contoh siswa a meminjam buku a,b,c,d
+
+Histori peminjaman / histori transaksi
+auth login/ siapa yang login terbanyak
+denda harusnya disimpan dalam database

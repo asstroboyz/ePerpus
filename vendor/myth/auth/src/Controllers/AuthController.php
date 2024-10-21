@@ -170,7 +170,7 @@ class AuthController extends Controller
         $user              = new User($this->request->getPost($allowedPostFields));
         $user->jenis_kelamin = $this->request->getPost('jenis_kelamin');
         $user->posisi = $this->request->getPost('posisi');
-        $user->posyandu_id = $this->request->getPost('posyandu_id');
+        // $user->posyandu_id = $this->request->getPost('posyandu_id');
         $user->groupNamesString = $this->request->getPost('groupNamesString');
         $grup_pengguna = $user->groupNamesString;
         // dd($user);
