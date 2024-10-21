@@ -72,7 +72,7 @@ class User extends BaseController
             $entity = new passwd();
             $entity->setPassword($passwordbaru);
             $hash = $entity->password_hash;
-            $users->update($id, [ 'password_hash' => $hash ]);
+            $users->update($id, ['password_hash' => $hash]);
             session()->setFlashdata('msg', 'Password berhasil Diubah');
             return redirect()->to('/user/tentang/' . $id);
         } else {
@@ -84,7 +84,7 @@ class User extends BaseController
     public function tentang()
     {
 
-        $data[ 'title' ] = 'User Profile ';
+        $data['title'] = 'User Profile ';
         $userlogin = user()->username;
         $userid = user()->id;
         $role = $this->db->table('auth_groups_users')->where('user_id', $userid)->get()->getRow();
@@ -166,8 +166,8 @@ class User extends BaseController
         } else {
 
             $nama_foto = 'UserFoto_' . $this->request->getPost('username') . '.' . $foto->guessExtension();
-            if (!(empty($query[ 'foto' ]))) {
-                unlink('uploads/profile/' . $query[ 'foto' ]);
+            if (!(empty($query['foto']))) {
+                unlink('uploads/profile/' . $query['foto']);
             }
             $foto->move('uploads/profile', $nama_foto);
 
@@ -186,7 +186,7 @@ class User extends BaseController
         $userModel = new UserModel();
         $groupModel = new GroupModel();
         $posyanduId = user()->posyandu_id;
-        $data[ 'posyanduId' ] = $posyanduId;
+        $data['posyanduId'] = $posyanduId;
         // dd( $posyanduId );
         $no = 1;
         $currentUser = user();
@@ -196,7 +196,7 @@ class User extends BaseController
 
         // Mengumpulkan semua 'name' ke dalam array
         $groupNames = array_map(function ($group) {
-            return $group[ 'name' ];
+            return $group['name'];
         }, $userGroups);
 
         // Mengonversi array menjadi string
@@ -205,24 +205,24 @@ class User extends BaseController
         // Menampilkan hasil
         // dd( $groupNames );
         // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
-        $data[ 'users' ] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
-        ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
-        ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
-        ->orderBy('users.posyandu_id', 'ASC')
-        ->findAll();
+        $data['users'] = $userModel->select('users.*, posyandu.nama_posyandu as posyandu_nama')
+            ->join('posyandu', 'posyandu.id = users.posyandu_id', 'left')
+            ->where('users.posyandu_id', $posyanduId) // Filter berdasarkan posyandu_id yang login
+            ->orderBy('users.posyandu_id', 'ASC')
+            ->findAll();
 
         // Iterasi data users untuk menambahkan data group
-        foreach ($data[ 'users' ] as $row) {
-            $dataRow[ 'group' ] = $groupModel->getGroupsForUser($row->id);
-            $dataRow[ 'row' ] = $row;
-            $dataRow[ 'no' ] = $no++;
-            $data[ 'row' . $row->id ] = view('User/User/Row', $dataRow);
+        foreach ($data['users'] as $row) {
+            $dataRow['group'] = $groupModel->getGroupsForUser($row->id);
+            $dataRow['row'] = $row;
+            $dataRow['no'] = $no++;
+            $data['row' . $row->id] = view('User/User/Row', $dataRow);
         }
 
         // Ambil semua group yang tersedia
-        $data[ 'groups' ] = $groupModel->findAll();
-        $data[ 'groupNamesString' ] = $groupNamesString;
-        $data[ 'title' ] = 'Daftar Pengguna';
+        $data['groups'] = $groupModel->findAll();
+        $data['groupNamesString'] = $groupNamesString;
+        $data['title'] = 'Daftar Pengguna';
         // Tampilkan view dengan data yang sudah disusun
         return view('User/User/Index', $data);
     }
@@ -569,7 +569,7 @@ class User extends BaseController
 
         // Generate kode buku otomatis di dalam function saveJenisBuku
         $lastEntry = $model->orderBy('kode_buku', 'DESC')->first();
-        $lastKodeBuku = $lastEntry ? ( int )substr($lastEntry[ 'kode_buku' ], 2) : 0;
+        $lastKodeBuku = $lastEntry ? (int)substr($lastEntry['kode_buku'], 2) : 0;
 
         // Generate kode baru dengan prefix 'BK' dan increment
         $newKodeBuku = 'BK' . str_pad($lastKodeBuku + 1, 4, '0', STR_PAD_LEFT);
@@ -622,13 +622,13 @@ class User extends BaseController
         $randomKeys = array_rand($kataArray, min(3, count($kataArray)));
         // Ambil kunci acak
         foreach ($randomKeys as $key) {
-            $kataDariJudul .= $kataArray[ $key ];
+            $kataDariJudul .= $kataArray[$key];
             // Gabungkan karakter acak menjadi string
         }
 
         // Persiapan data untuk disimpan, kode buku otomatis disertakan
         $data = [
-            'kode_buku' => $newKodeBuku . '-' . $kataDariJudul . '-' . ( int )date('Y'), // Gabungkan kode buku dengan karakter acak dari judul dan tahun
+            'kode_buku' => $newKodeBuku . '-' . $kataDariJudul . '-' . (int)date('Y'), // Gabungkan kode buku dengan karakter acak dari judul dan tahun
             'judul_buku' => $judulBuku,
             'pengarang' => $this->request->getVar('pengarang'),
             'penerbit' => $this->request->getVar('penerbit'),
@@ -809,12 +809,12 @@ class User extends BaseController
         $jenisBukuModel = new JenisBukuModel();
         // Inisialisasi JenisBukuModel
 
-        $data[ 'bukurusak' ] = $model->find($id);
-        $data[ 'buku' ] = $jenisBukuModel->findAll();
+        $data['bukurusak'] = $model->find($id);
+        $data['buku'] = $jenisBukuModel->findAll();
         // Ambil semua data dari JenisBukuModel
-        $data[ 'title' ] = 'Buku Rusak Edit';
+        $data['title'] = 'Buku Rusak Edit';
 
-        if (!$data[ 'bukurusak' ]) {
+        if (!$data['bukurusak']) {
             session()->setFlashData('pesan_error', 'Data Buku Rusak tidak ditemukan');
             return redirect()->to('user/databukurusak');
         }
@@ -854,14 +854,19 @@ class User extends BaseController
     //peminjaman
     public function peminjamanBuku()
     {
-        $data[ 'title' ] = 'Peminjaman';
+        $data['title'] = 'Peminjaman';
         session();
+        // $data['peminjaman'] = $this->PeminjamanModel
+        //  ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*')
+        //  ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
+        //  ->join('users', 'peminjaman.id_user = users.id', 'left')
+        //  ->findAll();
         $data['peminjaman'] = $this->PeminjamanModel
-         ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*')
-         ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
-         ->join('users', 'peminjaman.id_user = users.id', 'left')
-         ->findAll();
-        //  dd($data);
+            ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*, peminjaman.status')
+            ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
+            ->join('users', 'peminjaman.id_user = users.id', 'left')
+            ->findAll();
+
         return view('user/peminjaman/index', $data);
     }
 
@@ -870,9 +875,9 @@ class User extends BaseController
         $userModel = new \Myth\Auth\Models\UserModel(); // Model untuk pengguna/kader
         $users = $userModel->findAll();
         $data = [
-          'buku' => $this->JenisBukuModel->findAll(),
-          'title' => 'Form Tambah Data Buku Rusak',
-          'siswa' => $users,
+            'buku' => $this->JenisBukuModel->findAll(),
+            'title' => 'Form Tambah Data Buku Rusak',
+            'siswa' => $users,
         ];
         return view('user/peminjaman/add', $data);
     }
@@ -885,7 +890,7 @@ class User extends BaseController
             'buku' => 'required',
             'siswa' => 'required',
             'tanggal_pinjam' => 'required',
-            'tanggal_kembali' => 'required',
+            'tanggal_pengembalian' => 'required',
             'jumlah' => 'required',
             'kondisi_buku' => 'required',
         ]);
@@ -896,7 +901,7 @@ class User extends BaseController
 
         // Mengambil informasi buku untuk memastikan ada cukup stok
         $buku = $this->JenisBukuModel->find($kodeBuku);
-    
+
         // Mengecek apakah cukup stok untuk peminjaman
         if ($buku['jumlah_buku'] < $jumlahPinjam) {
             return redirect()->back()->with('pesan_pinjam', 'Stok buku tidak cukup')->withInput();
@@ -908,7 +913,7 @@ class User extends BaseController
             ->update();
 
         // Membuat kode pinjam acak dengan awalan "KP"
-     $kodePinjam = 'KP' . strtoupper(bin2hex(random_bytes(4))); // Menghasilkan string 6 karakter acak
+        $kodePinjam = 'KP' . strtoupper(bin2hex(random_bytes(4))); // Menghasilkan string 6 karakter acak
 
         // Menyimpan data peminjaman
         $dataPeminjaman = [
@@ -917,7 +922,7 @@ class User extends BaseController
             'id_siswa_peminjaman' => $this->request->getPost('siswa'),
             'kode_buku' => $kodeBuku,
             'tanggal_pinjam' => $this->request->getPost('tanggal_pinjam'),
-            'tanggal_kembali' => $this->request->getPost('tanggal_kembali'),
+            'tanggal_pengembalian' => $this->request->getPost('tanggal_pengembalian'),
             'status' => 'Belum Kembali',
             'jumlah_pinjam' => $jumlahPinjam,
             'kondisi_buku' => $this->request->getPost('kondisi_buku'),
@@ -926,19 +931,19 @@ class User extends BaseController
 
         // Menyimpan data peminjaman ke database
         $this->PeminjamanModel->insert($dataPeminjaman);
-    
+
         // Mengambil kembali kode_pinjam yang baru saja disimpan
         $kodePinjamTerbaru = $this->PeminjamanModel->insertID(); // Atau ambil dari $dataPeminjaman['kode_pinjam'] jika sudah ada
 
-        
+
 
         // Menyimpan histori peminjaman
         $keterangan = 'Peminjaman Buku - Jumlah: ' . $jumlahPinjam;
 
         $dataHistori = [
-            'kode_pinjam' => $kodePinjam, 
+            'kode_pinjam' => $kodePinjam,
             'tanggal_status' => date('Y-m-d'),
-            'keterangan' => $keterangan, 
+            'keterangan' => $keterangan,
         ];
 
         // Simpan histori peminjaman
@@ -947,5 +952,52 @@ class User extends BaseController
         return redirect()->to('/user/peminjamanBuku')->with('success', 'Buku berhasil dipinjam');
     }
 
+    public function ubahstatus($kodePinjam)
+    {
+        // Validasi input
+        $this->validate([
+            'status' => 'required|in_list[Kembali,Belum Kembali]',
+        ]);
 
+        // Mengambil status dari input
+        $statusBaru = "Kembali";
+        // dd('Status Baru:', $statusBaru); // Debugging untuk status baru
+
+        // Mengambil peminjaman berdasarkan kode pinjam
+        $peminjaman = $this->PeminjamanModel->where('kode_pinjam', $kodePinjam)->first();
+        // dd('Peminjaman Ditemukan:', $peminjaman); // Debugging untuk data peminjaman
+
+        // Mengecek apakah peminjaman ada
+        if (!$peminjaman) {
+            return redirect()->back()->with('pesan_kembali', 'Data peminjaman tidak ditemukan')->withInput();
+        }
+
+        // Update status peminjaman
+        $this->PeminjamanModel->update($peminjaman['kode_pinjam'], ['status' => $statusBaru]);
+        // dd('Status Diupdate'); // Debugging setelah update status
+
+        // Jika status baru adalah "Kembali", kembalikan stok buku dan simpan histori
+        if ($statusBaru === 'Kembali') {
+            // Mengembalikan jumlah buku ke stok
+            $this->JenisBukuModel->where('kode_buku', $peminjaman['kode_buku'])
+                ->set('jumlah_buku', "jumlah_buku + {$peminjaman['jumlah_pinjam']}", false)
+                ->update();
+            // dd('Stok Buku Kembali'); // Debugging setelah mengembalikan stok buku
+
+            // Menyimpan histori pengembalian
+            $keterangan = 'Pengembalian Buku - Jumlah: ' . $peminjaman['jumlah_pinjam'];
+
+            $dataHistori = [
+                'kode_pinjam' => $kodePinjam,
+                'tanggal_status' => date('Y-m-d'),
+                'keterangan' => $keterangan,
+            ];
+
+            // Simpan histori pengembalian
+            $this->HistoriPeminjamanModel->insert($dataHistori);
+            // dd('Histori Pengembalian Disimpan'); // Debugging setelah menyimpan histori
+        }
+
+        return redirect()->to('/user/peminjamanBuku')->with('success', 'Status peminjaman berhasil diubah');
+    }
 }
