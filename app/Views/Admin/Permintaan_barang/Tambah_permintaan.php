@@ -1,20 +1,19 @@
-<?= $this->extend('Admin/Templates/Index') ?>
-
-<?= $this->section('page-content'); ?>
+<?= $this->extend('Admin/layout/Index'); ?>
+<?= $this->section('content'); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-900">Form Tambah Barang</h1>
+
 
     <?php if (session()->getFlashdata('msg')) : ?>
-    <div class="row">
-        <div class="col-12">
-            <div class="alert alert-success" role="alert">
-                <?= session()->getFlashdata('msg'); ?>
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" role="alert">
+                    <?= session()->getFlashdata('msg'); ?>
+                </div>
             </div>
         </div>
-    </div>
 
     <?php endif; ?>
 

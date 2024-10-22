@@ -67,6 +67,10 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
                             Peminjaman
                         </a>
+                        <a class="nav-link" href="<?= base_url('admin/permintaan'); ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
+                            Permintaan
+                        </a>
                         <div class="sb-sidenav-menu-heading">Laporan</div>
 
                         <a class="nav-link" href="<?= base_url('admin/laporandatapeminjaman'); ?>">

@@ -1,21 +1,21 @@
-<?= $this->extend('Admin/Templates/Index'); ?>
+<?= $this->extend('Admin/layout/Index'); ?>
 
-<?= $this->section('page-content'); ?>
+<?= $this->section('content'); ?>
 <!-- Begin Page Content -->
 <?php
 
-use App\Models\detailPermintaanModel;
+use App\Models\detailPermintaanPeminjamanModel;
 
-$permintaanModel = new detailPermintaanModel();
+$permintaanModel = new detailPermintaanPeminjamanModel();
 ?>
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-900"></h1>
 
     <?php if (session()->has('pesanBerhasil')) : ?>
-    <div class="alert alert-success" role="alert">
-        <?= session('pesanBerhasil') ?>
-    </div>
+        <div class="alert alert-success" role="alert">
+            <?= session('pesanBerhasil') ?>
+        </div>
     <?php endif; ?>
 
     <div class="row">
@@ -23,8 +23,9 @@ $permintaanModel = new detailPermintaanModel();
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h3>Daftar Permintaan Barang </h3>
-
+                    <h3>Daftar Permintaan Peminjaman </h3>
+                    <a href="/Admin/tambah_permintaan" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah
+                    Permintaan</a>
 
                 </div>
                 <div class="card-body">
@@ -58,71 +59,71 @@ $permintaanModel = new detailPermintaanModel();
                             <tbody>
 
                                 <?php if ($permintaan) { ?>
-                                <?php foreach ($permintaan as $num => $data) {
-                                    $total = $permintaanModel->where('id_permintaan_barang', $data['permintaan_barang_id'])->countAllResults();
+                                    <?php foreach ($permintaan as $num => $data) {
+                                        $total = $permintaanModel->where('id_permintaan_barang', $data['permintaan_barang_id'])->countAllResults();
                                     ?>
 
 
-                                <tr>
-                                    <td style="width: 70px;">
-                                        <?= $num + 1; ?>
-                                    </td>
+                                        <tr>
+                                            <td style="width: 70px;">
+                                                <?= $num + 1; ?>
+                                            </td>
 
 
-                                    <td
-                                        style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
-                                        <?= $data['permintaan_barang_id']; ?>
-                                    </td>
+                                            <td
+                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
+                                                <?= $data['permintaan_barang_id']; ?>
+                                            </td>
 
 
-                                    <td style=" width: 120px;">
-                                        <?= $total; ?>
-                                    </td>
+                                            <td style=" width: 120px;">
+                                                <?= $total; ?>
+                                            </td>
 
 
-                                    <td style=" width: 120px;">
-                                        <?php $date = date_create($data['tanggal_permintaan']); ?>
-                                        <?= date_format($date, "d-m-Y"); ?>
-                                    </td>
+                                            <td style=" width: 120px;">
+                                                <?php $date = date_create($data['tanggal_permintaan']); ?>
+                                                <?= date_format($date, "d-m-Y"); ?>
+                                            </td>
 
 
-                                    <td style="text-align:center; width: 150px;">
-                                        <!-- <div class="dropdown show">
+                                            <td style="text-align:center; width: 150px;">
+                                                <!-- <div class="dropdown show">
                                         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Action
                                         </a> -->
 
-                                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> -->
-                                        <a href="/Admin/list_permintaan/<?= $data['permintaan_barang_id'] ?>"
-                                            class="  btn btn-primary"><i class="fas fa-eye"></i></a>
+                                                <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> -->
+                                                <a href="/Admin/list_permintaan/<?= $data['permintaan_barang_id'] ?>"
+                                                    class="  btn btn-primary"><i class="fas fa-eye"></i></a>
 
 
 
 
-                                        <!-- <a href="/Admin/ubah/<?= $data['permintaan_barang_id'] ?>"
+                                                <!-- <a href="/Admin/ubah/<?= $data['permintaan_barang_id'] ?>"
                                         class=" btn btn-warning"><i class="fas fa-edit"></i></a> -->
-                                        <!-- <a href="/Admin/delete/<?= $data['permintaan_barang_id'] ?>"
+                                                <!-- <a href="/Admin/delete/<?= $data['permintaan_barang_id'] ?>"
                                         class=" btn btn-danger"><i class="fas fa-trash"></i></a> -->
-                                        <a href="/Admin/delete_permintaan/<?= $data['permintaan_barang_id'] ?>"
-                                            class="btn btn-danger delete-btn" data-toggle="modal"
-                                            data-target="#deleteConfirmationModal">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                                <a href="/Admin/delete_permintaan/<?= $data['permintaan_barang_id'] ?>"
+                                                    class="btn btn-danger delete-btn" data-toggle="modal"
+                                                    data-target="#deleteConfirmationModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
 
 
-                                        <!-- </div> -->
-                                        <!-- </div> -->
+                                                <!-- </div> -->
+                                                <!-- </div> -->
 
-                                    </td>
-                                </tr>
-                                <?php } ?>
-                                <!-- end of foreach                -->
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                    <!-- end of foreach                -->
                                 <?php } else { ?>
-                                <tr>
-                                    <td colspan="4">
-                                        <h3 class="text-gray-900 text-center">Data belum ada.</h3>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <h3 class="text-gray-900 text-center">Data belum ada.</h3>
+                                        </td>
+                                    </tr>
                                 <?php } ?>
                             </tbody>
                         </table>

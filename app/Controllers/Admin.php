@@ -876,21 +876,22 @@ class Admin extends BaseController
         return redirect()->to('/admin/peminjamanBuku')->with('success', 'Status peminjaman berhasil diubah');
     }
 
-  
+
     //end peminjaman
 
     //permintaan peminjaman:
     public function permintaan()
     {
 
-        $this->builder = $this->db->table('permintaan_barang');
+        $this->builder = $this->db->table('permintaan_peminjaman');
         $this->builder->select('*');
         $this->query = $this->builder->get();
         $data['permintaan'] = $this->query->getResultArray();
         // dd(  $data['inventaris']);
-        $data['title'] = 'Permintaan Barang';
+        $data['title'] = 'Daftar Permintaan Peminjaman';
         return view('Admin/Permintaan_barang/Index', $data);
     }
+
     public function list_permintaan($id)
     {
         $data['detail'] = $this->PermintaanPeminjamanModel->getPermintaan($id);
@@ -904,8 +905,105 @@ class Admin extends BaseController
             ->where('id_permintaan_barang', $id)->findAll();
         // dd(  $data['permintaan']);
 
-        $data['title'] = 'Permintaan Barang';
+        $data['title'] = 'Daftar Permintaan Peminjaman';
         return view('Admin/Permintaan_barang/list_permintaan', $data);
+    }
+
+    public function tambah_permintaan()
+    {
+        $data = [
+            'validation' => $this->validation,
+            'title' => 'Tambah Permintaan',
+            'barangList' => $this->JenisBukuModel
+                ->select('jenis_buku.*')
+                ->findAll(),
+            'selectedBarang' => null,
+        ];
+
+        $kode_buku = $this->request->getPost('kode_buku');
+        if ($kode_buku) {
+            $selectedBarang = $this->JenisBukuModel->find($kode_buku);
+            if ($selectedBarang) {
+                $data['selectedBarang'] = $selectedBarang;
+            }
+        }
+
+        return view('Admin/Permintaan_barang/Tambah_permintaan', $data);
+    }
+
+    public function simpanPermintaan()
+    {
+
+        $data = $this->request->getPost();
+        // dd($data);
+        // kode_permintaan =
+        $kode_permintaan = 'PR-' . date('Ymdhis') . rand(100, 999);
+
+        $permintaan = [
+            'id_user' => user()->id,
+            'permintaan_barang_id' => $kode_permintaan,
+            'tanggal_permintaan' => date('Y-m-d'),
+        ];
+        $this->PermintaanModel->insert($permintaan);
+
+        for ($i = 0; $i < count($data['kode_barang']); $i++) {
+            $dataPermintaan = [
+                
+                'kode_barang' => $data['kode_barang'][$i],
+                'jumlah' => $data['jumlah'][$i],
+                'perihal' => $data['perihal'][$i],
+                'detail' => $data['detail'][$i],
+                'nama_pengaju' => user()->username,
+                'tanggal_pengajuan' => date("Y/m/d h:i:s"),
+                'status' => 'belum diproses',
+                'id_permintaan_barang' => $kode_permintaan,
+            ];
+            // dd($dataPermintaan);
+            $this->detailPermintaanModel->save($dataPermintaan);
+        }
+
+        session()->setFlashdata('msg', 'Permintaan berhasil diajukan, silahkan menunggu untuk proses approval.');
+        return redirect()->to('Pegawai/permintaan/');
+    }
+    public function ubah($id)
+    {
+
+        session();
+        $barangList = $this->BarangModel->getBarang();
+
+        $data = [
+            'title' => "BPS Ubah Data Permintaan",
+            'validation' => \Config\Services::validation(),
+            'barangList' => $barangList,
+            'permintaan' => $this->detailPermintaanModel->getDetailPermintaan($id),
+        ];
+
+
+
+        return view('Admin/Permintaan_barang/Edit_permintaan', $data);
+    }
+
+    public function updatePermin($id)
+    {
+        $dataPermintaan = [
+            'kode_barang' => $this->request->getPost('kode_barang'),
+            'jumlah' => $this->request->getPost('jumlah'),
+            'perihal' => $this->request->getPost('perihal'),
+            'detail' => $this->request->getPost('detail'),
+        ];
+        // dd($dataPermintaan);
+
+        $this->detailPermintaanModel->update($id, $dataPermintaan);
+        $id_permintaan = $this->request->getPost('id_permintaan_barang');
+        session()->setFlashdata('msg', 'Permintaan berhasil diperbarui.');
+        return redirect()->to('/Pegawai/list_permintaan/' . $id_permintaan);
+    }
+
+    public function delete_permintaan($id)
+    {
+        $this->PermintaanModel->delete($id);
+        session()->setFlashdata('msg', 'Permintaan berhasil dihapus.');
+        return redirect()->to('/Pegawai/permintaan');
     }
     public function permintaan_masuk()
     {
