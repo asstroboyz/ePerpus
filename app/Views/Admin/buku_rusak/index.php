@@ -1,4 +1,4 @@
-<?= $this->extend('user/layout/index'); ?>
+<?= $this->extend('admin/layout/index'); ?>
 
 
 <?= $this->section('content'); ?>
@@ -66,7 +66,7 @@
                         <td><?= $data['jumlah_buku_rusak']; ?></td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="<?= base_url('editdatabukurusak/' . $data['kode_buku_rusak']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                <a href="<?= base_url('user/editBukuRusak/' . $data['kode_buku_rusak']); ?>" class="btn btn-sm btn-warning mb-2"><i class="fas fa-edit"></i></a>
                                 <form action="<?= base_url('hapusdatabukurusak/' . $data['kode_buku']); ?>" method="post">
                                     <?= csrf_field(); ?>
                                     <input type="hidden" name="_method" value="DELETE">

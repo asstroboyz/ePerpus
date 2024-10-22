@@ -471,108 +471,6 @@ class User extends BaseController
         return view('user/jenis_buku/add', $data);
     }
 
-    // public function saveJenisBuku()
-    // {
-    //     // Validasi form input
-    //     if ( !$this->validate( [
-    //         'kode_buku' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Kode Buku Sudah Ada, Silahkan periksa lagi kode buku yang anda masukkan'
-    // ]
-    // ]
-    // ] ) ) {
-    //         $validation = \Config\Services::validation();
-    //         $error = $validation->getError( 'kode_buku' );
-    //         $session = session();
-    //         $session->setFlashdata( 'pesan_error', $error );
-    //         return redirect()->back()->withInput();
-    //     }
-
-    //     $model = new JenisBukuModel();
-    //     $data = [
-    //         'kode_buku' => strtoupper( $this->request->getVar( 'kode_buku' ) ),
-    //         'judul_buku' => $this->request->getVar( 'judul_buku' ),
-    //         'pengarang' => $this->request->getVar( 'pengarang' ),
-    //         'penerbit' => $this->request->getVar( 'penerbit' ),
-    //         'tahun_terbit' => $this->request->getVar( 'tahun_terbit' ),
-    //         'tempat_terbit' => $this->request->getVar( 'tempat_terbit' ),
-    //         'jumlah_buku' => $this->request->getVar( 'jumlah_buku' ),
-    //         'isbn' => $this->request->getVar( 'isbn' ),
-    // ];
-    //     // dd( $data );
-    //     $model->insert( $data );
-    //     return redirect()->to( '/User/JenisBuku' )->with( 'pesanBerhasil', 'Buku berhasil ditambahkan.' );
-    // }
-
-    // public function saveJenisBuku()
-    // {
-    //     $model = new JenisBukuModel();
-
-    //     // Generate kode buku otomatis di dalam function saveJenisBuku
-    //     // Mendapatkan jumlah total buku untuk dijadikan sebagai penanda increment
-    //     $lastEntry = $model->orderBy( 'kode_buku', 'DESC' )->first();
-    //     $lastKodeBuku = $lastEntry ? ( int )substr( $lastEntry[ 'kode_buku' ], 2 ) : 0;
-
-    //     // Generate kode baru dengan prefix 'BK' dan increment
-    //     $newKodeBuku = 'BK' . str_pad( $lastKodeBuku + 1, 4, '0', STR_PAD_LEFT );
-
-    //     // Validasi form input ( tanpa kode_buku karena sudah otomatis di-generate )
-    //     if ( !$this->validate( [
-    //         'judul_buku' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Judul Buku wajib diisi'
-    // ]
-    // ],
-    //         'pengarang' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Pengarang wajib diisi'
-    // ]
-    // ],
-    //         'penerbit' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Penerbit wajib diisi'
-    // ]
-    // ],
-    //         'tahun_terbit' => [
-    //             'rules' => 'required|numeric|exact_length[4]',
-    //             'errors' => [
-    //                 'required' => 'Tahun Terbit wajib diisi',
-    //                 'numeric' => 'Tahun Terbit harus berupa angka',
-    //                 'exact_length' => 'Tahun Terbit harus terdiri dari 4 angka'
-    // ]
-    // ],
-    //         // Validasi field lainnya seperti pengarang, penerbit, dll
-    // ] ) ) {
-    //         $validation = \Config\Services::validation();
-    //         $error = $validation->getErrors();
-    //         $session = session();
-    //         $session->setFlashdata( 'pesan_error', $error );
-    //         return redirect()->back()->withInput();
-    //     }
-
-    //     // Persiapan data untuk disimpan, kode buku otomatis disertakan
-    //     $data = [
-    //         'kode_buku' => $newKodeBuku, // Kode buku otomatis
-    //         'judul_buku' => $this->request->getVar( 'judul_buku' ),
-    //         'pengarang' => $this->request->getVar( 'pengarang' ),
-    //         'penerbit' => $this->request->getVar( 'penerbit' ),
-    //         'tahun_terbit' => $this->request->getVar( 'tahun_terbit' ),
-    //         'tempat_terbit' => $this->request->getVar( 'tempat_terbit' ),
-    //         'jumlah_buku' => $this->request->getVar( 'jumlah_buku' ),
-    //         'isbn' => $this->request->getVar( 'isbn' ),
-    // ];
-
-    //     // Insert data ke database
-    //     $model->insert( $data );
-
-    //     // Redirect setelah sukses menyimpan
-    //     return redirect()->to( '/User/JenisBuku' )->with( 'pesanBerhasil', 'Buku berhasil ditambahkan.' );
-    // }
-
     public function saveJenisBuku()
     {
         $model = new JenisBukuModel();
@@ -656,7 +554,6 @@ class User extends BaseController
     }
 
     //edit
-
     public function editJenisBuku($kode_buku)
     {
         $model = new JenisBukuModel();
@@ -867,13 +764,13 @@ class User extends BaseController
         $data['title'] = 'Peminjaman';
         session();
         $data['peminjaman'] = $this->PeminjamanModel
-    ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*, peminjaman.status, users.kelas')
-    ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
-    ->join('users', 'peminjaman.id_siswa_peminjaman = users.id', 'left')
-    ->findAll();
+            ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*, peminjaman.status, users.kelas')
+            ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
+            ->join('users', 'peminjaman.id_siswa_peminjaman = users.id', 'left')
+            ->findAll();
 
-// Debugging: Tampilkan hasil peminjaman
-// dd($data['peminjaman']);
+        // Debugging: Tampilkan hasil peminjaman
+        // dd($data['peminjaman']);
 
 
         return view('user/peminjaman/index', $data);
