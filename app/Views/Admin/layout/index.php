@@ -77,7 +77,6 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
                             Laporan Data Peminjaman
                         </a>
-
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
