@@ -19,10 +19,10 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tanggal_permintaan">Tanggal Permintaan</label>
-                            <input name="tanggal_permintaan" type="text" class="form-control form-control-user"
-                                id="input-tanggal_permintaan"
-                                value="<?= $detail['tanggal_permintaan']; ?>"
+                            <label for="tgl_permintaan">Tanggal Permintaan</label>
+                            <input name="tgl_permintaan" type="text" class="form-control form-control-user"
+                                id="input-tgl_permintaan"
+                                value="<?= $detail['tgl_permintaan']; ?>"
                                 readonly />
                         </div>
                     </div>

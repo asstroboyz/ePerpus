@@ -18,16 +18,18 @@
         </div>
     </div>
     <div class="card-body">
-        <?php $validation = \Config\Services::validation(); ?> 
+        <?php $validation = \Config\Services::validation(); ?>
 
         <?php if ($validation->getErrors()): ?>
-            <div class="alert alert-danger">
-                <?= $validation->listErrors(); ?> 
-            </div>
+        <div class="alert alert-danger">
+            <?= $validation->listErrors(); ?>
+        </div>
         <?php endif; ?>
 
-        <form action="<?= base_url('user/saveKunjungan'); ?>" method="post">
-            <?= csrf_field(); ?> 
+        <form
+            action="<?= base_url('user/saveKunjungan'); ?>"
+            method="post">
+            <?= csrf_field(); ?>
 
 
             <div class="mb-3">
@@ -37,17 +39,15 @@
                     id="input-id_user" required>
                     <option value="">Pilih Siswa</option>
                     <?php foreach ($users as $user): ?>
-                        <option
-                            value="<?= $user->id; ?>"
-                            data-username="<?= $user->username; ?>"
-                            data-fullname="<?= $user->fullname; ?>"
-                            data-nis="<?= $user->nis; ?>"
-                            data-kelas="<?= $user->kelas; ?>"
-                            data-alamat="<?= $user->alamat; ?>"
-                            data-no_hp="<?= $user->no_hp; ?>"
-                            <?= old('id_user') == $user->id ? 'selected' : ''; ?>>
-                            <?= $user->username; ?>
-                        </option>
+                    <option value="<?= $user->id; ?>"
+                        data-username="<?= $user->username; ?>"
+                        data-fullname="<?= $user->fullname; ?>"
+                        data-nis="<?= $user->nis; ?>"
+                        data-kelas="<?= $user->kelas; ?>"
+                        data-alamat="<?= $user->alamat; ?>"
+                        data-no_hp="<?= $user->no_hp; ?>" <?= old('id_user') == $user->id ? 'selected' : ''; ?>>
+                        <?= $user->username; ?>
+                    </option>
                     <?php endforeach; ?>
                 </select>
 
@@ -57,10 +57,9 @@
             </div>
             <div class="mb-3">
                 <label for="username">username</label>
-                <input class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : ''; ?>"
-                    id="username"
-                    name="username"
-                    type="text"
+                <input
+                    class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : ''; ?>"
+                    id="username" name="username" type="text"
                     value="<?= old('username'); ?>"
                     required>
                 <div class="invalid-feedback">
@@ -69,10 +68,9 @@
             </div>
             <div class="mb-3">
                 <label for="fullname">fullname</label>
-                <input class="form-control <?= ($validation->hasError('fullname')) ? 'is-invalid' : ''; ?>"
-                    id="fullname"
-                    name="fullname"
-                    type="text"
+                <input
+                    class="form-control <?= ($validation->hasError('fullname')) ? 'is-invalid' : ''; ?>"
+                    id="fullname" name="fullname" type="text"
                     value="<?= old('fullname'); ?>"
                     required>
                 <div class="invalid-feedback">
@@ -81,10 +79,9 @@
             </div>
             <div class="mb-3">
                 <label for="nis">NIS</label>
-                <input class="form-control <?= ($validation->hasError('nis')) ? 'is-invalid' : ''; ?>"
-                    id="nis"
-                    name="nis"
-                    type="text"
+                <input
+                    class="form-control <?= ($validation->hasError('nis')) ? 'is-invalid' : ''; ?>"
+                    id="nis" name="nis" type="text"
                     value="<?= old('nis'); ?>"
                     required>
                 <div class="invalid-feedback">
@@ -94,10 +91,9 @@
 
             <div class="mb-3">
                 <label for="kelas">Kelas</label>
-                <input class="form-control <?= ($validation->hasError('kelas')) ? 'is-invalid' : ''; ?>"
-                    id="kelas"
-                    name="kelas"
-                    type="text"
+                <input
+                    class="form-control <?= ($validation->hasError('kelas')) ? 'is-invalid' : ''; ?>"
+                    id="kelas" name="kelas" type="text"
                     value="<?= old('kelas'); ?>"
                     required>
                 <div class="invalid-feedback">
@@ -107,10 +103,9 @@
 
             <div class="mb-3">
                 <label for="alamat">Alamat</label>
-                <input class="form-control <?= ($validation->hasError('alamat')) ? 'is-invalid' : ''; ?>"
-                    id="alamat"
-                    name="alamat"
-                    type="text"
+                <input
+                    class="form-control <?= ($validation->hasError('alamat')) ? 'is-invalid' : ''; ?>"
+                    id="alamat" name="alamat" type="text"
                     value="<?= old('alamat'); ?>"
                     required>
                 <div class="invalid-feedback">
@@ -120,10 +115,9 @@
 
             <div class="mb-3">
                 <label for="no_hp">No HP</label>
-                <input class="form-control <?= ($validation->hasError('no_hp')) ? 'is-invalid' : ''; ?>"
-                    id="no_hp"
-                    name="no_hp"
-                    type="text"
+                <input
+                    class="form-control <?= ($validation->hasError('no_hp')) ? 'is-invalid' : ''; ?>"
+                    id="no_hp" name="no_hp" type="text"
                     value="<?= old('no_hp'); ?>"
                     required>
                 <div class="invalid-feedback">
@@ -159,5 +153,3 @@
 </script>
 
 <?= $this->endSection(); ?>
-tambahkan untuk
-nis,kelas,alamat,no_hp

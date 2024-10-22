@@ -45,6 +45,7 @@ class Admin extends BaseController
         $this->profil = new profil();
         $this->HistoriPeminjamanModel = new HistoriPeminjamanModel();
         $this->detailPermintaanPeminjamanModel = new detailPermintaanPeminjamanModel();
+        $this->session = session();
         $this->PermintaanPeminjamanModel = new PermintaanPeminjamanModel();
         $this->validation = \Config\Services::validation();
     }
@@ -894,16 +895,21 @@ class Admin extends BaseController
 
     public function list_permintaan($id)
     {
-        $data['detail'] = $this->PermintaanPeminjamanModel->getPermintaan($id);
+        $data['detail'] = $this->PermintaanPeminjamanModel->getDataPermintaan($id);
+        //   dd($data['detail']);
         $data['permintaan'] = $this->detailPermintaanPeminjamanModel
-            ->select('detail_permintaan_barang.*, master_barang.nama_brg, satuan.nama_satuan,permintaan_barang.tanggal_permintaan, master_barang.merk,detail_master.tipe_barang')
-            ->join('barang', 'barang.kode_barang = detail_permintaan_barang.kode_barang')
-            ->join('satuan', 'satuan.satuan_id = barang.id_satuan')
-            ->join('detail_master', 'detail_master.detail_master_id = barang.id_master_barang')
-            ->join('master_barang', 'master_barang.kode_brg = detail_master.master_barang')
-            ->join('permintaan_barang', 'permintaan_barang.permintaan_barang_id = detail_permintaan_barang.id_permintaan_barang')
-            ->where('id_permintaan_barang', $id)->findAll();
-        // dd(  $data['permintaan']);
+         ->select('detail_permintaan_peminjaman.id, detail_permintaan_peminjaman.kode_buku, detail_permintaan_peminjaman.jumlah, 
+                  permintaan_peminjaman.tgl_permintaan, jenis_buku.judul_buku, users.username')
+         ->join('jenis_buku', 'jenis_buku.kode_buku = detail_permintaan_peminjaman.kode_buku', 'left')
+         ->join('users', 'users.id = detail_permintaan_peminjaman.id_user', 'left')
+         ->join('permintaan_peminjaman', 'permintaan_peminjaman.permintaan_peminjaman_id = detail_permintaan_peminjaman.id_permintaan_peminjaman', 'left')
+         ->where('detail_permintaan_peminjaman.id_permintaan_peminjaman', $id)
+         ->distinct() // Mencegah hasil duplikat
+         ->findAll();
+        // dd($data['permintaan'] );
+        // Debugging
+        // dd($this->detailPermintaanPeminjamanModel->getLastQuery());
+
 
         $data['title'] = 'Daftar Permintaan Peminjaman';
         return view('Admin/Permintaan_barang/list_permintaan', $data);
@@ -912,24 +918,23 @@ class Admin extends BaseController
     public function tambah_permintaan()
     {
         $data = [
-            'validation' => $this->validation,
-            'title' => 'Tambah Permintaan',
-            'barangList' => $this->JenisBukuModel
-                ->select('jenis_buku.*')
-                ->findAll(),
-            'selectedBarang' => null,
-        ];
-
+                'validation' => $this->validation,
+                'title' => 'Tambah Permintaan',
+                'barangList' => $this->JenisBukuModel->findAll(),
+                'selectedBuku' => null,
+            ];
+        // dd($data);
         $kode_buku = $this->request->getPost('kode_buku');
         if ($kode_buku) {
-            $selectedBarang = $this->JenisBukuModel->find($kode_buku);
-            if ($selectedBarang) {
-                $data['selectedBarang'] = $selectedBarang;
+            $selectedBuku = $this->JenisBukuModel->find($kode_buku);
+            if ($selectedBuku) {
+                $data['selectedBuku'] = $selectedBuku;
             }
         }
 
         return view('Admin/Permintaan_barang/Tambah_permintaan', $data);
     }
+
 
     public function simpanPermintaan()
     {
@@ -937,33 +942,32 @@ class Admin extends BaseController
         $data = $this->request->getPost();
         // dd($data);
         // kode_permintaan =
-        $kode_permintaan = 'PR-' . date('Ymdhis') . rand(100, 999);
+        $kode_permintaan = 'PM-' . date('Ymdhis') . rand(100, 999);
 
         $permintaan = [
             'id_user' => user()->id,
-            'permintaan_barang_id' => $kode_permintaan,
-            'tanggal_permintaan' => date('Y-m-d'),
+            'permintaan_peminjaman_id' => $kode_permintaan,
+            'tgl_permintaan' => date('Y-m-d'),
         ];
-        $this->PermintaanModel->insert($permintaan);
+        // dd($permintaan);
+        $this->PermintaanPeminjamanModel->insert($permintaan);
 
-        for ($i = 0; $i < count($data['kode_barang']); $i++) {
-            $dataPermintaan = [
-                
-                'kode_barang' => $data['kode_barang'][$i],
-                'jumlah' => $data['jumlah'][$i],
-                'perihal' => $data['perihal'][$i],
-                'detail' => $data['detail'][$i],
-                'nama_pengaju' => user()->username,
-                'tanggal_pengajuan' => date("Y/m/d h:i:s"),
-                'status' => 'belum diproses',
-                'id_permintaan_barang' => $kode_permintaan,
-            ];
-            // dd($dataPermintaan);
-            $this->detailPermintaanModel->save($dataPermintaan);
-        }
+       
+        $dataPermintaan = [
+                    
+            'kode_buku' => $data['kode_buku'],
+            'jumlah' => $data['jumlah'],
+            'nama_pengaju' => user()->fullname,
+            'tanggal_pengajuan' => date("Y/m/d h:i:s"),
+            'status' => 'belum diproses',
+            'id_permintaan_peminjaman' => $kode_permintaan,
+        ];
+        // dd($dataPermintaan);
+        $this->detailPermintaanPeminjamanModel->save($dataPermintaan);
+        
 
         session()->setFlashdata('msg', 'Permintaan berhasil diajukan, silahkan menunggu untuk proses approval.');
-        return redirect()->to('Pegawai/permintaan/');
+        return redirect()->to('Admin/permintaan/');
     }
     public function ubah($id)
     {

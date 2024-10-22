@@ -60,7 +60,7 @@ $permintaanModel = new detailPermintaanPeminjamanModel();
 
                                 <?php if ($permintaan) { ?>
                                     <?php foreach ($permintaan as $num => $data) {
-                                        $total = $permintaanModel->where('id_permintaan_barang', $data['permintaan_barang_id'])->countAllResults();
+                                        $total = $permintaanModel->where('id_permintaan_peminjaman', $data['permintaan_peminjaman_id'])->countAllResults();
                                     ?>
 
 
@@ -72,7 +72,7 @@ $permintaanModel = new detailPermintaanPeminjamanModel();
 
                                             <td
                                                 style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
-                                                <?= $data['permintaan_barang_id']; ?>
+                                                <?= $data['permintaan_peminjaman_id']; ?>
                                             </td>
 
 
@@ -82,7 +82,7 @@ $permintaanModel = new detailPermintaanPeminjamanModel();
 
 
                                             <td style=" width: 120px;">
-                                                <?php $date = date_create($data['tanggal_permintaan']); ?>
+                                                <?php $date = date_create($data['tgl_permintaan']); ?>
                                                 <?= date_format($date, "d-m-Y"); ?>
                                             </td>
 
@@ -94,17 +94,17 @@ $permintaanModel = new detailPermintaanPeminjamanModel();
                                         </a> -->
 
                                                 <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> -->
-                                                <a href="/Admin/list_permintaan/<?= $data['permintaan_barang_id'] ?>"
+                                                <a href="/Admin/list_permintaan/<?= $data['permintaan_peminjaman_id'] ?>"
                                                     class="  btn btn-primary"><i class="fas fa-eye"></i></a>
 
 
 
 
-                                                <!-- <a href="/Admin/ubah/<?= $data['permintaan_barang_id'] ?>"
+                                                <!-- <a href="/Admin/ubah/<?= $data['permintaan_peminjaman_id'] ?>"
                                         class=" btn btn-warning"><i class="fas fa-edit"></i></a> -->
-                                                <!-- <a href="/Admin/delete/<?= $data['permintaan_barang_id'] ?>"
+                                                <!-- <a href="/Admin/delete/<?= $data['permintaan_peminjaman_id'] ?>"
                                         class=" btn btn-danger"><i class="fas fa-trash"></i></a> -->
-                                                <a href="/Admin/delete_permintaan/<?= $data['permintaan_barang_id'] ?>"
+                                                <a href="/Admin/delete_permintaan/<?= $data['permintaan_peminjaman_id'] ?>"
                                                     class="btn btn-danger delete-btn" data-toggle="modal"
                                                     data-target="#deleteConfirmationModal">
                                                     <i class="fas fa-trash"></i>

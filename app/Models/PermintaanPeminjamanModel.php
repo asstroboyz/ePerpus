@@ -15,14 +15,10 @@ class PermintaanPeminjamanModel extends Model
 
     protected bool $allowEmptyInserts = false;
 
-    public function getDataBuku($id = false)
+    public function getDataPermintaan($id = false)
     {
         return $this->findAll(); 
     }
 
-    public function hapusDataBuku($id)
-    {
-        $builder = $this->db->table($this->table);
-        return $builder->delete(['id' => $id]);
-    }
+   
 }

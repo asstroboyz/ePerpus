@@ -18,7 +18,9 @@
     <div class="card-body">
         <?php $validation = \Config\Services::validation(); ?>
         <?php $session = session() ?>
-               <form action="<?= base_url('user/savePeminjaman'); ?>" method="post">
+        <form
+            action="<?= base_url('user/savePeminjaman'); ?>"
+            method="post">
             <?= csrf_field(); ?>
             <div class="mb-3">
                 <label for="exampleFormControlInput1">Nomor Buku</label>
