@@ -3,40 +3,15 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\asetModel;
-use App\Models\BarangModel;
+
 use App\Models\BukuRusakModel;
-use App\Models\detailPenjualanBarangModel;
-use App\Models\detailRestokModel;
-use App\Models\hutangModel;
-use App\Models\KasModel;
-use App\Models\masterBarangModel;
-use App\Models\modalTokoModel;
-use App\Models\PelangganModel;
-use App\Models\PemasukanModel;
-use App\Models\pembayaranPiutangModel;
-use App\Models\pengecekanModel;
-use App\Models\PengeluaranModel;
-use App\Models\PenjualanBarangModel;
-use App\Models\perkiraanModel;
-use App\Models\piutangModel;
 use App\Models\Profil;
-use App\Models\restokModel;
-use App\Models\riwayatSaldo;
-use App\Models\SaldoModel;
-use App\Models\satuanModel;
-use App\Models\supplierModel;
-use App\Models\tipeBarangModel;
-use App\Models\TransaksiBarangModel;
-use App\Models\PosyanduModel;
-use App\Models\DataBalitaModel;
-use App\Models\JenisImunisasiModel;
-use App\Models\DaftarHadirModel;
 use App\Models\DataKunjunganModel;
 use App\Models\HistoriPeminjamanModel;
-use App\Models\JadwalimunisasiModel;
 use App\Models\JenisBukuModel;
 use App\Models\PeminjamModel;
+use Myth\Auth\Entities\passwd;
+use App\Models\PeminjamanModel;
 use Mpdf\Mpdf;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\GroupModel;
@@ -46,33 +21,26 @@ class Admin extends BaseController
 {
     protected $db;
     protected $builder;
-    protected $BarangModel;
-    protected $DaftarHadirModel;
-    protected $DataBalitaModel;
-    protected $validation;
-    protected $session;
+    protected $HistoriPeminjamanModel;
+    protected $PeminjamanModel;
     protected $DataKunjunganModel;
-    protected $Profil;
-    protected $PeminjamModel;
     protected $JenisBukuModel;
     protected $BukuRusakModel;
-    protected $HistoriPeminjamanModel;
+    protected $PeminjamModel;
+    protected $validation;
+    protected $profil;
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-
-
-        $this->Profil = new Profil();
-
-        $this->DataKunjunganModel = new DataKunjunganModel();
-        $this->PeminjamModel = new PeminjamModel();
-        $this->JenisBukuModel = new JenisBukuModel();
-        $this->BukuRusakModel = new BukuRusakModel();
-        $this->HistoriPeminjamanModel = new HistoriPeminjamanModel();
-
-
         $this->db = \Config\Database::connect();
         $this->builder = $this->db->table('users');
+        $this->PeminjamModel = new PeminjamModel();
+        $this->DataKunjunganModel = new DataKunjunganModel();
+        $this->JenisBukuModel = new JenisBukuModel();
+        $this->BukuRusakModel = new BukuRusakModel();
+        $this->PeminjamanModel = new PeminjamanModel();
+        $this->profil = new profil();
+        $this->HistoriPeminjamanModel = new HistoriPeminjamanModel();
+        $this->PeminjamModel = new PeminjamModel();
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
     }
@@ -754,4 +722,156 @@ class Admin extends BaseController
     }
     // end Buku Rusak
 
+
+    //peminjaman:
+    public function peminjamanBuku()
+    {
+        $data['title'] = 'Peminjaman';
+        session();
+        $data['peminjaman'] = $this->PeminjamanModel
+            ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*, peminjaman.status, users.kelas')
+            ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
+            ->join('users', 'peminjaman.id_siswa_peminjaman = users.id', 'left')
+            ->findAll();
+
+        // Debugging: Tampilkan hasil peminjaman
+        // dd($data['peminjaman']);
+
+
+        return view('admin/peminjaman/index', $data);
+    }
+
+    public function createPeminjaman()
+    {
+        $userModel = new \Myth\Auth\Models\UserModel(); // Model untuk pengguna/kader
+        $users = $userModel->findAll();
+        $data = [
+            'buku' => $this->JenisBukuModel->findAll(),
+            'title' => 'Form Tambah Data Buku Rusak',
+            'siswa' => $users,
+        ];
+        return view('admin/peminjaman/add', $data);
+    }
+
+    public function savePeminjaman()
+    {
+        // Validasi input
+        $this->validate([
+            'nomor' => 'required',
+            'buku' => 'required',
+            'siswa' => 'required',
+            'tanggal_pinjam' => 'required',
+            'tanggal_pengembalian' => 'required',
+            'jumlah' => 'required',
+            'kondisi_buku' => 'required',
+        ]);
+
+        // Mengambil data dari input
+        $kodeBuku = $this->request->getPost('buku');
+        $jumlahPinjam = (int) $this->request->getPost('jumlah');
+
+        // Mengambil informasi buku untuk memastikan ada cukup stok
+        $buku = $this->JenisBukuModel->find($kodeBuku);
+
+        // Mengecek apakah cukup stok untuk peminjaman
+        if ($buku['jumlah_buku'] < $jumlahPinjam) {
+            return redirect()->back()->with('pesan_pinjam', 'Stok buku tidak cukup')->withInput();
+        }
+
+        // Mengurangi jumlah buku
+        $this->JenisBukuModel->where('kode_buku', $kodeBuku)
+            ->set('jumlah_buku', "jumlah_buku - $jumlahPinjam", false)
+            ->update();
+
+        // Membuat kode pinjam acak dengan awalan "KP"
+        $kodePinjam = 'KP' . strtoupper(bin2hex(random_bytes(4))); // Menghasilkan string 6 karakter acak
+
+        // Menyimpan data peminjaman
+        $dataPeminjaman = [
+            'kode_pinjam' => $kodePinjam, // Tambahkan kode pinjam yang acak
+            'nomor' => $this->request->getPost('nomor'),
+            'id_siswa_peminjaman' => $this->request->getPost('siswa'),
+            'kode_buku' => $kodeBuku,
+            'tanggal_pinjam' => $this->request->getPost('tanggal_pinjam'),
+            'tanggal_pengembalian' => $this->request->getPost('tanggal_pengembalian'),
+            'status' => 'Belum Kembali',
+            'jumlah_pinjam' => $jumlahPinjam,
+            'kondisi_buku' => $this->request->getPost('kondisi_buku'),
+            'id_user' => user()->id, // asumsikan ada session user_id
+        ];
+
+        // Menyimpan data peminjaman ke database
+        $this->PeminjamanModel->insert($dataPeminjaman);
+
+        // Mengambil kembali kode_pinjam yang baru saja disimpan
+        $kodePinjamTerbaru = $this->PeminjamanModel->insertID(); // Atau ambil dari $dataPeminjaman['kode_pinjam'] jika sudah ada
+
+
+
+        // Menyimpan histori peminjaman
+        $keterangan = 'Peminjaman Buku - Jumlah: ' . $jumlahPinjam;
+
+        $dataHistori = [
+            'kode_pinjam' => $kodePinjam,
+            'tanggal_status' => date('Y-m-d'),
+            'keterangan' => $keterangan,
+        ];
+
+        // Simpan histori peminjaman
+        $this->HistoriPeminjamanModel->insert($dataHistori);
+
+        return redirect()->to('/admin/peminjamanBuku')->with('success', 'Buku berhasil dipinjam');
+    }
+
+    public function ubahstatus($kodePinjam)
+    {
+        // Validasi input
+        $this->validate([
+            'status' => 'required|in_list[Kembali,Belum Kembali]',
+        ]);
+
+        // Mengambil status dari input
+        $statusBaru = "Kembali";
+        // dd('Status Baru:', $statusBaru); // Debugging untuk status baru
+
+        // Mengambil peminjaman berdasarkan kode pinjam
+        $peminjaman = $this->PeminjamanModel->where('kode_pinjam', $kodePinjam)->first();
+        // dd('Peminjaman Ditemukan:', $peminjaman); // Debugging untuk data peminjaman
+
+        // Mengecek apakah peminjaman ada
+        if (!$peminjaman) {
+            return redirect()->back()->with('pesan_kembali', 'Data peminjaman tidak ditemukan')->withInput();
+        }
+
+        // Update status peminjaman
+        $this->PeminjamanModel->update($peminjaman['kode_pinjam'], ['status' => $statusBaru]);
+        // dd('Status Diupdate'); // Debugging setelah update status
+
+        // Jika status baru adalah "Kembali", kembalikan stok buku dan simpan histori
+        if ($statusBaru === 'Kembali') {
+            // Mengembalikan jumlah buku ke stok
+            $this->JenisBukuModel->where('kode_buku', $peminjaman['kode_buku'])
+                ->set('jumlah_buku', "jumlah_buku + {$peminjaman['jumlah_pinjam']}", false)
+                ->update();
+            // dd('Stok Buku Kembali'); // Debugging setelah mengembalikan stok buku
+
+            // Menyimpan histori pengembalian
+            $keterangan = 'Pengembalian Buku - Jumlah: ' . $peminjaman['jumlah_pinjam'];
+
+            $dataHistori = [
+                'kode_pinjam' => $kodePinjam,
+                'tanggal_status' => date('Y-m-d'),
+                'keterangan' => $keterangan,
+            ];
+
+            // Simpan histori pengembalian
+            $this->HistoriPeminjamanModel->insert($dataHistori);
+            // dd('Histori Pengembalian Disimpan'); // Debugging setelah menyimpan histori
+        }
+
+        return redirect()->to('/admin/peminjamanBuku')->with('success', 'Status peminjaman berhasil diubah');
+    }
+
+  
+    //end peminjaman
 }

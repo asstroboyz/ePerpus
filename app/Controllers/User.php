@@ -21,7 +21,12 @@ class User extends BaseController
     protected $builder;
     protected $HistoriPeminjamanModel;
     protected $PeminjamanModel;
+    protected $DataKunjunganModel;
+    protected $JenisBukuModel;
+    protected $BukuRusakModel;
     protected $PeminjamModel;
+    protected $validation;
+    protected $profil;
 
     public function __construct()
     {
@@ -35,6 +40,7 @@ class User extends BaseController
         $this->PeminjamanModel = new PeminjamanModel();
         $this->profil = new profil();
         $this->HistoriPeminjamanModel = new HistoriPeminjamanModel();
+        $this->PeminjamModel = new PeminjamModel();
         $this->validation = \Config\Services::validation();
     }
 
