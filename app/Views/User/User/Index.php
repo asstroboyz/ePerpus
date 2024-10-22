@@ -110,14 +110,14 @@
                         <input type="text" class="form-control form-control-user" name="alamat" placeholder="Alamat Lengkap"
                             value="<?= old('alamat') ?>">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input type="text"
                             class="form-control form-control-user <?php if (session('errors.NIS')) : ?>is-invalid<?php endif ?>"
                             placeholder="NIS" id="input-NIS" maxlength="11"
                             oninput="this.value = formatNIS(this.value);"
                             value="<?= old('NIS') ?>" />
                         <input type="hidden" id="input-NIS-send" name="NIS" value="<?= old('NIS') ?>" />
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
                         <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
@@ -128,14 +128,48 @@
                             </option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <input type="text"
+                            class="form-control form-control-user <?php if (session('errors.NIS')) : ?>is-invalid<?php endif ?>"
+                            placeholder="NIS" id="input-NIS" maxlength="11"
+                            oninput="this.value = formatNIS(this.value);"
+                            name="nis" value="<?= old('nis') ?>" />
+                        <?php if (session('errors.nis')): ?>
+                            <div class="invalid-feedback">
+                                <?= session('errors.nis') ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Kelas Field -->
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user <?php if (session('errors.kelas')) : ?>is-invalid<?php endif ?>"
+                            placeholder="Kelas" name="kelas" value="<?= old('kelas') ?>">
+                        <?php if (session('errors.kelas')): ?>
+                            <div class="invalid-feedback">
+                                <?= session('errors.kelas') ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- No HP Field -->
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user <?php if (session('errors.no_hp')) : ?>is-invalid<?php endif ?>"
+                            placeholder="No HP" name="no_hp" value="<?= old('no_hp') ?>">
+                        <?php if (session('errors.no_hp')): ?>
+                            <div class="invalid-feedback">
+                                <?= session('errors.no_hp') ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
                     <div class="form-group" style="display:none;">
                         <label for="posisi">Posisi</label>
                         <select class="form-control" id="posisi" name="posisi" required>
-                            <option value="bidan" selected>Bidan</option>
+                            <option value="siswa" selected>siswa</option>
                         </select>
                     </div>
-                    <!-- <input type="hidden" name="posyandu_id"
-                        value="<?= esc($posyanduId); ?>"> -->
+
                     <input type="hidden" name="groupNamesString"
                         value="<?= $groupNamesString; ?>">
                     <div class="form-group row">

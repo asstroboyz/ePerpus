@@ -10,7 +10,7 @@
                 <?= $title; ?>
             </div>
             <div class="col-md-6 ">
-                <a href="<?= base_url('datapeminjaman'); ?>"
+                <a href="<?= base_url('user/peminjamanBuku'); ?>"
                     class="btn btn-sm btn-secondary float-end "><i class="fas fa-arrow-circle-left me-1"></i>Kembali</a>
             </div>
         </div>

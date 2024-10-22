@@ -185,8 +185,7 @@ class User extends BaseController
     {
         $userModel = new UserModel();
         $groupModel = new GroupModel();
-        $posyanduId = user()->posyandu_id;
-        $data['posyanduId'] = $posyanduId;
+
         // dd( $posyanduId );
         $no = 1;
         $currentUser = user();
@@ -206,7 +205,7 @@ class User extends BaseController
         // dd( $groupNames );
         // Ambil data pengguna yang sesuai dengan posyandu_id pengguna yang login
         $data['users'] = $userModel->select('users.*,')
-        ->findAll();
+            ->findAll();
 
         // Iterasi data users untuk menambahkan data group
         foreach ($data['users'] as $row) {
@@ -230,7 +229,7 @@ class User extends BaseController
     {
         $kunjungan = new DataKunjunganModel();
         $data = [
-            'kunjungan' => $kunjungan->getDataKunjungan(),
+            'kunjungan' => $kunjungan->getDataPengunjung(),
             'title' => 'Data Kunjungan Perpustakaaan',
         ];
         return view('user/data_kunjungan/index', $data);
@@ -238,10 +237,13 @@ class User extends BaseController
 
     public function tambahkunjungan()
     {
+        $userModel = new UserModel();
+        $users = $userModel->findAll();
         $kunjungan = new DataKunjunganModel();
         $data = [
             'kunjungan' => $kunjungan->findAll(),
             'title' => 'Tambah Data Kunjungan Perpustakaaan',
+            'users' => $users,
         ];
         return view('user/data_kunjungan/add', $data);
     }
@@ -250,21 +252,32 @@ class User extends BaseController
     {
         // Aturan validasi
         $rules = [
-            'nama' => 'required',
-            'keanggotaan' => 'required',
+            'id_user' => 'required',
+            // 'username' => 'required',
+            // 'fullname' => 'required',
+            // 'nis' => 'required',
+            // 'kelas' => 'required',
+            // 'alamat' => 'required',
+            // 'no_hp' => 'required'
         ];
 
+        // Jika validasi gagal
         if (!$this->validate($rules)) {
-
             return redirect()->back()->withInput()->with('validation', $this->validator);
         }
 
         // Jika validasi berhasil, simpan data
         $this->DataKunjunganModel->save([
-            'nama' => $this->request->getPost('nama'),
-            'keanggotaan' => $this->request->getPost('keanggotaan'),
+            'id_user' => $this->request->getPost('id_user'),
+            'tanggal_kunjungan' => date('Y-m-d'),
+            // 'fullname' => $this->request->getPost('fullname'),
+            // 'nis' => $this->request->getPost('nis'),
+            // 'kelas' => $this->request->getPost('kelas'),
+            // 'alamat' => $this->request->getPost('alamat'),
+            // 'no_hp' => $this->request->getPost('no_hp')
         ]);
 
+        // Redirect ke halaman kunjungan dengan pesan sukses
         return redirect()->to('/User/kunjungan')->with('pesanBerhasil', 'Kunjungan berhasil ditambahkan.');
     }
 
@@ -853,16 +866,15 @@ class User extends BaseController
     {
         $data['title'] = 'Peminjaman';
         session();
-        // $data['peminjaman'] = $this->PeminjamanModel
-        //  ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*')
-        //  ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
-        //  ->join('users', 'peminjaman.id_user = users.id', 'left')
-        //  ->findAll();
         $data['peminjaman'] = $this->PeminjamanModel
-            ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*, peminjaman.status')
-            ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
-            ->join('users', 'peminjaman.id_user = users.id', 'left')
-            ->findAll();
+    ->select('peminjaman.*, jenis_buku.judul_buku, jenis_buku.jumlah_buku, users.*, peminjaman.status, users.kelas')
+    ->join('jenis_buku', 'peminjaman.kode_buku = jenis_buku.kode_buku', 'left')
+    ->join('users', 'peminjaman.id_siswa_peminjaman = users.id', 'left')
+    ->findAll();
+
+// Debugging: Tampilkan hasil peminjaman
+// dd($data['peminjaman']);
+
 
         return view('user/peminjaman/index', $data);
     }

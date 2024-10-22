@@ -12,7 +12,7 @@ class DataKunjunganModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_kunjungan', 'nama', 'keanggotaan'];
+    protected $allowedFields    = ['id_kunjungan', 'id_user','tanggal_kunjungan'];
 
     public function getDataKunjungan($id = false)
     {
@@ -22,7 +22,12 @@ class DataKunjunganModel extends Model
             return $this->getWhere(['id_kunjungan' => $id]);
         }
     }
-
+    public function getDataPengunjung()
+    {
+        return $this->select('kunjungan.*, users.username, users.fullname, users.nis, users.kelas, users.alamat, users.no_hp')
+            ->join('users', 'users.id = kunjungan.id_user')
+            ->findAll();
+    }
     public function hapusDataKunjungan($id)
     {
         $builder = $this->db->table($this->table);

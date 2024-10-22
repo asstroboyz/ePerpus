@@ -149,6 +149,10 @@ class AuthController extends Controller
         $rules = config('Validation')->registrationRules ?? [
             'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
             'email'    => 'required|valid_email|is_unique[users.email]',
+            'jenis_kelamin' => 'required',
+            'nis'      => 'required',
+            'alamat'   => 'required',
+            'no_hp'    => 'required',
         ];
 
         if (! $this->validate($rules)) {
@@ -168,8 +172,12 @@ class AuthController extends Controller
         // Save the user
         $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
         $user              = new User($this->request->getPost($allowedPostFields));
+        $user->fullname = $this->request->getPost('fullname');
         $user->jenis_kelamin = $this->request->getPost('jenis_kelamin');
-        $user->posisi = $this->request->getPost('posisi');
+        $user->nis = $this->request->getPost('nis');
+        $user->kelas = $this->request->getPost('kelas');
+        $user->alamat = $this->request->getPost('alamat');
+        $user->no_hp = $this->request->getPost('no_hp');
         // $user->posyandu_id = $this->request->getPost('posyandu_id');
         $user->groupNamesString = $this->request->getPost('groupNamesString');
         $grup_pengguna = $user->groupNamesString;
@@ -198,7 +206,7 @@ class AuthController extends Controller
             return redirect()->route('login')->with('message', lang('Auth.activationSuccess'));
         }
         return redirect()->to($grup_pengguna . '/kelola_user')->with('message', lang('Auth.registerSuccess'));
-       
+
         // return redirect()->to('user/kelola_user')->with('message', lang('Auth.registerSuccess'));
     }
 

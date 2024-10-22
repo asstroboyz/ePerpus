@@ -8,8 +8,6 @@
         <td><?= $row->email; ?></td>
     <td>  <?= ($row->id == 1) ? '' : $row->posisi; ?></td>
 
-  
-
     <!-- <a href="<?= base_url('Admin/activateUser/' . $row->id . '/' . ($row->active == 1 ? 0 : 1)); ?>"
     class="btn btn-lg btn-circle btn-active-users" title="Klik untuk Mengaktifkan atau Menonaktifkan">
     <?= $row->active == 1 ? '<i class="fas fa-check-circle text-success fa-lg"></i>' : '<i class="fas fa-times text-danger fa-lg"></i>'; ?>

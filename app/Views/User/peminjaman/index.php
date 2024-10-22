@@ -69,7 +69,7 @@
                         <td><?= $data['kode_pinjam']; ?></td>
                         <td><?= $data['kode_buku']; ?></td>
                         <td><?= $data['judul_buku']; ?></td>
-                        <td><?= $data['username']; ?></td>
+                        <td><?= $data['fullname']; ?></td>
                         <td><?= $data['kelas']; ?></td>
                         <td><?= $data['jumlah_pinjam']; ?></td>
                         <td><?= $data['kondisi_buku']; ?></td>
@@ -99,9 +99,14 @@
                                     <button type="submit" class="btn btn-sm btn-success"
                                         onclick="return confirm('Apakah anda yakin ingin mengubah status peminjaman?');"
                                         <?= $data['status'] == 'Kembali' ? 'disabled' : ''; ?>>
-                                        <i class="fas fa-check-circle"></i>
+                                        <?php if ($data['status'] == 'Kembali') : ?>
+                                            <i class="fas fa-check-circle"></i> 
+                                        <?php else : ?>
+                                            <i class="fas fa-clock"></i> 
+                                        <?php endif; ?>
                                     </button>
                                 </form>
+
 
 
                                 <form action="<?= base_url('hapusdatapeminjaman/' . $data['kode_pinjam']); ?>" method="post">
