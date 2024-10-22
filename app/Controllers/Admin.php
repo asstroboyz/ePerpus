@@ -12,6 +12,8 @@ use App\Models\JenisBukuModel;
 use App\Models\PeminjamModel;
 use Myth\Auth\Entities\passwd;
 use App\Models\PeminjamanModel;
+use App\Models\detailPermintaanPeminjamanModel;
+use App\Models\PermintaanPeminjamanModel;
 use Mpdf\Mpdf;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\GroupModel;
@@ -29,6 +31,8 @@ class Admin extends BaseController
     protected $PeminjamModel;
     protected $validation;
     protected $profil;
+    protected $detailPermintaanPeminjamanModel;
+    protected $PermintaanPeminjamanModel;
     public function __construct()
     {
         $this->db = \Config\Database::connect();
@@ -40,9 +44,9 @@ class Admin extends BaseController
         $this->PeminjamanModel = new PeminjamanModel();
         $this->profil = new profil();
         $this->HistoriPeminjamanModel = new HistoriPeminjamanModel();
-        $this->PeminjamModel = new PeminjamModel();
+        $this->detailPermintaanPeminjamanModel = new detailPermintaanPeminjamanModel();
+        $this->PermintaanPeminjamanModel = new PermintaanPeminjamanModel();
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
     }
 
 
@@ -874,4 +878,146 @@ class Admin extends BaseController
 
   
     //end peminjaman
+
+    //permintaan peminjaman:
+    public function permintaan()
+    {
+
+        $this->builder = $this->db->table('permintaan_barang');
+        $this->builder->select('*');
+        $this->query = $this->builder->get();
+        $data['permintaan'] = $this->query->getResultArray();
+        // dd(  $data['inventaris']);
+        $data['title'] = 'Permintaan Barang';
+        return view('Admin/Permintaan_barang/Index', $data);
+    }
+    public function list_permintaan($id)
+    {
+        $data['detail'] = $this->PermintaanPeminjamanModel->getPermintaan($id);
+        $data['permintaan'] = $this->detailPermintaanPeminjamanModel
+            ->select('detail_permintaan_barang.*, master_barang.nama_brg, satuan.nama_satuan,permintaan_barang.tanggal_permintaan, master_barang.merk,detail_master.tipe_barang')
+            ->join('barang', 'barang.kode_barang = detail_permintaan_barang.kode_barang')
+            ->join('satuan', 'satuan.satuan_id = barang.id_satuan')
+            ->join('detail_master', 'detail_master.detail_master_id = barang.id_master_barang')
+            ->join('master_barang', 'master_barang.kode_brg = detail_master.master_barang')
+            ->join('permintaan_barang', 'permintaan_barang.permintaan_barang_id = detail_permintaan_barang.id_permintaan_barang')
+            ->where('id_permintaan_barang', $id)->findAll();
+        // dd(  $data['permintaan']);
+
+        $data['title'] = 'Permintaan Barang';
+        return view('Admin/Permintaan_barang/list_permintaan', $data);
+    }
+    public function permintaan_masuk()
+    {
+        $permintaan = $this->detailPermintaanPeminjamanModel->getDetailPermintaan();
+        $data = [
+            'permintaan' => $permintaan,
+            'title' => 'Daftar permintaan - Masuk',
+        ];
+        return view('Admin/Permintaan_barang/Permintaan_masuk', $data);
+    }
+    public function permintaan_proses()
+    {
+        $permintaan = $this->detailPermintaanPeminjamanModel->getPermintaanProses();
+        $data = [
+            'permintaan' => $permintaan,
+            'title' => 'Daftar permintaan - Masuk',
+        ];
+        return view('Admin/Permintaan_barang/Permintaan_masuk', $data);
+    }
+    public function permintaan_selesai()
+    {
+        $permintan = $this->detailPermintaanPeminjamanModel->getPermintaanSelesai();
+        $data = [
+            'permintaan' => $permintan,
+            'title' => 'Daftar permintaan - Masuk',
+        ];
+        return view('Admin/Permintaan_barang/Permintaan_masuk', $data);
+    }
+    public function prosesPermintaan($id)
+    {
+        $date =
+            $this->detailPermintaanPeminjamanModel->update($id, [
+                'tanggal_diproses' => date("Y-m-d h:i:s"),
+                'status' => 'diproses',
+
+            ]);
+        session()->setFlashdata('msg', 'Status permintaan berhasil Diubah');
+        return redirect()->to('Admin/detailpermin/' . $id);
+    }
+
+    public function terimaPermintaan($id)
+    {
+
+        $this->detailPermintaanPeminjamanModel->update($id, [
+            'tanggal_selesai' => date("Y-m-d h:i:s"),
+            'status' => 'selesai',
+            'status_akhir' => 'diterima',
+
+        ]);
+        session()->setFlashdata('msg', 'Status permntaan berhasil Diubah');
+        return redirect()->to('Admin/detailpermin/' . $id);
+    }
+    public function simpanBalasan($id)
+    {
+        $rules = [
+            'kategori' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kategori  wajib diisi.',
+                ],
+            ],
+            'balasan_permintaan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Isi Balasan wajib diisi.',
+
+                ],
+            ],
+
+        ];
+
+        if (!$this->validate($rules)) {
+            $validation = \Config\Services::validation();
+            return redirect()->to('/Admin/detail/' . $id)->withInput('validation', $validation);
+        }
+        $this->PermintaanPeminjamanModel->update($id, [
+            'tanggal_selesai' => date("Y-m-d h:i:s"),
+            'status' => 'selesai',
+            'status_akhir' => 'ditolak',
+
+        ]);
+        $data = [
+            'id_permintaan_barang' => $id,
+            'kategori' => $this->request->getPost('kategori'),
+            'balasan_permintaan' => $this->request->getPost('balasan_permintaan'),
+
+        ];
+        $this->BalasanModel->save($data);
+        session()->setFlashdata('msg', 'Status Permintaan berhasil Diubah');
+        return redirect()->to('Admin/detailpermin/' . $id);
+    }
+    public function detailpermin($id)
+    {
+        $barangList = $this->BarangModel->findAll();
+        $data = $this->detailPermintaanPeminjamanModel->getDetailPermintaan($id);
+
+        $d = $this->db->table('balasan_permintaan');
+        $d->select('*');
+        $d->where('id_permintaan_barang', $id);
+        $balasan = $d->get()->getRow();
+
+        // dd($query1);
+        $ex = [
+
+            'detail' => $data,
+            'title' => 'Detail permintaan',
+            'balasan' => $balasan,
+            'barangList' => $barangList,
+            'validation' => \Config\Services::validation(),
+
+        ];
+
+        return view('Admin/Permintaan_barang/Detail_permintaan', $ex);
+    }
 }
