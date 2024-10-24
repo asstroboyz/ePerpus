@@ -896,7 +896,7 @@ class Admin extends BaseController
     public function list_permintaan($id)
     {
         $data['detail'] = $this->PermintaanPeminjamanModel->getDataPermintaan($id);
-        //   dd($data['detail']);
+       
         $data['permintaan'] = $this->detailPermintaanPeminjamanModel
             ->select('detail_permintaan_peminjaman.id, detail_permintaan_peminjaman.kode_buku, detail_permintaan_peminjaman.jumlah, 
                   permintaan_peminjaman.tgl_permintaan, jenis_buku.judul_buku, users.username,detail_permintaan_peminjaman.*,permintaan_peminjaman.*')
