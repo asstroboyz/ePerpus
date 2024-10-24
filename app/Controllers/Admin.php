@@ -899,12 +899,12 @@ class Admin extends BaseController
         //   dd($data['detail']);
         $data['permintaan'] = $this->detailPermintaanPeminjamanModel
          ->select('detail_permintaan_peminjaman.id, detail_permintaan_peminjaman.kode_buku, detail_permintaan_peminjaman.jumlah, 
-                  permintaan_peminjaman.tgl_permintaan, jenis_buku.judul_buku, users.username')
+                  permintaan_peminjaman.tgl_permintaan, jenis_buku.judul_buku, users.username,detail_permintaan_peminjaman.*,permintaan_peminjaman.*')
          ->join('jenis_buku', 'jenis_buku.kode_buku = detail_permintaan_peminjaman.kode_buku', 'left')
          ->join('users', 'users.id = detail_permintaan_peminjaman.id_user', 'left')
          ->join('permintaan_peminjaman', 'permintaan_peminjaman.permintaan_peminjaman_id = detail_permintaan_peminjaman.id_permintaan_peminjaman', 'left')
          ->where('detail_permintaan_peminjaman.id_permintaan_peminjaman', $id)
-         ->distinct() // Mencegah hasil duplikat
+         ->distinct()
          ->findAll();
         // dd($data['permintaan'] );
         // Debugging
@@ -954,7 +954,7 @@ class Admin extends BaseController
 
        
         $dataPermintaan = [
-                    
+            'id_user' => user()->id,
             'kode_buku' => $data['kode_buku'],
             'jumlah' => $data['jumlah'],
             'nama_pengaju' => user()->fullname,

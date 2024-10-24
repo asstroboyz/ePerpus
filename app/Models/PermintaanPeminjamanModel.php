@@ -17,8 +17,15 @@ class PermintaanPeminjamanModel extends Model
 
     public function getDataPermintaan($id = false)
     {
-        return $this->findAll(); 
+        if ($id === false) {
+            // Jika tidak ada ID yang diberikan, kembalikan semua data
+            return $this->findAll();
+        }
+    
+        // Jika ada ID, kembalikan data yang sesuai dengan ID
+        return $this->where('permintaan_peminjaman_id', $id)->first();
     }
+    
 
    
 }

@@ -1,9 +1,9 @@
-<?= $this->extend('Admin/Templates/Index'); ?>
+<?= $this->extend('Admin/layout/Index'); ?>
 
-<?= $this->section('page-content'); ?>
+<?= $this->section('content'); ?>
 <div class="container-fluid">
 
-    <!-- Page Heading -->
+
     <h1 class="h3 mb-4 text-gray-800">Detail Permintaan Barang </h1>
 
     <div class="row">
@@ -14,9 +14,11 @@
                         <label for="kode_permintaan">Kode Permintaan</label>
                         <input name="kode_permintaan" type="text" class="form-control form-control-user"
                             id="input-kode_permintaan"
-                            value="<?= $detail['permintaan_barang_id']; ?>"
+                            value="<?= $detail['permintaan_peminjaman_id']; ?>"
                             readonly />
                     </div>
+                    <!-- permintaan_peminjaman_id -->
+                    <!-- id_permintaan_peminjaman -->
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="tgl_permintaan">Tanggal Permintaan</label>
@@ -39,74 +41,58 @@
                                 <th>Jumlah</th>
                                 <th>Tanggal Pengajuan</th>
                                 <th>Status</th>
-                                <th>opsi</th>
                             </tr>
                         </thead>
 
                         <tbody>
 
                             <?php if ($permintaan) { ?>
-                            <?php foreach ($permintaan as $num => $data) { ?>
+                                <?php foreach ($permintaan as $num => $data) { ?>
+
+                                    <tr>
+                                        <td style="width: 70px;">
+                                            <?= $num + 1; ?>
+                                        </td>
+
+                                        <td>
+                                            <?= $data['judul_buku']; ?>
+                                        </td>
+                                        <td
+                                            style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
+                                            <?= $data['judul_buku']; ?>
+                                        </td>
 
 
-                            <tr>
-                                <td style="width: 70px;">
-                                    <?= $num + 1; ?>
-                                </td>
-
-                                <td>
-                                    <?= $data['nama_brg']; ?>(<?= $data['tipe_barang']; ?>)
-                                </td>
-                                <td
-                                    style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
-                                    <?= $data['perihal']; ?>
-                                </td>
+                                        <td style=" width: 120px;">
+                                            <?= $data['jumlah']; ?>
+                                        </td>
 
 
-                                <td style=" width: 120px;">
-                                    <?= $data['jumlah']; ?>
-                                </td>
+                                        <td style=" width: 120px;">
+                                            <?php $date = date_create($data['tgl_pengajuan']); ?>
+                                            <?= date_format($date, "d-m-Y"); ?>
+                                        </td>
+                                        <td style="text-align:center; width: 120px;">
+                                            <span
+                                                class="btn <?= $data['status'] == 'belum diproses' ? 'btn-danger' : ($data['status'] == 'diproses' ? 'btn-warning' : 'btn-success') ?> text-white">
+                                                <?= $data['status']; ?>
+                                            </span>
+                                        </td>
 
+                                        <!-- <td style="text-align:center; width: 150px;">
 
-                                <td style=" width: 120px;">
-                                    <?php $date = date_create($data['tanggal_pengajuan']); ?>
-                                    <?= date_format($date, "d-m-Y"); ?>
-                                </td>
-                                <td style="text-align:center; width: 120px;">
-                                    <span
-                                        class="btn <?= $data['status'] == 'belum diproses' ? 'btn-danger' : ($data['status'] == 'diproses' ? 'btn-warning' : 'btn-success') ?> text-white">
-                                        <?= $data['status']; ?>
-                                    </span>
-                                </td>
-
-                                <td style="text-align:center; width: 150px;">
-                                    <!-- <div class="dropdown show">
-                                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Action
-                                        </a> -->
-
-                                    <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> -->
-                                    <a href="/Admin/detailpermin/<?= $data['id'] ?>"
-                                        class="  btn btn-primary"><i class="fas fa-eye"></i></a>
-
-
-
-
-
-
-                                    <!-- </div> -->
-                                    <!-- </div> -->
-
-                                </td>
-                            </tr>
-                            <?php } ?>
-                            <!-- end of foreach                -->
+                                            <a href="/Admin/detailpermin/<?= $data['id'] ?>"
+                                                class="  btn btn-primary"><i class="fas fa-eye"></i></a>
+                                        </td> -->
+                                    </tr>
+                                <?php } ?>
+                                <!-- end of foreach                -->
                             <?php } else { ?>
-                            <tr>
-                                <td colspan="4">
-                                    <h3 class="text-gray-900 text-center">Data belum ada.</h3>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h3 class="text-gray-900 text-center">Data belum ada.</h3>
+                                    </td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>
