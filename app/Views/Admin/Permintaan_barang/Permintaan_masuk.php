@@ -1,6 +1,6 @@
-<?= $this->extend('Admin/Templates/Index') ?>
+<?= $this->extend('Admin/layout/Index') ?>
 
-<?= $this->section('page-content'); ?>
+<?= $this->section('content'); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -68,10 +68,10 @@
 
                                 <tr>
                                     <td><?= $num + 1; ?></td>
-                                    <td><?php $date = date_create($data['tanggal_pengajuan']); ?>
+                                    <td><?php $date = date_create($data['tgl_pengajuan']); ?>
                                         <?= date_format($date, "d M Y"); ?>
                                     </td>
-                                    <td><?= $data['perihal']; ?>
+                                    <td>
                                     </td>
                                     <td><span
                                             class=" btn <?= $data['status'] == 'belum diproses' ? 'btn-danger' : 'btn-success' ?> text-white"><?= $data['status']; ?></span>

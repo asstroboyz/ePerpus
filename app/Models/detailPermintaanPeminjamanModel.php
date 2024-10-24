@@ -20,6 +20,23 @@ class detailPermintaanPeminjamanModel extends Model
         return $this->findAll();
     }
 
+    public function getDetailPermintaan($id = false)
+    {
+        if ($id == false) {
+            return $this
+                ->select('detail_permintaan_peminjaman.*,permintaan_peminjaman.tgl_permintaan, jenis_buku.judul_buku')
+                ->join('jenis_buku', 'jenis_buku.kode_buku = detail_permintaan_peminjaman.kode_buku')
+                ->join('permintaan_peminjaman', 'permintaan_peminjaman.permintaan_peminjaman_id = detail_permintaan_peminjaman.id_permintaan_peminjaman')
+                ->findAll();
+        }
+
+        return $this
+            ->select('detail_permintaan_peminjaman.*,detail_permintaan_peminjaman.status,jenis_buku.*,permintaan_peminjaman.tgl_permintaan, detail_permintaan_peminjaman.id as id_detail_permintaan')
+            ->join('jenis_buku', 'jenis_buku.kode_buku = detail_permintaan_peminjaman.kode_buku')
+            ->join('permintaan_peminjaman', 'permintaan_peminjaman.permintaan_peminjaman_id = detail_permintaan_peminjaman.id_permintaan_peminjaman')
+            ->where(['detail_permintaan_peminjaman.id' => $id])
+            ->first();
+    }
     public function hapusDataBuku($id)
     {
         $builder = $this->db->table($this->table);

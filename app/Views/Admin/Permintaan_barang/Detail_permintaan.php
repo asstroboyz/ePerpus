@@ -1,18 +1,12 @@
-<?= $this->extend('Admin/Templates/Index') ?>
+<?= $this->extend('Admin/layout/Index') ?>
 
-<?= $this->section('page-content'); ?>
+<?= $this->section('content'); ?>
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Detail Permintaan Barang</h1>
-
-
-
-
     <?php if (session()->has('pesanBerhasil')) : ?>
-    <div class="alert alert-success" role="alert">
-        <?= session('pesanBerhasil') ?>
-    </div>
+        <div class="alert alert-success" role="alert">
+            <?= session('pesanBerhasil') ?>
+        </div>
     <?php endif; ?>
 
     <div class="row">
@@ -28,16 +22,16 @@
                     </button>
                     <?php if ($detail['status'] == 'belum diproses') { ?>
 
-                    <a href="/Admin/prosesPermintaan/<?= $detail['id'] ?>"
-                        class="text-light btn btn-warning font-weight-bold float-right"><i class="fa fa-clipboard"></i>
-                        Proses Permintaan</a>
+                        <a href="/Admin/prosesPermintaan/<?= $detail['id'] ?>"
+                            class="text-light btn btn-warning font-weight-bold float-right"><i class="fa fa-clipboard"></i>
+                            Proses Permintaan</a>
                     <?php } elseif ($detail['status'] == 'diproses') { ?>
-                    <div class="btn-group float-right">
-                        <a class="btn btn-success" href="#" data-toggle="modal" data-target="#modalPengaduan"><i
-                                class="fa fa-check"></i>
-                            Selesaikan Permintaan
-                        </a>
-                    </div>
+                        <div class="btn-group float-right">
+                            <a class="btn btn-success" href="#" data-toggle="modal" data-target="#modalPengaduan"><i
+                                    class="fa fa-check"></i>
+                                Selesaikan Permintaan
+                            </a>
+                        </div>
 
                     <?php }; ?>
                 </div>
@@ -46,8 +40,7 @@
                         <div class="col-md-3">Nama Barang Yang diajukan</div>
                         <div class="col-md-1 d-none d-md-block">:</div>
                         <div class="col-md-8">
-                            <?= $detail['nama_brg'] ?>
-                            (<?= $detail['tipe_barang']; ?>)
+                            <?= $detail['judul_buku'] ?>
                         </div>
                     </div>
                     <hr>
@@ -56,7 +49,6 @@
                         <div class="col-md-1 d-none d-md-block">:</div>
                         <div class="col-md-8">
                             <?= $detail['jumlah'] ?>
-                            <?= $detail['nama_satuan'] ?>
                         </div>
                     </div>
 
@@ -76,28 +68,13 @@
                         <div class="col-md-1 d-none d-md-block">:</div>
                         <div class="col-md-8">
                             <?php
+                            $formattedDate = date('d-m-Y', strtotime($detail['tgl_pengajuan']));
+                            echo $formattedDate;
+                            ?>
+                        </div>
+                    </div>
+                    <hr>
 
-                            $formattedDate = date('d-m-Y', strtotime($detail['tanggal_pengajuan']));
-echo $formattedDate;
-?>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row ">
-                        <div class="col-md-3">Perihal</div>
-                        <div class="col-md-1 d-none d-md-block">:</div>
-                        <div class="col-md-8">
-                            <?= $detail['perihal'] ?>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row ">
-                        <div class="col-md-3">Detail Permintaan</div>
-                        <div class="col-md-1 d-none d-md-block">:</div>
-                        <div class="col-md-8">
-                            <?= $detail['detail'] ?>
-                        </div>
-                    </div>
                     <hr>
 
                     <div class="accordion" id="accordionExample">
@@ -108,38 +85,39 @@ echo $formattedDate;
                                 </h5>
                             </div>
 
-                            <div id="collapseOne" class="collapse " aria-labelledby="headingOne"
-                                data-parent="#accordionExample">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    <h1> Tracking Permintaan Barang</h1>
-                                    <ul class="sessions">
-                                        <li class="li-diajukan">
-                                            <div class="time">
-                                                <?= $detail['tanggal_pengajuan'] ?>
+                                    <h1 style="font-family: Arial, sans-serif; color: #333;">Tracking Permintaan Peminjaman Buku</h1>
+                                    <ul class="sessions" style="list-style: none; padding: 0; margin: 0;">
+                                        <li class="li-diajukan" style="display: flex; align-items: center; margin-bottom: 20px; position: relative; padding-left: 40px;">
+                                            <div class="time" style="font-weight: bold; color: #007bff; margin-right: 10px;">
+                                                <?= $detail['tgl_pengajuan'] ?>
                                             </div>
-                                            <p>Permintaan Diajukan</p>
+                                            <p style="margin: 0; font-size: 16px; color: #555;">Permintaan Diajukan</p>
                                         </li>
-                                        <?php if ($detail['tanggal_diproses'] != '0000-00-00 00:00:00') { ?>
-                                        <li class="li-diproses">
-                                            <div class="time">
-                                                <?= $detail['tanggal_diproses'] ?>
-                                            </div>
-                                            <p>Permintaan Diproses </p>
-                                        </li>
+                                        <?php if ($detail['tgl_proses'] != '0000-00-00 00:00:00') { ?>
+                                            <li class="li-diproses" style="display: flex; align-items: center; margin-bottom: 20px; position: relative; padding-left: 40px;">
+                                                <div class="time" style="font-weight: bold; color: #17a2b8; margin-right: 10px;">
+                                                    <?= $detail['tgl_proses'] ?>
+                                                </div>
+                                                <p style="margin: 0; font-size: 16px; color: #555;">Permintaan Diproses</p>
+                                            </li>
                                         <?php } ?>
-                                        <?php if ($detail['tanggal_selesai'] != '0000-00-00 00:00:00') { ?>
-                                        <li class="li-selesai">
-                                            <div class="time">09:30 AM</div>
-                                            <p>Permintaan Selesai</p>
-                                            <p>
-                                                Dengan Status:
-                                                <?= $detail['status_akhir'] ?>
-                                            </p>
-                                        </li>
+                                        <?php if ($detail['tgl_selesai'] != '0000-00-00 00:00:00') { ?>
+                                            <li class="li-selesai" style="display: flex; align-items: center; margin-bottom: 20px; position: relative; padding-left: 40px;">
+                                                <div class="time" style="font-weight: bold; color: #28a745; margin-right: 10px;">
+                                                    <?= $detail['tgl_selesai'] ?>
+                                                </div>
+                                                <p style="margin: 0; font-size: 16px; color: #555;">Permintaan Selesai</p>
+                                                <p style="margin: 0; font-size: 14px; color: #555;">
+                                                    Dengan Status: <?= $detail['status_akhir'] ?>
+                                                </p>
+                                            </li>
                                         <?php } ?>
                                     </ul>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

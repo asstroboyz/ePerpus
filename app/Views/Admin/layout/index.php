@@ -67,10 +67,20 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
                             Peminjaman
                         </a>
-                        <a class="nav-link" href="<?= base_url('admin/permintaan'); ?>">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#submenuPermintaan"
+                            aria-expanded="false" aria-controls="submenuPermintaan">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
                             Permintaan
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <div class="collapse" id="submenuPermintaan" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?= base_url('admin/permintaan'); ?>">Permintaan Masuk</a>
+                                <a class="nav-link" href="<?= base_url('admin/permintaan_masuk'); ?>">Permintaan Proses</a>
+                                <a class="nav-link" href="<?= base_url('admin/permintaan_selesai'); ?>">Permintaan Selesai</a>
+                            </nav>
+                        </div>
+
                         <div class="sb-sidenav-menu-heading">Laporan</div>
 
                         <a class="nav-link" href="<?= base_url('admin/laporandatapeminjaman'); ?>">
